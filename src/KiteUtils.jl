@@ -36,11 +36,19 @@ export demo_state, demo_syslog, demo_log, load_log, syslog2extlog, save_log, rot
 const MyFloat = Float32               # type to use for postions
 const DATA_PATH = "./data"            # path for log files and other data
 
+"""
+    Settings
+
+Flat struct, defining the settings of the Simulator and the Viewer.
+
+$(TYPEDFIELDS)
+"""
 mutable struct Settings
     project::String
     log_file::String
     model::String
-    segments::Int64          # number of tether segments
+    "number of tether segments"
+    segments::Int64 
     sample_freq::Int64
     time_lapse::Float64
     zoom::Float64
@@ -50,15 +58,20 @@ mutable struct Settings
     c_s::Float64
     c2_cor::Float64
     k_ds::Float64
-    area::Float64            # projected kite area            [m^2]
-    mass::Float64            # kite mass incl. sensor unit     [kg]
+    "projected kite area            [m^2]"
+    area::Float64
+    "kite mass incl. sensor unit     [kg]"
+    mass::Float64
     alpha_cl::Vector{Float64}
     cl_list::Vector{Float64}
     alpha_cd::Vector{Float64}
     cd_list::Vector{Float64}
-    rel_side_area::Float64   # relative side area               [%]
-    alpha_d_max::Float64     # max depower angle              [deg]
-    kcu_mass::Float64        # mass of the kite control unit   [kg]
+    "relative side area               [%]"
+    rel_side_area::Float64
+    "max depower angle              [deg]"
+    alpha_d_max::Float64
+    "mass of the kite control unit   [kg]"
+    kcu_mass::Float64
     v_wind::Float64
     h_ref::Float64
     rho_0::Float64
@@ -77,7 +90,13 @@ mutable struct Settings
 end
 const SETTINGS = Settings("","","",0,0,0,0,"",0,0,0,0,0,0,0,[],[],[],[],0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 
-# getter function for the Settings struct
+"""
+    se()
+
+Getter function for the [`Settings`](@ref) struct.
+
+Which settings file is loaded is determined by the content of the file system.yaml .
+"""
 function se()
     if SETTINGS.segments == 0
         # determine which project to load
@@ -213,7 +232,8 @@ end
 """
     rot3d(ax, ay, az, bx, by, bz)
 
-Calculate the rotation of reference frame (ax, ay, az) so that it matches the reference frame (bx, by, bz).
+Calculate the rotation matrix that needs to be applied on the reference frame (ax, ay, az) to match 
+the reference frame (bx, by, bz).
 All parameters must be 3-element vectors. Both refrence frames must be orthogonal,
 all vectors must already be normalized.
 
@@ -289,7 +309,12 @@ function demo_state(P, height=6.0, time=0.0)
     return SysState{P}(time, orient, elevation,0.,0.,0.,0.,0.,0.,X, Y, Z)
 end
 
-# create a demo flight log with given name [String] and duration [s]
+"""
+    function demo_syslog(P, name="Test flight"; duration=10)
+
+Create a demo flight log  with given name [String] and duration [s] as StructArray. P is the number of tether
+particles.
+"""
 function demo_syslog(P, name="Test flight"; duration=10)
     max_height = 6.03
     steps   = Int(duration * se().sample_freq) + 1
@@ -312,7 +337,11 @@ function demo_syslog(P, name="Test flight"; duration=10)
     return StructArray{SysState{P}}((time_vec, orient_vec, elevation, myzeros,myzeros,myzeros,myzeros,myzeros,myzeros, X_vec, Y_vec, Z_vec))
 end
 
-# extend a flight systom log with the fields x, y, and z (kite positions) and convert the orientation to the type UnitQuaternion
+"""
+    function syslog2extlog(P, syslog)
+
+Extend a flight systym log with the fields x, y, and z (kite positions) and convert the orientation to the type UnitQuaternion.
+"""
 function syslog2extlog(P, syslog)
     x_vec = @view VectorOfArray(syslog.X)[end,:]
     y_vec = @view VectorOfArray(syslog.Y)[end,:]
@@ -324,18 +353,35 @@ function syslog2extlog(P, syslog)
     return StructArray{ExtSysState{P}}((syslog.time, orient_vec, syslog.X, syslog.Y, syslog.Z, x_vec, y_vec, z_vec))    
 end
 
-# create an artifical log file for demonstration purposes
+"""
+    function demo_log(P, name="Test_flight"; duration=10)
+
+Create an artifical SysLog struct for demonstration purposes. P is the number of tether
+particles.
+"""
 function demo_log(P, name="Test_flight"; duration=10)
     syslog = demo_syslog(P, name, duration=duration)
     return SysLog{P}(name, syslog, syslog2extlog(P, syslog))
 end
 
+"""
+    function save_log(P, flight_log)
+
+Save a fligh log file as .arrow file. P is the number of tether
+particles.
+"""
 function save_log(P, flight_log)
     Arrow.ArrowTypes.registertype!(SysState{P}, SysState)
     filename=joinpath(DATA_PATH, flight_log.name) * ".arrow"
     Arrow.write(filename, flight_log.syslog, compress=:lz4)
 end
 
+"""
+    function load_log(P, filename::String)
+
+Read a log file that was saved as .arrow file.  P is the number of tether
+particles.
+"""
 function load_log(P, filename::String)
     Arrow.ArrowTypes.registertype!(SysState{P}, SysState)
     Arrow.ArrowTypes.registertype!(MVector{4, Float32}, MVector{4, Float32})
