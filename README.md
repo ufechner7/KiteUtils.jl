@@ -1,6 +1,6 @@
 # KiteUtils
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://ufechner7.github.io/KiteUtils.jl/v0.1.0)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://ufechner7.github.io/KiteUtils.jl/stable)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://ufechner7.github.io/KiteUtils.jl/dev)
 [![Build Status](https://github.com/ufechner7/KiteUtils.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/ufechner7/KiteUtils.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Coverage](https://codecov.io/gh/ufechner7/KiteUtils.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/ufechner7/KiteUtils.jl)
