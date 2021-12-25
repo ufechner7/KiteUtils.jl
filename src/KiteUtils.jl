@@ -220,13 +220,22 @@ struct ExtSysState{P}
     z::MyFloat
 end
 
-# flight log, containing the basic data as struct of arrays 
-# and in addition an extended view on the data that includes derived/ calculated values for plotting
-# finally meta data like the file name of the log file is included
+"""
+    SysLog{P}
+
+Flight log, containing the basic data as struct of arrays 
+and in addition an extended view on the data that includes derived/ calculated values for plotting
+finally meta data like the file name of the log file is included.
+
+$(TYPEDFIELDS)
+"""
 struct SysLog{P}
+    "name of the flight log"
     name::String
-    syslog::StructArray{SysState{P}}    # struct of vectors
-    extlog::StructArray{ExtSysState{P}} # struct of vectors, containing derived values
+    "struct of vectors"
+    syslog::StructArray{SysState{P}}
+    "struct of vectors, containing derived values"
+    extlog::StructArray{ExtSysState{P}}
 end
 
 # functions
