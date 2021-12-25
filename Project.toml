@@ -1,0 +1,13 @@
+name = "KiteUtils"
+uuid = "90980105-b163-44e5-ba9f-8b1c83bb0533"
+authors = ["Uwe Fechner <fechner@aenarete.eu> and contributors"]
+version = "0.1.0"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+julia = "1.7"
+
+[targets]
+test = ["Test"]
