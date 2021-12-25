@@ -22,5 +22,10 @@ end
     res = rot3d(ax, ay, az, bx, by, bz)
     vec = [1, 0, 0]
     @test res * vec ≈ [0, 1, 0]
+    pos_kite = [1.0, 1, 10]
+    pos_before =  [1.0, 1, 9]
+    v_app = [10, 0, 0.0]
+    m = rot(pos_kite, pos_before, v_app)
+    @test m == [0.0 0.0 -1.0; -1 0.0 0.0; 0 1 0]
 end
 nothing
