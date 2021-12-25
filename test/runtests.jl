@@ -4,7 +4,6 @@ using Test
 cd("..")
 
 @testset "KiteUtils.jl: Settings       " begin
-    # Write your tests here.
     @test se().project == "settings.yaml"
     @test se().log_file == "data/log_8700W_8ms"
     @test se().time_lapse == 1.0

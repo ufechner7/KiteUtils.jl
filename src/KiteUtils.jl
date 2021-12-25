@@ -169,16 +169,31 @@ struct SysState{P}
 end 
 
 
-# extended SysState containing derived values for plotting
+"""
+    ExtSysState{P}
+
+Extended system state. Derived values for plotting. P is the number
+of tether particles.
+
+$(TYPEDFIELDS)
+"""
 struct ExtSysState{P}
-    time::Float64                          # time since launch in seconds
-    orient::UnitQuaternion{Float32}        # orientation of the kite
-    X::MVector{P, MyFloat}   # vector of particle positions in x
-    Y::MVector{P, MyFloat}   # vector of particle positions in y
-    Z::MVector{P, MyFloat}   # vector of particle positions in z
-    x::MyFloat                             # kite position in x
-    y::MyFloat                             # kite position in y
-    z::MyFloat                             # kite position in z
+    "time since launch in seconds"
+    time::Float64
+    "orientation of the kite"
+    orient::UnitQuaternion{Float32}
+    "vector of particle positions in x"
+    X::MVector{P, MyFloat}
+    "vector of particle positions in y"
+    Y::MVector{P, MyFloat}
+    "vector of particle positions in z"
+    Z::MVector{P, MyFloat}
+    "kite position in x"
+    x::MyFloat
+    "kite position in y"
+    y::MyFloat
+    "kite position in z"
+    z::MyFloat
 end
 
 # flight log, containing the basic data as struct of arrays 
