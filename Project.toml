@@ -17,7 +17,7 @@ StructArrays = "09ab397b-f2b6-538f-b94a-2f83cf4a842a"
 YAML = "ddb6d928-2868-570f-bddf-ab3f9cf99eb6"
 
 [compat]
-Arrow = "2"
+Arrow = "= 1.2.4"
 DocStringExtensions = "0.8"
 Documenter = "0.27"
 RecursiveArrayTools = "2"
