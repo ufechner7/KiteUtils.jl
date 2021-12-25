@@ -33,7 +33,12 @@ export SysState, ExtSysState, SysLog, MyFloat
 
 export demo_state, demo_syslog, demo_log, load_log, syslog2extlog, save_log, rot, rot3d, ground_dist, calc_elevation, azimuth_east, se
 
-const MyFloat = Float32               # type to use for postions
+"""
+    const MyFloat = Float32
+
+Type used for position components and scalar SysState members.
+"""
+const MyFloat = Float32               # type to use for position components and scalar SysState members  
 const DATA_PATH = "./data"            # path for log files and other data
 
 """

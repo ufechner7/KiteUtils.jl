@@ -8,7 +8,7 @@ CurrentModule = KiteUtils
 ```@docs
 se()
 ```
-More detailed documentation can be found here: [settings.yaml](https://github.com/ufechner7/KiteUtils.jl/blob/main/data/settings.yaml) .
+Also look at the default example: [settings.yaml](https://github.com/ufechner7/KiteUtils.jl/blob/main/data/settings.yaml) .
 
 # Creating test data
 ```@docs
