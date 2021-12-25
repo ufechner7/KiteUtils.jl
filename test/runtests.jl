@@ -12,6 +12,9 @@ cd("..")
     @test length(se().alpha_cl) == 12
 end
 @testset "KiteUtils.jl: Log files      " begin
+    state = KiteUtils.demo_state(7)
+    @test typeof(state) == SysState{7}
+    @test state.X[end] == 10.0
     log = KiteUtils.test()
     @test typeof(log) == SysLog{7}
     @test log.syslog.Z[end][7] ≈ 6 # height of the last particle which represents the kite
