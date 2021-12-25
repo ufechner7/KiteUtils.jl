@@ -15,7 +15,7 @@ end
     state = KiteUtils.demo_state(7)
     @test typeof(state) == SysState{7}
     @test state.X[end] == 10.0
-    log = KiteUtils.test()
+    log = KiteUtils.test(true)
     @test typeof(log) == SysLog{7}
     @test log.syslog.Z[end][7] ≈ 6 # height of the last particle which represents the kite
 end
@@ -30,5 +30,7 @@ end
     v_app = [10, 0, 0.0]
     m = rot(pos_kite, pos_before, v_app)
     @test m == [0.0 0.0 -1.0; -1 0.0 0.0; 0 1 0]
+    @test ground_dist(pos_kite) ≈ 1.4142135623730951
+    @test calc_elevation(pos_kite) ≈ 1.4303066250413763
 end
 nothing
