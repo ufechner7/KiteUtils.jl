@@ -9,6 +9,11 @@ cd("..")
     @test se().time_lapse == 1.0
     @test se().sim_time == 100.0
     @test length(se().alpha_cl) == 12
+    set_data_path("/tmp")
+    @test KiteUtils.DATA_PATH[1] == "/tmp"
+    set_data_path("./data")
+    set2 = load_settings("./data/settings.yaml")
+    @test set2.project == "settings.yaml"
 end
 @testset "KiteUtils.jl: Log files      " begin
     state = KiteUtils.demo_state(7)

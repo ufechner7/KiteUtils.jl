@@ -31,7 +31,8 @@ SOFTWARE. =#
 using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions
 export SysState, ExtSysState, SysLog, MyFloat
 
-export demo_state, demo_syslog, demo_log, load_log, syslog2extlog, save_log, rot, rot3d, ground_dist, calc_elevation, azimuth_east, se
+export demo_state, demo_syslog, demo_log, load_log, syslog2extlog, save_log, rot, rot3d, ground_dist, calc_elevation, azimuth_east
+export set_data_path, load_settings, se
 
 """
     const MyFloat = Float32
@@ -39,7 +40,7 @@ export demo_state, demo_syslog, demo_log, load_log, syslog2extlog, save_log, rot
 Type used for position components and scalar SysState members.
 """
 const MyFloat = Float32               # type to use for position components and scalar SysState members  
-const DATA_PATH = "./data"            # path for log files and other data
+const DATA_PATH = ["./data"]        # path for log files and other data
 
 """
     Settings
@@ -109,19 +110,42 @@ end
 const SETTINGS = Settings("","","",0,0,0,0,"",0,0,0,0,0,0,0,0,[],[],[],[],0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 
 """
+    set_data_path(data_path)
+
+Set the directory for log and config files.
+"""
+function set_data_path(data_path)
+    DATA_PATH[1] = data_path
+end
+
+"""
+    load_settings(project="")
+
+Load the project with the given file name. The default project is determined by the content of the file system.yaml .
+
+The project must include the path and the suffix .yaml .
+"""
+function load_settings(project="")
+    SETTINGS.segments=0
+    se(project)
+end
+
+"""
     se()
 
 Getter function for the [`Settings`](@ref) struct.
 
-Which settings file is loaded is determined by the content of the file system.yaml .
+The default project is determined by the content of the file system.yaml .
 """
-function se()
+function se(project="")
     if SETTINGS.segments == 0
-        # determine which project to load
-        dict = YAML.load_file(joinpath(DATA_PATH, "system.yaml"))
-        SETTINGS.project = dict["system"]["project"]
+        if project == ""
+            # determine which project to load
+            dict = YAML.load_file(joinpath(DATA_PATH[1], "system.yaml"))
+            SETTINGS.project = dict["system"]["project"]
+        end
         # load project from YAML
-        dict = YAML.load_file(joinpath(DATA_PATH, SETTINGS.project))
+        dict = YAML.load_file(joinpath(DATA_PATH[1], SETTINGS.project))
         SETTINGS.log_file    = dict["system"]["log_file"]
         SETTINGS.segments    = dict["system"]["segments"]
         SETTINGS.sample_freq = dict["system"]["sample_freq"]
@@ -409,7 +433,7 @@ particles.
 """
 function save_log(P, flight_log)
     Arrow.ArrowTypes.registertype!(SysState{P}, SysState)
-    filename=joinpath(DATA_PATH, flight_log.name) * ".arrow"
+    filename=joinpath(DATA_PATH[1], flight_log.name) * ".arrow"
     Arrow.write(filename, flight_log.syslog, compress=:lz4)
 end
 
@@ -423,9 +447,9 @@ function load_log(P, filename::String)
     Arrow.ArrowTypes.registertype!(SysState{P}, SysState)
     Arrow.ArrowTypes.registertype!(MVector{4, Float32}, MVector{4, Float32})
     if isnothing(findlast(isequal('.'), filename))
-        fullname = joinpath(DATA_PATH, filename) * ".arrow"
+        fullname = joinpath(DATA_PATH[1], filename) * ".arrow"
     else
-        fullname = joinpath(DATA_PATH, filename) 
+        fullname = joinpath(DATA_PATH[1], filename) 
     end
     table = Arrow.Table(fullname)
     myzeros = zeros(MyFloat, length(table.time))
