@@ -215,7 +215,7 @@ $(TYPEDFIELDS)
 struct SysState{P}
     "time since start of simulation in seconds"
     time::Float64
-    "orientation of the kite (quaternion)"
+    "orientation of the kite (quaternion, order w,x,y,z)"
     orient::MVector{4, Float32}
     "elevation angle in radians"
     elevation::MyFloat
@@ -252,7 +252,7 @@ struct ExtSysState{P}
     "time since launch in seconds"
     time::Float64
     "orientation of the kite"
-    orient::UnitQuaternion{Float32}
+    orient::QuatRotation{Float32}
     "vector of particle positions in x"
     X::MVector{P, MyFloat}
     "vector of particle positions in y"
@@ -364,8 +364,8 @@ function demo_state(P, height=6.0, time=0.0)
     Y = zeros(length(X))
     Z = (a .* cosh.(X./a) .- a) * height/ 5.430806 
     r_xyz = RotXYZ(pi/2, -pi/2, 0)
-    q = UnitQuaternion(r_xyz)
-    orient = MVector{4, Float32}(q.w, q.x, q.y, q.z)
+    q = QuatRotation(r_xyz)
+    orient = MVector{4, Float32}(Rotations.params(q))
     elevation = calc_elevation([X[end], 0.0, Z[end]])
     return SysState{P}(time, orient, elevation,0.,0.,0.,0.,0.,0.,X, Y, Z)
 end
@@ -407,9 +407,9 @@ function syslog2extlog(P, syslog)
     x_vec = @view VectorOfArray(syslog.X)[end,:]
     y_vec = @view VectorOfArray(syslog.Y)[end,:]
     z_vec = @view VectorOfArray(syslog.Z)[end,:]
-    orient_vec = Vector{UnitQuaternion{Float32}}(undef, length(syslog.time))
+    orient_vec = Vector{QuatRotation{Float32}}(undef, length(syslog.time))
     for i in range(1, length=length(syslog.time))
-        orient_vec[i] = UnitQuaternion(syslog.orient[i])
+        orient_vec[i] = QuatRotation(syslog.orient[i])
     end
     return StructArray{ExtSysState{P}}((syslog.time, orient_vec, syslog.X, syslog.Y, syslog.Z, x_vec, y_vec, z_vec))    
 end
