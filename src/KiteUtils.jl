@@ -28,7 +28,7 @@ SOFTWARE. =#
 # the parameter P is the number of points of the tether, equal to segments+1
 # in addition helper functions for working with rotations
 
-using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions
+using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions, Parameters
 export SysState, ExtSysState, SysLog, MyFloat
 
 export demo_state, demo_syslog, demo_log, load_log, syslog2extlog, save_log, rot, rot3d, ground_dist, calc_elevation, azimuth_east
@@ -49,65 +49,65 @@ Flat struct, defining the settings of the Simulator and the Viewer.
 
 $(TYPEDFIELDS)
 """
-mutable struct Settings
-    project::String
-    log_file::String
-    model::String
+@with_kw mutable struct Settings @deftype Float64
+    project::String       = ""
+    log_file::String      = ""
+    model::String         = ""
     "number of tether segments"
-    segments::Int64 
-    sample_freq::Int64
-    time_lapse::Float64
-    zoom::Float64
-    fixed_font::String
-    v_reel_out::Float64
-    c0::Float64
-    c_s::Float64
-    c2_cor::Float64
-    k_ds::Float64
+    segments::Int64       = 0
+    sample_freq::Int64    = 0
+    time_lapse            = 0
+    zoom                  = 0
+    fixed_font::String    = ""
+    v_reel_out            = 0
+    c0                    = 0
+    c_s                   = 0
+    c2_cor                = 0
+    k_ds                  = 0
     "projected kite area            [m^2]"
-    area::Float64
+    area                  = 0
     "kite mass incl. sensor unit     [kg]"
-    mass::Float64
+    mass                  = 0
     "height of the kite               [m]"
-    height_k::Float64
-    alpha_cl::Vector{Float64}
-    cl_list::Vector{Float64}
-    alpha_cd::Vector{Float64}
-    cd_list::Vector{Float64}
+    height_k              = 0
+    alpha_cl::Vector{Float64} = []
+    cl_list::Vector{Float64}  = []
+    alpha_cd::Vector{Float64} = []
+    cd_list::Vector{Float64}  = []
     "relative side area               [%]"
-    rel_side_area::Float64
+    rel_side_area         = 0
     "max depower angle              [deg]"
-    alpha_d_max::Float64
+    alpha_d_max           = 0
     "mass of the kite control unit   [kg]"
-    kcu_mass::Float64
+    kcu_mass              = 0
     "power to steering line distance  [m]"
-    power2steer_dist::Float64
-    depower_drum_diameter::Float64
-    depower_offset::Float64
-    tape_thickness::Float64
-    v_depower::Float64
-    v_steering::Float64
-    depower_gain::Float64
-    steering_gain::Float64
-    v_wind::Float64
-    h_ref::Float64
-    rho_0::Float64
-    z0::Float64
-    profile_law::Int64
-    alpha::Float64
-    cd_tether::Float64
-    d_tether::Float64
-    d_line::Float64
+    power2steer_dist      = 0
+    depower_drum_diameter = 0
+    depower_offset        = 0
+    tape_thickness        = 0
+    v_depower             = 0
+    v_steering            = 0
+    depower_gain          = 0
+    steering_gain         = 0
+    v_wind                = 0
+    h_ref                 = 0
+    rho_0                 = 0
+    z0                    = 0
+    profile_law::Int64    = 0
+    alpha                 = 0
+    cd_tether             = 0
+    d_tether              = 0
+    d_line                = 0
     "height of the bridle             [m]"
-    height_b::Float64
-    l_bridle::Float64
-    l_tether::Float64
-    damping::Float64
-    c_spring::Float64
-    elevation::Float64
-    sim_time::Float64
+    height_b              = 0
+    l_bridle              = 0
+    l_tether              = 0
+    damping               = 0
+    c_spring              = 0
+    elevation             = 0
+    sim_time              = 0
 end
-const SETTINGS = Settings("","","",0,0,0,0,"",0,0,0,0,0,0,0,0,[],[],[],[],0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+const SETTINGS = Settings()
 
 """
     set_data_path(data_path)
