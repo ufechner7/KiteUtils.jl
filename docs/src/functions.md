@@ -6,6 +6,8 @@ CurrentModule = KiteUtils
 
 # Reading config files
 ```@docs
+set_data_path(data_path)
+load_settings(project="")
 se()
 ```
 Also look at the default example: [settings.yaml](https://github.com/ufechner7/KiteUtils.jl/blob/main/data/settings.yaml) .
@@ -23,6 +25,7 @@ load_log(P, filename::String)
 save_log(P, flight_log)
 syslog2extlog(P, syslog)
 ```
+The function ```set_data_path(data_path)``` can be used to set the directory for the log files. 
 
 ## Rotation matrices
 ```@docs
