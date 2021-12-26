@@ -67,6 +67,8 @@ mutable struct Settings
     area::Float64
     "kite mass incl. sensor unit     [kg]"
     mass::Float64
+    "height of the kite               [m]"
+    height_k::Float64
     alpha_cl::Vector{Float64}
     cl_list::Vector{Float64}
     alpha_cd::Vector{Float64}
@@ -77,6 +79,15 @@ mutable struct Settings
     alpha_d_max::Float64
     "mass of the kite control unit   [kg]"
     kcu_mass::Float64
+    "power to steering line distance  [m]"
+    power2steer_dist::Float64
+    depower_drum_diameter::Float64
+    depower_offset::Float64
+    tape_thickness::Float64
+    v_depower::Float64
+    v_steering::Float64
+    depower_gain::Float64
+    steering_gain::Float64
     v_wind::Float64
     h_ref::Float64
     rho_0::Float64
@@ -86,6 +97,8 @@ mutable struct Settings
     cd_tether::Float64
     d_tether::Float64
     d_line::Float64
+    "height of the bridle             [m]"
+    height_b::Float64
     l_bridle::Float64
     l_tether::Float64
     damping::Float64
@@ -93,7 +106,7 @@ mutable struct Settings
     elevation::Float64
     sim_time::Float64
 end
-const SETTINGS = Settings("","","",0,0,0,0,"",0,0,0,0,0,0,0,[],[],[],[],0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+const SETTINGS = Settings("","","",0,0,0,0,"",0,0,0,0,0,0,0,0,[],[],[],[],0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 
 """
     se()
@@ -132,15 +145,25 @@ function se()
         SETTINGS.area        = dict["kite"]["area"]
         SETTINGS.rel_side_area = dict["kite"]["rel_side_area"]
         SETTINGS.mass        = dict["kite"]["mass"]
+        SETTINGS.height_k    = dict["kite"]["height"]
         SETTINGS.alpha_cl    = dict["kite"]["alpha_cl"]
         SETTINGS.cl_list     = dict["kite"]["cl_list"]
         SETTINGS.alpha_cd    = dict["kite"]["alpha_cd"]
         SETTINGS.cd_list     = dict["kite"]["cd_list"]
 
         SETTINGS.l_bridle    = dict["bridle"]["l_bridle"]
+        SETTINGS.height_b    = dict["bridle"]["height"]
         SETTINGS.d_line      = dict["bridle"]["d_line"]
 
-        SETTINGS.kcu_mass    = dict["kcu"]["mass"]
+        SETTINGS.kcu_mass         = dict["kcu"]["mass"]
+        SETTINGS.power2steer_dist = dict["kcu"]["power2steer_dist"]
+        SETTINGS.depower_drum_diameter = dict["kcu"]["depower_drum_diameter"]
+        SETTINGS.depower_offset   = dict["kcu"]["depower_offset"]
+        SETTINGS.tape_thickness   = dict["kcu"]["tape_thickness"]
+        SETTINGS.v_depower        = dict["kcu"]["v_depower"]
+        SETTINGS.v_steering       = dict["kcu"]["v_steering"]
+        SETTINGS.depower_gain     = dict["kcu"]["depower_gain"]
+        SETTINGS.steering_gain    = dict["kcu"]["steering_gain"]
 
         SETTINGS.cd_tether   = dict["tether"]["cd_tether"]
         SETTINGS.d_tether    = dict["tether"]["d_tether"]
