@@ -155,7 +155,7 @@ function se(project="")
         SETTINGS.fixed_font  = dict["system"]["fixed_font"]
 
         SETTINGS.l_tether    = dict["initial"]["l_tether"]
-        SETTINGS.v_reel_out   = dict["initial"]["v_reel_out"]
+        SETTINGS.v_reel_out  = dict["initial"]["v_reel_out"]
         SETTINGS.elevation   = dict["initial"]["elevation"]
 
         SETTINGS.c0          = dict["steering"]["c0"]
@@ -163,26 +163,27 @@ function se(project="")
         SETTINGS.c2_cor      = dict["steering"]["c2_cor"]
         SETTINGS.k_ds        = dict["steering"]["k_ds"]
 
-        SETTINGS.alpha_d_max = dict["depower"]["alpha_d_max"]
+        SETTINGS.alpha_d_max    = dict["depower"]["alpha_d_max"]
+        SETTINGS.depower_offset = dict["depower"]["depower_offset"]
 
-        SETTINGS.model       = dict["kite"]["model"]
-        SETTINGS.area        = dict["kite"]["area"]
+        SETTINGS.model         = dict["kite"]["model"]
+        SETTINGS.area          = dict["kite"]["area"]
         SETTINGS.rel_side_area = dict["kite"]["rel_side_area"]
-        SETTINGS.mass        = dict["kite"]["mass"]
-        SETTINGS.height_k    = dict["kite"]["height"]
-        SETTINGS.alpha_cl    = dict["kite"]["alpha_cl"]
-        SETTINGS.cl_list     = dict["kite"]["cl_list"]
-        SETTINGS.alpha_cd    = dict["kite"]["alpha_cd"]
-        SETTINGS.cd_list     = dict["kite"]["cd_list"]
+        SETTINGS.mass          = dict["kite"]["mass"]
+        SETTINGS.height_k      = dict["kite"]["height"]
+        SETTINGS.alpha_cl      = dict["kite"]["alpha_cl"]
+        SETTINGS.cl_list       = dict["kite"]["cl_list"]
+        SETTINGS.alpha_cd      = dict["kite"]["alpha_cd"]
+        SETTINGS.cd_list       = dict["kite"]["cd_list"]
 
-        SETTINGS.l_bridle    = dict["bridle"]["l_bridle"]
-        SETTINGS.height_b    = dict["bridle"]["height"]
-        SETTINGS.d_line      = dict["bridle"]["d_line"]
+        SETTINGS.l_bridle      = dict["bridle"]["l_bridle"]
+        SETTINGS.height_b      = dict["bridle"]["height"]
+        SETTINGS.d_line        = dict["bridle"]["d_line"]
 
         SETTINGS.kcu_mass         = dict["kcu"]["mass"]
         SETTINGS.power2steer_dist = dict["kcu"]["power2steer_dist"]
         SETTINGS.depower_drum_diameter = dict["kcu"]["depower_drum_diameter"]
-        SETTINGS.depower_offset   = dict["kcu"]["depower_offset"]
+
         SETTINGS.tape_thickness   = dict["kcu"]["tape_thickness"]
         SETTINGS.v_depower        = dict["kcu"]["v_depower"]
         SETTINGS.v_steering       = dict["kcu"]["v_steering"]
@@ -432,7 +433,6 @@ Save a fligh log file as .arrow file. P is the number of tether
 particles.
 """
 function save_log(P, flight_log)
-    eval(:(ArrowTypes.arrowname(::Type{SysState{SETTINGS.segments+1}}) = :SysState)) 
     filename=joinpath(DATA_PATH[1], flight_log.name) * ".arrow"
     Arrow.write(filename, flight_log.syslog, compress=:lz4)
 end
@@ -444,8 +444,6 @@ Read a log file that was saved as .arrow file.  P is the number of tether
 particles.
 """
 function load_log(P, filename::String)
-    eval(:(ArrowTypes.arrowname(::Type{SysState{SETTINGS.segments+1}}) = :SysState))
-    eval(:(Arrow.ArrowTypes.arrowname(::Type{MVector{4, Float32}}) = :MVector4 ))
     if isnothing(findlast(isequal('.'), filename))
         fullname = joinpath(DATA_PATH[1], filename) * ".arrow"
     else
