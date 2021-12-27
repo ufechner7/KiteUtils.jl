@@ -432,7 +432,7 @@ Save a fligh log file as .arrow file. P is the number of tether
 particles.
 """
 function save_log(P, flight_log)
-    Arrow.ArrowTypes.registertype!(SysState{P}, SysState)
+    eval(:(ArrowTypes.arrowname(::Type{SysState{SETTINGS.segments+1}}) = :SysState)) 
     filename=joinpath(DATA_PATH[1], flight_log.name) * ".arrow"
     Arrow.write(filename, flight_log.syslog, compress=:lz4)
 end
@@ -444,8 +444,8 @@ Read a log file that was saved as .arrow file.  P is the number of tether
 particles.
 """
 function load_log(P, filename::String)
-    Arrow.ArrowTypes.registertype!(SysState{P}, SysState)
-    Arrow.ArrowTypes.registertype!(MVector{4, Float32}, MVector{4, Float32})
+    eval(:(ArrowTypes.arrowname(::Type{SysState{SETTINGS.segments+1}}) = :SysState))
+    eval(:(Arrow.ArrowTypes.arrowname(::Type{MVector{4, Float32}}) = :MVector4 ))
     if isnothing(findlast(isequal('.'), filename))
         fullname = joinpath(DATA_PATH[1], filename) * ".arrow"
     else
