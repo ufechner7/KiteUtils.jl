@@ -19,6 +19,7 @@ end
     state = KiteUtils.demo_state(7)
     @test typeof(state) == SysState{7}
     @test state.X[end] == 10.0
+    @test repr(state) == "time      [s]:       0.0\norient    [w,x,y,z]: Float32[0.5, 0.5, -0.5, -0.5]\nelevation [rad]:     0.5404195\nazimuth   [rad]:     0.0\nl_tether  [m]:       0.0\nv_reelout [m/s]:     0.0\nforce     [N]:       0.0\ndepower   [-]:       0.0\nv_app     [m/s]:     0.0\nX         [m]:       Float32[0.0, 1.6666666, 3.3333333, 5.0, 6.6666665, 8.333333, 10.0]\nY         [m]:       Float32[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]\nZ         [m]:       Float32[0.0, 0.15380114, 0.6194867, 1.4100224, 2.5474184, 4.063342, 6.0000005]\n"
     log = KiteUtils.test(true)
     @test typeof(log) == SysLog{7}
     @test log.syslog.Z[end][7] ≈ 6 # height of the last particle which represents the kite
@@ -37,5 +38,4 @@ end
     @test ground_dist(pos_kite) ≈ 1.4142135623730951
     @test calc_elevation(pos_kite) ≈ 1.4303066250413763
     @test azimuth_east(pos_kite) ≈ -0.7853981633974483
-    println(demo_state(7))
 end
