@@ -32,7 +32,7 @@ using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, L
 export SysState, ExtSysState, SysLog, MyFloat
 
 export demo_state, demo_syslog, demo_log, load_log, syslog2extlog, save_log, rot, rot3d, ground_dist, calc_elevation, azimuth_east
-export set_data_path, load_settings, se
+export set_data_path, load_settings, copy_settings, se
 
 """
     const MyFloat = Float32
@@ -128,6 +128,21 @@ The project must include the path and the suffix .yaml .
 function load_settings(project="")
     SETTINGS.segments=0
     se(project)
+end
+
+"""
+    copy_settings()
+
+Copy the default settings.yaml and system.yaml files to the folder DATAPATH
+(it will be created if it doesn't exist).
+"""
+function copy_settings()
+    if ! isdir(DATA_PATH[1]) 
+        mkdir(DATA_PATH[1])
+    end
+    src_path = joinpath(dirname(pathof(@__MODULE__)), "..", DATA_PATH[1])
+    cp(joinpath(src_path, "settings.yaml"), joinpath(DATA_PATH[1], "settings.yaml"), force=true)
+    cp(joinpath(src_path, "system.yaml"), joinpath(DATA_PATH[1], "system.yaml"), force=true)
 end
 
 """
