@@ -284,18 +284,19 @@ struct ExtSysState{P}
     time::Float64
     "orientation of the kite"
     orient::QuatRotation{Float32}
-    "vector of particle positions in x"
-    X::MVector{P, MyFloat}
-    "vector of particle positions in y"
-    Y::MVector{P, MyFloat}
-    "vector of particle positions in z"
-    Z::MVector{P, MyFloat}
     "kite position in x"
     x::MyFloat
     "kite position in y"
     y::MyFloat
     "kite position in z"
     z::MyFloat
+end
+function Base.show(io::IO, st::ExtSysState) 
+    println(io, "time      [s]:            ", st.time)
+    println(io, "orient    [QuatRotation]: ", st.orient)
+    println(io, "x         [m]:            ", st.x)
+    println(io, "y         [m]:            ", st.y)
+    println(io, "z         [m]:            ", st.z)
 end
 
 """
@@ -432,7 +433,7 @@ end
 """
     function syslog2extlog(P, syslog)
 
-Extend a flight systym log with the fields x, y, and z (kite positions) and convert the orientation to the type UnitQuaternion.
+Calculate the fields x, y, and z (kite positions) and convert the orientation to the type QuatRotation.
 """
 function syslog2extlog(P, syslog)
     x_vec = @view VectorOfArray(syslog.X)[end,:]
@@ -442,7 +443,7 @@ function syslog2extlog(P, syslog)
     for i in range(1, length=length(syslog.time))
         orient_vec[i] = QuatRotation(syslog.orient[i])
     end
-    return StructArray{ExtSysState{P}}((syslog.time, orient_vec, syslog.X, syslog.Y, syslog.Z, x_vec, y_vec, z_vec))    
+    return StructArray{ExtSysState{P}}((syslog.time, orient_vec, x_vec, y_vec, z_vec))    
 end
 
 """
