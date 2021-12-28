@@ -255,6 +255,21 @@ struct SysState{P}
     Z::MVector{P, MyFloat}
 end 
 
+function Base.show(io::IO, st::SysState) 
+    println(io, "time      [s]:       ", st.time)
+    println(io, "orient    [w,x,y,z]: ", st.orient)
+    println(io, "elevation [rad]:     ", st.elevation)
+    println(io, "azimuth   [rad]:     ", st.azimuth)
+    println(io, "l_tether  [m]:       ", st.l_tether)
+    println(io, "v_reelout [m/s]:     ", st.v_reelout)
+    println(io, "force     [N]:       ", st.force)
+    println(io, "depower   [-]:       ", st.depower)
+    println(io, "v_app     [m/s]:     ", st.v_app)
+    println(io, "X         [m]:       ", st.X)
+    println(io, "Y         [m]:       ", st.Y)
+    println(io, "Z         [m]:       ", st.Z)
+end
+
 
 """
     ExtSysState{P}
