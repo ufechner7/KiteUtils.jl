@@ -8,6 +8,7 @@ CurrentModule = KiteUtils
 ```@docs
 set_data_path(data_path)
 load_settings(project="")
+copy_settings()
 se()
 ```
 Also look at the default example: [settings.yaml](https://github.com/ufechner7/KiteUtils.jl/blob/main/data/settings.yaml) .
