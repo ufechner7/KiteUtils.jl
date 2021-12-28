@@ -37,5 +37,5 @@ end
     @test ground_dist(pos_kite) ≈ 1.4142135623730951
     @test calc_elevation(pos_kite) ≈ 1.4303066250413763
     @test azimuth_east(pos_kite) ≈ -0.7853981633974483
+    demo_state(7)
 end
-nothing
