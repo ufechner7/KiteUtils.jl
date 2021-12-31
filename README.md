@@ -14,4 +14,10 @@ Utilities for simulating kite power systems.
 - functions for reading and writing log files
 - types for the state of a kite power system, for logfiles and for configuration data
 
+## Related
+- The application [KiteViewer](https://github.com/ufechner7/KiteViewer)
+- the package [KitePodSimulator](https://github.com/ufechner7/KitePodSimulator.jl)
+
+**Documentation** [Stable Version](https://ufechner7.github.io/KiteUtils.jl/stable)
+
 Author: Uwe Fechner (uwe.fechner.msc@gmail.com)
