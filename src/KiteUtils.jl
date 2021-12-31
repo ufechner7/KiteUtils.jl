@@ -481,7 +481,6 @@ function load_log(P, filename::String)
         fullname = joinpath(DATA_PATH[1], filename) 
     end
     table = Arrow.Table(fullname)
-    myzeros = zeros(MyFloat, length(table.time))
     syslog = StructArray{SysState{P}}((table.time, table.orient, table.elevation, table.azimuth, table.l_tether, table.v_reelout, table.force, table.depower, table.v_app, table.X, table.Y, table.Z))
     return SysLog{P}(basename(fullname[1:end-6]), syslog, syslog2extlog(P, syslog))
 end
