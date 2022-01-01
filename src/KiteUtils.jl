@@ -29,7 +29,7 @@ SOFTWARE. =#
 # in addition helper functions for working with rotations
 
 using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions, Parameters
-export SysState, ExtSysState, SysLog, MyFloat
+export Settings, SysState, ExtSysState, SysLog, MyFloat
 
 export demo_state, demo_syslog, demo_log, load_log, syslog2extlog, save_log, rot, rot3d, ground_dist, calc_elevation, azimuth_east
 export set_data_path, load_settings, copy_settings, se
