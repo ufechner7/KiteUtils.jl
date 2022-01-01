@@ -99,7 +99,7 @@ $(TYPEDFIELDS)
     d_tether              = 0
     d_line                = 0
     "height of the bridle             [m]"
-    height_b              = 0
+    h_bridle              = 0
     l_bridle              = 0
     l_tether              = 0
     damping               = 0
@@ -192,10 +192,10 @@ function se(project="")
         SETTINGS.cd_list       = dict["kite"]["cd_list"]
 
         SETTINGS.l_bridle      = dict["bridle"]["l_bridle"]
-        SETTINGS.height_b      = dict["bridle"]["height"]
+        SETTINGS.h_bridle      = dict["bridle"]["h_bridle"]
         SETTINGS.d_line        = dict["bridle"]["d_line"]
 
-        SETTINGS.kcu_mass         = dict["kcu"]["mass"]
+        SETTINGS.kcu_mass         = dict["kcu"]["kcu_mass"]
         SETTINGS.power2steer_dist = dict["kcu"]["power2steer_dist"]
         SETTINGS.depower_drum_diameter = dict["kcu"]["depower_drum_diameter"]
 
