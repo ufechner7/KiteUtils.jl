@@ -13,7 +13,7 @@ julia --project
 and add KiteUtils to the project:
 ```julia
 ]activate .
-add https://github.com/ufechner7/KiteUtils.jl
+add KiteUtils
 <DEL>
 ```
 finally, copy the default configuration files to your new project:
