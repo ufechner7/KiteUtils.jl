@@ -16,6 +16,7 @@ Utilities for simulating kite power systems.
 
 ## Related
 - The application [KiteViewer](https://github.com/ufechner7/KiteViewer)
+- the package [KiteModels](https://github.com/ufechner7/KiteModels.jl)
 - the package [KitePodSimulator](https://github.com/ufechner7/KitePodSimulator.jl)
 
 **Documentation** [Stable Version](https://ufechner7.github.io/KiteUtils.jl/stable)

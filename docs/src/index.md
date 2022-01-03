@@ -16,10 +16,15 @@ at the Julia prompt.
 
 If you are using Windows, it is suggested to install git and bash, too. This is explained for example here: [Julia on Windows](https://github.com/ufechner7/KiteViewer/blob/main/doc/Windows.md) .
 
-# Features
+## Features
 This package provides functions to:
 - read configuration files, written in .yaml format
 - read and write log files, which is memory efficient and fast due to the use of the Apache Arrow format
 - present log files in two different formats, one optimized to look at the system state at one point in time, and one that presents per-variable arrays with the time as index
 - helper functions for geometric transformations
+
+## Related
+- The application [KiteViewer](https://github.com/ufechner7/KiteViewer)
+- the package [KiteModels](https://github.com/ufechner7/KiteModels.jl)
+- the package [KitePodSimulator](https://github.com/ufechner7/KitePodSimulator.jl)
 
