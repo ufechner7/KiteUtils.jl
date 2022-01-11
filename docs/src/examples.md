@@ -14,7 +14,7 @@ and add KiteUtils to the project:
 ```julia
 ]activate .
 add KiteUtils
-<DEL>
+<BACKSPACE>
 ```
 finally, copy the default configuration files to your new project:
 ```julia
@@ -112,3 +112,45 @@ julia> kite_pos = [st.X[end], st.Y[end], st.Z[end]]
   0.0
   6.0000005
 ```
+## The type SysLog
+This type stores an arry of SysState structs, to be precise: a StructArray.
+```julia
+syslog=demo_syslog(7)
+```
+You can acces this array by index:
+```julia
+syslog[end]
+time      [s]:       10.0
+orient    [w,x,y,z]: Float32[0.5, 0.5, -0.5, -0.5]
+elevation [rad]:     0.64350116
+azimuth   [rad]:     0.0
+l_tether  [m]:       0.0
+v_reelout [m/s]:     0.0
+force     [N]:       0.0
+depower   [-]:       0.0
+v_app     [m/s]:     0.0
+X         [m]:       Float32[0.0, 1.6666666, 3.3333333, 5.0, 6.6666665, 8.333333, 10.0]
+Y         [m]:       Float32[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+Z         [m]:       Float32[0.0, 0.15380114, 0.6194867, 1.4100224, 2.5474184, 4.063342, 6.0000005]
+
+```
+But you can also access the syslog component wise:
+```julia
+julia> rad2deg.(syslog.elevation)
+201-element Vector{Float64}:
+  0.0
+  0.17188759349740207
+  0.343776734459538
+  0.5156689836913548
+  0.6875658486369466
+  0.8594689568023267
+  1.0313798022913758
+  ⋮
+ 35.80299102537142
+ 36.01521524816747
+ 36.22800637666463
+ 36.44138148633583
+ 36.655340577181065
+ 36.86990072467326
+```
+Note: To apply the function rad2deg on a vector the dot notation ```rad2deg.``` is used.
