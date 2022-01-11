@@ -63,8 +63,8 @@ You can see the available setting parameters by typing
 at the Julia prompt. Defining ```set``` as constant improves the performance of the access to the 
 parameters. You can still change the values of the parameters, only the types are fixed.
 
-## The SysState
-The state of the kitepower system is captured in the struct SysState.
+## The system state, type SysState
+The state of the kitepower system is captured in the struct [`SysState`](@ref) .
 ```julia
 julia> using KiteUtils
 
@@ -112,10 +112,11 @@ julia> kite_pos = [st.X[end], st.Y[end], st.Z[end]]
   0.0
   6.0000005
 ```
-## The type SysLog
-This type stores an arry of SysState structs, to be precise: a StructArray.
+## The system log
+The system log can be used to store the result of a simulation or of a test flight. 
+It stores an array of SysState structs, to be precise: a [StructArray](https://github.com/JuliaArrays/StructArrays.jl) .
 ```julia
-syslog=demo_syslog(7)
+julia> syslog=demo_syslog(7)
 ```
 You can acces this array by index:
 ```julia
@@ -154,3 +155,10 @@ julia> rad2deg.(syslog.elevation)
  36.86990072467326
 ```
 Note: To apply the function rad2deg on a vector the dot notation ```rad2deg.``` is used.
+
+## The extended system log
+
+## The combined type SysLog
+A variable of type SysLog contains both the system log and the extended system log. In addition
+it contains a name (filename without extension). All information needed for 2D and 3D plotting
+is contained and can easily be accessed using this type.
