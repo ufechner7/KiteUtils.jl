@@ -14,6 +14,5 @@ Also look at the default file that is parsed to fill the Settings stuct with dat
 ```@docs
 MyFloat
 SysState{P}
-ExtSysState{P}
 SysLog{P}
 ```

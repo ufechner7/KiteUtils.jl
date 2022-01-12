@@ -23,8 +23,7 @@ demo_log(P, name="Test_flight"; duration=10)
 # Loading, saving and converting log files
 ```@docs
 load_log(P, filename::String)
-save_log(P, flight_log)
-syslog2extlog(P, syslog)
+save_log(flight_log)
 ```
 The function ```set_data_path(data_path)``` can be used to set the directory for the log files. 
 

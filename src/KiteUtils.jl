@@ -29,9 +29,9 @@ SOFTWARE. =#
 # in addition helper functions for working with rotations
 
 using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions, Parameters
-export Settings, SysState, ExtSysState, SysLog, MyFloat
+export Settings, SysState, SysLog, MyFloat
 
-export demo_state, demo_syslog, demo_log, load_log, syslog2extlog, save_log, rot, rot3d, ground_dist, calc_elevation, azimuth_east
+export demo_state, demo_syslog, demo_log, load_log, save_log, rot, rot3d, ground_dist, calc_elevation, azimuth_east
 export set_data_path, load_settings, copy_settings, se
 
 """
@@ -255,6 +255,18 @@ struct SysState{P}
     Z::MVector{P, MyFloat}
 end 
 
+function Base.getproperty(st::StructVector{SysState}, sym::Symbol)
+    if sym == :x
+        last.getfield(st, :X)
+    elseif sym == :y
+        last.getfield(st, :Y)
+    elseif sym == :z
+        last.getfield(st, :Z) # last.(st.Z)
+    else
+        getfield(st, sym)
+    end
+end
+
 function Base.show(io::IO, st::SysState) 
     println(io, "time      [s]:       ", st.time)
     println(io, "orient    [w,x,y,z]: ", st.orient)
@@ -268,35 +280,6 @@ function Base.show(io::IO, st::SysState)
     println(io, "X         [m]:       ", st.X)
     println(io, "Y         [m]:       ", st.Y)
     println(io, "Z         [m]:       ", st.Z)
-end
-
-
-"""
-    ExtSysState{P}
-
-Extended system state. Derived values for plotting. P is the number
-of tether particles.
-
-$(TYPEDFIELDS)
-"""
-struct ExtSysState{P}
-    "time since launch in seconds"
-    time::Float64
-    "orientation of the kite"
-    orient::QuatRotation{Float32}
-    "kite position in x"
-    x::MyFloat
-    "kite position in y"
-    y::MyFloat
-    "kite position in z"
-    z::MyFloat
-end
-function Base.show(io::IO, st::ExtSysState) 
-    println(io, "time      [s]:            ", st.time)
-    println(io, "orient    [QuatRotation]: ", st.orient)
-    println(io, "x         [m]:            ", st.x)
-    println(io, "y         [m]:            ", st.y)
-    println(io, "z         [m]:            ", st.z)
 end
 
 """
@@ -314,8 +297,18 @@ struct SysLog{P}
     name::String
     "struct of vectors that can also be accessed like a vector of structs"
     syslog::StructArray{SysState{P}}
-    "struct of vectors, containing derived values"
-    extlog::StructArray{ExtSysState{P}}
+end
+
+function Base.getproperty(log::SysLog, sym::Symbol)
+    if sym == :x
+        last.getfield(log.syslog, :X)
+    elseif sym == :y
+        last.getfield(log.syslog, :Y)
+    elseif sym == :z
+        last.getfield(log.syslog, :Z)
+    else
+        getfield(log, sym)
+    end
 end
 
 # functions
@@ -432,22 +425,6 @@ function demo_syslog(P, name="Test flight"; duration=10)
 end
 
 """
-    function syslog2extlog(P, syslog)
-
-Calculate the fields x, y, and z (kite positions) and convert the orientation to the type QuatRotation.
-"""
-function syslog2extlog(P, syslog)
-    x_vec = @view VectorOfArray(syslog.X)[end,:]
-    y_vec = @view VectorOfArray(syslog.Y)[end,:]
-    z_vec = @view VectorOfArray(syslog.Z)[end,:]
-    orient_vec = Vector{QuatRotation{Float32}}(undef, length(syslog.time))
-    for i in range(1, length=length(syslog.time))
-        orient_vec[i] = QuatRotation(syslog.orient[i])
-    end
-    return StructArray{ExtSysState{P}}((syslog.time, orient_vec, x_vec, y_vec, z_vec))    
-end
-
-"""
     function demo_log(P, name="Test_flight"; duration=10)
 
 Create an artifical SysLog struct for demonstration purposes. P is the number of tether
@@ -455,16 +432,16 @@ particles.
 """
 function demo_log(P, name="Test_flight"; duration=10)
     syslog = demo_syslog(P, name, duration=duration)
-    return SysLog{P}(name, syslog, syslog2extlog(P, syslog))
+    return SysLog{P}(name, syslog)
 end
 
 """
-    function save_log(P, flight_log)
+    function save_log(flight_log)
 
-Save a fligh log file as .arrow file. P is the number of tether
+Save a fligh log of type SysLog as .arrow file. P is the number of tether
 particles.
 """
-function save_log(P, flight_log)
+function save_log(flight_log)
     filename = joinpath(DATA_PATH[1], flight_log.name) * ".arrow"
     Arrow.write(filename, flight_log.syslog, compress=:lz4)
 end
@@ -483,13 +460,13 @@ function load_log(P, filename::String)
     end
     table = Arrow.Table(fullname)
     syslog = StructArray{SysState{P}}((table.time, table.orient, table.elevation, table.azimuth, table.l_tether, table.v_reelout, table.force, table.depower, table.v_app, table.X, table.Y, table.Z))
-    return SysLog{P}(basename(fullname[1:end-6]), syslog, syslog2extlog(P, syslog))
+    return SysLog{P}(basename(fullname[1:end-6]), syslog)
 end
 
 function test(save=false)
     if save
         log_to_save=demo_log(7)
-        save_log(7, log_to_save)
+        save_log(log_to_save)
     end
     return(load_log(7, "Test_flight.arrow"))
 end
