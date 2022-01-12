@@ -301,11 +301,11 @@ end
 
 function Base.getproperty(log::SysLog, sym::Symbol)
     if sym == :x
-        last.getfield(log.syslog, :X)
+        last.(getproperty(log.syslog, :X))
     elseif sym == :y
-        last.getfield(log.syslog, :Y)
+        last.(getproperty(log.syslog, :Y))
     elseif sym == :z
-        last.getfield(log.syslog, :Z)
+        last.(getproperty(log.syslog, :Z))
     else
         getfield(log, sym)
     end
