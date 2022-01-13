@@ -116,7 +116,8 @@ julia> kite_pos = [st.X[end], st.Y[end], st.Z[end]]
 The system log can be used to store the result of a simulation or of a test flight. 
 It stores an array of SysState structs, to be precise: a [StructArray](https://github.com/JuliaArrays/StructArrays.jl) .
 ```julia
-julia> syslog=demo_syslog(7)
+julia> log=demo_log(7)
+julia> syslog=log.syslog
 ```
 You can acces this array by index:
 ```julia
@@ -157,7 +158,7 @@ julia> rad2deg.(syslog.elevation)
 Note: To apply the function rad2deg on a vector the dot notation ```rad2deg.``` is used.
 
 ## The type SysLog
-The type SysLog is a struct of a syslog as defined above and its name. In addition the properties x, y and z are defined, which represent the position
+The type SysLog is a struct of a syslog as explained above and its name. In addition the properties x, y and z are defined, which represent the position
 of the kite over time.
 ```julia
 julia> log = demo_log(7)
