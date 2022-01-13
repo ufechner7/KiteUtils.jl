@@ -143,6 +143,8 @@ function copy_settings()
     src_path = joinpath(dirname(pathof(@__MODULE__)), "..", DATA_PATH[1])
     cp(joinpath(src_path, "settings.yaml"), joinpath(DATA_PATH[1], "settings.yaml"), force=true)
     cp(joinpath(src_path, "system.yaml"), joinpath(DATA_PATH[1], "system.yaml"), force=true)
+    chmod(joinpath(DATA_PATH[1], "settings.yaml"), 0o664)
+    chmod(joinpath(DATA_PATH[1], "system.yaml"), 0o664)
 end
 
 """
