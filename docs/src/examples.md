@@ -156,25 +156,22 @@ julia> rad2deg.(syslog.elevation)
 ```
 Note: To apply the function rad2deg on a vector the dot notation ```rad2deg.``` is used.
 
-## The extended system log
-The extended system log is a struct array of [`ExtSysState`](@ref) structs. This are values
-that are derived from the values in the system log, in particular the x, y and z position
-of the kite and the orienation of the kite as [QuatRotation](https://juliageometry.github.io/Rotations.jl/stable/3d_quaternion/) .
+## The type SysLog
+The type SysLog is a struct of a syslog as defined above and its name. In addition the properties x, y and z are defined, which represent the position
+of the kite over time.
 ```julia
-julia> ext_log = syslog2extlog(7, syslog)
-201-element StructArray(::Vector{Float64}, ::Vector{Rotations.QuatRotation{Float32}}, view(::RecursiveArrayTools.VectorOfArray{Float32, 2, Vector{StaticArrays.MVector{7, Float32}}}, 7, :), view(::RecursiveArrayTools.VectorOfArray{Float32, 2, Vector{StaticArrays.MVector{7, Float32}}}, 7, :), view(::RecursiveArrayTools.VectorOfArray{Float32, 2, Vector{StaticArrays.MVector{7, Float32}}}, 7, :)) with eltype ExtSysState{7}:
- time      [s]:            0.0
+julia> log = demo_log(7)
+SysLog{7}("Test_flight", SysState{7}[time      [s]:            0.0
 orient    [QuatRotation]: Float32[0.0 0.0 -1.0; -1.0 0.0 0.0; 0.0 1.0 0.0]
 x         [m]:            10.0
 y         [m]:            0.0
 z         [m]:            0.0
 ...
 ```
-As you can see, it contains the fields already mentioned above and in addition the time (relative time since start of simulation or launch).
 You can acces the elements using the dot notation, for example an array of the values for the height:
 ```
-julia> ext_log.z
-201-element view(::RecursiveArrayTools.VectorOfArray{Float32, 2, Vector{StaticArrays.MVector{7, Float32}}}, 7, :) with eltype Float32:
+julia> log.z
+201-element Vector{Float32}:
  0.0
  0.030000001
  0.060000002
@@ -193,13 +190,8 @@ julia> ext_log.z
 This is useful for example for 2D plotting. Example:
 ```julia
 using Plots
-plot(ext_log.time, ext_log.z)
+plot(log.syslog.time, log.z)
 ```
 This command creates a 2D plot of the height vs. the time. After the command ```using Plots``` you will be asked if you want to install
 the Plots package. Just press ENTER and it will get installed.
 
-
-## The combined type SysLog
-A variable of type SysLog contains both the system log and the extended system log. In addition
-it contains a name (filename without extension). All information needed for 2D and 3D plotting
-is contained and can easily be accessed using this type.
