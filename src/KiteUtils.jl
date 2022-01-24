@@ -106,6 +106,16 @@ $(TYPEDFIELDS)
     c_spring              = 0
     elevation             = 0
     sim_time              = 0
+    temp_ref              = 0           # temperature at reference height         [°C]
+    height_gnd            = 0           # height of groundstation above see level [m]
+    use_turbulence        = 0           # turbulence intensity relative to Cabau, NL
+    v_wind_gnds::Vector{Float64} = []   # wind speeds at ref height for calculating the turbulent wind field [m/s]
+    avg_height            = 0           # average height during reel out          [m]
+    rel_turbs::Vector{Float64} = []     # relative turbulence at the v_wind_gnds
+    i_ref                 = 0           # is the expected value of the turbulence intensity at 15 m/s.
+    v_ref                 = 0           # five times the average wind speed in m/s at hub height over the full year    [m/s]
+    height_step           = 0           # use a grid with 2m resolution in z direction                                 [m]
+    grid_step             = 0           # grid resolution in x and y direction                                         [m]  
 end
 const SETTINGS = Settings()
 
@@ -218,6 +228,17 @@ function se(project="")
         SETTINGS.z0          = dict["environment"]["z0"]
         SETTINGS.alpha       = dict["environment"]["alpha"]
         SETTINGS.profile_law = dict["environment"]["profile_law"]
+        SETTINGS.temp_ref    = dict["environment"]["temp_ref"]            # temperature at reference height         [°C]
+        SETTINGS.height_gnd  = dict["environment"]["height_gnd"]          # height of groundstation above see level [m]
+        # use_turbulence: 0.0      # turbulence intensity relative to Cabau, NL
+        # v_wind_gnds: [3.483, 5.324, 8.163] # wind speeds at ref height for calculating the turbulent wind field [m/s]
+        # avg_height: 200.0        # average height during reel out          [m]
+        # rel_turbs:   [0.342, 0.465, 0.583] # relative turbulence at the v_wind_gnds
+        # i_ref: 0.14              # is the expected value of the turbulence intensity at 15 m/s.
+        # v_ref: 42.9              # five times the average wind speed in m/s at hub height over the full year    [m/s]
+        #                          # Cabau: 8.5863 m/s * 5.0 = 42.9 m/s
+        # height_step: 2.0         # use a grid with 2m resolution in z direction                                 [m]
+        # grid_step:   2.0         # grid resolution in x and y direction                                         [m]  
     end
     return SETTINGS
 end
@@ -438,14 +459,19 @@ function demo_log(P, name="Test_flight"; duration=10)
 end
 
 """
-    function save_log(flight_log)
+    function save_log(flight_log, compress=true)
 
 Save a fligh log of type SysLog as .arrow file. P is the number of tether
-particles.
+particles. By default lz4 compression is used, if you use **false** as 
+second parameter no compression is used.
 """
-function save_log(flight_log)
+function save_log(flight_log, compress=true)
     filename = joinpath(DATA_PATH[1], flight_log.name) * ".arrow"
-    Arrow.write(filename, flight_log.syslog, compress=:lz4)
+    if compress
+        Arrow.write(filename, flight_log.syslog, compress=:lz4)
+    else
+        Arrow.write(filename, flight_log.syslog)
+    end
 end
 
 """
