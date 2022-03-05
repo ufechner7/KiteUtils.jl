@@ -31,7 +31,7 @@ SOFTWARE. =#
 using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions, Parameters
 export Settings, SysState, SysLog, MyFloat
 
-export demo_state, demo_syslog, demo_log, load_log, save_log, rot, rot3d, ground_dist, calc_elevation, azimuth_east
+export demo_state, demo_syslog, demo_log, load_log, save_log, export_log, rot, rot3d, ground_dist, calc_elevation, azimuth_east
 export set_data_path, load_settings, copy_settings, se
 
 """
@@ -461,9 +461,8 @@ end
 """
     function save_log(flight_log, compress=true)
 
-Save a fligh log of type SysLog as .arrow file. P is the number of tether
-particles. By default lz4 compression is used, if you use **false** as 
-second parameter no compression is used.
+Save a fligh log of type SysLog as .arrow file. By default lz4 compression is used, 
+if you use **false** as second parameter no compression is used.
 """
 function save_log(flight_log, compress=true)
     filename = joinpath(DATA_PATH[1], flight_log.name) * ".arrow"
@@ -472,6 +471,17 @@ function save_log(flight_log, compress=true)
     else
         Arrow.write(filename, flight_log.syslog)
     end
+end
+
+"""
+    function export_log(flight_log)
+
+Save a fligh log of type SysLog as .csv file.
+"""
+function export_log(flight_log)
+    @eval using CSV
+    filename = joinpath(DATA_PATH[1], flight_log.name) * ".csv"
+    Base.invokelatest(CSV.write, filename, flight_log.syslog)
 end
 
 """

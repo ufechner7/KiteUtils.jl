@@ -23,6 +23,7 @@ end
     log = KiteUtils.test(true)
     @test typeof(log) == SysLog{7}
     @test log.syslog.Z[end][7] ≈ 6 # height of the last particle which represents the kite
+    @test export_log(log) == "./data/Test_flight.csv"
 end
 @testset "KiteUtils.jl: Transformations" begin
     ax, ay, az = [1, 0, 0], [0, 1, 0],  [0, 0, 1]
@@ -39,3 +40,4 @@ end
     @test calc_elevation(pos_kite) ≈ 1.4303066250413763
     @test azimuth_east(pos_kite) ≈ -0.7853981633974483
 end
+nothing
