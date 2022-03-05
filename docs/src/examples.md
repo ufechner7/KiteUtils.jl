@@ -214,11 +214,12 @@ By default the log file is save in the data folder. You can set a different fold
 
 ```julia
 julia> log = demo_log(7);
-julia> set_data_path("/tmp")
+julia> set_data_path(tempdir())
 julia> export_log(log)
 ```
 
-Output:
+Output on Linux:
 ```julia
 "/tmp/Test_flight.csv"
 ```
+The output on Windows will be different because the default temporary directory is different.
