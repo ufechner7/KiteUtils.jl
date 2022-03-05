@@ -196,3 +196,29 @@ plot(log.syslog.time, log.z)
 This command creates a 2D plot of the height vs. the time. After the command ```using Plots``` you will be asked if you want to install
 the Plots package. Just press ENTER and it will get installed.
 
+### Saving and exporting log files
+
+Saving a log file:
+```julia
+julia> log = demo_log(7);
+julia> save_log(log)
+```
+The semicolon at the end of the first line suppresses the output.
+
+Exporting a log file in csv format:
+```julia
+julia> log = demo_log(7);
+julia> export_log(log)
+```
+By default the log file is save in the data folder. You can set a different folder as data folder with the function **set_data_path**. 
+
+```julia
+julia> log = demo_log(7);
+julia> set_data_path("/tmp")
+julia> export_log(log)
+```
+
+Output:
+```julia
+"/tmp/Test_flight.csv"
+```

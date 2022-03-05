@@ -11,8 +11,8 @@ cd("..")
     @test length(se().alpha_cl) == 12
     set_data_path("/tmp")
     @test KiteUtils.DATA_PATH[1] == "/tmp"
-    set_data_path("./data")
-    set2 = load_settings("./data/settings.yaml")
+    set_data_path("data")
+    set2 = load_settings("data/settings.yaml")
     @test set2.project == "settings.yaml"
 end
 @testset "KiteUtils.jl: Log files      " begin
@@ -23,7 +23,7 @@ end
     log = KiteUtils.test(true)
     @test typeof(log) == SysLog{7}
     @test log.syslog.Z[end][7] ≈ 6 # height of the last particle which represents the kite
-    @test export_log(log) == "./data/Test_flight.csv"
+    @test export_log(log) == joinpath("data", "Test_flight.csv")
 end
 @testset "KiteUtils.jl: Transformations" begin
     ax, ay, az = [1, 0, 0], [0, 1, 0],  [0, 0, 1]
