@@ -52,7 +52,10 @@ $(TYPEDFIELDS)
 @with_kw mutable struct Settings @deftype Float64
     project::String       = ""
     log_file::String      = ""
+    "file name of the 3D model of the kite for the viewer"
     model::String         = ""
+    "name of the kite model to use (KPS3 or KPS4)"
+    physical_model::String = ""
     "number of tether segments"
     segments::Int64       = 0
     sample_freq::Int64    = 0
@@ -74,6 +77,15 @@ $(TYPEDFIELDS)
     cl_list::Vector{Float64}  = []
     alpha_cd::Vector{Float64} = []
     cd_list::Vector{Float64}  = []
+    "width of the kite                [m]"
+    width                 = 0
+    alpha_zero            = 0
+    alpha_ztip            = 0
+    "relative nose distance; increasing m_k increases C2 of the turn-rate law"
+    m_k                   = 0
+    rel_nose_mass         = 0
+    "mass of the top particle relative to the sum of top and side particles"
+    rel_top_mass          = 0
     "relative side area               [%]"
     rel_side_area         = 0
     "max depower angle              [deg]"
@@ -99,24 +111,35 @@ $(TYPEDFIELDS)
     cd_tether             = 0
     d_tether              = 0
     d_line                = 0
-    "height of the bridle             [m]"
+    "height of the bridle                    [m]"
     h_bridle              = 0
     l_bridle              = 0
     l_tether              = 0
     damping               = 0
     c_spring              = 0
+    rho_tether            = 0
     elevation             = 0
     sim_time              = 0
-    temp_ref              = 0           # temperature at reference height         [°C]
-    height_gnd            = 0           # height of groundstation above see level [m]
-    use_turbulence        = 0           # turbulence intensity relative to Cabau, NL
-    v_wind_gnds::Vector{Float64} = []   # wind speeds at ref height for calculating the turbulent wind field [m/s]
-    avg_height            = 0           # average height during reel out          [m]
-    rel_turbs::Vector{Float64} = []     # relative turbulence at the v_wind_gnds
-    i_ref                 = 0           # is the expected value of the turbulence intensity at 15 m/s.
-    v_ref                 = 0           # five times the average wind speed in m/s at hub height over the full year    [m/s]
-    height_step           = 0           # use a grid with 2m resolution in z direction                                 [m]
-    grid_step             = 0           # grid resolution in x and y direction                                         [m]  
+    "temperature at reference height         [°C]"
+    temp_ref              = 0
+    "height of groundstation above see level  [m]"
+    height_gnd            = 0
+    "turbulence intensity relative to Cabau, NL"
+    use_turbulence        = 0
+    "wind speeds at ref height for calculating the turbulent wind field [m/s]"
+    v_wind_gnds::Vector{Float64} = []
+    "average height during reel out           [m]"
+    avg_height            = 0
+    "relative turbulence at the v_wind_gnds"
+    rel_turbs::Vector{Float64} = []
+    "the expected value of the turbulence intensity at 15 m/s"
+    i_ref                 = 0
+    "five times the average wind speed in m/s at hub height over the full year    [m/s]"
+    v_ref                 = 0
+    "grid resolution in z direction                                                 [m]"
+    height_step           = 0 
+    "grid resolution in x and y direction                                           [m]"
+    grid_step             = 0
 end
 const SETTINGS = Settings()
 
@@ -195,6 +218,7 @@ function se(project="")
         SETTINGS.depower_offset = dict["depower"]["depower_offset"]
 
         SETTINGS.model         = dict["kite"]["model"]
+        SETTINGS.physical_model = dict["kite"]["physical_model"]
         SETTINGS.area          = dict["kite"]["area"]
         SETTINGS.rel_side_area = dict["kite"]["rel_side_area"]
         SETTINGS.mass          = dict["kite"]["mass"]
@@ -203,6 +227,13 @@ function se(project="")
         SETTINGS.cl_list       = dict["kite"]["cl_list"]
         SETTINGS.alpha_cd      = dict["kite"]["alpha_cd"]
         SETTINGS.cd_list       = dict["kite"]["cd_list"]
+
+        SETTINGS.width         = dict["kps4"]["width"]
+        SETTINGS.alpha_zero    = dict["kps4"]["alpha_zero"]
+        SETTINGS.alpha_ztip    = dict["kps4"]["alpha_ztip"]
+        SETTINGS.m_k           = dict["kps4"]["m_k"]
+        SETTINGS.rel_nose_mass = dict["kps4"]["rel_nose_mass"]
+        SETTINGS.rel_top_mass  = dict["kps4"]["rel_top_mass"]
 
         SETTINGS.l_bridle      = dict["bridle"]["l_bridle"]
         SETTINGS.h_bridle      = dict["bridle"]["h_bridle"]
@@ -222,6 +253,7 @@ function se(project="")
         SETTINGS.d_tether    = dict["tether"]["d_tether"]
         SETTINGS.damping     = dict["tether"]["damping"]
         SETTINGS.c_spring    = dict["tether"]["c_spring"]
+        SETTINGS.rho_tether  = dict["tether"]["rho_tether"]
 
         SETTINGS.v_wind      = dict["environment"]["v_wind"]
         SETTINGS.v_wind_ref  = dict["environment"]["v_wind_ref"]
