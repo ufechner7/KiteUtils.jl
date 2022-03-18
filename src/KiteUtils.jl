@@ -119,6 +119,8 @@ $(TYPEDFIELDS)
     c_spring              = 0
     "density of Dyneema                   [kg/m³]"
     rho_tether            = 0
+    "axial tensile modulus of the tether     [Pa]"
+    e_tether              = 0
     "initial elevation angle                [deg]"
     elevation             = 0
     "simulation time                   [sim only]"
@@ -257,6 +259,7 @@ function se(project="")
         SETTINGS.damping     = dict["tether"]["damping"]
         SETTINGS.c_spring    = dict["tether"]["c_spring"]
         SETTINGS.rho_tether  = dict["tether"]["rho_tether"]
+        SETTINGS.e_tether    = dict["tether"]["e_tether"]
 
         SETTINGS.v_wind      = dict["environment"]["v_wind"]
         SETTINGS.v_wind_ref  = dict["environment"]["v_wind_ref"]
