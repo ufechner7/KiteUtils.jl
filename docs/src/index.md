@@ -26,5 +26,5 @@ This package provides functions to:
 ## Related
 - The application [KiteViewer](https://github.com/ufechner7/KiteViewer)
 - the package [KiteModels](https://github.com/ufechner7/KiteModels.jl)
-- the package [KitePodSimulator](https://github.com/ufechner7/KitePodSimulator.jl)
+- the package [KitePodModels](https://github.com/ufechner7/KitePodModels.jl)
 
