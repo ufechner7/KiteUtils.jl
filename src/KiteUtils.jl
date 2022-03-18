@@ -117,8 +117,11 @@ $(TYPEDFIELDS)
     l_tether              = 0
     damping               = 0
     c_spring              = 0
+    "density of Dyneema                   [kg/m³]"
     rho_tether            = 0
+    "initial elevation angle                [deg]"
     elevation             = 0
+    "simulation time                   [sim only]"
     sim_time              = 0
     "temperature at reference height         [°C]"
     temp_ref              = 0
