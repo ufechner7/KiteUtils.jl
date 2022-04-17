@@ -31,8 +31,9 @@ SOFTWARE. =#
 using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions, Parameters
 export Settings, SysState, SysLog, MyFloat
 
-export demo_state, demo_syslog, demo_log, load_log, save_log, export_log, rot, rot3d, ground_dist, calc_elevation, azimuth_east
-export set_data_path, load_settings, copy_settings, se
+export demo_state, demo_syslog, demo_log, load_log, save_log, export_log # functions for logging
+export rot, rot3d, ground_dist, calc_elevation, azimuth_east, acos2      # geometric functions
+export set_data_path, load_settings, copy_settings, se                   # functions for reading and copying parameters
 
 """
     const MyFloat = Float32
@@ -459,6 +460,18 @@ Valid range: -π .. π.
 """
 function azimuth_east(vec)
     return -atan(vec[2], vec[1])
+end
+
+"""
+    acos2(arg)
+
+Calculate the acos of arg, but allow values slightly above one and below
+minus one to avoid exceptions in case of rounding errors. Returns an
+angle in radian.
+"""
+@inline function acos2(arg)
+   arg2 = min(max(arg, -1.0), 1.0)
+   acos(arg2)
 end
 
 """

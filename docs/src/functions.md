@@ -37,7 +37,8 @@ rot(pos_kite, pos_before, v_app)
 ## Geometric calculations
 Calculate the elevation angle, the azimuth angle and the ground distance based on the kite position.
 ```@docs
-calc_elevation(vec)
-azimuth_east(vec)
-ground_dist(vec)
+calc_elevation
+azimuth_east
+ground_dist
+acos2
 ```
