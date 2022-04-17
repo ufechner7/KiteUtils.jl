@@ -54,13 +54,9 @@ $(TYPEDFIELDS)
     log_file::String      = ""
     "file name of the 3D model of the kite for the viewer"
     model::String         = ""
-<<<<<<< Updated upstream
     "name of the kite model to use (KPS3 or KPS4)"
     physical_model::String = ""
-=======
-    physical_model::String = ""
     version::Int64 = 1
->>>>>>> Stashed changes
     "number of tether segments"
     segments::Int64       = 0
     sample_freq::Int64    = 0
