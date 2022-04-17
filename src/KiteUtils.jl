@@ -54,14 +54,22 @@ $(TYPEDFIELDS)
     log_file::String      = ""
     "file name of the 3D model of the kite for the viewer"
     model::String         = ""
+<<<<<<< Updated upstream
     "name of the kite model to use (KPS3 or KPS4)"
     physical_model::String = ""
+=======
+    physical_model::String = ""
+    version::Int64 = 1
+>>>>>>> Stashed changes
     "number of tether segments"
     segments::Int64       = 0
     sample_freq::Int64    = 0
     time_lapse            = 0
     zoom                  = 0
     fixed_font::String    = ""
+    abs_tol               = 0.0
+    rel_tol               = 0.0
+    max_iter::Int64       = 1
     v_reel_out            = 0
     c0                    = 0
     c_s                   = 0
@@ -124,6 +132,7 @@ $(TYPEDFIELDS)
     "initial elevation angle                [deg]"
     elevation             = 0
     "simulation time                   [sim only]"
+    depower               = 0
     sim_time              = 0
     "temperature at reference height         [°C]"
     temp_ref              = 0
@@ -213,6 +222,11 @@ function se(project="")
         SETTINGS.l_tether    = dict["initial"]["l_tether"]
         SETTINGS.v_reel_out  = dict["initial"]["v_reel_out"]
         SETTINGS.elevation   = dict["initial"]["elevation"]
+        SETTINGS.depower     = dict["initial"]["depower"]
+
+        SETTINGS.abs_tol     = dict["solver"]["abs_tol"]
+        SETTINGS.rel_tol     = dict["solver"]["rel_tol"]
+        SETTINGS.max_iter    = dict["solver"]["max_iter"]
 
         SETTINGS.c0          = dict["steering"]["c0"]
         SETTINGS.c_s         = dict["steering"]["c_s"]
@@ -223,7 +237,8 @@ function se(project="")
         SETTINGS.depower_offset = dict["depower"]["depower_offset"]
 
         SETTINGS.model         = dict["kite"]["model"]
-        SETTINGS.physical_model = dict["kite"]["physical_model"]
+        SETTINGS.physical_model= dict["kite"]["physical_model"]
+        SETTINGS.version       = dict["kite"]["version"]
         SETTINGS.area          = dict["kite"]["area"]
         SETTINGS.rel_side_area = dict["kite"]["rel_side_area"]
         SETTINGS.mass          = dict["kite"]["mass"]

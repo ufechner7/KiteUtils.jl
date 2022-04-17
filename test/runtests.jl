@@ -27,7 +27,7 @@ end
     @test log.z[end] ≈ 6.0
     @test log.y[end] ≈ 0.0
     @test log.x[end] ≈ 10.0
-    @test export_log(log) == joinpath("data", "Test_flight.csv")
+    @test export_log(log) == joinpath("/tmp", "Test_flight.csv")
 end
 @testset "KiteUtils.jl: Transformations" begin
     ax, ay, az = [1, 0, 0], [0, 1, 0],  [0, 0, 1]
