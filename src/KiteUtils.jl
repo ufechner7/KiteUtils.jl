@@ -434,7 +434,7 @@ function rot(pos_kite, pos_before, v_app)
 end
 
 """
-    function ground_dist(vec)
+    ground_dist(vec)
 
 Calculate the ground distance of the kite from the groundstation based on the kite position (x,y,z, z up).
 """
@@ -443,7 +443,7 @@ function ground_dist(vec)
 end 
 
 """
-     function calc_elevation(vec)
+    calc_elevation(vec)
 
 Calculate the elevation angle in radian from the kite position. 
 """
@@ -452,7 +452,7 @@ function calc_elevation(vec)
 end
 
 """
-    function azimuth_east(vec)
+    azimuth_east(vec)
 
 Calculate the azimuth angle in radian from the kite position in ENU reference frame.
 Zero east. Positive direction clockwise seen from above.
@@ -475,7 +475,7 @@ angle in radian.
 end
 
 """
-    function demo_state(P, height=6.0, time=0.0)
+    demo_state(P, height=6.0, time=0.0)
 
 Create a demo state with a given height and time. P is the number of tether particles.
 
@@ -494,7 +494,7 @@ function demo_state(P, height=6.0, time=0.0)
 end
 
 """
-    function demo_syslog(P, name="Test flight"; duration=10)
+    demo_syslog(P, name="Test flight"; duration=10)
 
 Create a demo flight log  with given name [String] and duration [s] as StructArray. P is the number of tether
 particles.
@@ -522,7 +522,7 @@ function demo_syslog(P, name="Test flight"; duration=10)
 end
 
 """
-    function demo_log(P, name="Test_flight"; duration=10)
+    demo_log(P, name="Test_flight"; duration=10)
 
 Create an artifical SysLog struct for demonstration purposes. P is the number of tether
 particles.
@@ -533,7 +533,7 @@ function demo_log(P, name="Test_flight"; duration=10)
 end
 
 """
-    function save_log(flight_log, compress=true)
+    save_log(flight_log, compress=true)
 
 Save a fligh log of type SysLog as .arrow file. By default lz4 compression is used, 
 if you use **false** as second parameter no compression is used.
@@ -548,7 +548,7 @@ function save_log(flight_log, compress=true)
 end
 
 """
-    function export_log(flight_log)
+    export_log(flight_log)
 
 Save a fligh log of type SysLog as .csv file.
 """
@@ -559,7 +559,7 @@ function export_log(flight_log)
 end
 
 """
-    function load_log(P, filename::String)
+    load_log(P, filename::String)
 
 Read a log file that was saved as .arrow file.  P is the number of tether
 particles.
