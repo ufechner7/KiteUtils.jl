@@ -154,12 +154,21 @@ end
 const SETTINGS = Settings()
 
 """
-    set_data_path(data_path)
+    set_data_path(data_path="")
 
 Set the directory for log and config files.
+
+If called without argument, use the data path of the package to obtain the default settings
+when calling se(). 
 """
-function set_data_path(data_path)
-    DATA_PATH[1] = data_path
+function set_data_path(data_path="")
+    if data_path==""
+        data_path = joinpath(dirname(dirname(pathof(KiteUtils))), "data")
+    end
+    if data_path != DATA_PATH[1]
+        DATA_PATH[1] = data_path
+        SETTINGS.segments == 0 # enforce reloading of settings.yaml
+    end
 end
 
 """
