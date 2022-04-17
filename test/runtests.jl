@@ -20,6 +20,7 @@ end
     @test typeof(state) == SysState{7}
     @test state.X[end] == 10.0
     @test repr(state) == "time      [s]:       0.0\norient    [w,x,y,z]: Float32[0.5, 0.5, -0.5, -0.5]\nelevation [rad]:     0.5404195\nazimuth   [rad]:     0.0\nl_tether  [m]:       0.0\nv_reelout [m/s]:     0.0\nforce     [N]:       0.0\ndepower   [-]:       0.0\nv_app     [m/s]:     0.0\nX         [m]:       Float32[0.0, 1.6666666, 3.3333333, 5.0, 6.6666665, 8.333333, 10.0]\nY         [m]:       Float32[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]\nZ         [m]:       Float32[0.0, 0.15380114, 0.6194867, 1.4100224, 2.5474184, 4.063342, 6.0000005]\n"
+    set_data_path("/tmp")
     log = KiteUtils.test(true)
     @test typeof(log) == SysLog{7}
     @test log.syslog.Z[end][7] ≈ 6 # height of the last particle which represents the kite
