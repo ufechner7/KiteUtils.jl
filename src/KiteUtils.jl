@@ -207,7 +207,7 @@ function se(project="")
         end
         # load project from YAML
         dict = YAML.load_file(joinpath(DATA_PATH[1], SETTINGS.project))
-        tmp = dict["system"]["log_file"]
+        tmp = split(dict["system"]["log_file"], "/")
         SETTINGS.log_file    = joinpath(tmp[1], tmp[2])
         SETTINGS.segments    = dict["system"]["segments"]
         SETTINGS.sample_freq = dict["system"]["sample_freq"]
