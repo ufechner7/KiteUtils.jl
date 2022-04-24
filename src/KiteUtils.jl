@@ -44,6 +44,7 @@ const MyFloat = Float32             # type to use for position components and sc
 const DATA_PATH = ["data"]          # path for log files and other data
 
 include("settings.jl")
+include("transformations.jl")
 
 """
     SysState{P}
@@ -154,79 +155,6 @@ end
 # functions
 function __init__()
     SETTINGS.segments=0 # force loading of settings.yaml
-end
-
-"""
-    rot3d(ax, ay, az, bx, by, bz)
-
-Calculate the rotation matrix that needs to be applied on the reference frame (ax, ay, az) to match 
-the reference frame (bx, by, bz).
-All parameters must be 3-element vectors. Both refrence frames must be orthogonal,
-all vectors must already be normalized.
-
-Source: [TRIAD_Algorithm](http://en.wikipedia.org/wiki/User:Snietfeld/TRIAD_Algorithm)
-"""
-function rot3d(ax, ay, az, bx, by, bz)
-    R_ai = hcat(ax, az, ay)
-    R_bi = hcat(bx, bz, by)
-    return R_bi * R_ai'
-end
-
-"""
-    rot(pos_kite, pos_before, v_app)
-
-Calculate the rotation matrix of the kite based on the position of the
-last two tether particles and the apparent wind speed vector.
-"""
-function rot(pos_kite, pos_before, v_app)
-    delta = pos_kite - pos_before
-    @assert norm(delta) > 0.0 "Error in function rot() ! pos_kite must be not equal to pos_before. "
-    c = -delta
-    z = normalize(c)
-    y = normalize(cross(-v_app, c))
-    x = normalize(cross(y, c))
-    rot = rot3d([0,-1.0,0], [1.0,0,0], [0,0,-1.0], z, y, x)
-end
-
-"""
-    ground_dist(vec)
-
-Calculate the ground distance of the kite from the groundstation based on the kite position (x,y,z, z up).
-"""
-function ground_dist(vec)
-    sqrt(vec[1]^2 + vec[2]^2)
-end 
-
-"""
-    calc_elevation(vec)
-
-Calculate the elevation angle in radian from the kite position. 
-"""
-function calc_elevation(vec)
-    atan(vec[3] / ground_dist(vec))
-end
-
-"""
-    azimuth_east(vec)
-
-Calculate the azimuth angle in radian from the kite position in ENU reference frame.
-Zero east. Positive direction clockwise seen from above.
-Valid range: -π .. π.
-"""
-function azimuth_east(vec)
-    return -atan(vec[2], vec[1])
-end
-
-"""
-    acos2(arg)
-
-Calculate the acos of arg, but allow values slightly above one and below
-minus one to avoid exceptions in case of rounding errors. Returns an
-angle in radian.
-"""
-@inline function acos2(arg)
-   arg2 = min(max(arg, -1.0), 1.0)
-   acos(arg2)
 end
 
 """
