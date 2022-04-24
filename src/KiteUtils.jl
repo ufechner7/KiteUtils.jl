@@ -32,6 +32,7 @@ using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, L
 export Settings, SysState, SysLog, MyFloat
 
 export demo_state, demo_syslog, demo_log, load_log, save_log, export_log # functions for logging
+export demo_state_4p, initial_kite_ref_frame
 export rot, rot3d, ground_dist, calc_elevation, azimuth_east, acos2      # geometric functions
 export set_data_path, load_settings, copy_settings, se                   # functions for reading and copying parameters
 
@@ -174,6 +175,87 @@ function demo_state(P, height=6.0, time=0.0)
     orient = MVector{4, Float32}(Rotations.params(q))
     elevation = calc_elevation([X[end], 0.0, Z[end]])
     return SysState{P}(time, orient, elevation,0.,0.,0.,0.,0.,0.,X, Y, Z)
+end
+
+"""
+    initial_kite_ref_frame(vec_c, v_app)
+
+Calculate the initial orientation of the kite based on the last tether segment and
+the apparent wind speed.
+
+Parameters:
+- vec_c: (pos_n-2) - (pos_n-1) n: number of particles without the three kite particles
+                                  that do not belong to the main thether (P1, P2 and P3).
+- v_app: vector of the apparent wind speed
+
+Returns:
+x, y, z:  the unit vectors of the kite reference frame in the ENU reference frame
+"""
+function initial_kite_ref_frame(vec_c, v_app)
+    z = normalize(vec_c)
+    y = normalize(cross(v_app, vec_c))
+    x = normalize(cross(y, vec_c))
+    return (x, y, z)    
+end
+
+"""
+    get_particles(height_k, height_b, width, m_k, pos_pod= [ 75., 0., 129.90381057], vec_c=[-15., 0., -25.98076211], v_app=[10.4855, 0, -3.08324])
+
+Calculate the initial positions of the particels representing 
+a 4-point kite, connected to a kite control unit (KCU). 
+
+Parameters:
+- height_k: height of the kite itself, not above ground [m]
+- height_b: height of the bridle [m]
+- width: width of the kite [m]
+- mk: relative nose distance
+- pos_pod: position of the control pod
+- vec_c: vector of the last tether segment
+"""
+function get_particles(height_k, height_b, width, m_k, pos_pod= [ 75., 0., 129.90381057], vec_c=[-15., 0., -25.98076211], v_app=[10.4855, 0, -3.08324])
+    # inclination angle of the kite; beta = atan(-pos_kite[2], pos_kite[1]) ???
+    beta = pi/2.0
+    x, y, z = initial_kite_ref_frame(vec_c, v_app)
+
+    h_kx = height_k * cos(beta); # print 'h_kx: ', h_kx
+    h_kz = height_k * sin(beta); # print 'h_kz: ', h_kz
+    h_bx = height_b * cos(beta)
+    h_bz = height_b * sin(beta)
+    pos_kite = pos_pod - (h_kz + h_bz) * z + (h_kx + h_bx) * x   # top,        poing B in diagram
+    pos_C = pos_kite + h_kz * z + 0.5 * width * y + h_kx * x     # side point, point C in diagram
+    pos_A = pos_kite + h_kz * z + (h_kx + width * m_k) * x       # nose,       point A in diagram
+    pos_D = pos_kite + h_kz * z - 0.5 * width * y + h_kx * x     # side point, point D in diagram
+    pos0 = pos_kite + (h_kz + h_bz) * z + (h_kx + h_bx) * x      # equal to pos_pod, P_KCU in diagram
+    [zeros(3), pos0, pos_A, pos_kite, pos_C, pos_D] # 0, p7, p8, p9, p10, p11
+end
+
+"""
+    demo_state_4p(P, height=6.0, time=0.0)
+
+Create a demo state, using the 4 point kite model with a given height and time. P is the number of tether particles.
+
+Returns a SysState instance.
+"""
+function demo_state_4p(P, height=6.0, time=0.0)
+    a = 10
+    X = collect(range(0, stop=10, length=P))
+    Y = zeros(length(X))
+    Z = (a .* cosh.(X./a) .- a) * height/ 5.430806 
+    # append the kite particles to X, Y and z
+    pod_pos = [X[end], Y[end], Z[end]]
+    particles = get_particles(se().height_k, se().h_bridle, se().width, se().m_k, pod_pos)[3:end]
+    for i in 1:4
+        particle=particles[i]
+        x, y, z = particle[1], particle[2], particle[3]
+        push!(X, x)
+        push!(Y, y)
+        push!(Z, z)
+    end
+    r_xyz = RotXYZ(pi/2, -pi/2, 0)
+    q = QuatRotation(r_xyz)
+    orient = MVector{4, Float32}(Rotations.params(q))
+    elevation = calc_elevation([X[end], 0.0, Z[end]])
+    return SysState{P+4}(time, orient, elevation,0.,0.,0.,0.,0.,0.,X, Y, Z)
 end
 
 """
