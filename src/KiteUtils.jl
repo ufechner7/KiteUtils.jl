@@ -32,7 +32,7 @@ using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, L
 export Settings, SysState, SysLog, MyFloat
 
 export demo_state, demo_syslog, demo_log, load_log, save_log, export_log # functions for logging
-export demo_state_4p, initial_kite_ref_frame
+export demo_state_4p, initial_kite_ref_frame                             # functions for four point kite model
 export rot, rot3d, ground_dist, calc_elevation, azimuth_east, acos2      # geometric functions
 export set_data_path, load_settings, copy_settings, se                   # functions for reading and copying parameters
 
