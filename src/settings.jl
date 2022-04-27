@@ -46,6 +46,7 @@ $(TYPEDFIELDS)
     sample_freq::Int64    = 0
     time_lapse            = 0
     zoom                  = 0
+    kite_scale            = 1.0
     fixed_font::String    = ""
     abs_tol               = 0.0
     rel_tol               = 0.0
@@ -207,6 +208,7 @@ function se(project="")
         SETTINGS.time_lapse  = dict["system"]["time_lapse"]
         SETTINGS.sim_time    = dict["system"]["sim_time"]
         SETTINGS.zoom        = dict["system"]["zoom"]
+        SETTINGS.kite_scale  = dict["system"]["kite_scale"]
         SETTINGS.fixed_font  = dict["system"]["fixed_font"]
 
         SETTINGS.l_tether    = dict["initial"]["l_tether"]
