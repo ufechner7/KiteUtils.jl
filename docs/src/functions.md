@@ -16,8 +16,10 @@ Also look at the default example: [settings.yaml](https://github.com/ufechner7/K
 # Creating test data
 ```@docs
 demo_state(P, height=6.0, time=0.0)
+demo_state_4p
 demo_syslog(P, name="Test flight"; duration=10)
 demo_log(P, name="Test_flight"; duration=10)
+get_particles
 ```
 
 # Loading, saving and converting log files
@@ -41,4 +43,5 @@ calc_elevation
 azimuth_east
 ground_dist
 acos2
+initial_kite_ref_frame
 ```
