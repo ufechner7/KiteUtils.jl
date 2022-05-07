@@ -1,4 +1,4 @@
-using KiteUtils
+using KiteUtils, StaticArrays
 using Test
 
 cd("..")
@@ -52,5 +52,14 @@ end
     @test azimuth_east(pos_kite) ≈ -0.7853981633974483
     @test acos2(1.0001) == 0.0
     @test acos2(-1.0001) ≈ π
+    @test calc_azimuth(0) ≈ -1.5707963267948966
+    @test calc_azimuth(π) ≈ 1.5707963267948966
+    vec1 = SVector(1.0, 2.0, 3.0)
+    elevation = deg2rad(71.5)
+    azimuth   = 0.0
+    @test fromENU2EG(vec1) == [2.0, -1.0, 3.0]
+    @test fromW2SE(vec1, elevation, azimuth) == [0.0035903140090769448, 2.0, -3.16227562202369]
+    azimuth   = deg2rad(45)
+    @test fromW2SE(vec1, elevation, azimuth) == [1.622480056571193, 2.121320343559643, -2.62060269137249]
 end
 nothing

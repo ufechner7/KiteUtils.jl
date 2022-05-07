@@ -2,39 +2,59 @@
 Functions to transform between coordinate systems.
 """
 
-# ENU2EG = mat3( 0, 1, 0,
-#               -1, 0, 0,
-#                0, 0, 1)
+ENU2EG = @SMatrix [ 0  1  0;
+                   -1  0  0;
+                    0  0  1]
 
-# def calcAzimuth(azimuth_north, upWindDirection = -pi/2.0):
-#     """ Calculate the azimuth in the wind reference frame.
-#         The upWindDirection is the direction the wind is coming from
-#         Zero is at north; clockwise positive. Default: Wind from west.
-#         Returns:
-#         Angle in radians. Zero straight downwind. Positive direction clockwise seen
-#         from above.
-#         Valid range: -pi .. pi. """
-#     result = azimuth_north - upWindDirection + pi
-#     if result > pi:
-#         result -= 2.0 * pi
-#     if result < -pi:
-#         result += 2.0 * pi
-#     return result
+"""
+    calc_azimuth(azimuth_north, up_wind_direction = -π/2)
 
+Calculate the azimuth in the wind reference frame.
+The up_wind_direction is the direction the wind is coming from
+Zero is at north; clockwise positive. Default: Wind from west.
 
-# def fromEAK2ENU(vector):
-#     """ vector: elevation, azimuth_north, kite_distance
-#         Returns the kite position in the east-north-up reference frame. """
-#     elevation     = vector[0]
-#     azimuth_north = vector[1]
-#     kite_distance = vector[2]
-#     return vec3(sin(azimuth_north), cos(azimuth_north), sin(elevation)) * kite_distance
+Returns:
+- Angle in radians. Zero straight downwind. Positive direction clockwise seen
+  from above.
+- Valid range: -pi .. pi. 
+"""
+function calc_azimuth(azimuth_north, up_wind_direction = -π/2)
+    result = azimuth_north - up_wind_direction + π
+    if result > π
+        result -= 2π
+    elseif result < -π
+        result += 2π
+    end
+    result
+end
 
-# def fromENU2EG(pointENU):
-#     """ Transform the position of the kite in the East North Up reference frame to the Earth Groundstation
-#         (North West Up) reference frame.
-#     """
-#     return ENU2EG * vec3(pointENU)
+""" 
+    fromENU2EG(pointENU)
+
+Transform the position of the kite in the East North Up reference frame to the Earth Groundstation
+(North West Up) reference frame.
+"""
+function fromENU2EG(pointENU)
+    ENU2EG * pointENU
+end
+
+ """
+     fromW2SE(vector, elevation, azimuth)
+
+ Transform a (velocity-) vector (x,y,z) from Wind to Small Earth reference frame .
+ """
+function fromW2SE(vector, elevation, azimuth)
+    rotate_first_step = @SMatrix[0  0  1;
+                                 0  1  0;
+                                -1  0  0]
+    rotate_elevation = @SMatrix[cos(elevation) 0 sin(elevation);
+                                0              1         0;
+                             -sin(elevation)   0   cos(elevation)]
+    rotate_azimuth = @SMatrix[1         0       0;
+                              0  cos(azimuth)   -sin(azimuth);
+                              0  sin(azimuth)    cos(azimuth)]
+    rotate_elevation * rotate_azimuth * rotate_first_step * vector
+end
 
 # def fromKS2EX(vector, orientation):
 #     """ transform a vector (x,y,z) from KiteSensor to Earth Xsens reference frame """
@@ -51,6 +71,34 @@ Functions to transform between coordinate systems.
 #                        0,   sin(roll),  cos(roll))
 #     return rotateYAW * rotatePITCH * rotateROLL * vec3(vector)
 
+"""
+    calc_heading_w(orientation, down_wind_direction = pi/2.0)
+"""
+function calc_heading_w(orientation, downWindDirection = pi/2.0)
+    # create a unit heading vector in the xsense reference frame
+    heading_sensor =  SVector(1, 0, 0)
+    # rotate headingSensor to the Earth Xsens reference frame
+    headingEX = fromKS2EX(heading_sensor, orientation)
+#     # print 'headingEX', headingEX
+#     # rotate headingEX to earth groundstation reference frame
+#     headingEG = fromEX2EG(headingEX)
+#     # print 'headingEG', headingEG
+#     # rotate headingEG to headingW and convert to 2d HeadingW vector
+#     result = fromEG2W(headingEG, downWindDirection)
+#     # print 'headingW1', result
+#     return result
+
+end
+
+
+# def fromEAK2ENU(vector):
+#     """ vector: elevation, azimuth_north, kite_distance
+#         Returns the kite position in the east-north-up reference frame. """
+#     elevation     = vector[0]
+#     azimuth_north = vector[1]
+#     kite_distance = vector[2]
+#     return vec3(sin(azimuth_north), cos(azimuth_north), sin(elevation)) * kite_distance
+
 # def fromEX2EG(vector):
 #     """ transform a vector (x,y,z) from EarthXsens to Earth Groundstation reference frame """
 #     rotateEX2EG = mat3(1,  0,  0,
@@ -65,47 +113,6 @@ Functions to transform between coordinate systems.
 #                          sin(downWindDirection),  cos(downWindDirection), 0,
 #                            0,                       0,                    1)
 #     return rotateEG2W * vec3(vector)
-
-# def calc_heading_w(orientation, downWindDirection = pi/2.0):
-#     """
-#         // create a unit heading vector in the xsense reference frame
-#         Vector3d headingSensor(1, 0, 0);
-#         // rotate headingSensor to the Earth Xsens reference frame
-#         Vector3d headingEX = fromKS2EX(headingSensor);
-#         // rotate headingEX to earth groundstation reference frame
-#         Vector3d headingEG = fromEX2EG(headingEX);
-#         // rotate headingEG to headingW and convert to HeadingW object
-#         m_headingW = new HeadingW(fromEG2W(headingEG));
-
-#     """
-#     # print 'orientation', orientation
-#     # create a unit heading vector in the xsense reference frame
-#     headingSensor =  np.zeros(3)
-#     headingSensor[0] = 1
-#     # rotate headingSensor to the Earth Xsens reference frame
-#     headingEX = fromKS2EX(headingSensor, orientation)
-#     # print 'headingEX', headingEX
-#     # rotate headingEX to earth groundstation reference frame
-#     headingEG = fromEX2EG(headingEX)
-#     # print 'headingEG', headingEG
-#     # rotate headingEG to headingW and convert to 2d HeadingW vector
-#     result = fromEG2W(headingEG, downWindDirection)
-#     # print 'headingW1', result
-#     return result
-
-# def fromW2SE(vector, elevation, azimuth):
-#     """ transform a (velocity-) vector (x,y,z) from Wind to Small Earth reference frame """
-#     #TODO: Add unit test
-#     rotateFirstStep = mat3( 0,  0,  1,
-#                             0,  1,  0,
-#                            -1,  0,  0)
-#     rotateElevation = mat3(cos(elevation), 0, sin(elevation),
-#                               0,              1,         0,
-#                              -sin(elevation), 0,  cos(elevation))
-#     rotateAzimuth = mat3(1,        0,      0,
-#                          0, cos(azimuth),  -sin(azimuth),
-#                          0, sin(azimuth),   cos(azimuth))
-#     return rotateElevation * rotateAzimuth * rotateFirstStep * vector
 
 # def fromSE2W(vector, elevation, azimuth):
 #     """
