@@ -50,6 +50,8 @@ $(TYPEDFIELDS)
     fixed_font::String    = ""
     abs_tol               = 0.0
     rel_tol               = 0.0
+    linear_solver::String = "GMRES"
+    max_order::Int64      = 4
     max_iter::Int64       = 1
     v_reel_out            = 0
     c0                    = 0
@@ -156,6 +158,10 @@ function set_data_path(data_path="")
     end
 end
 
+function get_data_path()
+    return DATA_PATH[1]
+end
+
 """
     load_settings(project="")
 
@@ -193,6 +199,7 @@ Getter function for the [`Settings`](@ref) struct.
 The default project is determined by the content of the file system.yaml .
 """
 function se(project="")
+    global SE_DICT
     if SETTINGS.segments == 0
         if project == ""
             # determine which project to load
@@ -201,6 +208,7 @@ function se(project="")
         end
         # load project from YAML
         dict = YAML.load_file(joinpath(DATA_PATH[1], SETTINGS.project))
+        SE_DICT[1] = dict
         tmp = split(dict["system"]["log_file"], "/")
         SETTINGS.log_file    = joinpath(tmp[1], tmp[2])
         SETTINGS.segments    = dict["system"]["segments"]
@@ -218,6 +226,8 @@ function se(project="")
 
         SETTINGS.abs_tol     = dict["solver"]["abs_tol"]
         SETTINGS.rel_tol     = dict["solver"]["rel_tol"]
+        SETTINGS.linear_solver = dict["solver"]["linear_solver"]
+        SETTINGS.max_order   = dict["solver"]["max_order"]
         SETTINGS.max_iter    = dict["solver"]["max_iter"]
 
         SETTINGS.c0          = dict["steering"]["c0"]
@@ -288,4 +298,21 @@ function se(project="")
         SETTINGS.grid_step   = dict["environment"]["grid_step"]           # grid resolution in x and y direction                                         [m]  
     end
     return SETTINGS
+end
+
+"""
+    se_dict()
+
+Getter function for the dictionary, representing the settings.yaml file.
+
+Access to the dict is much slower than access to the setting struct, but more flexible.
+
+Usage example:
+`z0 = se_dict()["environment"]["z0"]`
+"""
+function se_dict()
+    if SETTINGS.segments == 0
+        se()
+    end
+    SE_DICT[1]
 end
