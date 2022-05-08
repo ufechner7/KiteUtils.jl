@@ -114,6 +114,15 @@ function calc_heading_w(orientation, down_wind_direction = pi/2.0)
     fromEG2W(headingEG, down_wind_direction)
 end
 
+# def calc_heading(orientation, elevation, azimuth):
+#     headingSE = fromW2SE(calc_heading_w(orientation), elevation, azimuth)
+#     angle = atan(headingSE.y, headingSE.x) -pi
+#     if angle < 0:
+#         angle += 2 * pi
+#     if angle < 0:
+#         angle += 2 * pi
+#     return angle
+
 # def fromEAK2ENU(vector):
 #     """ vector: elevation, azimuth_north, kite_distance
 #         Returns the kite position in the east-north-up reference frame. """
@@ -160,16 +169,6 @@ end
 #     result[0], result[1] = headingW[1], headingW[2]
 #     return result
 
-# def calc_heading(orientation, elevation, azimuth):
-#     headingSE = fromW2SE(calc_heading_w(orientation), elevation, azimuth)
-#     # print 'headingSE.y, headingSE.x',headingSE.y, headingSE.x
-#     angle = atan2(headingSE.y, headingSE.x) -pi
-#     if angle < 0:
-#         angle += 2 * pi
-#     if angle < 0:
-#         angle += 2 * pi
-#     return angle
-
 # def calc_course_d(velocityENU, elevation, azimuth, down_wind_direction = pi/2.0):
 #     """ down_wind_direction: The direction the wind is going to; zero at north;
 #     clockwise positive from above; default: goint to east. """
@@ -199,33 +198,3 @@ end
 
 # def calc_height(elevation, kite_distance):
 #     return kite_distance * sin(elevation)
-
-
-# if __name__ == '__main__':
-# #    vec1 = np.array((1.0, 2.0, 3.0))
-# #    vec2 = np.array((2.0, 3.0, 4.0))
-# #    # orient = np.array((0, pi, pi / 2.0))
-# #    orient = np.array((0, pi/10, pi / 2.0))
-# #    elevation = 71.5 / 180 * pi
-# #    azimuth   = 0.0 # 45.0 / 180 * pi
-# #    print fromKS2EX(vec1, orient)
-# #    print calc_heading_w(orient)
-# #    print calc_heading_d(orient, elevation, azimuth)
-# #    print calc_heading(orient, elevation, azimuth)
-#     # roll, pitch, yaw: (164.605, -12.0978, 157.931)
-#     # azimuth: 21.79
-#     # elevation: 66.47
-#     # wrong: headingSE.y, headingSE.x 0.00482372330774 0.980817341582
-#     # wrong: heading 359.7 degree
-#     # expected: between 330 and 350
-# #    orient = np.array((164.605, -12.0978, 157.931)) / 180.0 * pi
-# #    azimuth = 21.79 /180.0 * pi
-# #    elevation = 66.47 /180.0 * pi
-# #    print calc_heading_d(orient, elevation, azimuth)
-# #    print calc_heading(orient, elevation, azimuth) * 180.0 / pi
-
-#     orient = np.array((0.0, 0.0, 90.0 )) / 180.0 * pi
-#     azimuth = 0.0 /180.0 * pi
-#     elevation = 70.0 /180.0 * pi
-#     print calc_heading_d(orient, elevation, azimuth)
-#     print calc_heading(orient, elevation, azimuth) * 180.0 / pi
