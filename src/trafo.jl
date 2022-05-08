@@ -56,40 +56,63 @@ function fromW2SE(vector, elevation, azimuth)
     rotate_elevation * rotate_azimuth * rotate_first_step * vector
 end
 
-# def fromKS2EX(vector, orientation):
-#     """ transform a vector (x,y,z) from KiteSensor to Earth Xsens reference frame """
-#     #TODO: Add unit test
-#     roll, pitch, yaw  = orientation[0], orientation[1], orientation[2]
-#     rotateYAW = mat3(cos(yaw), -sin(yaw), 0,
-#                      sin(yaw),  cos(yaw), 0,
-#                             0,         0, 1)
-#     rotatePITCH = mat3(cos(pitch),  0, sin(pitch),
-#                            0,       1,         0,
-#                       -sin(pitch),  0,   cos(pitch))
-#     rotateROLL = mat3( 1,       0,        0,
-#                        0,   cos(roll), -sin(roll),
-#                        0,   sin(roll),  cos(roll))
-#     return rotateYAW * rotatePITCH * rotateROLL * vec3(vector)
+""" 
+    fromKS2EX(vector, orientation)
+
+Transform a vector (x,y,z) from KiteSensor to Earth Xsens reference frame.
+
+- orientation in Euler angles (roll, pitch, yaw)
+"""
+function fromKS2EX(vector, orientation)
+    roll, pitch, yaw  = orientation[1], orientation[2], orientation[3]
+    rotateYAW = @SMatrix[cos(yaw) -sin(yaw) 0;
+                         sin(yaw)  cos(yaw) 0;
+                             0         0    1]
+    rotatePITCH = @SMatrix[cos(pitch)   0  sin(pitch);
+                             0          1        0;
+                       -sin(pitch)      0  cos(pitch)]
+    rotateROLL = @SMatrix[ 1        0         0;
+                           0   cos(roll) -sin(roll);
+                           0   sin(roll)  cos(roll)]
+    rotateYAW * rotatePITCH * rotateROLL * vector
+end
+
+"""
+    fromEX2EG(vector)
+
+Transform a vector (x,y,z) from EarthXsens to Earth Groundstation reference frame
+"""
+function fromEX2EG(vector)
+    rotateEX2EG = @SMatrix[1  0  0;
+                           0 -1  0;
+                           0  0 -1]
+    rotateEX2EG * vector
+end
+
+"""
+    fromEG2W(vector, down_wind_direction = pi/2.0)
+Transform a vector (x,y,z) from Earth Groundstation to Wind reference frame.
+"""
+function fromEG2W(vector, down_wind_direction = pi/2.0)
+    rotateEG2W =    @SMatrix[cos(down_wind_direction) -sin(down_wind_direction)  0;
+                             sin(down_wind_direction)  cos(down_wind_direction)  0;
+                             0                        0                      1]
+    rotateEG2W * vector
+end
 
 """
     calc_heading_w(orientation, down_wind_direction = pi/2.0)
 """
-function calc_heading_w(orientation, downWindDirection = pi/2.0)
+function calc_heading_w(orientation, down_wind_direction = pi/2.0)
     # create a unit heading vector in the xsense reference frame
     heading_sensor =  SVector(1, 0, 0)
     # rotate headingSensor to the Earth Xsens reference frame
     headingEX = fromKS2EX(heading_sensor, orientation)
-#     # print 'headingEX', headingEX
-#     # rotate headingEX to earth groundstation reference frame
-#     headingEG = fromEX2EG(headingEX)
-#     # print 'headingEG', headingEG
-#     # rotate headingEG to headingW and convert to 2d HeadingW vector
-#     result = fromEG2W(headingEG, downWindDirection)
-#     # print 'headingW1', result
-#     return result
-
+    # rotate headingEX to earth groundstation reference frame
+    headingEG = fromEX2EG(headingEX)
+    # rotate headingEG to headingW and convert to 2d HeadingW vector
+    fromEG2W(headingEG, down_wind_direction)
 end
-
 
 # def fromEAK2ENU(vector):
 #     """ vector: elevation, azimuth_north, kite_distance
@@ -98,21 +121,6 @@ end
 #     azimuth_north = vector[1]
 #     kite_distance = vector[2]
 #     return vec3(sin(azimuth_north), cos(azimuth_north), sin(elevation)) * kite_distance
-
-# def fromEX2EG(vector):
-#     """ transform a vector (x,y,z) from EarthXsens to Earth Groundstation reference frame """
-#     rotateEX2EG = mat3(1,  0,  0,
-#                        0, -1,  0,
-#                        0,  0, -1)
-#     return rotateEX2EG * vec3(vector)
-
-# def fromEG2W(vector, downWindDirection = pi/2.0):
-#     """ transform a vector (x,y,z) from Earth Groundstation to Wind reference frame """
-#     #TODO: Add unit test
-#     rotateEG2W =    mat3(cos(downWindDirection), -sin(downWindDirection), 0,
-#                          sin(downWindDirection),  cos(downWindDirection), 0,
-#                            0,                       0,                    1)
-#     return rotateEG2W * vec3(vector)
 
 # def fromSE2W(vector, elevation, azimuth):
 #     """
@@ -162,11 +170,11 @@ end
 #         angle += 2 * pi
 #     return angle
 
-# def calc_course_d(velocityENU, elevation, azimuth, downWindDirection = pi/2.0):
-#     """ downWindDirection: The direction the wind is going to; zero at north;
+# def calc_course_d(velocityENU, elevation, azimuth, down_wind_direction = pi/2.0):
+#     """ down_wind_direction: The direction the wind is going to; zero at north;
 #     clockwise positive from above; default: goint to east. """
 #     velocityEG = fromENU2EG(velocityENU)
-#     velocityW = fromEG2W(velocityEG, downWindDirection)
+#     velocityW = fromEG2W(velocityEG, down_wind_direction)
 #     velocitySE = fromW2SE(velocityW, elevation, azimuth)
 #     velocitySE[2] = 0;
 #     if velocitySE.length() < 0.001:
@@ -178,11 +186,11 @@ end
 #     result[0], result[1] = -courseD[1], -courseD[2]
 #     return result
 
-# def calc_course(velocityENU, elevation, azimuth, downWindDirection = pi/2.0):
-#     """ downWindDirection: The direction the wind is going to; zero at north;
+# def calc_course(velocityENU, elevation, azimuth, down_wind_direction = pi/2.0):
+#     """ down_wind_direction: The direction the wind is going to; zero at north;
 #     clockwise positive from above; default: goint to east. """
 #     velocityEG = fromENU2EG(velocityENU)
-#     velocityW = fromEG2W(velocityEG, downWindDirection)
+#     velocityW = fromEG2W(velocityEG, down_wind_direction)
 #     velocitySE = fromW2SE(velocityW, elevation, azimuth)
 #     angle = atan2(velocitySE.y, velocitySE.x)
 #     if angle < 0:

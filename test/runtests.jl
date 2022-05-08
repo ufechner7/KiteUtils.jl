@@ -55,11 +55,14 @@ end
     @test calc_azimuth(0) ≈ -1.5707963267948966
     @test calc_azimuth(π) ≈ 1.5707963267948966
     vec1 = SVector(1.0, 2.0, 3.0)
+    orient = SVector(0, pi/10, pi / 2.0)
     elevation = deg2rad(71.5)
     azimuth   = 0.0
     @test fromENU2EG(vec1) == [2.0, -1.0, 3.0]
     @test fromW2SE(vec1, elevation, azimuth) == [0.0035903140090769448, 2.0, -3.16227562202369]
     azimuth   = deg2rad(45)
-    @test fromW2SE(vec1, elevation, azimuth) == [1.622480056571193, 2.121320343559643, -2.62060269137249]
+    @test fromW2SE(vec1, elevation, azimuth) == [ 1.622480056571193,  2.121320343559643, -2.62060269137249]
+    @test fromKS2EX(vec1, orient)            == [-1.9999999999999998, 1.878107499419996, 2.544152554510513]
+    @test calc_heading_w(orient)             == [ 0.9510565162951535, 0.0,              0.3090169943749474]
 end
 nothing
