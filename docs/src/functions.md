@@ -53,6 +53,7 @@ calculate the heading angle, the heading vector, the arc cos (safe version) and 
 calc_elevation
 calc_azimuth
 calc_heading
+calc_course
 calc_heading_w
 azimuth_east
 ground_dist

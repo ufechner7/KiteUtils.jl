@@ -131,16 +131,25 @@ function calc_heading(orientation, elevation, azimuth)
     angle
 end
 
-# def calc_course(velocityENU, elevation, azimuth, down_wind_direction = pi/2.0):
-#     """ down_wind_direction: The direction the wind is going to; zero at north;
-#     clockwise positive from above; default: goint to east. """
-#     velocityEG = fromENU2EG(velocityENU)
-#     velocityW = fromEG2W(velocityEG, down_wind_direction)
-#     velocitySE = fromW2SE(velocityW, elevation, azimuth)
-#     angle = atan2(velocitySE.y, velocitySE.x)
-#     if angle < 0:
-#         angle += 2 * pi
-#     return angle
+""" 
+    calc_course(velocityENU, elevation, azimuth, down_wind_direction = π/2)
+
+Calculate the course angle in radian.
+
+- velocityENU:         Kite velocity in EastNorthUp reference frame
+- down_wind_direction: The direction the wind is going to; zero at north;
+                       clockwise positive from above; default: going to east. 
+"""
+function calc_course(velocityENU, elevation, azimuth, down_wind_direction = π/2)
+    velocityEG = fromENU2EG(velocityENU)
+    velocityW = fromEG2W(velocityEG, down_wind_direction)
+    velocitySE = fromW2SE(velocityW, elevation, azimuth)
+    angle = atan(velocitySE.y, velocitySE.x)
+    if angle < 0
+        angle += 2π
+    end
+    angle
+end
 
 # def fromEAK2ENU(vector):
 #     """ vector: elevation, azimuth_north, kite_distance
