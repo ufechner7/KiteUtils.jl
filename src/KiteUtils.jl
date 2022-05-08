@@ -34,8 +34,8 @@ export Settings, SysState, SysLog, MyFloat
 export demo_state, demo_syslog, demo_log, load_log, save_log, export_log # functions for logging
 export demo_state_4p, initial_kite_ref_frame                             # functions for four point kite model
 export rot, rot3d, ground_dist, calc_elevation, azimuth_east, acos2      # geometric functions
-export calc_azimuth, fromENU2EG,fromW2SE, fromKS2EX, fromEX2EG           # geometric functions and reference frame transformations
-export calc_heading_w, fromEG2W                                          # geometric functions and reference frame transformations 
+export fromEG2W, fromENU2EG,fromW2SE, fromKS2EX, fromEX2EG               # reference frame transformations
+export calc_azimuth, calc_heading_w, calc_heading                        # geometric functions
 export set_data_path, get_data_path, load_settings, copy_settings, se, se_dict # functions for reading and copying parameters
 
 """

@@ -47,10 +47,12 @@ fromEX2EG
 ```
 
 ## Geometric calculations
-Calculate the elevation angle, the azimuth angle and the ground distance based on the kite position.
+Calculate the elevation angle, the azimuth angle and the ground distance based on the kite position. In addition,
+calculate the heading angle, the heading vector, the arc cos (safe version) and the initial kite reference frame.
 ```@docs
 calc_elevation
 calc_azimuth
+calc_heading
 calc_heading_w
 azimuth_east
 ground_dist

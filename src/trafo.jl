@@ -115,14 +115,21 @@ function calc_heading_w(orientation, down_wind_direction = pi/2.0)
     fromEG2W(headingEG, down_wind_direction)
 end
 
-# def calc_heading(orientation, elevation, azimuth):
-#     headingSE = fromW2SE(calc_heading_w(orientation), elevation, azimuth)
-#     angle = atan(headingSE.y, headingSE.x) -pi
-#     if angle < 0:
-#         angle += 2 * pi
-#     if angle < 0:
-#         angle += 2 * pi
-#     return angle
+"""
+    calc_heading_w(orientation, down_wind_direction = pi/2.0)
+
+Calculate the heading angle of the kite in radians. The heading is the direction
+the nose of the kite is pointing to. The heading angle is defined in the range
+of 0 .. 2π.
+"""
+function calc_heading(orientation, elevation, azimuth)
+    headingSE = fromW2SE(calc_heading_w(orientation), elevation, azimuth)
+    angle = atan(headingSE.y, headingSE.x) - π
+    if angle < 0
+        angle += 2π
+    end
+    angle
+end
 
 # def calc_course(velocityENU, elevation, azimuth, down_wind_direction = pi/2.0):
 #     """ down_wind_direction: The direction the wind is going to; zero at north;
