@@ -24,7 +24,7 @@ direction of the tether is determined by the winch controller and can be ignored
 kite controller. The objective of the flight path controller as described in this thesis is to
 fly the kite on a prescribed trajectory that is adapted to the wind conditions.
 
-<p align="center"><img src="./small_earth.png" width="800" /></p>
+![Small earth reference frame](small_earth.png)
 
 In Fig. 5.1 the vectors <img src="https://render.githubusercontent.com/render/math?math=x_k, y_k, z_k"> define the body-fixed kite reference frame. In this
 chapter, the combination of the wing and the kite control unit (KCU) is seen as kite.
