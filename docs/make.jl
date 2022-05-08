@@ -15,6 +15,7 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+        "Reference frames" => "reference_frames.md",
         "Exported Functions" => "functions.md",
         "Exported Types" => "types.md",
         "Examples" => "examples.md",
