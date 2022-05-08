@@ -19,6 +19,8 @@ Utilities for simulating kite power systems.
 - the package [KiteModels](https://github.com/ufechner7/KiteModels.jl)
 - the package [KitePodModels](https://github.com/aenarete/KitePodModels.jl)
 - the package [KiteViewers](https://github.com/aenarete/KiteViewers.jl)
+- the package [AtmosphericModels](https://github.com/aenarete/AtmosphericModels.jl)
+- the package [KiteControllers](https://github.com/aenarete/KiteControllers.jl)
 
 **Documentation** [Stable Version](https://ufechner7.github.io/KiteUtils.jl/stable)
 
