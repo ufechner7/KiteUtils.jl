@@ -15,7 +15,7 @@ The position of the kite relative to the ground station has to be converted into
 Reference Frame" ($x_w , y_w , z_w$) as shown in Fig. 5.1. 
 
 The origin of the wind reference
-frame is placed at the anchor point of the tether and its x w axis is always pointing in
+frame is placed at the anchor point of the tether and its $x_w$ axis is always pointing in
 the direction of the averaged wind velocity. To obtain the coordinates of the kite in the
 small earth reference frame its position is projected on the unit sphere around the origin
 of the wind reference frame. Now, the position of the kite can be described with two
@@ -28,10 +28,10 @@ fly the kite on a prescribed trajectory that is adapted to the wind conditions.
 
 In Fig. 5.1 the vectors $x_k, y_k$ and $z_k$ define the body-fixed kite reference frame. In this
 chapter, the combination of the wing and the kite control unit (KCU) is seen as kite.
-The y k axis is defined by the vector from the left to the right wing tip, the $z_k$ axis is
+The $y_k$ axis is defined by the vector from the left to the right wing tip, the $z_k$ axis is
 pointing downwards from the position of the kite parallel to the upper part of the tether,
 and the $x_k$ axis is orthogonal to $y_k$ and $z_k$ . The heading angle ψ is the angle between the
-direction towards zenith and the vector x k as projected on the tangential plane touching
+direction towards zenith and the vector $x_k$ as projected on the tangential plane touching
 the position of the kite on the half sphere. If tether is not straight, $z_k$ and $z_{SE}$ are not
 aligned.
 
