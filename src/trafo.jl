@@ -91,7 +91,7 @@ end
 
 """
     fromEG2W(vector, down_wind_direction = pi/2.0)
-    
+
 Transform a vector (x,y,z) from Earth Groundstation to Wind reference frame.
 """
 function fromEG2W(vector, down_wind_direction = pi/2.0)
@@ -120,6 +120,17 @@ end
 #     angle = atan(headingSE.y, headingSE.x) -pi
 #     if angle < 0:
 #         angle += 2 * pi
+#     if angle < 0:
+#         angle += 2 * pi
+#     return angle
+
+# def calc_course(velocityENU, elevation, azimuth, down_wind_direction = pi/2.0):
+#     """ down_wind_direction: The direction the wind is going to; zero at north;
+#     clockwise positive from above; default: goint to east. """
+#     velocityEG = fromENU2EG(velocityENU)
+#     velocityW = fromEG2W(velocityEG, down_wind_direction)
+#     velocitySE = fromW2SE(velocityW, elevation, azimuth)
+#     angle = atan2(velocitySE.y, velocitySE.x)
 #     if angle < 0:
 #         angle += 2 * pi
 #     return angle
@@ -185,17 +196,6 @@ end
 #     result = np.zeros(2)
 #     result[0], result[1] = -courseD[1], -courseD[2]
 #     return result
-
-# def calc_course(velocityENU, elevation, azimuth, down_wind_direction = pi/2.0):
-#     """ down_wind_direction: The direction the wind is going to; zero at north;
-#     clockwise positive from above; default: goint to east. """
-#     velocityEG = fromENU2EG(velocityENU)
-#     velocityW = fromEG2W(velocityEG, down_wind_direction)
-#     velocitySE = fromW2SE(velocityW, elevation, azimuth)
-#     angle = atan2(velocitySE.y, velocitySE.x)
-#     if angle < 0:
-#         angle += 2 * pi
-#     return angle
 
 # def calc_height(elevation, kite_distance):
 #     return kite_distance * sin(elevation)

@@ -6,10 +6,11 @@ CurrentModule = KiteUtils
 
 # Reading config files
 ```@docs
-set_data_path(data_path)
-load_settings(project="")
-copy_settings()
-se()
+set_data_path
+load_settings
+copy_settings
+se
+se_dict
 ```
 Also look at the default example: [settings.yaml](https://github.com/ufechner7/KiteUtils.jl/blob/main/data/settings.yaml) .
 
@@ -39,6 +40,7 @@ rot(pos_kite, pos_before, v_app)
 ## Coordinate system transformations
 ```@docs
 fromENU2EG
+fromEG2W
 fromW2SE
 fromKS2EX
 fromEX2EG

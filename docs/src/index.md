@@ -16,6 +16,12 @@ at the Julia prompt.
 
 If you are using Windows, it is suggested to install git and bash, too. This is explained for example here: [Julia on Windows](https://github.com/ufechner7/KiteViewer/blob/main/doc/Windows.md) .
 
+## Testing
+You can run the unit tests of this package with the command:
+```
+] test KiteUtils
+```
+
 ## Features
 This package provides functions to:
 - read configuration files, written in .yaml format
@@ -25,6 +31,9 @@ This package provides functions to:
 
 ## Related
 - The application [KiteViewer](https://github.com/ufechner7/KiteViewer)
-- the package [KiteModels](https://github.com/ufechner7/KiteModels.jl)
 - the package [KitePodModels](https://github.com/aenarete/KitePodModels.jl)
+- the package [KiteModels](https://github.com/ufechner7/KiteModels.jl)
+- the package [KiteViewers](https://github.com/aenarete/KiteViewers.jl)
+- the package [AtmosphericModels](https://github.com/aenarete/AtmosphericModels.jl)
+- the package [KiteControllers](https://github.com/aenarete/KiteControllers.jl)
 
