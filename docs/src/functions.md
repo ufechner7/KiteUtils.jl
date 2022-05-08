@@ -36,10 +36,20 @@ rot3d(ax, ay, az, bx, by, bz)
 rot(pos_kite, pos_before, v_app)
 ```
 
+## Coordinate system transformations
+```@docs
+fromENU2EG
+fromW2SE
+fromKS2EX
+fromEX2EG
+```
+
 ## Geometric calculations
 Calculate the elevation angle, the azimuth angle and the ground distance based on the kite position.
 ```@docs
 calc_elevation
+calc_azimuth
+calc_heading_w
 azimuth_east
 ground_dist
 acos2
