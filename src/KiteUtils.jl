@@ -80,6 +80,8 @@ struct SysState{P}
     steering::MyFloat
     "norm of apparent wind speed [m/s]"
     v_app::MyFloat
+    "velocity vector of the kite"
+    vel_kite::MVector{3, MyFloat}
     "vector of particle positions in x"
     X::MVector{P, MyFloat}
     "vector of particle positions in y"
@@ -126,6 +128,7 @@ function Base.show(io::IO, st::SysState)
     println(io, "depower   [-]:       ", st.depower)
     println(io, "steering  [-]:       ", st.steering)
     println(io, "v_app     [m/s]:     ", st.v_app)
+    println(io, "vel_kite  [m/s]:     ", st.vel_kite)
     println(io, "X         [m]:       ", st.X)
     println(io, "Y         [m]:       ", st.Y)
     println(io, "Z         [m]:       ", st.Z)
@@ -181,7 +184,8 @@ function demo_state(P, height=6.0, time=0.0)
     q = QuatRotation(r_xyz)
     orient = MVector{4, Float32}(Rotations.params(q))
     elevation = calc_elevation([X[end], 0.0, Z[end]])
-    return SysState{P}(time, orient, elevation,0.,0.,0.,0.,0.,0.,0.,X, Y, Z)
+    vel_kite = zeros(3)
+    return SysState{P}(time, orient, elevation,0.,0.,0.,0.,0.,0.,0.,vel_kite, X, Y, Z)
 end
 
 """
@@ -262,7 +266,8 @@ function demo_state_4p(P, height=6.0, time=0.0)
     q = QuatRotation(r_xyz)
     orient = MVector{4, Float32}(Rotations.params(q))
     elevation = calc_elevation([X[end], 0.0, Z[end]])
-    return SysState{P+4}(time, orient, elevation,0.,0.,0.,0.,0.,0.,0.,X, Y, Z)
+    vel_kite=zeros(3)
+    return SysState{P+4}(time, orient, elevation,0.,0.,0.,0.,0.,0.,0.,vel_kite,X, Y, Z)
 end
 
 """
@@ -278,6 +283,7 @@ function demo_syslog(P, name="Test flight"; duration=10)
     myzeros = zeros(MyFloat, steps)
     elevation = Vector{Float64}(undef, steps)
     orient_vec = Vector{MVector{4, Float32}}(undef, steps)
+    vel_kite_vec = Vector{MVector{3, MyFloat}}(undef, steps)
     X_vec = Vector{MVector{P, MyFloat}}(undef, steps)
     Y_vec = Vector{MVector{P, MyFloat}}(undef, steps)
     Z_vec = Vector{MVector{P, MyFloat}}(undef, steps)
@@ -285,12 +291,13 @@ function demo_syslog(P, name="Test flight"; duration=10)
         state = demo_state(P, max_height * i/steps, i/se().sample_freq)
         time_vec[i+1] = state.time
         orient_vec[i+1] = state.orient
+        vel_kite_vec[i+1] = state.vel_kite
         elevation[i+1] = asin(state.Z[end]/state.X[end])
         X_vec[i+1] = state.X
         Y_vec[i+1] = state.Y
         Z_vec[i+1] = state.Z
     end
-    return StructArray{SysState{P}}((time_vec, orient_vec, elevation, myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,myzeros, X_vec, Y_vec, Z_vec))
+    return StructArray{SysState{P}}((time_vec, orient_vec, elevation, myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,myzeros, vel_kite_vec, X_vec, Y_vec, Z_vec))
 end
 
 """
@@ -343,7 +350,7 @@ function load_log(P, filename::String)
         fullname = joinpath(DATA_PATH[1], filename) 
     end
     table = Arrow.Table(fullname)
-    syslog = StructArray{SysState{P}}((table.time, table.orient, table.elevation, table.azimuth, table.l_tether, table.v_reelout, table.force, table.depower, table.steering, table.v_app, table.X, table.Y, table.Z))
+    syslog = StructArray{SysState{P}}((table.time, table.orient, table.elevation, table.azimuth, table.l_tether, table.v_reelout, table.force, table.depower, table.steering, table.v_app, table.vel_kite, table.X, table.Y, table.Z))
     return SysLog{P}(basename(fullname[1:end-6]), syslog)
 end
 
