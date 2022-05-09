@@ -103,6 +103,8 @@ end
 
 """
     calc_heading_w(orientation, down_wind_direction = pi/2.0)
+
+Calculate the heading vector in wind reference frame.
 """
 function calc_heading_w(orientation, down_wind_direction = pi/2.0)
     # create a unit heading vector in the xsense reference frame
@@ -116,7 +118,7 @@ function calc_heading_w(orientation, down_wind_direction = pi/2.0)
 end
 
 """
-    calc_heading_w(orientation, down_wind_direction = pi/2.0)
+    calc_heading(orientation, down_wind_direction = pi/2.0)
 
 Calculate the heading angle of the kite in radians. The heading is the direction
 the nose of the kite is pointing to. The heading angle is defined in the range
