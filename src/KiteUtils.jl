@@ -78,6 +78,10 @@ struct SysState{P}
     depower::MyFloat
     "steering settings [-1..1]"
     steering::MyFloat
+    "heading angle in radian"
+    heading::MyFloat
+    "course angle in radian"
+    course::MyFloat
     "norm of apparent wind speed [m/s]"
     v_app::MyFloat
     "velocity vector of the kite"
@@ -127,6 +131,8 @@ function Base.show(io::IO, st::SysState)
     println(io, "force     [N]:       ", st.force)
     println(io, "depower   [-]:       ", st.depower)
     println(io, "steering  [-]:       ", st.steering)
+    println(io, "heading   [rad]:     ", st.heading)
+    println(io, "course    [rad]:     ", st.course)
     println(io, "v_app     [m/s]:     ", st.v_app)
     println(io, "vel_kite  [m/s]:     ", st.vel_kite)
     println(io, "X         [m]:       ", st.X)
@@ -185,7 +191,7 @@ function demo_state(P, height=6.0, time=0.0)
     orient = MVector{4, Float32}(Rotations.params(q))
     elevation = calc_elevation([X[end], 0.0, Z[end]])
     vel_kite = zeros(3)
-    return SysState{P}(time, orient, elevation,0.,0.,0.,0.,0.,0.,0.,vel_kite, X, Y, Z)
+    return SysState{P}(time, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z)
 end
 
 """
@@ -267,7 +273,7 @@ function demo_state_4p(P, height=6.0, time=0.0)
     orient = MVector{4, Float32}(Rotations.params(q))
     elevation = calc_elevation([X[end], 0.0, Z[end]])
     vel_kite=zeros(3)
-    return SysState{P+4}(time, orient, elevation,0.,0.,0.,0.,0.,0.,0.,vel_kite,X, Y, Z)
+    return SysState{P+4}(time, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z)
 end
 
 """
@@ -297,7 +303,7 @@ function demo_syslog(P, name="Test flight"; duration=10)
         Y_vec[i+1] = state.Y
         Z_vec[i+1] = state.Z
     end
-    return StructArray{SysState{P}}((time_vec, orient_vec, elevation, myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,myzeros, vel_kite_vec, X_vec, Y_vec, Z_vec))
+    return StructArray{SysState{P}}((time_vec, orient_vec, elevation, myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,myzeros, vel_kite_vec, X_vec, Y_vec, Z_vec))
 end
 
 """
@@ -350,7 +356,7 @@ function load_log(P, filename::String)
         fullname = joinpath(DATA_PATH[1], filename) 
     end
     table = Arrow.Table(fullname)
-    syslog = StructArray{SysState{P}}((table.time, table.orient, table.elevation, table.azimuth, table.l_tether, table.v_reelout, table.force, table.depower, table.steering, table.v_app, table.vel_kite, table.X, table.Y, table.Z))
+    syslog = StructArray{SysState{P}}((table.time, table.orient, table.elevation, table.azimuth, table.l_tether, table.v_reelout, table.force, table.depower, table.steering, table.heading, table.course, table.v_app, table.vel_kite, table.X, table.Y, table.Z))
     return SysLog{P}(basename(fullname[1:end-6]), syslog)
 end
 
