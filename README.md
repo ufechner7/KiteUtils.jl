@@ -8,7 +8,6 @@
 Utilities for simulating kite power systems.
 
 ## Provides 
-
 - functions for coordinate system transformations
 - functions for reading configuration files
 - functions for reading and writing log files
@@ -16,12 +15,9 @@ Utilities for simulating kite power systems.
 
 ## Related
 - The application [KiteViewer](https://github.com/ufechner7/KiteViewer)
-- the package [KiteModels](https://github.com/ufechner7/KiteModels.jl)
-- the package [KitePodModels](https://github.com/aenarete/KitePodModels.jl)
-- the package [KiteViewers](https://github.com/aenarete/KiteViewers.jl)
-- the package [AtmosphericModels](https://github.com/aenarete/AtmosphericModels.jl)
-- the package [KiteControllers](https://github.com/aenarete/KiteControllers.jl)
+- the packages [KiteModels](https://github.com/ufechner7/KiteModels.jl) and [KitePodModels](https://github.com/aenarete/KitePodModels.jl) and [WinchModels](https://github.com/aenarete/WinchModels.jl) and [AtmosphericModels](https://github.com/aenarete/AtmosphericModels.jl)
+- the package [KiteControllers](https://github.com/aenarete/KiteControllers.jl) and [KiteViewers](https://github.com/aenarete/KiteViewers.jl)
 
-**Documentation** [Stable Version](https://ufechner7.github.io/KiteUtils.jl/stable)
+**Documentation** [Stable Version](https://ufechner7.github.io/KiteUtils.jl/stable) [Development Version](https://ufechner7.github.io/KiteUtils.jl/dev)
 
 Author: Uwe Fechner (uwe.fechner.msc@gmail.com)
