@@ -7,6 +7,11 @@
 
 Utilities for simulating kite power systems.
 
+This package is the foundation of Julia Kite Power Tools, which consist of the following packages:
+<p align="center"><img src="./docs/src/kite_power_tools.png" width="500" /></p>
+
+
+
 ## Installation
 Download [Julia 1.6](http://www.julialang.org) or later, if you haven't already. You can add KiteUtils from  Julia's package manager, by typing 
 ```julia
