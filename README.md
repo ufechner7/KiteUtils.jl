@@ -7,6 +7,17 @@
 
 Utilities for simulating kite power systems.
 
+## Installation
+Download [Julia 1.6](http://www.julialang.org) or later, if you haven't already. You can add KiteUtils from  Julia's package manager, by typing 
+```julia
+using Pkg
+pkg"add KiteUtils"
+``` 
+at the Julia prompt. You can run the unit tests by typing:
+```julia
+pkg"test KiteUtils"
+```
+
 ## Provides 
 - functions for coordinate system transformations
 - functions for reading configuration files
