@@ -26,7 +26,7 @@ end
     @test typeof(state) == SysState{11}
     @test state.X[end] ≈ 12.45
     @test state.Y[end] ≈ -1.115
-    @test state.Y[end-1] ≈ 1.115
+    @test state.Y[end-1] ≈ 2.885
     set_data_path(tempdir())
     log = KiteUtils.test(true)
     @test typeof(log) == SysLog{7}
