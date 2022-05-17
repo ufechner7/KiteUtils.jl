@@ -261,15 +261,32 @@ function demo_state_4p(P, height=6.0, time=0.0)
     # append the kite particles to X, Y and z
     pod_pos = [X[end], Y[end], Z[end]]
     particles = get_particles(se().height_k, se().h_bridle, se().width, se().m_k, pod_pos)[3:end]
+    local pos_B, pos_C, pos_D
     for i in 1:4
         particle=particles[i]
         x, y, z = particle[1], particle[2], particle[3]
+    
+        if i==2
+            pos_B = SVector(x,y,z)
+        elseif  i==3
+            pos_C = SVector(x,y,z)
+        elseif i==4
+            pos_D = SVector(x,y,z)
+        end
         push!(X, x)
         push!(Y, y)
         push!(Z, z)
     end
-    r_xyz = RotXYZ(pi/2, -pi/2, 0)
-    q = QuatRotation(r_xyz)
+    pos_centre = 0.5 * (pos_C + pos_D)
+    delta = pos_B - pos_centre
+    z = -normalize(delta)
+    y = normalize(pos_C - pos_D)
+    x = y × z
+    pos_kite_ = pod_pos
+    pos_before = pos_kite_ + z
+   
+    rotation = rot(pos_kite_, pos_before, -x)
+    q = QuatRotation(rotation)
     orient = MVector{4, Float32}(Rotations.params(q))
     elevation = calc_elevation([X[end], 0.0, Z[end]])
     vel_kite=zeros(3)
