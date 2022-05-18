@@ -100,7 +100,7 @@ function Base.getproperty(st::SysState, sym::Symbol)
         Y = getfield(st, :Y)
         Z = getfield(st, :Z)
         pos = zeros(SVector{length(X), MVector{3, MyFloat}})
-        for i in 1:length(X)
+        for i in eachindex(X)
             pos[i] .= MVector(X[i], Y[i], Z[i])
         end
         pos
