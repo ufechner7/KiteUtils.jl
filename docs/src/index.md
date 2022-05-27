@@ -7,7 +7,8 @@ CurrentModule = KiteUtils
 Documentation for [KiteUtils](https://github.com/ufechner7/KiteUtils.jl).
 
 This package is the foundation of Julia Kite Power Tools, which consist of the following packages:
-<p align="center"><img src="kite_power_tools.png" width="500" /></p>
+
+![Julia Kite Power Tools](kite_power_tools.png)
 
 ## What to install
 If you want to run simulations and see the results in 3D, please install the meta package  [KiteSimulators](https://github.com/aenarete/KiteSimulators.jl) . If you have already KiteSimulators installed, use `using KiteSimulators` instead of `using KiteUtils`.
