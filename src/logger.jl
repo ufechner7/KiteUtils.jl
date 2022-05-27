@@ -1,9 +1,9 @@
 """
     mutable struct Logger{P}
 
-Struct to store a simulation log.
+Struct to store a simulation log. P is number of points of the tether, segments+1.
 
-- P: number of points of the tether, segments+1
+$(TYPEDFIELDS)
 """
 @with_kw mutable struct Logger{P}
     points::Int64 = P
@@ -25,6 +25,11 @@ Struct to store a simulation log.
     z_vec::Vector{MVector{P, MyFloat}} = []
 end
 
+"""
+    log!(logger::Logger, state::SysState)
+
+Log a state in a logger object.
+"""
 function log!(logger::Logger, state::SysState)
     push!(logger.time_vec, state.time)
     push!(logger.orient_vec, state.orient)
@@ -45,16 +50,15 @@ function log!(logger::Logger, state::SysState)
     nothing
 end
 
-function syslog(P, logger::Logger)
+function syslog(logger::Logger)
     l = logger
-    StructArray{SysState{P}}((l.time_vec, l.orient_vec, l.elevation_vec, l.azimuth_vec, l.l_tether_vec,
+    StructArray{SysState{l.points}}((l.time_vec, l.orient_vec, l.elevation_vec, l.azimuth_vec, l.l_tether_vec,
                 l.v_reelout_vec, l.force_vec, l.depower_vec, l.steering_vec, l.heading_vec, l.course_vec,
                 l.v_app_vec, l.vel_kite_vec, l.x_vec, l.y_vec, l.z_vec))
 end
 
 function sys_log(logger::Logger, name="sim_log")
-    P = logger.points
-    SysLog{P}(name, syslog(P, logger))
+    SysLog{logger.points}(name, syslog(logger))
 end
 
 function Logger(P)

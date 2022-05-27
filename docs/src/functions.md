@@ -25,8 +25,9 @@ get_particles
 
 # Loading, saving and converting log files
 ```@docs
+log!
 load_log(P, filename::String)
-save_log(flight_log)
+save_log
 export_log(flight_log)
 ```
 The function ```set_data_path(data_path)``` can be used to set the directory for the log files. 

@@ -343,12 +343,12 @@ function demo_log(P, name="Test_flight"; duration=10)
 end
 
 """
-    save_log(flight_log, compress=true)
+    save_log(flight_log::SysLog, compress=true)
 
 Save a fligh log of type SysLog as .arrow file. By default lz4 compression is used, 
 if you use **false** as second parameter no compression is used.
 """
-function save_log(flight_log, compress=true)
+function save_log(flight_log::SysLog, compress=true)
     filename = joinpath(DATA_PATH[1], flight_log.name) * ".arrow"
     if compress
         Arrow.write(filename, flight_log.syslog, compress=:lz4)
