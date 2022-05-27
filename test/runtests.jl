@@ -36,6 +36,14 @@ end
     @test log.x[end] ≈ 10.0
     @test export_log(log) == joinpath(tempdir(), "Test_flight.csv")
 end
+@testset "Logger: " begin
+    logger = Logger(7)
+    state = demo_state(7)
+    log!(logger, state)
+    log!(logger, state)
+    @test logger.time_vec == [0.0, 0.0]
+    @test save_log(7, logger) == joinpath(tempdir(), "sim_log.arrow")
+end
 @testset "KiteUtils.jl: Transformations" begin
     ax, ay, az = [1, 0, 0], [0, 1, 0],  [0, 0, 1]
     bx, by, bz = [0, 1, 0], [-1, 0, 0], [0, 0, 1]
