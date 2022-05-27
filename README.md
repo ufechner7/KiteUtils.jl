@@ -10,7 +10,9 @@ Utilities for simulating kite power systems.
 This package is the foundation of Julia Kite Power Tools, which consist of the following packages:
 <p align="center"><img src="./docs/src/kite_power_tools.png" width="500" /></p>
 
-
+## What to install
+If you want to run simulations and see the results in 3D, please install the meta package  [KiteSimulators](https://github.com/aenarete/KiteSimulators.jl) . 
+If you just want to learn how this package works quickly just install only this package.
 
 ## Installation
 Download [Julia 1.6](http://www.julialang.org) or later, if you haven't already. You can add KiteUtils from  Julia's package manager, by typing 
@@ -31,9 +33,9 @@ pkg"test KiteUtils"
 - types for the state of a kite power system, for logfiles and for configuration data
 
 ## Related
-- The application [KiteViewer](https://github.com/ufechner7/KiteViewer)
+- The meta package [KiteSimulators](https://github.com/aenarete/KiteSimulators.jl) which contains all packages from Julia Kite Power Tools.
 - the packages [KiteModels](https://github.com/ufechner7/KiteModels.jl) and [KitePodModels](https://github.com/aenarete/KitePodModels.jl) and [WinchModels](https://github.com/aenarete/WinchModels.jl) and [AtmosphericModels](https://github.com/aenarete/AtmosphericModels.jl)
-- the package [KiteControllers](https://github.com/aenarete/KiteControllers.jl) and [KiteViewers](https://github.com/aenarete/KiteViewers.jl)
+- the packages [KiteControllers](https://github.com/aenarete/KiteControllers.jl) and [KiteViewers](https://github.com/aenarete/KiteViewers.jl)
 
 **Documentation** [Stable Version](https://ufechner7.github.io/KiteUtils.jl/stable) [Development Version](https://ufechner7.github.io/KiteUtils.jl/dev)
 
