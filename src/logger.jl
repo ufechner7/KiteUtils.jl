@@ -52,7 +52,8 @@ function syslog(P, logger::Logger)
                 l.v_app_vec, l.vel_kite_vec, l.x_vec, l.y_vec, l.z_vec))
 end
 
-function sys_log(P, logger, name="sim_log")
+function sys_log(logger::Logger, name="sim_log")
+    P = logger.points
     SysLog{P}(name, syslog(P, logger))
 end
 
@@ -60,7 +61,13 @@ function Logger(P)
     Logger{P}()
 end
 
-function save_log(P, logger::Logger, name="sim_log", compress=true)
-    flight_log = (sys_log(P, logger, name))
+"""
+    save_log(logger::Logger, name="sim_log", compress=true)
+
+Save a fligh log from a logger as .arrow file. By default lz4 compression is used, 
+if you use **false** as second parameter no compression is used.
+"""
+function save_log(logger::Logger, name="sim_log", compress=true)
+    flight_log = (sys_log(logger, name))
     save_log(flight_log, compress)
 end

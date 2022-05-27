@@ -42,7 +42,7 @@ end
     log!(logger, state)
     log!(logger, state)
     @test logger.time_vec == [0.0, 0.0]
-    @test save_log(7, logger) == joinpath(tempdir(), "sim_log.arrow")
+    @test save_log(logger) == joinpath(tempdir(), "sim_log.arrow")
 end
 @testset "KiteUtils.jl: Transformations" begin
     ax, ay, az = [1, 0, 0], [0, 1, 0],  [0, 0, 1]
