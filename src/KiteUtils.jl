@@ -28,15 +28,18 @@ SOFTWARE. =#
 # the parameter P is the number of points of the tether, equal to segments+1
 # in addition helper functions for working with rotations
 
-using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions, Parameters
-export Settings, SysState, SysLog, MyFloat
+using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions
+using Parameters
+export Settings, SysState, SysLog, Logger, MyFloat
 
 export demo_state, demo_syslog, demo_log, load_log, save_log, export_log # functions for logging
+export log!, syslog
 export demo_state_4p, initial_kite_ref_frame                             # functions for four point kite model
 export rot, rot3d, ground_dist, calc_elevation, azimuth_east, acos2      # geometric functions
 export fromEG2W, fromENU2EG,fromW2SE, fromKS2EX, fromEX2EG               # reference frame transformations
 export calc_azimuth, calc_heading_w, calc_heading, calc_course           # geometric functions
-export set_data_path, get_data_path, load_settings, copy_settings, se, se_dict # functions for reading and copying parameters
+export set_data_path, get_data_path, load_settings, copy_settings        # functions for reading and copying parameters
+export se, se_dict 
 
 """
     const MyFloat = Float32
@@ -169,6 +172,8 @@ function Base.getproperty(log::SysLog, sym::Symbol)
     end
 end
 
+include("logger.jl")
+
 # functions
 function __init__()
     SETTINGS.segments=0 # force loading of settings.yaml
@@ -216,7 +221,8 @@ function initial_kite_ref_frame(vec_c, v_app)
 end
 
 """
-    get_particles(height_k, height_b, width, m_k, pos_pod= [ 75., 0., 129.90381057], vec_c=[-15., 0., -25.98076211], v_app=[10.4855, 0, -3.08324])
+    get_particles(height_k, height_b, width, m_k, pos_pod= [ 75., 0., 129.90381057], vec_c=[-15., 0., -25.98076211], 
+                  v_app=[10.4855, 0, -3.08324])
 
 Calculate the initial positions of the particels representing 
 a 4-point kite, connected to a kite control unit (KCU). 
@@ -229,7 +235,8 @@ Parameters:
 - pos_pod: position of the control pod
 - vec_c: vector of the last tether segment
 """
-function get_particles(height_k, height_b, width, m_k, pos_pod= [ 75., 0., 129.90381057], vec_c=[-15., 0., -25.98076211], v_app=[10.4855, 0, -3.08324])
+function get_particles(height_k, height_b, width, m_k, pos_pod= [ 75., 0., 129.90381057], 
+                       vec_c=[-15., 0., -25.98076211], v_app=[10.4855, 0, -3.08324])
     # inclination angle of the kite; beta = atan(-pos_kite[2], pos_kite[1]) ???
     beta = pi/2.0
     x, y, z = initial_kite_ref_frame(vec_c, v_app)
@@ -320,7 +327,8 @@ function demo_syslog(P, name="Test flight"; duration=10)
         Y_vec[i+1] = state.Y
         Z_vec[i+1] = state.Z
     end
-    return StructArray{SysState{P}}((time_vec, orient_vec, elevation, myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,myzeros, vel_kite_vec, X_vec, Y_vec, Z_vec))
+    return StructArray{SysState{P}}((time_vec, orient_vec, elevation, myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,
+                                     myzeros,myzeros,myzeros, vel_kite_vec, X_vec, Y_vec, Z_vec))
 end
 
 """
@@ -373,7 +381,9 @@ function load_log(P, filename::String)
         fullname = joinpath(DATA_PATH[1], filename) 
     end
     table = Arrow.Table(fullname)
-    syslog = StructArray{SysState{P}}((table.time, table.orient, table.elevation, table.azimuth, table.l_tether, table.v_reelout, table.force, table.depower, table.steering, table.heading, table.course, table.v_app, table.vel_kite, table.X, table.Y, table.Z))
+    syslog = StructArray{SysState{P}}((table.time, table.orient, table.elevation, table.azimuth, table.l_tether, 
+                    table.v_reelout, table.force, table.depower, table.steering, table.heading, table.course, 
+                    table.v_app, table.vel_kite, table.X, table.Y, table.Z))
     return SysLog{P}(basename(fullname[1:end-6]), syslog)
 end
 
