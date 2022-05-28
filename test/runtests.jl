@@ -37,11 +37,13 @@ end
     @test export_log(log) == joinpath(tempdir(), "Test_flight.csv")
 end
 @testset "Logger: " begin
-    logger = Logger(7)
+    steps = 20*30
+    logger = Logger(7, steps)
     state = demo_state(7)
-    log!(logger, state)
-    log!(logger, state)
-    @test logger.time_vec == [0.0, 0.0]
+    for i in 1:steps
+        @test (@allocated log!(logger, state)) == 0
+    end
+    @test logger.time_vec == zeros(steps)
     @test save_log(logger) == joinpath(tempdir(), "sim_log.arrow")
 end
 @testset "KiteUtils.jl: Transformations" begin
