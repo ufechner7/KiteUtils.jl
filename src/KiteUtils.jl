@@ -153,7 +153,7 @@ Finally it contains meta data like the name of the log file.
 
 $(TYPEDFIELDS)
 """
-struct SysLog{P}
+mutable struct SysLog{P}
     "name of the flight log"
     name::String
     "struct of vectors that can also be accessed like a vector of structs"
