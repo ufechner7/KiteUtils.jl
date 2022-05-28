@@ -61,8 +61,25 @@ function sys_log(logger::Logger, name="sim_log")
     SysLog{logger.points}(name, syslog(logger))
 end
 
-function Logger(P)
-    Logger{P}()
+function Logger(P, hint=6000)
+    logger = Logger{P}()
+    sizehint!(logger.time_vec, hint)
+    sizehint!(logger.orient_vec, hint)
+    sizehint!(logger.elevation_vec, hint)
+    sizehint!(logger.azimuth_vec, hint)
+    sizehint!(logger.l_tether_vec, hint)
+    sizehint!(logger.v_reelout_vec, hint)
+    sizehint!(logger.force_vec, hint)
+    sizehint!(logger.depower_vec, hint)
+    sizehint!(logger.steering_vec, hint)
+    sizehint!(logger.heading_vec, hint)
+    sizehint!(logger.course_vec, hint)
+    sizehint!(logger.v_app_vec, hint)
+    sizehint!(logger.vel_kite_vec, hint)
+    sizehint!(logger.x_vec, hint)
+    sizehint!(logger.y_vec, hint)
+    sizehint!(logger.z_vec, hint)
+    logger
 end
 
 """
