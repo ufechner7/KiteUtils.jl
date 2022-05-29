@@ -33,14 +33,14 @@ using Parameters
 export Settings, SysState, SysLog, Logger, MyFloat
 
 import Base.length
-export demo_state, demo_syslog, demo_log, load_log, save_log, export_log, length # functions for logging
-export log!, syslog
+export demo_state, demo_syslog, demo_log, load_log, save_log, export_log # functions for logging
+export log!, syslog, length
 export demo_state_4p, initial_kite_ref_frame                             # functions for four point kite model
 export rot, rot3d, ground_dist, calc_elevation, azimuth_east, acos2      # geometric functions
 export fromEG2W, fromENU2EG,fromW2SE, fromKS2EX, fromEX2EG               # reference frame transformations
 export calc_azimuth, calc_heading_w, calc_heading, calc_course           # geometric functions
 export set_data_path, get_data_path, load_settings, copy_settings        # functions for reading and copying parameters
-export se, se_dict 
+export se, se_dict, update_settings 
 
 """
     const MyFloat = Float32

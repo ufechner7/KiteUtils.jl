@@ -8,6 +8,7 @@ CurrentModule = KiteUtils
 ```@docs
 set_data_path
 load_settings
+update_settings
 copy_settings
 se
 se_dict

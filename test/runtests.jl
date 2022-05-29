@@ -15,6 +15,8 @@ cd("..")
     set2 = load_settings(joinpath("data", "settings.yaml"))
     @test set2.project == "settings.yaml"
     @test se_dict()["environment"]["z0"] == se().z0
+    set3 = update_settings()
+    @test set3 == se()
 end
 @testset "KiteUtils.jl: Log files      " begin
     state = KiteUtils.demo_state(7)

@@ -175,6 +175,15 @@ function load_settings(project="")
 end
 
 """
+    update_settings()
+
+Re-read the settings from a previously loaded project. Returns the new settings.
+"""
+function update_settings()
+    load_settings(SETTINGS.project)
+end
+
+"""
     copy_settings()
 
 Copy the default settings.yaml and system.yaml files to the folder DATAPATH
