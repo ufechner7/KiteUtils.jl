@@ -29,10 +29,14 @@ end
 """
     log!(logger::Logger, state::SysState)
 
-Log a state in a logger object.
+Log a state in a logger object. Do nothing if the preallocated size would be exceeded.
+Returns the current number of elements of the log.
 """
 function log!(logger::Logger, state::SysState)
     i = logger.index
+    if i > length(logger.time_vec)
+        return length(logger.time_vec)
+    end
     logger.time_vec[i] = state.time
     logger.orient_vec[i] .= state.orient
     logger.elevation_vec[i] = state.elevation
@@ -50,6 +54,11 @@ function log!(logger::Logger, state::SysState)
     logger.y_vec[i] .= state.Y
     logger.z_vec[i] .= state.Z
     logger.index+=1
+    return i
+end
+
+function length(logger::Logger)
+    logger.index - 1
 end
 
 function syslog(logger::Logger)
@@ -59,10 +68,20 @@ function syslog(logger::Logger)
                 l.v_app_vec, l.vel_kite_vec, l.x_vec, l.y_vec, l.z_vec))
 end
 
+"""
+    sys_log(logger::Logger, name="sim_log")
+
+Converts the data of a Logger object into a SysLog object, containing a StructArray and a name.
+"""
 function sys_log(logger::Logger, name="sim_log")
     SysLog{logger.points}(name, syslog(logger))
 end
 
+"""
+    Logger(P, steps)
+
+Creates a Logger object for kite power systems with `P point masses which can store up to `steps` number of time steps.
+"""
 function Logger(P, steps)
     logger = Logger{P, steps}()
     logger
@@ -75,6 +94,23 @@ Save a fligh log from a logger as .arrow file. By default lz4 compression is use
 if you use **false** as second parameter no compression is used.
 """
 function save_log(logger::Logger, name="sim_log", compress=true)
+    nl = length(logger)
+    resize!(logger.time_vec, nl)
+    resize!(logger.orient_vec, nl)
+    resize!(logger.elevation_vec, nl)
+    resize!(logger.azimuth_vec, nl)
+    resize!(logger.l_tether_vec, nl)
+    resize!(logger.v_reelout_vec, nl)
+    resize!(logger.force_vec, nl)
+    resize!(logger.depower_vec, nl)
+    resize!(logger.steering_vec, nl)
+    resize!(logger.heading_vec, nl)
+    resize!(logger.course_vec, nl)
+    resize!(logger.v_app_vec, nl)
+    resize!(logger.vel_kite_vec, nl)
+    resize!(logger.x_vec, nl)
+    resize!(logger.y_vec, nl)
+    resize!(logger.z_vec, nl)
     flight_log = (sys_log(logger, name))
     save_log(flight_log, compress)
 end

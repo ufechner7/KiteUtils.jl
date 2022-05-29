@@ -45,6 +45,18 @@ end
     end
     @test logger.time_vec == zeros(steps)
     @test save_log(logger) == joinpath(tempdir(), "sim_log.arrow")
+    logger = Logger(7, 2)
+    @test length(logger) == 0
+    log!(logger, state)
+    log!(logger, state)
+    log!(logger, state)
+    @test length(logger) == 2
+    logger = Logger(7, 100)
+    log!(logger, state)
+    log!(logger, state)
+    @test length(logger.time_vec) == 100
+    save_log(logger) == joinpath(tempdir(), "sim_log.arrow")
+    @test length(logger.time_vec) == 2
 end
 @testset "KiteUtils.jl: Transformations" begin
     ax, ay, az = [1, 0, 0], [0, 1, 0],  [0, 0, 1]

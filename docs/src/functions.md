@@ -16,19 +16,20 @@ Also look at the default example: [settings.yaml](https://github.com/ufechner7/K
 
 # Creating test data
 ```@docs
-demo_state(P, height=6.0, time=0.0)
+demo_state
 demo_state_4p
-demo_syslog(P, name="Test flight"; duration=10)
-demo_log(P, name="Test_flight"; duration=10)
+demo_syslog
+demo_log
 get_particles
 ```
 
 # Loading, saving and converting log files
 ```@docs
+Logger
 log!
-load_log(P, filename::String)
+load_log
 save_log
-export_log(flight_log)
+export_log
 ```
 The function ```set_data_path(data_path)``` can be used to set the directory for the log files. 
 

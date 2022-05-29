@@ -29,8 +29,8 @@ pkg"test KiteUtils"
 - functions for coordinate system transformations
 - functions for reading configuration files
 - the default configuration file [settings.yaml](data/settings.yaml)
-- functions for reading and writing log files
-- types for the state of a kite power system, for logfiles and for configuration data
+- functions for logging, reading and writing log files
+- types for the state of a kite power, logging and configuration parameters
 
 ## Related
 - The meta package [KiteSimulators](https://github.com/aenarete/KiteSimulators.jl) which contains all packages from Julia Kite Power Tools.
