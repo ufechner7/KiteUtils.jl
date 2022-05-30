@@ -118,31 +118,33 @@ function calc_heading_w(orientation, down_wind_direction = pi/2.0)
 end
 
 """
-    calc_heading(orientation, down_wind_direction = pi/2.0)
+    calc_heading(orientation, down_wind_direction = pi/2.0, respos=true)
 
 Calculate the heading angle of the kite in radians. The heading is the direction
-the nose of the kite is pointing to. The heading angle is defined in the range
-of 0 .. 2π.
+the nose of the kite is pointing to. 
+If respos is true the heading angle is defined in the range of 0 .. 2π,
+otherwise in the range -π .. π
 """
-function calc_heading(orientation, elevation, azimuth)
+function calc_heading(orientation, elevation, azimuth, respos=true)
     headingSE = fromW2SE(calc_heading_w(orientation), elevation, azimuth)
     angle = atan(headingSE.y, headingSE.x) - π
-    if angle < 0
+    if angle < 0 && respos
         angle += 2π
     end
     angle
 end
 
 """ 
-    calc_course(velocityENU, elevation, azimuth, down_wind_direction = π/2)
+    calc_course(velocityENU, elevation, azimuth, down_wind_direction = π/2, respos=true)
 
 Calculate the course angle in radian.
 
 - velocityENU:         Kite velocity in EastNorthUp reference frame
 - down_wind_direction: The direction the wind is going to; zero at north;
-                       clockwise positive from above; default: going to east. 
+                       clockwise positive from above; default: going to east.
+- respos:              If true, the result is in the range 0 .. 2π, otherwis -π .. π
 """
-function calc_course(velocityENU, elevation, azimuth, down_wind_direction = π/2)
+function calc_course(velocityENU, elevation, azimuth, down_wind_direction = π/2, respos=true)
     velocityEG = fromENU2EG(velocityENU)
     velocityW = fromEG2W(velocityEG, down_wind_direction)
     velocitySE = fromW2SE(velocityW, elevation, azimuth)
