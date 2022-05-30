@@ -91,4 +91,5 @@ end
     @test calc_heading(orient, elevation, azimuth)  ≈ 5.388664810099589
     calc_course(vec1, elevation, azimuth)
 end
+include("bench.jl")
 nothing

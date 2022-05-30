@@ -55,7 +55,7 @@ function rot(pos_kite, pos_before, v_app)
     z = normalize(c)
     y = normalize(cross(-v_app, c))
     x = normalize(cross(y, c))
-    rot = rot3d([0,-1.0,0], [1.0,0,0], [0,0,-1.0], z, y, x)
+    rot = rot3d(SVector(0,-1.0,0), SVector(1.0,0,0), SVector(0,0,-1.0), z, y, x)
 end
 
 """
