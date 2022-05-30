@@ -64,7 +64,7 @@ end
 Calculate the ground distance of the kite from the groundstation based on the kite position (x,y,z, z up).
 """
 function ground_dist(vec)
-    sqrt(vec[1]^2 + vec[2]^2)
+    sqrt(vec[begin]^2 + vec[begin+1]^2)
 end 
 
 """
@@ -73,7 +73,7 @@ end
 Calculate the elevation angle in radian from the kite position. 
 """
 function calc_elevation(vec)
-    atan(vec[3] / ground_dist(vec))
+    atan(vec[begin+2] / ground_dist(vec))
 end
 
 """
@@ -84,7 +84,7 @@ Zero east. Positive direction clockwise seen from above.
 Valid range: -π .. π.
 """
 function azimuth_east(vec)
-    return -atan(vec[2], vec[1])
+    return -atan(vec[begin+1], vec[begin])
 end
 
 """
