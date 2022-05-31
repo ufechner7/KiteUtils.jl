@@ -95,6 +95,6 @@ minus one to avoid exceptions in case of rounding errors. Returns an
 angle in radian.
 """
 @inline function acos2(arg)
-   arg2 = min(max(arg, -1.0), 1.0)
+   arg2 = min(max(arg, -one(arg)), one(arg))
    acos(arg2)
 end
