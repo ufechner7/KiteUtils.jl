@@ -50,12 +50,13 @@ last two tether particles and the apparent wind speed vector.
 """
 function rot(pos_kite, pos_before, v_app)
     delta = pos_kite - pos_before
-    @assert norm(delta) > 0.0 "Error in function rot() ! pos_kite must be not equal to pos_before. "
+    @assert norm(delta) > zero(eltype(delta)) "Error in function rot() ! pos_kite must be not equal to pos_before. "
     c = -delta
     z = normalize(c)
     y = normalize(cross(-v_app, c))
     x = normalize(cross(y, c))
-    rot = rot3d(SVector(0,-1.0,0), SVector(1.0,0,0), SVector(0,0,-1.0), z, y, x)
+    one_ = one(eltype(delta))
+    rot = rot3d(SVector(0,-one_,.0,0), SVector(one_,0,0), SVector(0,0,-one_), z, y, x)
 end
 
 """
