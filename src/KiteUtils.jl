@@ -396,6 +396,7 @@ function test(save=false)
     return(load_log(7, "Test_flight.arrow"))
 end
 
-precompile(load_log, (Int64, String,))     
+precompile(load_log, (Int64, String,))
+precompile(se, ())
 
 end
