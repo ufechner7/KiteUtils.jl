@@ -138,6 +138,7 @@ $(TYPEDFIELDS)
     "grid resolution in x and y direction                                           [m]"
     grid_step             = 0
 end
+StructTypes.StructType(::Type{Settings}) = StructTypes.Mutable()
 const SETTINGS = Settings()
 
 """
@@ -202,6 +203,15 @@ function copy_settings()
     chmod(joinpath(DATA_PATH[1], "kite.obj"), 0o664)
 end
 
+function update_settings(dict, sections)
+    result = Dict{Symbol, Any}()
+    for section in sections
+        sec_dict = Dict(Symbol(k) => v for (k, v) in dict[section])
+        merge!(result, sec_dict)
+    end
+    StructTypes.constructfrom!(SETTINGS, result)
+end
+
 """
     se()
 
@@ -220,97 +230,15 @@ function se(project="")
         # load project from YAML
         dict = YAML.load_file(joinpath(DATA_PATH[1], SETTINGS.project))
         SE_DICT[1] = dict
+        # update the SETTINGS struct from the dictionary
+        update_settings(dict, ["system", "initial", "solver", "steering", "depower", "kite", "kps4", "bridle", 
+                               "kcu", "tether", "environment"])
         tmp = split(dict["system"]["log_file"], "/")
         SETTINGS.log_file    = joinpath(tmp[1], tmp[2])
-        SETTINGS.segments    = dict["system"]["segments"]
-        SETTINGS.sample_freq = dict["system"]["sample_freq"]
-        SETTINGS.time_lapse  = dict["system"]["time_lapse"]
-        SETTINGS.sim_time    = dict["system"]["sim_time"]
-        SETTINGS.zoom        = dict["system"]["zoom"]
-        SETTINGS.kite_scale  = dict["system"]["kite_scale"]
-        SETTINGS.fixed_font  = dict["system"]["fixed_font"]
-
-        SETTINGS.l_tether    = dict["initial"]["l_tether"]
-        SETTINGS.v_reel_out  = dict["initial"]["v_reel_out"]
-        SETTINGS.elevation   = dict["initial"]["elevation"]
-        SETTINGS.depower     = dict["initial"]["depower"]
-
-        SETTINGS.abs_tol     = dict["solver"]["abs_tol"]
-        SETTINGS.rel_tol     = dict["solver"]["rel_tol"]
-        SETTINGS.linear_solver = dict["solver"]["linear_solver"]
-        SETTINGS.max_order   = dict["solver"]["max_order"]
-        SETTINGS.max_iter    = dict["solver"]["max_iter"]
-
-        SETTINGS.c0          = dict["steering"]["c0"]
-        SETTINGS.c_s         = dict["steering"]["c_s"]
-        SETTINGS.c2_cor      = dict["steering"]["c2_cor"]
-        SETTINGS.k_ds        = dict["steering"]["k_ds"]
-
-        SETTINGS.alpha_d_max    = dict["depower"]["alpha_d_max"]
-        SETTINGS.depower_offset = dict["depower"]["depower_offset"]
-
-        SETTINGS.model         = dict["kite"]["model"]
-        SETTINGS.physical_model= dict["kite"]["physical_model"]
-        SETTINGS.version       = dict["kite"]["version"]
-        SETTINGS.area          = dict["kite"]["area"]
-        SETTINGS.rel_side_area = dict["kite"]["rel_side_area"]
-        SETTINGS.mass          = dict["kite"]["mass"]
-        SETTINGS.height_k      = dict["kite"]["height"]
-        SETTINGS.alpha_cl      = dict["kite"]["alpha_cl"]
-        SETTINGS.cl_list       = dict["kite"]["cl_list"]
-        SETTINGS.alpha_cd      = dict["kite"]["alpha_cd"]
-        SETTINGS.cd_list       = dict["kite"]["cd_list"]
-
-        SETTINGS.width         = dict["kps4"]["width"]
-        SETTINGS.alpha_zero    = dict["kps4"]["alpha_zero"]
-        SETTINGS.alpha_ztip    = dict["kps4"]["alpha_ztip"]
-        SETTINGS.m_k           = dict["kps4"]["m_k"]
-        SETTINGS.rel_nose_mass = dict["kps4"]["rel_nose_mass"]
-        SETTINGS.rel_top_mass  = dict["kps4"]["rel_top_mass"]
-
-        SETTINGS.l_bridle      = dict["bridle"]["l_bridle"]
-        SETTINGS.h_bridle      = dict["bridle"]["h_bridle"]
-        SETTINGS.d_line        = dict["bridle"]["d_line"]
-
-        SETTINGS.kcu_mass         = dict["kcu"]["kcu_mass"]
-        SETTINGS.power2steer_dist = dict["kcu"]["power2steer_dist"]
-        SETTINGS.depower_drum_diameter = dict["kcu"]["depower_drum_diameter"]
-
-        SETTINGS.tape_thickness   = dict["kcu"]["tape_thickness"]
-        SETTINGS.v_depower        = dict["kcu"]["v_depower"]
-        SETTINGS.v_steering       = dict["kcu"]["v_steering"]
-        SETTINGS.depower_gain     = dict["kcu"]["depower_gain"]
-        SETTINGS.steering_gain    = dict["kcu"]["steering_gain"]
-
-        SETTINGS.cd_tether   = dict["tether"]["cd_tether"]
-        SETTINGS.d_tether    = dict["tether"]["d_tether"]
-        SETTINGS.damping     = dict["tether"]["damping"]
-        SETTINGS.c_spring    = dict["tether"]["c_spring"]
-        SETTINGS.rho_tether  = dict["tether"]["rho_tether"]
-        SETTINGS.e_tether    = dict["tether"]["e_tether"]
-
-        SETTINGS.v_wind      = dict["environment"]["v_wind"]
-        SETTINGS.v_wind_ref  = dict["environment"]["v_wind_ref"]
-        SETTINGS.h_ref       = dict["environment"]["h_ref"]
-        SETTINGS.rho_0       = dict["environment"]["rho_0"]
-        SETTINGS.z0          = dict["environment"]["z0"]
-        SETTINGS.alpha       = dict["environment"]["alpha"]
-        SETTINGS.profile_law = dict["environment"]["profile_law"]
-        SETTINGS.temp_ref    = dict["environment"]["temp_ref"]            # temperature at reference height         [°C]
-        SETTINGS.height_gnd  = dict["environment"]["height_gnd"]          # height of groundstation above see level [m]
-        SETTINGS.use_turbulence = dict["environment"]["use_turbulence"]   # turbulence intensity relative to Cabau, NL
-        SETTINGS.v_wind_gnds = dict["environment"]["v_wind_gnds"]         # wind speeds at ref height for calculating the turbulent wind field [m/s]
-        SETTINGS.avg_height  = dict["environment"]["avg_height"]          # average height during reel out          [m]
-        SETTINGS.rel_turbs   = dict["environment"]["rel_turbs"]           # relative turbulence at the v_wind_gnds
-        SETTINGS.i_ref       = dict["environment"]["i_ref"]               # is the expected value of the turbulence intensity at 15 m/s.
-        SETTINGS.v_ref       = dict["environment"]["v_ref"]               # five times the average wind speed in m/s at hub height over the full year    [m/s]
-                                                                          # Cabau: 8.5863 m/s * 5.0 = 42.9 m/s
-        SETTINGS.height_step = dict["environment"]["height_step"]         # use a grid with 2m resolution in z direction                                 [m]
-        SETTINGS.grid_step   = dict["environment"]["grid_step"]           # grid resolution in x and y direction                                         [m]  
+        SETTINGS.height_k      = dict["kite"]["height"] 
     end
     return SETTINGS
 end
-
 """
     se_dict()
 

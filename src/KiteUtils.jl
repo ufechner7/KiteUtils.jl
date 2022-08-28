@@ -29,7 +29,7 @@ SOFTWARE. =#
 # in addition helper functions for working with rotations
 
 using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions
-using Parameters
+using Parameters, StructTypes
 export Settings, SysState, SysLog, Logger, MyFloat
 
 import Base.length
