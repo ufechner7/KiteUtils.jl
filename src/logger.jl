@@ -4,6 +4,9 @@
 Struct to store a simulation log. P is number of points of the tether, segments+1 and 
 Q is the number of time steps that will be pre-allocated.
 
+Constructor:
+- Logger(P, steps)
+
 $(TYPEDFIELDS)
 """
 @with_kw mutable struct Logger{P, Q}
@@ -26,6 +29,10 @@ $(TYPEDFIELDS)
     y_vec::Vector{MVector{P, MyFloat}} = zeros(SVector{P, MyFloat}, Q)
     z_vec::Vector{MVector{P, MyFloat}} = zeros(SVector{P, MyFloat}, Q)
 end
+function Logger(P, steps)
+    Logger{P, steps}()
+end
+
 
 """
     log!(logger::Logger, state::SysState)
@@ -78,15 +85,6 @@ function sys_log(logger::Logger, name="sim_log")
     SysLog{logger.points}(name, syslog(logger))
 end
 
-"""
-    Logger(P, steps)
-
-Creates a Logger object for kite power systems with `P point masses which can store up to `steps` number of time steps.
-"""
-function Logger(P, steps)
-    logger = Logger{P, steps}()
-    logger
-end
 
 """
     save_log(logger::Logger, name="sim_log", compress=true)

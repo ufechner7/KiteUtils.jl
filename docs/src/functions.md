@@ -26,7 +26,6 @@ get_particles
 
 # Loading, saving and converting log files
 ```@docs
-Logger
 log!
 load_log
 save_log

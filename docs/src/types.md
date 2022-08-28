@@ -15,5 +15,5 @@ Also look at the default file that is parsed to fill the Settings struct with da
 MyFloat
 SysState{P}
 SysLog{P}
-Logger{P, Q}
+Logger
 ```
