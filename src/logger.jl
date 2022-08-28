@@ -1,7 +1,8 @@
 """
-    mutable struct Logger{P}
+    mutable struct Logger{P, Q}
 
-Struct to store a simulation log. P is number of points of the tether, segments+1.
+Struct to store a simulation log. P is number of points of the tether, segments+1 and 
+Q is the number of time steps that will be pre-allocated.
 
 $(TYPEDFIELDS)
 """
