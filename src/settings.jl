@@ -34,42 +34,86 @@ Flat struct, defining the settings of the Simulator and the Viewer.
 $(TYPEDFIELDS)
 """
 @with_kw mutable struct Settings @deftype Float64
+    "name of the yaml file with the settings"
     project::String       = ""
+
+    "filename without extension  [replay only]"
     log_file::String      = ""
-    "file name of the 3D model of the kite for the viewer"
-    model::String         = ""
-    "name of the kite model to use (KPS3 or KPS4)"
-    physical_model::String = ""
-    version::Int64 = 1
+    "relative replay speed"
+    time_lapse            = 0
+    "simulation time             [sim only]"
+    sim_time              = 0
     "number of tether segments"
     segments::Int64       = 0
+    "sample frequency in Hz"
     sample_freq::Int64    = 0
-    time_lapse            = 0
+    "zoom factor for the system view"
     zoom                  = 0
+    "relative zoom factor for the 4 point kite"
     kite_scale            = 1.0
+    "name or filepath+filename of alternative fixed pitch font"
     fixed_font::String    = ""
-    abs_tol               = 0.0
-    rel_tol               = 0.0
-    linear_solver::String = "GMRES"
-    max_order::Int64      = 4
-    max_iter::Int64       = 1
+    
+    "initial tether length       [m]"
+    l_tether              = 0
+    "initial elevation angle                [deg]"
+    elevation             = 0
+    "initial reel out speed    [m/s]"
     v_reel_out            = 0
+    "initial depower settings    [%]"
+    depower               = 0
+
+    "absolute tolerance of the DAE solver [m, m/s]"
+    abs_tol               = 0.0
+    "relative tolerance of the DAE solver [-]"
+    rel_tol               = 0.0
+    "can be GMRES or Dense"
+    linear_solver::String = "GMRES"
+    "maximal order, usually between 3 and 5"
+    max_order::Int64      = 4
+    "max number of iterations of the steady-state-solver"
+    max_iter::Int64       = 1
+
+    "steering offset   -0.0032           [-]"
     c0                    = 0
+    "steering coefficient one point model"
     c_s                   = 0
+    "correction factor one point model"
     c2_cor                = 0
+    "influence of the depower angle on the steering sensitivity"
     k_ds                  = 0
-    "projected kite area            [m^2]"
-    area                  = 0
+    "steering increment (when pressing RIGHT)"
+    delta_st              = 0
+    "max. steering angle of the side planes for four point model [degrees]"
+    max_steering          = 0
+
+    "max depower angle              [deg]"
+    alpha_d_max           = 0
+    "at rel_depower=0.236 the kite is fully powered [%]"
+    depower_offset        = 23.6
+
+    "file name of the 3D model of the kite for the viewer"
+    model::String         = "data/kite.obj"
+    "name of the kite model to use (KPS3 or KPS4)"
+    physical_model::String = ""
+    "version of the model to use"
+    version::Int64 = 1
     "kite mass incl. sensor unit     [kg]"
     mass                  = 0
+    "projected kite area            [m^2]"
+    area                  = 0
+    "relative side area               [%]"
+    rel_side_area         = 0
     "height of the kite               [m]"
     height_k              = 0
     alpha_cl::Vector{Float64} = []
     cl_list::Vector{Float64}  = []
     alpha_cd::Vector{Float64} = []
     cd_list::Vector{Float64}  = []
+
     "width of the kite                [m]"
     width                 = 0
+    "should be 5                      [degrees]"
     alpha_zero            = 0
     alpha_ztip            = 0
     "relative nose distance; increasing m_k increases C2 of the turn-rate law"
@@ -77,50 +121,66 @@ $(TYPEDFIELDS)
     rel_nose_mass         = 0
     "mass of the top particle relative to the sum of top and side particles"
     rel_top_mass          = 0
-    "relative side area               [%]"
-    rel_side_area         = 0
-    "max depower angle              [deg]"
-    alpha_d_max           = 0
+
+    "bridle line diameter                  [mm]"
+    d_line                = 0
+    "height of the bridle                    [m]"
+    h_bridle              = 0
+    "sum of the lengths of the bridle lines [m]"
+    l_bridle              = 0
+
     "mass of the kite control unit   [kg]"
     kcu_mass              = 0
     "power to steering line distance  [m]"
     power2steer_dist      = 0
     depower_drum_diameter = 0
-    depower_offset        = 0
     tape_thickness        = 0
+    "max velocity of depowering in units per second (full range: 1 unit)"
     v_depower             = 0
+    "max velocity of steering in units per second   (full range: 2 units)"
     v_steering            = 0
-    depower_gain          = 0
-    steering_gain         = 0
-    v_wind                = 0
-    v_wind_ref::Vector{Float64} = [] # wind speed vector at reference height
-    h_ref                 = 0
-    rho_0                 = 0
-    z0                    = 0
-    profile_law::Int64    = 0
-    alpha                 = 0
-    cd_tether             = 0
+    "3.0 means: more than 33% error -> full speed"
+    depower_gain          = 3.0
+    steering_gain         = 3.0
+
+    "tether diameter                 [mm]"
     d_tether              = 0
-    d_line                = 0
-    "height of the bridle                    [m]"
-    h_bridle              = 0
-    l_bridle              = 0
-    l_tether              = 0
+    "drag coefficient of the tether"
+    cd_tether             = 0
+    "unit damping coefficient        [Ns]"
     damping               = 0
+    "unit spring constant coefficient [N]"
     c_spring              = 0
     "density of Dyneema                   [kg/m³]"
     rho_tether            = 0
     "axial tensile modulus of the tether     [Pa]"
     e_tether              = 0
-    "initial elevation angle                [deg]"
-    elevation             = 0
-    "simulation time                   [sim only]"
-    depower               = 0
-    sim_time              = 0
+
+    "maximal (nominal) tether force; short overload allowed [N]"
+    max_force             = 4000
+    "maximal reel-out speed                      [m/s]"
+    v_ro_max              = 8
+    "minimal reel-out speed (=max reel-in speed) [m/s]"
+    v_ro_min              = -8
+
+    "wind speed at reference height          [m/s]"
+    v_wind                = 0
+    "wind speed vector at reference height   [m/s]"
+    v_wind_ref::Vector{Float64} = [] # wind speed vector at reference height
     "temperature at reference height         [°C]"
     temp_ref              = 0
     "height of groundstation above see level  [m]"
     height_gnd            = 0
+    " reference height for the wind speed     [m]"
+    h_ref                 = 0
+    "air density at zero height and 15 °C    [kg/m³]"
+    rho_0                 = 0
+    "exponent of the wind profile law"
+    alpha                 = 0
+    "surface roughness                       [m]"
+    z0                    = 0
+    "1=EXP, 2=LOG, 3=EXPLOG, 4=FAST_EXP, 5=FAST_LOG, 6=FAST_EXPLOG"
+    profile_law::Int64    = 0
     "turbulence intensity relative to Cabau, NL"
     use_turbulence        = 0
     "wind speeds at ref height for calculating the turbulent wind field [m/s]"
@@ -232,7 +292,7 @@ function se(project="")
         SE_DICT[1] = dict
         # update the SETTINGS struct from the dictionary
         update_settings(dict, ["system", "initial", "solver", "steering", "depower", "kite", "kps4", "bridle", 
-                               "kcu", "tether", "environment"])
+                               "kcu", "tether", "winch", "environment"])
         tmp = split(dict["system"]["log_file"], "/")
         SETTINGS.log_file    = joinpath(tmp[1], tmp[2])
         SETTINGS.height_k      = dict["kite"]["height"] 
