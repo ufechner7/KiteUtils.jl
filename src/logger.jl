@@ -7,6 +7,8 @@ Q is the number of time steps that will be pre-allocated.
 Constructor:
 - Logger(P, steps)
 
+Fields:
+
 $(TYPEDFIELDS)
 """
 @with_kw mutable struct Logger{P, Q}
