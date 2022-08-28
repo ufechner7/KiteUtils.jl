@@ -1,7 +1,9 @@
 using KiteUtils
 using Pkg
-if ! ("Documents" ∈ keys(Pkg.project().dependencies))
-    using TestEnv; TestEnv.activate()
+if ("TestEnv" ∈ keys(Pkg.project().dependencies))
+    if ! ("Documents" ∈ keys(Pkg.project().dependencies))
+        using TestEnv; TestEnv.activate()
+    end
 end
 using Documenter
 
