@@ -31,6 +31,7 @@ log!
 load_log
 save_log
 export_log
+sys_log
 ```
 The function ```set_data_path(data_path)``` can be used to set the directory for the log files. 
 
