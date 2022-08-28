@@ -1,4 +1,8 @@
 using KiteUtils
+using Pkg
+if ! ("Documents" ∈ keys(Pkg.project().dependencies))
+    using TestEnv; TestEnv.activate()
+end
 using Documenter
 
 DocMeta.setdocmeta!(KiteUtils, :DocTestSetup, :(using KiteUtils); recursive=true)
