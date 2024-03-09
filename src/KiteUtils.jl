@@ -28,6 +28,7 @@ SOFTWARE. =#
 # the parameter P is the number of points of the tether, equal to segments+1
 # in addition helper functions for working with rotations
 
+using PrecompileTools: @setup_workload, @compile_workload 
 using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions
 using Parameters, StructTypes
 export Settings, SysState, SysLog, Logger, MyFloat
@@ -396,7 +397,16 @@ function test(save=false)
     return(load_log(7, "Test_flight.arrow"))
 end
 
-precompile(load_log, (Int64, String,))
-precompile(se, ())
+@setup_workload begin
+    # Putting some things in `@setup_workload` instead of `@compile_workload` can reduce the size of the
+    # precompile file and potentially make loading faster.
+    # list = [OtherType("hello"), OtherType("world!")]
+    @compile_workload begin
+        # all calls in this block will be precompiled, regardless of whether
+        # they belong to your package or not (on Julia 1.8 and higher)
+        se()
+        load_log(7, "Test_flight.arrow")
+    end
+end
 
 end
