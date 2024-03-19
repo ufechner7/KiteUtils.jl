@@ -261,6 +261,7 @@ function copy_settings()
     chmod(joinpath(DATA_PATH[1], "settings.yaml"), 0o664)
     chmod(joinpath(DATA_PATH[1], "system.yaml"), 0o664)
     chmod(joinpath(DATA_PATH[1], "kite.obj"), 0o664)
+    set_data_path(joinpath(pwd(), "data"))
 end
 
 function update_settings(dict, sections)
