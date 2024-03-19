@@ -269,7 +269,7 @@ function copy_settings()
     if Sys.islinux()
         settings = joinpath(DATA_PATH[1], "settings.yaml")
         lines = readfile(settings)
-        change_value(lines, fixed_font, "Liberation Mono")
+        change_value(lines, "fixed_font", "Liberation Mono")
         writefile(lines, settings)
     end
     println("Copied 3 files to $(DATA_PATH[1]) !")
