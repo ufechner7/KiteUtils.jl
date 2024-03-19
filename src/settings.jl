@@ -265,13 +265,14 @@ function copy_settings()
     chmod(joinpath(DATA_PATH[1], "system.yaml"), 0o664)
     chmod(joinpath(DATA_PATH[1], "kite.obj"), 0o664)
     set_data_path(joinpath(pwd(), "data"))
-    # set font(
+    # set font
     if Sys.islinux()
         settings = joinpath(DATA_PATH[1], "settings.yaml")
         lines = readfile(settings)
         change_value(lines, fixed_font, "Liberation Mono")
         writefile(lines, settings)
     end
+    println("Copied 3 files to $(DATA_PATH[1]) !")
 end
 
 function update_settings(dict, sections)
