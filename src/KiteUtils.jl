@@ -179,6 +179,7 @@ include("logger.jl")
 # functions
 function __init__()
     SETTINGS.segments=0 # force loading of settings.yaml
+    set_data_path(joinpath(pwd(), "data"))
 end
 
 """
