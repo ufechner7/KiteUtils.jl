@@ -179,7 +179,7 @@ include("logger.jl")
 # functions
 function __init__()
     SETTINGS.segments=0 # force loading of settings.yaml
-    if isdir(joinpath(pwd(), "data"))
+    if isdir(joinpath(pwd(), "data")) && isfile(joinpath(pwd(), "data", "settings.yaml"))
         set_data_path(joinpath(pwd(), "data"))
     end
 end

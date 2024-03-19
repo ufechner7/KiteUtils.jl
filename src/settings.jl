@@ -251,10 +251,13 @@ Copy the default settings.yaml and system.yaml files to the folder DATAPATH
 (it will be created if it doesn't exist).
 """
 function copy_settings()
+    src_path = joinpath(dirname(pathof(KiteUtils)), "..", DATA_PATH[1])
+    if src_path == DATA_PATH[1]
+        DATA_PATH[1] = joinpath(pwd(), "data")
+    end
     if ! isdir(DATA_PATH[1]) 
         mkdir(DATA_PATH[1])
     end
-    src_path = joinpath(dirname(pathof(KiteUtils)), "..", DATA_PATH[1])
     cp(joinpath(src_path, "settings.yaml"), joinpath(DATA_PATH[1], "settings.yaml"), force=true)
     cp(joinpath(src_path, "system.yaml"), joinpath(DATA_PATH[1], "system.yaml"), force=true)
     cp(joinpath(src_path, "kite.obj"), joinpath(DATA_PATH[1], "kite.obj"), force=true)
