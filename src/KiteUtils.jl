@@ -53,6 +53,7 @@ const DATA_PATH = ["data"]          # path for log files and other data
 const SE_DICT = [Dict()]
 
 include("settings.jl")
+include("yaml_utils.jl")
 include("transformations.jl")
 include("trafo.jl")
 
@@ -179,7 +180,7 @@ include("logger.jl")
 # functions
 function __init__()
     SETTINGS.segments=0 # force loading of settings.yaml
-    if isdir(joinpath(pwd(), "data")) && isfile(joinpath(pwd(), "data", "settings.yaml"))
+    if isdir(joinpath(pwd(), "data")) && isfile(joinpath(pwd(), "data", "system.yaml"))
         set_data_path(joinpath(pwd(), "data"))
     end
 end
