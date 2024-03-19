@@ -251,7 +251,7 @@ Copy the default settings.yaml and system.yaml files to the folder DATAPATH
 (it will be created if it doesn't exist).
 """
 function copy_settings()
-    src_path = joinpath(dirname(pathof(KiteUtils)), "..", DATA_PATH[1])
+    src_path = joinpath(dirname(pathof(KiteUtils)), "..", "data")
     if src_path == DATA_PATH[1]
         DATA_PATH[1] = joinpath(pwd(), "data")
     end
