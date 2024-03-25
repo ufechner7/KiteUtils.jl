@@ -15,6 +15,7 @@ $(TYPEDFIELDS)
     points::Int64 = P
     index::Int64 = 1
     time_vec::Vector{Float64} = zeros(MyFloat, Q)
+    t_sim_vec::Vector{Float64} = zeros(MyFloat, Q)
     orient_vec::Vector{MVector{4, Float32}} = zeros(SVector{4, Float32}, Q)
     elevation_vec::Vector{MyFloat} = zeros(MyFloat, Q)
     azimuth_vec::Vector{MyFloat} = zeros(MyFloat, Q)
@@ -73,7 +74,7 @@ end
 
 function syslog(logger::Logger)
     l = logger
-    StructArray{SysState{l.points}}((l.time_vec, l.orient_vec, l.elevation_vec, l.azimuth_vec, l.l_tether_vec,
+    StructArray{SysState{l.points}}((l.time_vec, l.t_sim_vec, l.orient_vec, l.elevation_vec, l.azimuth_vec, l.l_tether_vec,
                 l.v_reelout_vec, l.force_vec, l.depower_vec, l.steering_vec, l.heading_vec, l.course_vec,
                 l.v_app_vec, l.vel_kite_vec, l.x_vec, l.y_vec, l.z_vec))
 end
@@ -97,6 +98,7 @@ if you use **false** as second parameter no compression is used.
 function save_log(logger::Logger, name="sim_log", compress=true)
     nl = length(logger)
     resize!(logger.time_vec, nl)
+    resize!(logger.t_sim_vec, nl)
     resize!(logger.orient_vec, nl)
     resize!(logger.elevation_vec, nl)
     resize!(logger.azimuth_vec, nl)

@@ -68,6 +68,8 @@ $(TYPEDFIELDS)
 struct SysState{P}
     "time since start of simulation in seconds"
     time::Float64
+    "time needed for one simulation timestep"
+    t_sim::Float64
     "orientation of the kite (quaternion, order w,x,y,z)"
     orient::MVector{4, Float32}
     "elevation angle in radians"
@@ -129,6 +131,7 @@ end
 
 function Base.show(io::IO, st::SysState) 
     println(io, "time      [s]:       ", st.time)
+    println(io, "t_sim     [s]:       ", st.t_sim)
     println(io, "orient    [w,x,y,z]: ", st.orient)
     println(io, "elevation [rad]:     ", st.elevation)
     println(io, "azimuth   [rad]:     ", st.azimuth)
@@ -202,7 +205,8 @@ function demo_state(P, height=6.0, time=0.0)
     orient = MVector{4, Float32}(Rotations.params(q))
     elevation = calc_elevation([X[end], 0.0, Z[end]])
     vel_kite = zeros(3)
-    return SysState{P}(time, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z)
+    t_sim = 0.012
+    return SysState{P}(time, t_sim, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z)
 end
 
 """
@@ -303,7 +307,8 @@ function demo_state_4p(P, height=6.0, time=0.0)
     orient = MVector{4, Float32}(Rotations.params(q))
     elevation = calc_elevation([X[end], 0.0, Z[end]])
     vel_kite=zeros(3)
-    return SysState{P+4}(time, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z)
+    t_sim = 0.014
+    return SysState{P+4}(time, t_sim, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z)
 end
 
 """
@@ -316,6 +321,7 @@ function demo_syslog(P, name="Test flight"; duration=10)
     max_height = 6.03
     steps   = Int(duration * se().sample_freq) + 1
     time_vec = Vector{Float64}(undef, steps)
+    t_sim_vec = Vector{Float64}(undef, steps)
     myzeros = zeros(MyFloat, steps)
     elevation = Vector{Float64}(undef, steps)
     orient_vec = Vector{MVector{4, Float32}}(undef, steps)
@@ -326,6 +332,7 @@ function demo_syslog(P, name="Test flight"; duration=10)
     for i in range(0, length=steps)
         state = demo_state(P, max_height * i/steps, i/se().sample_freq)
         time_vec[i+1] = state.time
+        t_sim_vec[i+1] = state.t_sim
         orient_vec[i+1] = state.orient
         vel_kite_vec[i+1] = state.vel_kite
         elevation[i+1] = asin(state.Z[end]/state.X[end])
@@ -333,7 +340,7 @@ function demo_syslog(P, name="Test flight"; duration=10)
         Y_vec[i+1] = state.Y
         Z_vec[i+1] = state.Z
     end
-    return StructArray{SysState{P}}((time_vec, orient_vec, elevation, myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,
+    return StructArray{SysState{P}}((time_vec, t_sim_vec, orient_vec, elevation, myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,
                                      myzeros,myzeros,myzeros, vel_kite_vec, X_vec, Y_vec, Z_vec))
 end
 
@@ -387,7 +394,7 @@ function load_log(P, filename::String)
         fullname = joinpath(DATA_PATH[1], filename) 
     end
     table = Arrow.Table(fullname)
-    syslog = StructArray{SysState{P}}((table.time, table.orient, table.elevation, table.azimuth, table.l_tether, 
+    syslog = StructArray{SysState{P}}((table.time, table.t_sim, table.orient, table.elevation, table.azimuth, table.l_tether, 
                     table.v_reelout, table.force, table.depower, table.steering, table.heading, table.course, 
                     table.v_app, table.vel_kite, table.X, table.Y, table.Z))
     return SysLog{P}(basename(fullname[1:end-6]), syslog)
