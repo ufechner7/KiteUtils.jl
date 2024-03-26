@@ -31,6 +31,11 @@ $(TYPEDFIELDS)
     x_vec::Vector{MVector{P, MyFloat}} = zeros(SVector{P, MyFloat}, Q)
     y_vec::Vector{MVector{P, MyFloat}} = zeros(SVector{P, MyFloat}, Q)
     z_vec::Vector{MVector{P, MyFloat}} = zeros(SVector{P, MyFloat}, Q)
+    var_01_vec::Vector{Float64} = zeros(Float64, Q)
+    var_02_vec::Vector{Float64} = zeros(Float64, Q)
+    var_03_vec::Vector{Float64} = zeros(Float64, Q)
+    var_04_vec::Vector{Float64} = zeros(Float64, Q)
+    var_05_vec::Vector{Float64} = zeros(Float64, Q)
 end
 function Logger(P, steps)
     Logger{P, steps}()
@@ -65,6 +70,11 @@ function log!(logger::Logger, state::SysState)
     logger.x_vec[i] .= state.X
     logger.y_vec[i] .= state.Y
     logger.z_vec[i] .= state.Z
+    logger.var_01_vec[i] = state.var_01
+    logger.var_02_vec[i] = state.var_02
+    logger.var_03_vec[i] = state.var_03
+    logger.var_04_vec[i] = state.var_04
+    logger.var_05_vec[i] = state.var_05
     logger.index+=1
     return i
 end
@@ -77,26 +87,51 @@ function syslog(logger::Logger)
     l = logger
     StructArray{SysState{l.points}}((l.time_vec, l.t_sim_vec, l.orient_vec, l.elevation_vec, l.azimuth_vec, l.l_tether_vec,
                 l.v_reelout_vec, l.force_vec, l.depower_vec, l.steering_vec, l.heading_vec, l.course_vec,
-                l.v_app_vec, l.vel_kite_vec, l.x_vec, l.y_vec, l.z_vec))
+                l.v_app_vec, l.vel_kite_vec, l.x_vec, l.y_vec, l.z_vec, l.var_01_vec, l.var_02_vec, l.var_03_vec, 
+                l.var_04_vec, l.var_05_vec))
 end
 
 """
-    sys_log(logger::Logger, name="sim_log")
+    sys_log(logger::Logger, name="sim_log";
+                colmeta = Dict(:var_01 => ["name" => "var_01"],
+                               :var_02 => ["name" => "var_02"],
+                               :var_03 => ["name" => "var_03"],
+                               :var_04 => ["name" => "var_04"],
+                               :var_05 => ["name" => "var_05"]
+            ))
 
-Converts the data of a Logger object into a SysLog object, containing a StructArray and a name.
+Converts the data of a Logger object into a SysLog object, containing a StructArray, a name
+and the column meta data.
 """
-function sys_log(logger::Logger, name="sim_log")
-    SysLog{logger.points}(name, syslog(logger))
+function sys_log(logger::Logger, name="sim_log"; 
+    colmeta = Dict(:var_01 => ["name" => "var_01"],
+                   :var_02 => ["name" => "var_02"],
+                   :var_03 => ["name" => "var_03"],
+                   :var_04 => ["name" => "var_04"],
+                   :var_05 => ["name" => "var_05"]
+    ))
+    SysLog{logger.points}(name, colmeta, syslog(logger))
 end
 
-
 """
-    save_log(logger::Logger, name="sim_log", compress=true)
+    save_log(logger::Logger, name="sim_log", compress=true;
+                colmeta = Dict(:var_01 => ["name" => "var_01"],
+                               :var_02 => ["name" => "var_02"],
+                               :var_03 => ["name" => "var_03"],
+                               :var_04 => ["name" => "var_04"],
+                               :var_05 => ["name" => "var_05"]
+            ))
 
 Save a fligh log from a logger as .arrow file. By default lz4 compression is used, 
 if you use **false** as second parameter no compression is used.
 """
-function save_log(logger::Logger, name="sim_log", compress=true)
+function save_log(logger::Logger, name="sim_log", compress=true;
+    colmeta = Dict(:var_01 => ["name" => "var_01"],
+                   :var_02 => ["name" => "var_02"],
+                   :var_03 => ["name" => "var_03"],
+                   :var_04 => ["name" => "var_04"],
+                   :var_05 => ["name" => "var_05"]
+                  ))
     nl = length(logger)
     resize!(logger.time_vec, nl)
     resize!(logger.t_sim_vec, nl)
@@ -115,6 +150,11 @@ function save_log(logger::Logger, name="sim_log", compress=true)
     resize!(logger.x_vec, nl)
     resize!(logger.y_vec, nl)
     resize!(logger.z_vec, nl)
-    flight_log = (sys_log(logger, name))
+    resize!(logger.var_01_vec, nl)
+    resize!(logger.var_02_vec, nl)
+    resize!(logger.var_03_vec, nl)
+    resize!(logger.var_04_vec, nl)
+    resize!(logger.var_05_vec, nl)
+    flight_log = (sys_log(logger, name; colmeta))
     save_log(flight_log, compress)
 end

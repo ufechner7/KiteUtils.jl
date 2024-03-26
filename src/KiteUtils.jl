@@ -100,6 +100,11 @@ mutable struct SysState{P}
     Y::MVector{P, MyFloat}
     "vector of particle positions in z"
     Z::MVector{P, MyFloat}
+    var_01::MyFloat
+    var_02::MyFloat
+    var_03::MyFloat
+    var_04::MyFloat
+    var_05::MyFloat
 end 
 
 function Base.getproperty(st::SysState, sym::Symbol)
@@ -147,6 +152,11 @@ function Base.show(io::IO, st::SysState)
     println(io, "X         [m]:       ", st.X)
     println(io, "Y         [m]:       ", st.Y)
     println(io, "Z         [m]:       ", st.Z)
+    println(io, "var_01       :       ", st.var_01)
+    println(io, "var_01       :       ", st.var_02)
+    println(io, "var_01       :       ", st.var_03)
+    println(io, "var_01       :       ", st.var_04)
+    println(io, "var_01       :       ", st.var_05)
 end
 
 """
@@ -162,6 +172,7 @@ $(TYPEDFIELDS)
 mutable struct SysLog{P}
     "name of the flight log"
     name::String
+    colmeta::Dict
     "struct of vectors that can also be accessed like a vector of structs"
     syslog::StructArray{SysState{P}}
 end
@@ -206,7 +217,7 @@ function demo_state(P, height=6.0, time=0.0)
     elevation = calc_elevation([X[end], 0.0, Z[end]])
     vel_kite = zeros(3)
     t_sim = 0.012
-    return SysState{P}(time, t_sim, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z)
+    return SysState{P}(time, t_sim, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z, 0, 0, 0, 0, 0)
 end
 
 """
@@ -308,7 +319,7 @@ function demo_state_4p(P, height=6.0, time=0.0)
     elevation = calc_elevation([X[end], 0.0, Z[end]])
     vel_kite=zeros(3)
     t_sim = 0.014
-    return SysState{P+4}(time, t_sim, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z)
+    return SysState{P+4}(time, t_sim, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z, 0, 0, 0, 0, 0)
 end
 
 """
@@ -326,9 +337,14 @@ function demo_syslog(P, name="Test flight"; duration=10)
     elevation = Vector{Float64}(undef, steps)
     orient_vec = Vector{MVector{4, Float32}}(undef, steps)
     vel_kite_vec = Vector{MVector{3, MyFloat}}(undef, steps)
-    X_vec = Vector{MVector{P, MyFloat}}(undef, steps)
+    X_vec = Vector{MVector{P, MyFloat}}(undef, steps) 
     Y_vec = Vector{MVector{P, MyFloat}}(undef, steps)
     Z_vec = Vector{MVector{P, MyFloat}}(undef, steps)
+    var_01_vec = Vector{Float64}(undef, steps)
+    var_02_vec = Vector{Float64}(undef, steps)
+    var_03_vec = Vector{Float64}(undef, steps)
+    var_04_vec = Vector{Float64}(undef, steps)
+    var_05_vec = Vector{Float64}(undef, steps)
     for i in range(0, length=steps)
         state = demo_state(P, max_height * i/steps, i/se().sample_freq)
         time_vec[i+1] = state.time
@@ -339,9 +355,15 @@ function demo_syslog(P, name="Test flight"; duration=10)
         X_vec[i+1] = state.X
         Y_vec[i+1] = state.Y
         Z_vec[i+1] = state.Z
+        var_01_vec[i+1] = 0
+        var_02_vec[i+1] = 0
+        var_03_vec[i+1] = 0
+        var_04_vec[i+1] = 0
+        var_05_vec[i+1] = 0
     end
     return StructArray{SysState{P}}((time_vec, t_sim_vec, orient_vec, elevation, myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,
-                                     myzeros,myzeros,myzeros, vel_kite_vec, X_vec, Y_vec, Z_vec))
+                                     myzeros,myzeros,myzeros, vel_kite_vec, X_vec, Y_vec, Z_vec, var_01_vec, var_02_vec, var_03_vec, 
+                                     var_04_vec, var_05_vec))
 end
 
 """
@@ -350,9 +372,15 @@ end
 Create an artifical SysLog struct for demonstration purposes. P is the number of tether
 particles.
 """
-function demo_log(P, name="Test_flight"; duration=10)
+function demo_log(P, name="Test_flight"; duration=10,     
+    colmeta = Dict(:var_01 => ["name" => "var_01"],
+                   :var_02 => ["name" => "var_02"],
+                   :var_03 => ["name" => "var_03"],
+                   :var_04 => ["name" => "var_04"],
+                   :var_05 => ["name" => "var_05"]
+                   ))
     syslog = demo_syslog(P, name, duration=duration)
-    return SysLog{P}(name, syslog)
+    return SysLog{P}(name, colmeta, syslog)
 end
 
 """
@@ -364,9 +392,9 @@ if you use **false** as second parameter no compression is used.
 function save_log(flight_log::SysLog, compress=true)
     filename = joinpath(DATA_PATH[1], flight_log.name) * ".arrow"
     if compress
-        Arrow.write(filename, flight_log.syslog, compress=:lz4)
+        Arrow.write(filename, flight_log.syslog, compress=:lz4, colmetadata = flight_log.colmeta)
     else
-        Arrow.write(filename, flight_log.syslog)
+        Arrow.write(filename, flight_log.syslog, colmetadata = flight_log.colmeta)
     end
 end
 
@@ -395,11 +423,18 @@ function load_log(P, filename::String)
             fullname = joinpath(DATA_PATH[1], filename) 
         end
     end
-    table = Arrow.Table(fullname)
+    table   = Arrow.Table(fullname)
+    colmeta = Dict(:var_01=>Arrow.getmetadata(table.var_01)["name"],
+                   :var_02=>Arrow.getmetadata(table.var_02)["name"],
+                   :var_03=>Arrow.getmetadata(table.var_03)["name"],
+                   :var_04=>Arrow.getmetadata(table.var_04)["name"],
+                   :var_05=>Arrow.getmetadata(table.var_05)["name"],
+    )
+    # example_metadata = KiteUtils.Arrow.getmetadata(table.var_01)
     syslog = StructArray{SysState{P}}((table.time, table.t_sim, table.orient, table.elevation, table.azimuth, table.l_tether, 
                     table.v_reelout, table.force, table.depower, table.steering, table.heading, table.course, 
-                    table.v_app, table.vel_kite, table.X, table.Y, table.Z))
-    return SysLog{P}(basename(fullname[1:end-6]), syslog)
+                    table.v_app, table.vel_kite, table.X, table.Y, table.Z, table.var_01, table.var_02,table.var_03,table.var_04,table.var_05))
+    return SysLog{P}(basename(fullname[1:end-6]), colmeta, syslog)
 end
 
 function test(save=false)
