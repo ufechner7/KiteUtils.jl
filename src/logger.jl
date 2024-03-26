@@ -49,6 +49,7 @@ function log!(logger::Logger, state::SysState)
         return length(logger.time_vec)
     end
     logger.time_vec[i] = state.time
+    logger.t_sim_vec[i] = state.t_sim
     logger.orient_vec[i] .= state.orient
     logger.elevation_vec[i] = state.elevation
     logger.azimuth_vec[i] = state.azimuth

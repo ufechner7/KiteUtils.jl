@@ -65,7 +65,7 @@ of tether particles.
 
 $(TYPEDFIELDS)
 """
-struct SysState{P}
+mutable struct SysState{P}
     "time since start of simulation in seconds"
     time::Float64
     "time needed for one simulation timestep"
@@ -405,10 +405,12 @@ Read a log file that was saved as .arrow file.  P is the number of tether
 particles.
 """
 function load_log(P, filename::String)
-    if isnothing(findlast(isequal('.'), filename))
-        fullname = joinpath(DATA_PATH[1], filename) * ".arrow"
-    else
-        fullname = joinpath(DATA_PATH[1], filename) 
+    if ! isfile(filename)
+        if isnothing(findlast(isequal('.'), filename))
+            fullname = joinpath(DATA_PATH[1], filename) * ".arrow"
+        else
+            fullname = joinpath(DATA_PATH[1], filename) 
+        end
     end
     table = Arrow.Table(fullname)
     syslog = StructArray{SysState{P}}((table.time, table.t_sim, table.orient, table.elevation, table.azimuth, table.l_tether, 
