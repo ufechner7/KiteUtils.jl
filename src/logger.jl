@@ -155,6 +155,6 @@ function save_log(logger::Logger, name="sim_log", compress=true;
     resize!(logger.var_03_vec, nl)
     resize!(logger.var_04_vec, nl)
     resize!(logger.var_05_vec, nl)
-    flight_log = (sys_log(logger, name, colmeta))
+    flight_log = (sys_log(logger, name; colmeta))
     save_log(flight_log, compress)
 end
