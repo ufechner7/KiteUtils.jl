@@ -23,7 +23,7 @@ end
     @test typeof(state) == SysState{7}
     @test state.X[end] == 10.0
     @test all(state.pos[end] .≈ [10, 0, 6.0])
-    @test repr(state) == "time      [s]:       0.0\nt_sim     [s]:       0.012\norient    [w,x,y,z]: Float32[0.5, 0.5, -0.5, -0.5]\nelevation [rad]:     0.5404195\nazimuth   [rad]:     0.0\nl_tether  [m]:       0.0\nv_reelout [m/s]:     0.0\nforce     [N]:       0.0\ndepower   [-]:       0.0\nsteering  [-]:       0.0\nheading   [rad]:     0.0\ncourse    [rad]:     0.0\nv_app     [m/s]:     0.0\nvel_kite  [m/s]:     Float32[0.0, 0.0, 0.0]\nX         [m]:       Float32[0.0, 1.6666666, 3.3333333, 5.0, 6.6666665, 8.333333, 10.0]\nY         [m]:       Float32[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]\nZ         [m]:       Float32[0.0, 0.15380114, 0.6194867, 1.4100224, 2.5474184, 4.063342, 6.0000005]\n"
+    @test repr(state) == "time      [s]:       0.0\nt_sim     [s]:       0.012\norient    [w,x,y,z]: Float32[0.5, 0.5, -0.5, -0.5]\nelevation [rad]:     0.5404195\nazimuth   [rad]:     0.0\nl_tether  [m]:       0.0\nv_reelout [m/s]:     0.0\nforce     [N]:       0.0\ndepower   [-]:       0.0\nsteering  [-]:       0.0\nheading   [rad]:     0.0\ncourse    [rad]:     0.0\nv_app     [m/s]:     0.0\nvel_kite  [m/s]:     Float32[0.0, 0.0, 0.0]\nX         [m]:       Float32[0.0, 1.6666666, 3.3333333, 5.0, 6.6666665, 8.333333, 10.0]\nY         [m]:       Float32[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]\nZ         [m]:       Float32[0.0, 0.15380114, 0.6194867, 1.4100224, 2.5474184, 4.063342, 6.0000005]\nvar_01       :       0.0\nvar_01       :       0.0\nvar_01       :       0.0\nvar_01       :       0.0\nvar_01       :       0.0\n"
     state = KiteUtils.demo_state_4p(7)
     @test typeof(state) == SysState{11}
     @test state.X[end] ≈ 12.45

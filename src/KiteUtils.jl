@@ -152,6 +152,11 @@ function Base.show(io::IO, st::SysState)
     println(io, "X         [m]:       ", st.X)
     println(io, "Y         [m]:       ", st.Y)
     println(io, "Z         [m]:       ", st.Z)
+    println(io, "var_01       :       ", st.var_01)
+    println(io, "var_01       :       ", st.var_02)
+    println(io, "var_01       :       ", st.var_03)
+    println(io, "var_01       :       ", st.var_04)
+    println(io, "var_01       :       ", st.var_05)
 end
 
 """
