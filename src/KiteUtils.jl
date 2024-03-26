@@ -167,7 +167,7 @@ $(TYPEDFIELDS)
 mutable struct SysLog{P}
     "name of the flight log"
     name::String
-    col_names::String[]
+    col_names::Dict
     "struct of vectors that can also be accessed like a vector of structs"
     syslog::StructArray{SysState{P}}
 end
@@ -212,7 +212,7 @@ function demo_state(P, height=6.0, time=0.0)
     elevation = calc_elevation([X[end], 0.0, Z[end]])
     vel_kite = zeros(3)
     t_sim = 0.012
-    return SysState{P}(time, t_sim, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z)
+    return SysState{P}(time, t_sim, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z, 0, 0, 0, 0, 0)
 end
 
 """
@@ -367,9 +367,9 @@ end
 Create an artifical SysLog struct for demonstration purposes. P is the number of tether
 particles.
 """
-function demo_log(P, name="Test_flight"; duration=10)
+function demo_log(P, name="Test_flight"; duration=10, col_names=Dict(:var_01=>"var_01"))
     syslog = demo_syslog(P, name, duration=duration)
-    return SysLog{P}(name, syslog)
+    return SysLog{P}(name, col_names, syslog)
 end
 
 """
@@ -413,10 +413,12 @@ function load_log(P, filename::String)
         end
     end
     table = Arrow.Table(fullname)
+    # TODO: find out how to get the col_names from the table
+    col_names=Dict(:var_01=>"var_01")
     syslog = StructArray{SysState{P}}((table.time, table.t_sim, table.orient, table.elevation, table.azimuth, table.l_tether, 
                     table.v_reelout, table.force, table.depower, table.steering, table.heading, table.course, 
                     table.v_app, table.vel_kite, table.X, table.Y, table.Z, table.var_01, table.var_02,table.var_03,table.var_04,table.var_05))
-    return SysLog{P}(basename(fullname[1:end-6]), syslog)
+    return SysLog{P}(basename(fullname[1:end-6]), col_names, syslog)
 end
 
 function test(save=false)

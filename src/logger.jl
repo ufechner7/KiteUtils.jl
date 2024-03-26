@@ -31,6 +31,11 @@ $(TYPEDFIELDS)
     x_vec::Vector{MVector{P, MyFloat}} = zeros(SVector{P, MyFloat}, Q)
     y_vec::Vector{MVector{P, MyFloat}} = zeros(SVector{P, MyFloat}, Q)
     z_vec::Vector{MVector{P, MyFloat}} = zeros(SVector{P, MyFloat}, Q)
+    var_01_vec::Vector{Float64} = zeros(Float64, Q)
+    var_02_vec::Vector{Float64} = zeros(Float64, Q)
+    var_03_vec::Vector{Float64} = zeros(Float64, Q)
+    var_04_vec::Vector{Float64} = zeros(Float64, Q)
+    var_05_vec::Vector{Float64} = zeros(Float64, Q)
 end
 function Logger(P, steps)
     Logger{P, steps}()
@@ -65,6 +70,11 @@ function log!(logger::Logger, state::SysState)
     logger.x_vec[i] .= state.X
     logger.y_vec[i] .= state.Y
     logger.z_vec[i] .= state.Z
+    logger.var_01_vec[i] = stat.var_01
+    logger.var_02_vec[i] = stat.var_02
+    logger.var_03_vec[i] = stat.var_03
+    logger.var_04_vec[i] = stat.var_04
+    logger.var_05_vec[i] = stat.var_05
     logger.index+=1
     return i
 end
