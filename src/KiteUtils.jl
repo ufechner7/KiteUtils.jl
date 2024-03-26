@@ -65,7 +65,7 @@ of tether particles.
 
 $(TYPEDFIELDS)
 """
-struct SysState{P}
+mutable struct SysState{P}
     "time since start of simulation in seconds"
     time::Float64
     "time needed for one simulation timestep"
