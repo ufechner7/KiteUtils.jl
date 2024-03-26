@@ -172,7 +172,7 @@ $(TYPEDFIELDS)
 mutable struct SysLog{P}
     "name of the flight log"
     name::String
-    col_names::Dict
+    colmeta::Dict
     "struct of vectors that can also be accessed like a vector of structs"
     syslog::StructArray{SysState{P}}
 end
@@ -372,9 +372,15 @@ end
 Create an artifical SysLog struct for demonstration purposes. P is the number of tether
 particles.
 """
-function demo_log(P, name="Test_flight"; duration=10, col_names=Dict(:var_01=>"var_01"))
+function demo_log(P, name="Test_flight"; duration=10,     
+    colmeta = Dict(:var_01 => ["name" => "var_01"],
+                   :var_02 => ["name" => "var_02"],
+                   :var_03 => ["name" => "var_03"],
+                   :var_04 => ["name" => "var_04"],
+                   :var_05 => ["name" => "var_05"]
+                   ))
     syslog = demo_syslog(P, name, duration=duration)
-    return SysLog{P}(name, col_names, syslog)
+    return SysLog{P}(name, colmeta, syslog)
 end
 
 """
@@ -386,9 +392,9 @@ if you use **false** as second parameter no compression is used.
 function save_log(flight_log::SysLog, compress=true)
     filename = joinpath(DATA_PATH[1], flight_log.name) * ".arrow"
     if compress
-        Arrow.write(filename, flight_log.syslog, compress=:lz4)
+        Arrow.write(filename, flight_log.syslog, compress=:lz4, colmetadata = flight_log.colmeta)
     else
-        Arrow.write(filename, flight_log.syslog)
+        Arrow.write(filename, flight_log.syslog, colmetadata = flight_log.colmeta)
     end
 end
 
@@ -417,13 +423,18 @@ function load_log(P, filename::String)
             fullname = joinpath(DATA_PATH[1], filename) 
         end
     end
-    table = Arrow.Table(fullname)
-    # TODO: find out how to get the col_names from the table
-    col_names=Dict(:var_01=>"var_01")
+    table   = Arrow.Table(fullname)
+    colmeta = Dict(:var_01=>Arrow.getmetadata(table.var_01)["name"],
+                   :var_02=>Arrow.getmetadata(table.var_02)["name"],
+                   :var_03=>Arrow.getmetadata(table.var_03)["name"],
+                   :var_04=>Arrow.getmetadata(table.var_04)["name"],
+                   :var_05=>Arrow.getmetadata(table.var_05)["name"],
+    )
+    # example_metadata = KiteUtils.Arrow.getmetadata(table.var_01)
     syslog = StructArray{SysState{P}}((table.time, table.t_sim, table.orient, table.elevation, table.azimuth, table.l_tether, 
                     table.v_reelout, table.force, table.depower, table.steering, table.heading, table.course, 
                     table.v_app, table.vel_kite, table.X, table.Y, table.Z, table.var_01, table.var_02,table.var_03,table.var_04,table.var_05))
-    return SysLog{P}(basename(fullname[1:end-6]), col_names, syslog)
+    return SysLog{P}(basename(fullname[1:end-6]), colmeta, syslog)
 end
 
 function test(save=false)
@@ -442,8 +453,8 @@ end
     @compile_workload begin
         # all calls in this block will be precompiled, regardless of whether
         # they belong to your package or not (on Julia 1.8 and higher)
-        se()
-        load_log(7, "Test_flight.arrow")
+        #se()
+        #load_log(7, "Test_flight.arrow")
     end
 end
 
