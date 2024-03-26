@@ -92,22 +92,35 @@ function syslog(logger::Logger)
 end
 
 """
-    sys_log(logger::Logger, name="sim_log")
+    sys_log(logger::Logger, name="sim_log";
+                colmeta = Dict(:var_01 => ["name" => "var_01"],
+                               :var_02 => ["name" => "var_02"],
+                               :var_03 => ["name" => "var_03"],
+                               :var_04 => ["name" => "var_04"],
+                               :var_05 => ["name" => "var_05"]
+            ))
 
-Converts the data of a Logger object into a SysLog object, containing a StructArray and a name.
+Converts the data of a Logger object into a SysLog object, containing a StructArray, a name
+and the column meta data.
 """
-function sys_log(logger::Logger, name="sim_log", 
+function sys_log(logger::Logger, name="sim_log"; 
     colmeta = Dict(:var_01 => ["name" => "var_01"],
-    :var_02 => ["name" => "var_02"],
-    :var_03 => ["name" => "var_03"],
-    :var_04 => ["name" => "var_04"],
-    :var_05 => ["name" => "var_05"]
+                   :var_02 => ["name" => "var_02"],
+                   :var_03 => ["name" => "var_03"],
+                   :var_04 => ["name" => "var_04"],
+                   :var_05 => ["name" => "var_05"]
     ))
     SysLog{logger.points}(name, colmeta, syslog(logger))
 end
 
 """
-    save_log(logger::Logger, name="sim_log", compress=true)
+    save_log(logger::Logger, name="sim_log", compress=true;
+                colmeta = Dict(:var_01 => ["name" => "var_01"],
+                               :var_02 => ["name" => "var_02"],
+                               :var_03 => ["name" => "var_03"],
+                               :var_04 => ["name" => "var_04"],
+                               :var_05 => ["name" => "var_05"]
+            ))
 
 Save a fligh log from a logger as .arrow file. By default lz4 compression is used, 
 if you use **false** as second parameter no compression is used.
