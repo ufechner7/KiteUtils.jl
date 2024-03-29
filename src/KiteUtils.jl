@@ -425,12 +425,12 @@ function export_log(flight_log)
 end
 
 """
-    load_log(P, filename::String)
+    load_log(filename::String)
 
-Read a log file that was saved as .arrow file.  P is the number of tether
-particles.
+Read a log file that was saved as .arrow file.
 """
-function load_log(P, filename::String)
+load_log(P, filename::String) = load_log(filename)
+function load_log(filename::String)
     if ! isfile(filename)
         if isnothing(findlast(isequal('.'), filename))
             fullname = joinpath(DATA_PATH[1], filename) * ".arrow"
@@ -439,6 +439,7 @@ function load_log(P, filename::String)
         end
     end
     table   = Arrow.Table(fullname)
+    P =  length(table.Z[1])
     colmeta = Dict(:var_01=>Arrow.getmetadata(table.var_01)["name"],
                    :var_02=>Arrow.getmetadata(table.var_02)["name"],
                    :var_03=>Arrow.getmetadata(table.var_03)["name"],
