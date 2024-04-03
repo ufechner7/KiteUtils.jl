@@ -67,6 +67,8 @@ $(TYPEDFIELDS)
     abs_tol               = 0.0
     "relative tolerance of the DAE solver [-]"
     rel_tol               = 0.0
+    "DAE solver, can be IDA or DFBDF"
+    solver::String        = "DFBDF"
     "can be GMRES or Dense"
     linear_solver::String = "GMRES"
     "maximal order, usually between 3 and 5"
