@@ -39,6 +39,8 @@ $(TYPEDFIELDS)
 
     "filename without extension  [replay only]"
     log_file::String      = ""
+    "how many messages to print on the console, 0=none"
+    log_level             = 2
     "relative replay speed"
     time_lapse            = 0
     "simulation time             [sim only]"

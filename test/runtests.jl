@@ -8,6 +8,7 @@ cd("..")
     @test se().log_file == joinpath("data", "log_8700W_8ms")
     @test se().time_lapse == 1.0
     @test se().sim_time == 100.0
+    @test se().log_level == 2
     @test length(se().alpha_cl) == 12
     set_data_path(tempdir())
     @test KiteUtils.DATA_PATH[1] == tempdir()
