@@ -38,6 +38,11 @@ $(TYPEDFIELDS)
     var_03_vec::Vector{Float64} = zeros(Float64, Q)
     var_04_vec::Vector{Float64} = zeros(Float64, Q)
     var_05_vec::Vector{Float64} = zeros(Float64, Q)
+    var_06_vec::Vector{Float64} = zeros(Float64, Q)
+    var_07_vec::Vector{Float64} = zeros(Float64, Q)
+    var_08_vec::Vector{Float64} = zeros(Float64, Q)
+    var_09_vec::Vector{Float64} = zeros(Float64, Q)
+    var_10_vec::Vector{Float64} = zeros(Float64, Q)
 end
 function Logger(P, steps)
     Logger{P, steps}()
@@ -79,6 +84,11 @@ function log!(logger::Logger, state::SysState)
     logger.var_03_vec[i] = state.var_03
     logger.var_04_vec[i] = state.var_04
     logger.var_05_vec[i] = state.var_05
+    logger.var_06_vec[i] = state.var_06
+    logger.var_07_vec[i] = state.var_07
+    logger.var_08_vec[i] = state.var_08
+    logger.var_09_vec[i] = state.var_09
+    logger.var_10_vec[i] = state.var_10
     logger.index+=1
     return i
 end
@@ -92,7 +102,7 @@ function syslog(logger::Logger)
     StructArray{SysState{l.points}}((l.time_vec, l.t_sim_vec, l.sys_state_vec, l.e_mech_vec, l.orient_vec, l.elevation_vec, l.azimuth_vec, l.l_tether_vec,
                 l.v_reelout_vec, l.force_vec, l.depower_vec, l.steering_vec, l.heading_vec, l.course_vec,
                 l.v_app_vec, l.vel_kite_vec, l.x_vec, l.y_vec, l.z_vec, l.var_01_vec, l.var_02_vec, l.var_03_vec, 
-                l.var_04_vec, l.var_05_vec))
+                l.var_04_vec, l.var_05_vec, l.var_06_vec, l.var_07_vec, l.var_08_vec, l.var_09_vec, l.var_10_vec))
 end
 
 """
@@ -101,7 +111,12 @@ end
                                :var_02 => ["name" => "var_02"],
                                :var_03 => ["name" => "var_03"],
                                :var_04 => ["name" => "var_04"],
-                               :var_05 => ["name" => "var_05"]
+                               :var_05 => ["name" => "var_05"],
+                               :var_06 => ["name" => "var_06"],
+                               :var_07 => ["name" => "var_07"],
+                               :var_08 => ["name" => "var_08"],
+                               :var_09 => ["name" => "var_09"],
+                               :var_10 => ["name" => "var_10"],
             ))
 
 Converts the data of a Logger object into a SysLog object, containing a StructArray, a name
@@ -112,7 +127,12 @@ function sys_log(logger::Logger, name="sim_log";
                    :var_02 => ["name" => "var_02"],
                    :var_03 => ["name" => "var_03"],
                    :var_04 => ["name" => "var_04"],
-                   :var_05 => ["name" => "var_05"]
+                   :var_05 => ["name" => "var_05"],
+                   :var_06 => ["name" => "var_06"],
+                   :var_07 => ["name" => "var_07"],
+                   :var_08 => ["name" => "var_08"],
+                   :var_09 => ["name" => "var_09"],
+                   :var_10 => ["name" => "var_10"]
     ))
     SysLog{logger.points}(name, colmeta, syslog(logger))
 end
@@ -123,7 +143,12 @@ end
                                :var_02 => ["name" => "var_02"],
                                :var_03 => ["name" => "var_03"],
                                :var_04 => ["name" => "var_04"],
-                               :var_05 => ["name" => "var_05"]
+                               :var_05 => ["name" => "var_05"],
+                               :var_06 => ["name" => "var_06"],
+                               :var_07 => ["name" => "var_07"],
+                               :var_08 => ["name" => "var_08"],
+                               :var_09 => ["name" => "var_09"],
+                               :var_10 => ["name" => "var_10"]
             ))
 
 Save a fligh log from a logger as .arrow file. By default lz4 compression is used, 
@@ -134,7 +159,12 @@ function save_log(logger::Logger, name="sim_log", compress=true;
                    :var_02 => ["name" => "var_02"],
                    :var_03 => ["name" => "var_03"],
                    :var_04 => ["name" => "var_04"],
-                   :var_05 => ["name" => "var_05"]
+                   :var_05 => ["name" => "var_05"],
+                   :var_06 => ["name" => "var_06"],
+                   :var_07 => ["name" => "var_07"],
+                   :var_08 => ["name" => "var_08"],
+                   :var_09 => ["name" => "var_09"],
+                   :var_10 => ["name" => "var_10"]
                   ))
     nl = length(logger)
     resize!(logger.time_vec, nl)
@@ -161,6 +191,11 @@ function save_log(logger::Logger, name="sim_log", compress=true;
     resize!(logger.var_03_vec, nl)
     resize!(logger.var_04_vec, nl)
     resize!(logger.var_05_vec, nl)
+    resize!(logger.var_06_vec, nl)
+    resize!(logger.var_07_vec, nl)
+    resize!(logger.var_08_vec, nl)
+    resize!(logger.var_09_vec, nl)
+    resize!(logger.var_10_vec, nl)
     flight_log = (sys_log(logger, name; colmeta))
     save_log(flight_log, compress)
 end
