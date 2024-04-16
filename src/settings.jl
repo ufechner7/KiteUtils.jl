@@ -289,7 +289,7 @@ function update_settings(dict, sections)
     StructTypes.constructfrom!(SETTINGS, result)
 end
 
-function wc_settings(project="system.yaml")
+function wc_settings(project=PROJECT)
     # determine which wc_settings to load
     dict = YAML.load_file(joinpath(DATA_PATH[1], project))
     dict["system"]["wc_settings"]
