@@ -41,7 +41,7 @@ export rot, rot3d, ground_dist, calc_elevation, azimuth_east, acos2      # geome
 export fromEG2W, fromENU2EG,fromW2SE, fromKS2EX, fromEX2EG               # reference frame transformations
 export calc_azimuth, calc_heading_w, calc_heading, calc_course           # geometric functions
 export set_data_path, get_data_path, load_settings, copy_settings        # functions for reading and copying parameters
-export se, se_dict, update_settings, wc_settings
+export se, se_dict, update_settings, wc_settings, fpc_settings
 
 """
     const MyFloat = Float32

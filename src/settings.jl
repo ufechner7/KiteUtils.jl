@@ -295,6 +295,12 @@ function wc_settings(project=PROJECT)
     dict["system"]["wc_settings"]
 end
 
+function fpc_settings(project=PROJECT)
+    # determine which fpc_settings to load
+    dict = YAML.load_file(joinpath(DATA_PATH[1], project))
+    dict["system"]["fpc_settings"]
+end
+
 """
     se(project="system.yaml")
 
