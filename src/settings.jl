@@ -229,13 +229,13 @@ function get_data_path()
 end
 
 """
-    load_settings(project="system.yaml")
+    load_settings(project=PROJECT)
 
 Load the project with the given file name.
 
 The project must include the path and the suffix .yaml .
 """
-function load_settings(project="system.yaml")
+function load_settings(project=PROJECT)
     SETTINGS.segments=0
     se(project)
 end
