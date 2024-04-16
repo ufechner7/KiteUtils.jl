@@ -1,5 +1,10 @@
 # Changelog
 
+### KiteUtils v0.6.9 - 2024-04-16
+#### Added
+- function fpc_settings()
+- function fpp_settings()
+
 ### KiteUtils v0.6.8 - 2024-04-16
 #### Added
 - function wc_settings(), which returns the name of the wc_settings.yaml file of the current project
