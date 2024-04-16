@@ -4,17 +4,17 @@ using Test
 cd("..")
 
 @testset "KiteUtils.jl: Settings       " begin
-    @test se().project == "settings.yaml"
+    @test se().sim_settings == "settings.yaml"
     @test se().log_file == joinpath("data", "log_8700W_8ms")
     @test se().time_lapse == 1.0
-    @test se().sim_time == 100.0
+    @test se().sim_time == 409.0
     @test se().log_level == 2
     @test length(se().alpha_cl) == 12
     set_data_path(tempdir())
     @test KiteUtils.DATA_PATH[1] == tempdir()
     set_data_path("data")
-    set2 = load_settings(joinpath("data", "settings.yaml"))
-    @test set2.project == "settings.yaml"
+    set2 = load_settings(joinpath("data", "system.yaml"))
+    @test set2.sim_settings == "settings.yaml"
     @test se_dict()["environment"]["z0"] == se().z0
     set3 = update_settings()
     @test set3 == se()

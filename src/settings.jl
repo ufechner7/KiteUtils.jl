@@ -35,7 +35,7 @@ $(TYPEDFIELDS)
 """
 @with_kw mutable struct Settings @deftype Float64
     "name of the yaml file with the settings"
-    project::String       = ""
+    sim_settings::String       = ""
 
     "filename without extension  [replay only]"
     log_file::String      = ""
@@ -204,6 +204,7 @@ $(TYPEDFIELDS)
 end
 StructTypes.StructType(::Type{Settings}) = StructTypes.Mutable()
 const SETTINGS = Settings()
+PROJECT::String = "system.yaml"
 
 """
     set_data_path(data_path="")
@@ -228,13 +229,13 @@ function get_data_path()
 end
 
 """
-    load_settings(project="")
+    load_settings(project="system.yaml")
 
-Load the project with the given file name. The default project is determined by the content of the file system.yaml .
+Load the project with the given file name.
 
 The project must include the path and the suffix .yaml .
 """
-function load_settings(project="")
+function load_settings(project="system.yaml")
     SETTINGS.segments=0
     se(project)
 end
@@ -245,7 +246,7 @@ end
 Re-read the settings from a previously loaded project. Returns the new settings.
 """
 function update_settings()
-    load_settings(SETTINGS.project)
+    load_settings(PROJECT)
 end
 
 """
@@ -288,23 +289,28 @@ function update_settings(dict, sections)
     StructTypes.constructfrom!(SETTINGS, result)
 end
 
+function wc_settings(project="system.yaml")
+    # determine which wc_settings to load
+    dict = YAML.load_file(joinpath(DATA_PATH[1], project))
+    dict["system"]["wc_settings"]
+end
+
 """
-    se()
+    se(project="system.yaml")
 
 Getter function for the [`Settings`](@ref) struct.
 
-The default project is determined by the content of the file system.yaml .
+The settings.yaml file to load is determined by the content of the file system.yaml .
 """
-function se(project="")
-    global SE_DICT
+function se(project="system.yaml")
+    global SE_DICT, PROJECT
     if SETTINGS.segments == 0
-        if project == ""
-            # determine which project to load
-            dict = YAML.load_file(joinpath(DATA_PATH[1], "system.yaml"))
-            SETTINGS.project = dict["system"]["project"]
-        end
-        # load project from YAML
-        dict = YAML.load_file(joinpath(DATA_PATH[1], SETTINGS.project))
+        # determine which project to load
+        dict = YAML.load_file(joinpath(DATA_PATH[1], basename(project)))
+        PROJECT = basename(project)
+        SETTINGS.sim_settings = dict["system"]["sim_settings"]
+        # load sim_settings from YAML
+        dict = YAML.load_file(joinpath(DATA_PATH[1], SETTINGS.sim_settings))
         SE_DICT[1] = dict
         # update the SETTINGS struct from the dictionary
         update_settings(dict, ["system", "initial", "solver", "steering", "depower", "kite", "kps4", "bridle", 
