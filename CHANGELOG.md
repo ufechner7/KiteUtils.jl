@@ -1,5 +1,13 @@
 # Changelog
 
+### KiteUtils v0.6.8 - 2024-04-16
+#### Added
+- function wc_settings(), which returns the name of the wc_settings.yaml file of the current project
+#### Changed
+- the function load_settings(project) now expects the name of the `systems.yaml` file as parameter
+- the key `project` in `systems.yaml` was replaced with the key `sim_settings`
+- the key `wc_settings` was added to `systems.yaml`
+
 ### KiteUtils v0.6.6 - 2024-04-05
 #### Added
 - add field `log_level` to `settings.yaml`and Settings struct
