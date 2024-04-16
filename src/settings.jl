@@ -305,10 +305,15 @@ The settings.yaml file to load is determined by the content of the file system.y
 function se(project="system.yaml")
     global SE_DICT, PROJECT
     if SETTINGS.segments == 0
-        # determine which project to load
+        # determine which sim_settings to load
         dict = YAML.load_file(joinpath(DATA_PATH[1], basename(project)))
         PROJECT = basename(project)
-        SETTINGS.sim_settings = dict["system"]["sim_settings"]
+        try
+            SETTINGS.sim_settings = dict["system"]["sim_settings"]
+        catch
+            SETTINGS.sim_settings = dict["system"]["project"]
+            println("Warning! Key sim_settings not found in $project .")
+        end
         # load sim_settings from YAML
         dict = YAML.load_file(joinpath(DATA_PATH[1], SETTINGS.sim_settings))
         SE_DICT[1] = dict
