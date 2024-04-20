@@ -1,5 +1,9 @@
 # Changelog
 
+### KiteUtils v0.6.10 - 2024-04-20
+- the functions `load_log` and `save_log` have the new, optional, named parameter `path` to specify the file path;
+  if not specified, the default data path is used.
+
 ### KiteUtils v0.6.9 - 2024-04-16
 #### Added
 - function fpc_settings()

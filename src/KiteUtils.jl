@@ -430,8 +430,11 @@ end
 Save a fligh log of type SysLog as .arrow file. By default lz4 compression is used, 
 if you use **false** as second parameter no compression is used.
 """
-function save_log(flight_log::SysLog, compress=true)
-    filename = joinpath(DATA_PATH[1], flight_log.name) * ".arrow"
+function save_log(flight_log::SysLog, compress=true; path="")
+    if path==""
+        path = DATA_PATH[1]
+    end
+    filename = joinpath(path, flight_log.name) * ".arrow"
     if compress
         Arrow.write(filename, flight_log.syslog, compress=:lz4, colmetadata = flight_log.colmeta)
     else
@@ -456,12 +459,15 @@ end
 Read a log file that was saved as .arrow file.
 """
 load_log(P, filename::String) = load_log(filename)
-function load_log(filename::String)
+function load_log(filename::String; path="")
+    if path==""
+        path = DATA_PATH[1]
+    end
     if ! isfile(filename)
         if isnothing(findlast(isequal('.'), filename))
-            fullname = joinpath(DATA_PATH[1], filename) * ".arrow"
+            fullname = joinpath(path, filename) * ".arrow"
         else
-            fullname = joinpath(DATA_PATH[1], filename) 
+            fullname = joinpath(path, filename) 
         end
     end
     table   = Arrow.Table(fullname)
