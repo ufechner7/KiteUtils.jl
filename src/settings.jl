@@ -132,6 +132,10 @@ $(TYPEDFIELDS)
     h_bridle              = 0
     "sum of the lengths of the bridle lines [m]"
     l_bridle              = 0
+    "relative compression stiffness of the kite springs"
+    rel_compr_stiffness   = 0 
+    "relative damping of the kite spring (relative to main tether)"
+    rel_damping           = 0         
 
     "mass of the kite control unit   [kg]"
     kcu_mass              = 0

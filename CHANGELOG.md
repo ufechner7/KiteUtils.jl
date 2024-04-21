@@ -1,6 +1,10 @@
 # Changelog
+### KiteUtils v0.6.10 - 2024-04-20
+#### Added
+- new parameters `rel_compr_stiffness` and `rel_damping` in settings.yaml 
 
 ### KiteUtils v0.6.10 - 2024-04-20
+#### Changed
 - the functions `load_log` and `save_log` have the new, optional, named parameter `path` to specify the file path;
   if not specified, the default data path is used.
 
