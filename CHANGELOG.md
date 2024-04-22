@@ -1,11 +1,17 @@
 # Changelog
+
+### KiteUtils v0.6.11 - 2024-04-22
+#### Changed
+- the functions `export_log()` support now the named parameter `path` to specify the directory
+#### Fixed
+- the function `load_log()` works now when a fully qualified filename is passed 
+
 ### KiteUtils v0.6.10 - 2024-04-20
 #### Added
 - new parameters `rel_compr_stiffness` and `rel_damping` in settings.yaml 
 
 #### Changed
-- the functions `load_log` and `save_log` have the new, optional, named parameter `path` to specify the file path;
-  if not specified, the default data path is used.
+- the functions `load_log()` and `save_log()` have the new, optional, named parameter `path` to specify the file path;  if not specified, the default data path is used.
 
 ### KiteUtils v0.6.9 - 2024-04-16
 #### Added
