@@ -457,12 +457,15 @@ function export_log(flight_log; path="")
 end
 
 """
-    load_log(filename::String)
+    load_log(filename::String; path="")
 
 Read a log file that was saved as .arrow file.
 """
 load_log(P, filename::String) = load_log(filename)
-function load_log(filename::String)
+function load_log(filename::String; path="")
+    if path == ""
+        path = DATA_PATH[1]
+    end
     fullname = filename
     if ! isfile(filename)
         if isnothing(findlast(isequal('.'), filename))
