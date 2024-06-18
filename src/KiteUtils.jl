@@ -114,6 +114,12 @@ mutable struct SysState{P}
     var_08::MyFloat
     var_09::MyFloat
     var_10::MyFloat
+    var_11::MyFloat
+    var_12::MyFloat
+    var_13::MyFloat
+    var_14::MyFloat
+    var_15::MyFloat
+    var_16::MyFloat
 end 
 
 function Base.getproperty(st::SysState, sym::Symbol)
@@ -173,6 +179,12 @@ function Base.show(io::IO, st::SysState)
     println(io, "var_08       :       ", st.var_08)
     println(io, "var_09       :       ", st.var_09)
     println(io, "var_10       :       ", st.var_10)
+    println(io, "var_11       :       ", st.var_11)
+    println(io, "var_12       :       ", st.var_12)
+    println(io, "var_13       :       ", st.var_13)
+    println(io, "var_14       :       ", st.var_14)
+    println(io, "var_15       :       ", st.var_15)
+    println(io, "var_16       :       ", st.var_16)
 end
 
 """
@@ -236,7 +248,7 @@ function demo_state(P, height=6.0, time=0.0)
     sys_state = 0
     e_mech = 0
     return SysState{P}(time, t_sim, sys_state, e_mech, orient, elevation,0,0,0,0,0,0,0,0,0,
-                       vel_kite, X, Y, Z, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+                       vel_kite, X, Y, Z, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 end
 
 """
@@ -341,7 +353,7 @@ function demo_state_4p(P, height=6.0, time=0.0)
     sys_state = 0
     e_mech = 0
     return SysState{P+4}(time, t_sim, sys_state, e_mech, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z, 
-                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 end
 
 """
@@ -374,6 +386,12 @@ function demo_syslog(P, name="Test flight"; duration=10)
     var_08_vec = Vector{Float64}(undef, steps)
     var_09_vec = Vector{Float64}(undef, steps)
     var_10_vec = Vector{Float64}(undef, steps)
+    var_11_vec = Vector{Float64}(undef, steps)
+    var_12_vec = Vector{Float64}(undef, steps)
+    var_13_vec = Vector{Float64}(undef, steps)
+    var_14_vec = Vector{Float64}(undef, steps)
+    var_15_vec = Vector{Float64}(undef, steps)
+    var_16_vec = Vector{Float64}(undef, steps)
     for i in range(0, length=steps)
         state = demo_state(P, max_height * i/steps, i/se().sample_freq)
         time_vec[i+1] = state.time
@@ -396,10 +414,17 @@ function demo_syslog(P, name="Test flight"; duration=10)
         var_08_vec[i+1] = 0
         var_09_vec[i+1] = 0
         var_10_vec[i+1] = 0
+        var_11_vec[i+1] = 0
+        var_12_vec[i+1] = 0
+        var_13_vec[i+1] = 0
+        var_14_vec[i+1] = 0
+        var_15_vec[i+1] = 0
+        var_16_vec[i+1] = 0
     end
     return StructArray{SysState{P}}((time_vec, t_sim_vec,sys_state_vec, e_mech_vec, orient_vec, elevation, myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,
                                      myzeros,myzeros,myzeros, vel_kite_vec, X_vec, Y_vec, Z_vec, var_01_vec, var_02_vec, var_03_vec, 
-                                     var_04_vec, var_05_vec, var_06_vec, var_07_vec, var_08_vec, var_09_vec, var_10_vec))
+                                     var_04_vec, var_05_vec, var_06_vec, var_07_vec, var_08_vec, var_09_vec, var_10_vec, var_11_vec, var_12_vec,
+                                     var_13_vec, var_14_vec, var_15_vec, var_16_vec))
 end
 
 """
@@ -418,7 +443,13 @@ function demo_log(P, name="Test_flight"; duration=10,
                    :var_07 => ["name" => "var_07"],
                    :var_08 => ["name" => "var_08"],
                    :var_09 => ["name" => "var_09"],
-                   :var_10 => ["name" => "var_10"]
+                   :var_10 => ["name" => "var_10"],
+                   :var_11 => ["name" => "var_11"],
+                   :var_12 => ["name" => "var_12"],
+                   :var_13 => ["name" => "var_13"],
+                   :var_14 => ["name" => "var_14"],
+                   :var_15 => ["name" => "var_15"],
+                   :var_16 => ["name" => "var_16"]
                    ))
     syslog = demo_syslog(P, name, duration=duration)
     return SysLog{P}(name, colmeta, syslog)
@@ -485,13 +516,20 @@ function load_log(filename::String; path="")
                    :var_07=>Arrow.getmetadata(table.var_07)["name"],
                    :var_08=>Arrow.getmetadata(table.var_08)["name"],
                    :var_09=>Arrow.getmetadata(table.var_09)["name"],
-                   :var_10=>Arrow.getmetadata(table.var_10)["name"]
+                   :var_10=>Arrow.getmetadata(table.var_10)["name"],
+                   :var_11=>Arrow.getmetadata(table.var_11)["name"],
+                   :var_12=>Arrow.getmetadata(table.var_12)["name"],
+                   :var_13=>Arrow.getmetadata(table.var_13)["name"],
+                   :var_14=>Arrow.getmetadata(table.var_14)["name"],
+                   :var_15=>Arrow.getmetadata(table.var_15)["name"],
+                   :var_16=>Arrow.getmetadata(table.var_16)["name"],
     )
     # example_metadata = KiteUtils.Arrow.getmetadata(table.var_01)
     syslog = StructArray{SysState{P}}((table.time, table.t_sim, table.sys_state, table.e_mech, table.orient, table.elevation, table.azimuth, table.l_tether, 
                     table.v_reelout, table.force, table.depower, table.steering, table.heading, table.course, 
                     table.v_app, table.vel_kite, table.X, table.Y, table.Z, table.var_01, table.var_02,table.var_03,
-                    table.var_04,table.var_05,table.var_06,table.var_07,table.var_08,table.var_09,table.var_10))
+                    table.var_04,table.var_05,table.var_06,table.var_07,table.var_08,table.var_09,table.var_10,table.var_11,table.var_12,table.var_13,
+                    table.var_14,table.var_15,table.var_16))
     return SysLog{P}(basename(fullname[1:end-6]), colmeta, syslog)
 end
 
@@ -512,7 +550,7 @@ end
         # all calls in this block will be precompiled, regardless of whether
         # they belong to your package or not (on Julia 1.8 and higher)
         se()
-        load_log(7, "Test_flight.arrow")
+        # load_log(7, "Test_flight.arrow")
     end
 end
 
