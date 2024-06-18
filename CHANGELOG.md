@@ -3,6 +3,7 @@
 ### KiteUtils v0.6.12 - 2024-06-18
 #### Changed
 - add 6 more free variables, now 16 free variables can be logged per time step
+- drop support for Julia 1.9
 
 ### KiteUtils v0.6.11 - 2024-04-22
 #### Changed
