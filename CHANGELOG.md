@@ -1,5 +1,9 @@
 # Changelog
 
+### KiteUtils v0.6.12 - 2024-06-18
+#### Changed
+- add 6 more free variables, now 16 free variables can be logged per time step
+
 ### KiteUtils v0.6.11 - 2024-04-22
 #### Changed
 - the functions `export_log()` support now the named parameter `path` to specify the directory
