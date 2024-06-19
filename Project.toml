@@ -1,7 +1,7 @@
 name = "KiteUtils"
 uuid = "90980105-b163-44e5-ba9f-8b1c83bb0533"
 authors = ["Uwe Fechner <uwe.fechner.msc@gmail.com> and contributors"]
-version = "0.6.12"
+version = "0.6.13"
 
 [deps]
 Arrow = "69666777-d1a9-59fb-9406-91d4454c9d45"
@@ -23,7 +23,7 @@ CSV = "0.10.14"
 DocStringExtensions = "0.9.3"
 Parameters = "0.12.3"
 PrecompileTools = "1.2.1"
-RecursiveArrayTools = "3.24"
+RecursiveArrayTools = "3.23"
 Rotations = "1.7.0"
 StaticArrays = "1.9.3"
 StructArrays = "0.6.18"
