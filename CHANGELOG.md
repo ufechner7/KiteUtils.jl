@@ -1,5 +1,9 @@
 # Changelog
 
+### KiteUtils v0.6.13 - 2024-06-19
+#### Fixed
+- downgraded RecursiveArrayTools because the latest version stopped to work any longer
+
 ### KiteUtils v0.6.12 - 2024-06-18
 #### Changed
 - add 6 more free variables, now 16 free variables can be logged per time step
