@@ -1,8 +1,12 @@
 # Changelog
 
+### KiteUtils v0.6.14 - 2024-06-20
+#### Fixed
+- all methods of the function save_log() accept now the named parameter `path`
+
 ### KiteUtils v0.6.13 - 2024-06-19
 #### Fixed
-- downgraded RecursiveArrayTools because the latest version stopped to work any longer
+- downgraded RecursiveArrayTools because the latest version stopped working any longer
 
 ### KiteUtils v0.6.12 - 2024-06-18
 #### Changed

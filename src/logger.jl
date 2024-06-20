@@ -164,6 +164,7 @@ end
 
 """
     save_log(logger::Logger, name="sim_log", compress=true;
+                path="",
                 colmeta = Dict(:var_01 => ["name" => "var_01"],
                                :var_02 => ["name" => "var_02"],
                                :var_03 => ["name" => "var_03"],
@@ -186,6 +187,7 @@ Save a fligh log from a logger as .arrow file. By default lz4 compression is use
 if you use **false** as second parameter no compression is used.
 """
 function save_log(logger::Logger, name="sim_log", compress=true;
+    path="",
     colmeta = Dict(:var_01 => ["name" => "var_01"],
                    :var_02 => ["name" => "var_02"],
                    :var_03 => ["name" => "var_03"],
@@ -240,5 +242,5 @@ function save_log(logger::Logger, name="sim_log", compress=true;
     resize!(logger.var_15_vec, nl)
     resize!(logger.var_16_vec, nl)
     flight_log = (sys_log(logger, name; colmeta))
-    save_log(flight_log, compress)
+    save_log(flight_log, compress; path)
 end
