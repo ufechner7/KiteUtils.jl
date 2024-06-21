@@ -127,7 +127,7 @@ $(TYPEDFIELDS)
     rel_top_mass          = 0
     
     # model KPS4_3L
-    "the radius of the circle shape on which the kite lies, viewed from the front [m]"
+    "the radius of the circle shape on which the kite lines, viewed from the front [m]"
     radius::Float64 = 10.0
     "the distance from point the center bridle connection point of the middle line to the kite [m]"
     bridle_center_distance::Float64 = 2.0
@@ -137,6 +137,8 @@ $(TYPEDFIELDS)
     tip_length::Float64 = 1.0
     "the distance between the left and right steering bridle line connections on the kite that are closest to eachother [m]"
     min_steering_line_distance::Float64 = 4.0 
+    "the number of aerodynamic surfaces to use per mass point [-]"
+    aero_surfaces::Int64 = 10
 
     "bridle line diameter                  [mm]"
     d_line                = 0
