@@ -1,4 +1,7 @@
 # Changelog
+### KiteUtils v0.6.15 - 2024-06-21
+#### Changed
+- add fields needed for the new KPS4-3L model
 
 ### KiteUtils v0.6.14 - 2024-06-20
 #### Fixed
