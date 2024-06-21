@@ -125,6 +125,13 @@ $(TYPEDFIELDS)
     rel_nose_mass         = 0
     "mass of the top particle relative to the sum of top and side particles"
     rel_top_mass          = 0
+    
+    # model KPS4_3L
+    radius = 10.0                  
+    bridle_center_distance = 2.0
+    middle_length = 2.0
+    tip_length = 1.0
+    min_steering_line_distance = 4.0 
 
     "bridle line diameter                  [mm]"
     d_line                = 0
