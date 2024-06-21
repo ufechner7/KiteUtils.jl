@@ -127,11 +127,16 @@ $(TYPEDFIELDS)
     rel_top_mass          = 0
     
     # model KPS4_3L
-    radius = 10.0                  
-    bridle_center_distance = 2.0
-    middle_length = 2.0
-    tip_length = 1.0
-    min_steering_line_distance = 4.0 
+    "the radius of the circle shape on which the kite lies, viewed from the front [m]"
+    radius::Float64 = 10.0
+    "the distance from point the center bridle connection point of the middle line to the kite [m]"
+    bridle_center_distance::Float64 = 2.0
+    "the cord length of the kite in the middle [m]"
+    middle_length::Float64 = 2.0
+    "the cord length of the kite at the tips [m]"
+    tip_length::Float64 = 1.0
+    "the distance between the left and right steering bridle line connections on the kite that are closest to eachother [m]"
+    min_steering_line_distance::Float64 = 4.0 
 
     "bridle line diameter                  [mm]"
     d_line                = 0
