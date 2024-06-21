@@ -67,7 +67,8 @@ kps4_3l:
     min_steering_line_distance: 4.0 # the distance between the left and right steering bridle         [m]
                                     #     line connections on the kite that are closest to each other [m]
     width:                  20.0    # width of the kite                                               [m]
-
+    aero_surfaces:          10      # the number of aerodynamic surfaces to use per mass point
+    
 bridle:
     d_line:    2.5            # bridle line diameter                                                 [mm]
     l_bridle: 33.4            # sum of the lengths of the bridle lines                                [m]

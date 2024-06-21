@@ -137,6 +137,8 @@ $(TYPEDFIELDS)
     tip_length::Float64 = 1.0
     "the distance between the left and right steering bridle line connections on the kite that are closest to eachother [m]"
     min_steering_line_distance::Float64 = 4.0 
+    "the number of aerodynamic surfaces to use per mass point"
+    aero_surfaces::Int64 = 10
 
     "bridle line diameter                  [mm]"
     d_line                = 0
