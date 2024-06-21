@@ -57,6 +57,14 @@ kps4:
     rel_nose_mass: 0.47     # relative nose mass
     rel_top_mass:  0.4      # mass of the top particle relative to the sum of top and side particles
 
+kps4_3l:
+    radius: 10.0
+    bridle_center_distance: 2.0
+    middle_length: 2.0
+    tip_length: 1.0
+    minimum_steering_line_distance: 4.0
+    width:         20.0     # width of the kite                     [m]
+
 bridle:
     d_line:    2.5         # bridle line diameter                  [mm]
     l_bridle: 33.4         # sum of the lengths of the bridle lines [m]
