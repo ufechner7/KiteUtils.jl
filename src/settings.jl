@@ -348,7 +348,7 @@ function se(project="system.yaml")
         dict = YAML.load_file(joinpath(DATA_PATH[1], SETTINGS.sim_settings))
         SE_DICT[1] = dict
         # update the SETTINGS struct from the dictionary
-        update_settings(dict, ["system", "initial", "solver", "steering", "depower", "kite", "kps4", "bridle", 
+        update_settings(dict, ["system", "initial", "solver", "steering", "depower", "kite", "kps4", "kps4_3l", "bridle", 
                                "kcu", "tether", "winch", "environment"])
         tmp = split(dict["system"]["log_file"], "/")
         SETTINGS.log_file    = joinpath(tmp[1], tmp[2])
