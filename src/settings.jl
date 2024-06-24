@@ -139,6 +139,8 @@ $(TYPEDFIELDS)
     min_steering_line_distance::Float64 = 4.0 
     "the number of aerodynamic surfaces to use per mass point [-]"
     aero_surfaces::Int64 = 10
+    "the width of the 3 line kite laid flat"
+    width_3l = 20
 
     "bridle line diameter                  [mm]"
     d_line                = 0
