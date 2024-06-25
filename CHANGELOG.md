@@ -1,4 +1,10 @@
 # Changelog
+### KiteUtils v0.6.16 - 2024-06-25
+#### Changed
+- new field `width_3l`
+#### Fixed
+- read the fields for the KPS4-3L model from yaml file
+
 ### KiteUtils v0.6.15 - 2024-06-21
 #### Changed
 - add fields needed for the new KPS4-3L model
