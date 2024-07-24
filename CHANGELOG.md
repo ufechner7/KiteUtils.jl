@@ -2,6 +2,7 @@
 ### KiteUtils v0.7.0 - 2024-07-24
 #### Added
 - new parameters `winch_model`, `drum_radius`, `gear_ratio`, `inertia_motor`
+#### Changed
 - print warning when the section `kps4_3l` is missing
 
 ### KiteUtils v0.6.16 - 2024-06-25
