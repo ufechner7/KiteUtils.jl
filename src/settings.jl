@@ -180,12 +180,20 @@ $(TYPEDFIELDS)
     "axial tensile modulus of the tether     [Pa]"
     e_tether              = 0
 
+    "the winch model, either AsyncMachine or TorqueControlledMachine"
+    winch_model::String   = ""
     "maximal (nominal) tether force; short overload allowed [N]"
     max_force             = 4000
     "maximal reel-out speed                      [m/s]"
     v_ro_max              = 8
     "minimal reel-out speed (=max reel-in speed) [m/s]"
     v_ro_min              = -8
+    "radius of the drum [m]"
+    drum_radius = 0.1615
+    "ratio of the gear box"
+    gear_ratio = 6.2
+    "inertia of the motor, as seen from the motor [kgm²]"
+    inertia_motor = 0.082
 
     "wind speed at reference height          [m/s]"
     v_wind                = 0
