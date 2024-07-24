@@ -358,8 +358,13 @@ function se(project="system.yaml")
         dict = YAML.load_file(joinpath(DATA_PATH[1], SETTINGS.sim_settings))
         SE_DICT[1] = dict
         # update the SETTINGS struct from the dictionary
-        update_settings(dict, ["system", "initial", "solver", "steering", "depower", "kite", "kps4", "kps4_3l", "bridle", 
+        update_settings(dict, ["system", "initial", "solver", "steering", "depower", "kite", "kps4", "bridle", 
                                "kcu", "tether", "winch", "environment"])
+        try
+            update_settings(dict, ["kps4_3l"])
+        catch
+            println("Warning! Key kps4_3l not found in $(joinpath(DATA_PATH[1], basename(project))) .")
+        end
         tmp = split(dict["system"]["log_file"], "/")
         SETTINGS.log_file    = joinpath(tmp[1], tmp[2])
         SETTINGS.height_k      = dict["kite"]["height"] 
