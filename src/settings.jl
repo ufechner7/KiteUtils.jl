@@ -192,8 +192,8 @@ $(TYPEDFIELDS)
     drum_radius = 0.1615
     "ratio of the gear box"
     gear_ratio = 6.2
-    "inertia of the motor, as seen from the motor [kgm²]"
-    inertia_motor = 0.082
+    "inertia of the motor, gearbox and drum, as seen from the motor [kgm²]"
+    inertia_total = 0
     "coulomb friction [N]"
     f_coulomb = 122.0
     "coefficient for the viscous friction [Ns/m]"

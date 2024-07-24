@@ -1,4 +1,8 @@
 # Changelog
+### KiteUtils v0.7.2 - 2024-07-24
+#### Changed
+- renamed inertia_motor to inertia_total
+
 ### KiteUtils v0.7.1 - 2024-07-24
 #### Added
 - new parameters `f_coulomb` and `c_vf` for the friction of the winch
