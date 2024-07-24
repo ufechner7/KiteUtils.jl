@@ -194,6 +194,10 @@ $(TYPEDFIELDS)
     gear_ratio = 6.2
     "inertia of the motor, as seen from the motor [kgm²]"
     inertia_motor = 0.082
+    "coulomb friction [N]"
+    f_coulomb = 122.0
+    "coefficient for the viscous friction [Ns/m]"
+    c_vf = 30.6
 
     "wind speed at reference height          [m/s]"
     v_wind                = 0
