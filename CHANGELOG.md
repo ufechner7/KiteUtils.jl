@@ -1,5 +1,5 @@
 # Changelog
-### KiteUtils v0.7.0 - 2024-07-24
+### KiteUtils v0.7.1 - 2024-07-24
 #### Added
 - new parameters `f_coulomb` and `c_vf` for the friction of the winch
 
