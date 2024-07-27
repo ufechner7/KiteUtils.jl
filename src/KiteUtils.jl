@@ -120,6 +120,7 @@ mutable struct SysState{P}
     var_14::MyFloat
     var_15::MyFloat
     var_16::MyFloat
+    SysState{P}() = new() 
 end 
 
 function Base.getproperty(st::SysState, sym::Symbol)
