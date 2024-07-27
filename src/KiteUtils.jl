@@ -65,7 +65,7 @@ of tether particles.
 
 $(TYPEDFIELDS)
 """
-mutable struct SysState{P}
+Base.@kwdef mutable struct SysState{P}
     "time since start of simulation in seconds"
     time::Float64
     "time needed for one simulation timestep"
@@ -120,15 +120,6 @@ mutable struct SysState{P}
     var_14::MyFloat
     var_15::MyFloat
     var_16::MyFloat
-    SysState{P}() = new() 
-end
-
-SysState{P}(d::Dict) =
-let ss=SysState{P}()
-    for f in fieldnames(SysState{P})
-        setproperty!(ss, f, d[f])
-    end
-    ss
 end
 
 function Base.getproperty(st::SysState, sym::Symbol)
