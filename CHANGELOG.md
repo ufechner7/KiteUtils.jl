@@ -1,4 +1,9 @@
 # Changelog
+### Unreleased
+#### Changed
+- added the Base.@kwdef decorator to the type SysState. This allows it to easily create
+  a SysState struct from a JSON message
+
 ### KiteUtils v0.7.2 - 2024-07-24
 #### Changed
 - renamed inertia_motor to inertia_total
