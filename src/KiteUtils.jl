@@ -310,7 +310,7 @@ end
 Calculate the initial positions of the particels representing 
 a 4-point 3 line kite.
 """
-function get_particles(width, radius, middle_length, tip_length, bridle_center_distance, pos_kite = [ 75., 0., 129.90381057], 
+function get_particles_3l(width, radius, middle_length, tip_length, bridle_center_distance, pos_kite = [ 75., 0., 129.90381057], 
     vec_c=[-15., 0., -25.98076211], v_app=[10.4855, 0, -3.08324])
     # inclination angle of the kite; beta = atan(-pos_kite[2], pos_kite[1]) ???
     beta = pi/2.0
@@ -413,7 +413,7 @@ function demo_state_4p_3lines(P, height=6.0, time=0.0)
 
     # kite points
     vec_c = pos[num_E-3] - pos[num_E]
-    [E, C, D, A] = get_particles(se().width, se().radius, se().middle_length, se().tip_length, se().bridle_center_distance, pos[num_E], vec_c, s.v_apparent)
+    E, C, D, A = get_particles_3l(se().width, se().radius, se().middle_length, se().tip_length, se().bridle_center_distance, pos[num_E], vec_c, s.v_apparent)
     pos[num_A] .= A
     pos[num_C] .= C
     pos[num_D] .= [pos[num_C][1], -pos[num_C][2], pos[num_C][3]]
