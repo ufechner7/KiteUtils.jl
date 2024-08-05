@@ -1,7 +1,10 @@
 # Changelog
-### Unreleased
+### KiteUtils v0.7.3 - 2024-08-05
+#### Added
+- function `demo_state_4p_3lines()`
+- `dependabot.yml` to the GitHub CI scripts, which keeps the GitHub actions up-to-date
 #### Changed
-- added the Base.@kwdef decorator to the type SysState. This allows it to easily create
+- added the `Base.@kwdef` decorator to the type SysState. This allows it to easily create
   a SysState struct from a JSON message
 
 ### KiteUtils v0.7.2 - 2024-07-24
