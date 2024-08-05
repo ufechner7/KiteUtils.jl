@@ -435,9 +435,9 @@ function demo_state_4p_3lines(P, height=6.0, time=0.0)
     Z = zeros(P)
     for (p, x, y, z) in zip(pos, X, Y, Z)
         println("pos ", pos)
-        x = pos[1]
-        y = pos[2]
-        z = pos[3]
+        x = p[1]
+        y = p[2]
+        z = p[3]
     end   
     println("X ", X) 
     pos_centre = 0.5 * (C + D)
