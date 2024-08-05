@@ -433,13 +433,13 @@ function demo_state_4p_3lines(P, height=6.0, time=0.0)
     X = zeros(P)
     Y = zeros(P)
     Z = zeros(P)
-    for (p, x, y, z) in zip(pos, X, Y, Z)
-        println("pos ", pos)
-        x = p[1]
-        y = p[2]
-        z = p[3]
+    for (i, p) in enumerate(pos)
+        # println("pos ", pos)
+        X[i] = p[1]
+        Y[i] = p[2]
+        Z[i] = p[3]
     end   
-    println("X ", X) 
+    # println("X ", X) 
     pos_centre = 0.5 * (C + D)
     delta = E - pos_centre
     z = normalize(delta)
