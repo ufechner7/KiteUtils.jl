@@ -443,9 +443,9 @@ function demo_state_4p_3lines(P, height=6.0, time=0.0)
     z = normalize(delta)
     y = normalize(C - D)
     x = y × z
-    pos_before = pos[s.num_E] + z
+    pos_before = pos[num_E] + z
    
-    rotation = rot(pos[s.num_E], pos_before, -x)
+    rotation = rot(pos[num_E], pos_before, -x)
     q = QuatRotation(rotation)
     orient = MVector{4, Float32}(Rotations.params(q))
     elevation = calc_elevation([X[end], 0.0, Z[end]])
