@@ -400,7 +400,7 @@ function demo_state_4p_3lines(P, height=6.0, time=0.0)
     num_D = P-1
     num_C = P-2
     num_E = P-3
-    pos = zeros(SVector{P, KVec3})
+    pos = zeros(SVector{P, MVector{3, Float64}})
     # ground points
     [pos[i] .= [0.0, 0.0, 0.0] for i in 1:3]
 
