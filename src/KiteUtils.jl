@@ -391,9 +391,10 @@ end
 """
     demo_state_4p_3lines(P, height=6.0, time=0.0)
 
-Create a demo state, using the 4 point kite model with a given height and time. P is the number of tether particles.
+Create a demo state, using the 4 point kite model with three lines and a given height and time. 
+P is the number of tether particles.
 
-Returns a SysState instance.
+Returns a `SysState` instance.
 """
 function demo_state_4p_3lines(P, height=6.0, time=0.0)
     num_A = P
