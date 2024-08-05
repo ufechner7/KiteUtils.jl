@@ -439,7 +439,7 @@ function demo_state_4p_3lines(P, height=6.0, time=0.0)
         y = pos[2]
         z = pos[3]
     end   
-    printn("X ", X) 
+    println("X ", X) 
     pos_centre = 0.5 * (C + D)
     delta = E - pos_centre
     z = normalize(delta)
