@@ -36,7 +36,7 @@ export Settings, SysState, SysLog, Logger, MyFloat
 import Base.length
 export demo_state, demo_syslog, demo_log, load_log, save_log, export_log # functions for logging
 export log!, syslog, length
-export demo_state_4p, demo_state_4p_3lines, initial_kite_ref_frame                             # functions for four point kite model
+export demo_state_4p, demo_state_4p_3lines, initial_kite_ref_frame       # functions for four point and three line kite
 export rot, rot3d, ground_dist, calc_elevation, azimuth_east, acos2      # geometric functions
 export fromEG2W, fromENU2EG,fromW2SE, fromKS2EX, fromEX2EG               # reference frame transformations
 export calc_azimuth, calc_heading_w, calc_heading, calc_course           # geometric functions
