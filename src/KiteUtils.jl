@@ -413,17 +413,14 @@ function demo_state_4p_3lines(P, height=6.0, time=0.0)
 
     # kite points
     vec_c = pos[num_E-3] - pos[num_E]
-    E, C, D, A = get_particles_3l(se().width, se().radius, se().middle_length, se().tip_length, se().bridle_center_distance, pos[num_E], vec_c, s.v_apparent)
+    E, C, D, A = get_particles_3l(se().width, se().radius, se().middle_length, se().tip_length, se().bridle_center_distance, pos[num_E], vec_c)
     pos[num_A] .= A
     pos[num_C] .= C
     pos[num_D] .= [pos[num_C][1], -pos[num_C][2], pos[num_C][3]]
     
     # build tether connection points
     e_z = normalize(vec_c)
-    distance_c_l = 0.0 # distance between c and left steering line
-    # distance_c_l = se().tip_length/2 # distance between c and left steering line
-    s.l_tethers[2] = norm(pos[num_C] + e_z .* (distance_c_l)) # find the right steering tether length
-    s.l_tethers[3] = s.l_tethers[2]
+    distance_c_l = 0.5 # distance between c and left steering line
     pos[num_E-2] .= pos[num_C] + e_z .* (distance_c_l)
     pos[num_E-1] .= pos[num_E-2] .* [1.0, -1.0, 1.0]
 
