@@ -391,17 +391,18 @@ end
 """
     demo_state_4p_3lines(P, height=6.0, time=0.0)
 
-Create a demo state, using the 4 point kite model with three lines and a given height and time. 
-P is the number of tether particles.
+Create a demo state, using the 4 point kite model with a given height and time. P is the number of middle tether particles.
 
-Returns a `SysState` instance.
+Returns a SysState instance.
 """
 function demo_state_4p_3lines(P, height=6.0, time=0.0)
-    num_A = P
-    num_D = P-1
-    num_C = P-2
-    num_E = P-3
-    pos = zeros(SVector{P, MVector{3, Float64}})
+    P_ = P*3+3 # P_ is total number of particles in the system (kite + 3 tethers)
+    num_A = P_
+    num_D = P_-1
+    num_C = P_-2
+    num_E = P_-3
+    pos = zeros(SVector{P_, MVector{3, Float64}})
+
     # ground points
     [pos[i] .= [0.0, 0.0, 0.0] for i in 1:3]
 
@@ -431,9 +432,9 @@ function demo_state_4p_3lines(P, height=6.0, time=0.0)
         pos[j+1] .= [pos[j][1], -pos[j][2], pos[j][3]]
     end
 
-    X = zeros(P)
-    Y = zeros(P)
-    Z = zeros(P)
+    X = zeros(P_)
+    Y = zeros(P_)
+    Z = zeros(P_)
     for (i, p) in enumerate(pos)
         # println("pos ", pos)
         X[i] = p[1]
@@ -456,7 +457,7 @@ function demo_state_4p_3lines(P, height=6.0, time=0.0)
     t_sim = 0.014
     sys_state = 0
     e_mech = 0
-    return SysState{P}(time, t_sim, sys_state, e_mech, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z, 
+    return SysState{P_}(time, t_sim, sys_state, e_mech, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z, 
                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 end
 
