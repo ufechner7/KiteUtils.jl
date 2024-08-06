@@ -2,7 +2,7 @@ module KiteUtils
 
 #= MIT License
 
-Copyright (c) 2020, 2021 Uwe Fechner
+Copyright (c) 2020, 2021, 2024 Uwe Fechner, Bart van de Lint
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -391,7 +391,8 @@ end
 """
     demo_state_4p_3lines(P, height=6.0, time=0.0)
 
-Create a demo state, using the 4 point kite model with a given height and time. P is the number of middle tether particles.
+Create a demo state, using the 4 point kite model with a given height and time. 
+P is the number of middle tether particles.
 
 Returns a SysState instance.
 """

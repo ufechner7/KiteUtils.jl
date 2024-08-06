@@ -1,4 +1,8 @@
 # Changelog
+### KiteUtils v0.7.4 - 2024-08-06
+#### Changed
+- the first parameter of `demo_state_4p_3lines()` is now the number of middle tether particles
+
 ### KiteUtils v0.7.3 - 2024-08-05
 #### Added
 - function `demo_state_4p_3lines()`
