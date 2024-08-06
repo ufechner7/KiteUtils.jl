@@ -402,6 +402,7 @@ function demo_state_4p_3lines(P, height=6.0, time=0.0)
     num_C = P_-2
     num_E = P_-3
     pos = zeros(SVector{P_, MVector{3, Float64}})
+
     # ground points
     [pos[i] .= [0.0, 0.0, 0.0] for i in 1:3]
 
@@ -654,7 +655,7 @@ end
         # all calls in this block will be precompiled, regardless of whether
         # they belong to your package or not (on Julia 1.8 and higher)
         se()
-        # load_log(7, "Test_flight.arrow")
+        load_log(7, "Test_flight.arrow")
     end
 end
 
