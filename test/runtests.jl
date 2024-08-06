@@ -31,6 +31,11 @@ end
     @test state.Y[end] ≈ -2.885
     @test state.Y[end-1] ≈ 2.885
     @test demo_state_4p(7).t_sim == 0.014
+    state=demo_state_4p_3lines(7)
+    @test typeof(state) == SysState{24}
+    @test state.X[end] ≈ 51.37055f0
+    state.Y[end] ≈ 1.110223f-16
+    state.t_sim[end] == 0.014
     set_data_path(tempdir())
     log = KiteUtils.test(true)
     @test typeof(log) == SysLog{7}
