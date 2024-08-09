@@ -1,4 +1,12 @@
 # Changelog
+### KiteUtils v0.7.5 - 2024-08-09
+#### Added
+- the fields kcu_model, kcu_diameter, depower_zero and degrees_per_percent_power
+- the files system2.yaml and system2.yaml which use KCU2
+
+#### Fixed
+- when calling se(); se("system2.yaml") the new settings where not used
+
 ### KiteUtils v0.7.4 - 2024-08-06
 #### Changed
 - the first parameter of `demo_state_4p_3lines()` is now the number of middle tether particles
