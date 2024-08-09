@@ -15,7 +15,7 @@ If you want to run simulations and see the results in 3D, please install the met
 If you just want to learn how this package works quickly just install only this package.
 
 ## Installation
-Download [Julia 1.9](http://www.julialang.org) or later, if you haven't already. You can add KiteUtils from  Julia's package manager, by typing 
+If you have not yet installed Julia 1.10 or newer, follow these [installation instructions](https://ufechner7.github.io/2024/08/09/installing-julia-with-juliaup.html). You can add KiteUtils from  Julia's package manager, by typing 
 ```julia
 using Pkg
 pkg"add KiteUtils"
