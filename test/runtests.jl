@@ -9,6 +9,7 @@ cd("..")
     @test se().time_lapse == 1.0
     @test se().sim_time == 409.0
     @test se().log_level == 2
+    @test se().kcu_model == "KCU1"
     @test length(se().alpha_cl) == 12
     set_data_path(tempdir())
     @test KiteUtils.DATA_PATH[1] == tempdir()
@@ -19,6 +20,18 @@ cd("..")
     set3 = update_settings()
     @test set3 == se()
 end
+@testset "KiteUtils.jl: Settings2       " begin
+    set = se("system2.yaml")
+    @test set.sim_settings == "settings2.yaml"
+    @test set.kcu_model == "KCU2"
+    @test set.kcu_mass == 15.0
+    @test set.kcu_diameter == 0.4
+    @test set.depower_zero == 38.0
+    @test set.degrees_per_percent_power == 1.0
+    @test set.v_depower == 0.053
+    @test set.v_steering == 0.212
+end
+
 @testset "KiteUtils.jl: Log files      " begin
     state = KiteUtils.demo_state(7)
     @test typeof(state) == SysState{7}
