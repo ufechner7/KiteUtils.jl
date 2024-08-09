@@ -153,8 +153,16 @@ $(TYPEDFIELDS)
     "relative damping of the kite spring (relative to main tether)"
     rel_damping           = 0         
 
+    "model of the kite control unit, KCU1 or KCU2"
+    kcu_model::String     = "KCU1"
     "mass of the kite control unit   [kg]"
     kcu_mass              = 0
+    "diameter of the kite control unit for drag calculation [m]"
+    kcu_diameter          = 0
+    "depower setting for alpha_zero = 0 [%]"
+    depower_zero      = 0
+    "linear approximation [degrees/%]"
+    degrees_per_percent_power = 0
     "power to steering line distance  [m]"
     power2steer_dist      = 0
     depower_drum_diameter = 0
@@ -344,11 +352,12 @@ end
 
 Getter function for the [`Settings`](@ref) struct.
 
-The settings.yaml file to load is determined by the content of the file system.yaml .
+The settings.yaml file to load is determined by the content of the file `system.yaml`.
+The file `system.yaml` must be located in the directory specified by the variable `DATA_PATH`.
 """
 function se(project="system.yaml")
     global SE_DICT, PROJECT
-    if SETTINGS.segments == 0
+    if SETTINGS.segments == 0 || basename(project) != PROJECT
         # determine which sim_settings to load
         dict = YAML.load_file(joinpath(DATA_PATH[1], basename(project)))
         PROJECT = basename(project)
