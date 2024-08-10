@@ -20,7 +20,7 @@ cd("..")
     set3 = update_settings()
     @test set3 == se()
 end
-@testset "KiteUtils.jl: Settings2       " begin
+@testset "KiteUtils.jl: Settings2      " begin
     set = se("system2.yaml")
     @test set.sim_settings == "settings2.yaml"
     @test set.kcu_model == "KCU2"
@@ -30,6 +30,20 @@ end
     @test set.degrees_per_percent_power == 1.0
     @test set.v_depower == 0.053
     @test set.v_steering == 0.212
+end
+
+@testset "KiteUtils.jl: Copy           " begin
+    datapath = get_data_path()
+    tmpdir = joinpath(mktempdir(), "data")
+    oldir = pwd()
+    cd(dirname(tmpdir))
+    set_data_path(tmpdir)
+    @test get_data_path() == tmpdir
+    copy_settings()
+    @test isfile(joinpath(tmpdir, "settings.yaml"))
+    @test isfile(joinpath(tmpdir, "system.yaml"))
+    cd(oldir)
+    set_data_path(datapath)
 end
 
 @testset "KiteUtils.jl: Log files      " begin
