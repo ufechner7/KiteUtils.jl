@@ -1,4 +1,13 @@
 # Changelog
+
+### Unreleased
+#### Added
+- unit tests for copy_settings()
+- waiver regarding the copyright of TU Delft
+
+#### Fixed
+- improve CI.yml: code coverage works again, added cache
+
 ### KiteUtils v0.7.5 - 2024-08-09
 #### Added
 - the fields kcu_model, kcu_diameter, depower_zero and degrees_per_percent_power
