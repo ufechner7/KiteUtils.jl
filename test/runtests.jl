@@ -46,6 +46,12 @@ end
     set_data_path(datapath)
 end
 
+@testset "KiteUtils.jl: system.yaml    " begin
+    @test wc_settings() == "wc_settings.yaml"
+    @test fpc_settings() == "fpc_settings.yaml"
+    @test fpp_settings() == "fpp_settings.yaml"
+end
+
 @testset "KiteUtils.jl: Log files      " begin
     state = KiteUtils.demo_state(7)
     @test typeof(state) == SysState{7}
