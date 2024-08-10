@@ -32,6 +32,14 @@ pkg"test KiteUtils"
 - functions for logging, reading and writing log files
 - types for the state of a kite power, logging and configuration parameters
 
+## Licence
+This project is licensed under the MIT License. Please see the below WAIVER in association with the license.
+
+## WAIVER
+Technische Universiteit Delft hereby disclaims all copyright interest in the package “KiteModels.jl” (models for airborne wind energy systems) written by the Author(s).
+
+Prof.dr. H.G.C. (Henri) Werij, Dean of Aerospace Engineering
+
 ## Related
 - The meta package [KiteSimulators](https://github.com/aenarete/KiteSimulators.jl) which contains all packages from Julia Kite Power Tools.
 - the packages [KiteModels](https://github.com/ufechner7/KiteModels.jl) and [KitePodModels](https://github.com/aenarete/KitePodModels.jl) and [WinchModels](https://github.com/aenarete/WinchModels.jl) and [AtmosphericModels](https://github.com/aenarete/AtmosphericModels.jl)
