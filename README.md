@@ -29,6 +29,7 @@ pkg"test KiteUtils"
 - functions for coordinate system transformations
 - functions for reading configuration files
 - the default configuration file [settings.yaml](data/settings.yaml)
+- the default meta-configuration file [system.yaml](data/system.yaml)
 - functions for logging, reading and writing log files
 - types for the state of a kite power, logging and configuration parameters
 
