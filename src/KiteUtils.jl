@@ -137,17 +137,17 @@ function Base.getproperty(st::SysState, sym::Symbol)
     end
 end
 
-function Base.getproperty(st::StructVector{SysState}, sym::Symbol)
-    if sym == :x
-        last.getfield(st, :X)
-    elseif sym == :y
-        last.getfield(st, :Y)
-    elseif sym == :z
-        last.getfield(st, :Z) # last.(st.Z)
-    else
-        getfield(st, sym)
-    end
-end
+# function Base.getproperty(st::StructVector{SysState}, sym::Symbol)
+#     if sym == :x
+#         last.getfield(st, :X)
+#     elseif sym == :y
+#         last.getfield(st, :Y)
+#     elseif sym == :z
+#         last.getfield(st, :Z) # last.(st.Z)
+#     else
+#         getfield(st, sym)
+#     end
+# end
 
 function Base.show(io::IO, st::SysState) 
     println(io, "time      [s]:       ", st.time)
