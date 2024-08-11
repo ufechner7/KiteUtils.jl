@@ -4,6 +4,10 @@
 #### Added
 - unit tests for copy_settings()
 - waiver regarding the copyright of TU Delft
+- the files settings_3l.yaml and system_3l.yaml
+
+### Changed
+- copy_settings() now also copies the two new settings files
 
 #### Fixed
 - improve CI.yml: code coverage works again, added cache
