@@ -1,6 +1,6 @@
 # Changelog
 
-### Unreleased
+### KiteUtils v0.7.6 - 2024-08-11
 #### Added
 - unit tests for copy_settings()
 - waiver regarding the copyright of TU Delft
