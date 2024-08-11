@@ -39,7 +39,7 @@ end
     cd(dirname(tmpdir))
     set_data_path(tmpdir)
     @test get_data_path() == tmpdir
-    copy_settings()
+    copy_settings() # copy settings.yaml and system.yaml and settings_3l.yaml and system_3l.yaml
     @test isfile(joinpath(tmpdir, "settings.yaml"))
     @test isfile(joinpath(tmpdir, "system.yaml"))
     @test isfile(joinpath(tmpdir, "settings_3l.yaml"))
