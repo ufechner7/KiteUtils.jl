@@ -42,6 +42,8 @@ end
     copy_settings()
     @test isfile(joinpath(tmpdir, "settings.yaml"))
     @test isfile(joinpath(tmpdir, "system.yaml"))
+    @test isfile(joinpath(tmpdir, "settings_3l.yaml"))
+    @test isfile(joinpath(tmpdir, "system_3l.yaml"))
     cd(oldir)
     set_data_path(datapath)
 end
