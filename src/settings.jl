@@ -305,9 +305,13 @@ function copy_settings()
     end
     cp(joinpath(src_path, "settings.yaml"), joinpath(DATA_PATH[1], "settings.yaml"), force=true)
     cp(joinpath(src_path, "system.yaml"), joinpath(DATA_PATH[1], "system.yaml"), force=true)
+    cp(joinpath(src_path, "settings.yaml"), joinpath(DATA_PATH[1], "settings_3l.yaml"), force=true)
+    cp(joinpath(src_path, "system.yaml"), joinpath(DATA_PATH[1], "system_3l.yaml"), force=true)
     cp(joinpath(src_path, "kite.obj"), joinpath(DATA_PATH[1], "kite.obj"), force=true)
     chmod(joinpath(DATA_PATH[1], "settings.yaml"), 0o664)
     chmod(joinpath(DATA_PATH[1], "system.yaml"), 0o664)
+    chmod(joinpath(DATA_PATH[1], "settings_3l.yaml"), 0o664)
+    chmod(joinpath(DATA_PATH[1], "system_3l.yaml"), 0o664)
     chmod(joinpath(DATA_PATH[1], "kite.obj"), 0o664)
     set_data_path(joinpath(pwd(), "data"))
     # set font
