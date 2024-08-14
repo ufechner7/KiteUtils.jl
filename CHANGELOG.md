@@ -1,6 +1,6 @@
 # Changelog
 
-### Unreleased
+### KiteUtils v0.7.7 - 2024-08-14
 #### Changed
 - add cd_kcu to the KCU parameter settings
 - update system2.yaml and system_3l.yaml with the new settings
