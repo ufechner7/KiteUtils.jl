@@ -1,8 +1,10 @@
 # Changelog
 
-### KiteUtils v0.7.7 - 2024-08-11
+### Unreleased
 #### Changed
-- the default parameter of the function se() is now PROJECT and not "system.yaml". This is a braking change.
+- add cd_kcu to the KCU parameter settings
+- update system2.yaml and system_3l.yaml with the new settings
+- the default parameter of the function `se()` is now PROJECT and not "system.yaml". This is a braking change.
 
 ### KiteUtils v0.7.6 - 2024-08-11
 #### Added
