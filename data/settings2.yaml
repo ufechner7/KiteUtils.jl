@@ -80,10 +80,11 @@ kcu:
     kcu_model: "KCU2"                  # name of the kite control unit model, KCU1 or KCU2
     kcu_mass: 15.0                     # mass of the kite control unit                      [kg]
     kcu_diameter: 0.4                  # diameter of the KCU for drag calculation            [m]
+    cd_kcu: 0.3                        # drag coefficient of the KCU                         [-]   
     depower_zero: 38.0                 # depower setting for alpha_zero = 0                  [%]
     degrees_per_percent_power: 1.0     # linear approximation                        [degrees/%]
     v_depower: 0.053                   # max velocity of depowering in units per second (full range: 1 unit)
-    v_steering: 0.212                  # ma x velocity of steering in units per second   (full range: 2 units)
+    v_steering: 0.212                  # max velocity of steering in units per second   (full range: 2 units)
     depower_gain: 3.0                  # 3.0 means: more than 33% error -> full speed
     steering_gain: 3.0
 

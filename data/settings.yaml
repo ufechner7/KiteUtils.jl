@@ -80,6 +80,7 @@ kcu:
     kcu_model: "KCU1"            # name of the kite control unit model, KCU1 or KCU2
     kcu_mass: 8.4                # mass of the kite control unit                       [kg]
     kcu_diameter: 0.4            # diameter of the KCU for drag calculation            [m]
+    cd_kcu: 0.3                  # drag coefficient of the KCU                         [-]  
     power2steer_dist: 1.3        #                                                     [m]
     depower_drum_diameter: 0.069 #                                                     [m]
     tape_thickness: 0.0006       #                                                     [m]

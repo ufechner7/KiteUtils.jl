@@ -65,10 +65,13 @@ kps4_3l:
     aero_surfaces: 3      # number of aerodynamic surfaces in 3 line model
 
 kcu:
-    kcu_mass: 8.4                # mass of the kite control unit   [kg]
-    power2steer_dist: 1.3        #                                 [m]
-    depower_drum_diameter: 0.069 #                                 [m]
-    tape_thickness: 0.0006       #                                 [m]
+    kcu_model: "KCU1"            # name of the kite control unit model, KCU1 or KCU2
+    kcu_mass: 8.4                # mass of the kite control unit                       [kg]
+    kcu_diameter: 0.4            # diameter of the KCU for drag calculation            [m]
+    cd_kcu: 0.3                  # drag coefficient of the KCU                         [-]  
+    power2steer_dist: 1.3        #                                                     [m]
+    depower_drum_diameter: 0.069 #                                                     [m]
+    tape_thickness: 0.0006       #                                                     [m]
     v_depower: 0.075             # max velocity of depowering in units per second (full range: 1 unit)
     v_steering: 0.2              # max velocity of steering in units per second   (full range: 2 units)
     depower_gain: 3.0            # 3.0 means: more than 33% error -> full speed
@@ -90,9 +93,15 @@ tether:
                            # SK75: 109 to 132 GPa according to datasheet
 
 winch:
+    winch_model: "AsyncMachine" # or TorqueControlledMachine
     max_force: 4000        # maximal (nominal) tether force; short overload allowed [N]
-    v_ro_max:  8.0         # maximal reel-out speed                      [m/s]
-    v_ro_min: -8.0         # minimal reel-out speed (=max reel-in speed) [m/s]
+    v_ro_max:  8.0         # maximal reel-out speed                          [m/s]
+    v_ro_min: -8.0         # minimal reel-out speed (=max reel-in speed)     [m/s]
+    drum_radius: 0.1615    # radius of the drum                              [m]
+    gear_ratio: 6.2        # gear ratio of the winch                         [-]   
+    inertia_total: 0.204   # total inertia, as seen from the motor/generator [kgm²]
+    f_coulomb: 122.0       # coulomb friction                                [N]
+    c_vf: 30.6             # coefficient for the viscous friction            [Ns/m]
 
 environment:
     v_wind: 15.51             # wind speed at reference height          [m/s]
