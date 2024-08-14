@@ -352,14 +352,14 @@ function fpp_settings(project=PROJECT)
 end
 
 """
-    se(project="system.yaml")
+    se(project=PROJECT)
 
 Getter function for the [`Settings`](@ref) struct.
 
-The settings.yaml file to load is determined by the content of the file `system.yaml`.
-The file `system.yaml` must be located in the directory specified by the variable `DATA_PATH`.
+The settings.yaml file to load is determined by the content active PROJECT, which defaults to `system.yaml`.
+The project file must be located in the directory specified by the variable `DATA_PATH`.
 """
-function se(project="system.yaml")
+function se(project=PROJECT)
     global SE_DICT, PROJECT
     if SETTINGS.segments == 0 || basename(project) != PROJECT
         # determine which sim_settings to load
