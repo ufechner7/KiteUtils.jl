@@ -1,5 +1,9 @@
 # Changelog
 
+### KiteUtils v0.7.7 - 2024-08-11
+#### Changed
+- the default parameter of the function se() is now PROJECT and not "system.yaml". This is a braking change.
+
 ### KiteUtils v0.7.6 - 2024-08-11
 #### Added
 - unit tests for copy_settings()
