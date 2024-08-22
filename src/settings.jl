@@ -159,6 +159,8 @@ $(TYPEDFIELDS)
     kcu_mass              = 0
     "diameter of the kite control unit for drag calculation [m]"
     kcu_diameter          = 0
+    "drag coefficient of the kite control unit"
+    cd_kcu                = 0
     "depower setting for alpha_zero = 0 [%]"
     depower_zero      = 0
     "linear approximation [degrees/%]"

@@ -1,4 +1,7 @@
 # Changelog
+### KiteUtils v0.7.8 - 2024-08-22
+#### Fix
+- add cd_kcu to the KCU parameter settings, second try
 
 ### KiteUtils v0.7.7 - 2024-08-14
 #### Changed
