@@ -11,8 +11,8 @@ The controller is using the wind reference frame as shown in the figure below, y
 Another reference frame is the **EG** (North West Up) reference frame. 
 
 ## Wind direction
-The `up_wind_direction` is the direction the wind is coming from. Zero is at north; clockwise positive. 
-Default: Wind from west.
+The `upwind_direction` is the direction the wind is coming from. Zero is at north; clockwise positive. 
+Default: `-pi/2`, wind from west.
 
 ## Small earth reference frame
 
