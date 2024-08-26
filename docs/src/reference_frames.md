@@ -4,11 +4,11 @@ CurrentModule = KiteUtils
 # Reference frames
 
 ## Position and velocity
-For position and velocity vectors of the model the **EG** (North West Up) reference frame is used.
+For position and velocity vectors of the model the **ENU** (East North Up) reference frame is used.
 
 The controller is using the wind reference frame as shown in the figure below, y-axis downwind and z-axis up.
 
-Another reference frame is the **ENU** (East North Up) reference frame. 
+Another reference frame is the **EG** (North West Up) reference frame. 
 
 ## Wind direction
 The `up_wind_direction` is the direction the wind is coming from. Zero is at north; clockwise positive. 
