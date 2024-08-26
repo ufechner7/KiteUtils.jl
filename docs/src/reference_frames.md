@@ -11,7 +11,7 @@ The controller is using the wind reference frame as shown in the figure below, y
 Another reference frame is the **ENU** (East North Up) reference frame. 
 
 ## Wind direction
-The up_wind_direction is the direction the wind is coming from. Zero is at north; clockwise positive. 
+The `up_wind_direction` is the direction the wind is coming from. Zero is at north; clockwise positive. 
 Default: Wind from west.
 
 ## Small earth reference frame
