@@ -30,11 +30,11 @@ SOFTWARE. =#
 
 using PrecompileTools: @setup_workload, @compile_workload 
 using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions
-using Parameters, StructTypes
+using Parameters, StructTypes, CSV
 export Settings, SysState, SysLog, Logger, MyFloat
 
 import Base.length
-export demo_state, demo_syslog, demo_log, load_log, save_log, export_log # functions for logging
+export demo_state, demo_syslog, demo_log, load_log, save_log, export_log, import_log # functions for logging
 export log!, syslog, length
 export demo_state_4p, demo_state_4p_3lines, initial_kite_ref_frame       # functions for four point and three line kite
 export rot, rot3d, ground_dist, calc_elevation, azimuth_east, acos2      # geometric functions
@@ -588,9 +588,16 @@ function export_log(flight_log; path="")
     if path == ""
         path = DATA_PATH[1]
     end
-    @eval using CSV
     filename = joinpath(path, flight_log.name) * ".csv"
-    Base.invokelatest(CSV.write, filename, flight_log.syslog)
+    (CSV.write, filename, flight_log.syslog)
+end
+
+function import_log(filename::String; path="")
+    if path == ""
+        path = DATA_PATH[1]
+    end
+    filename = joinpath(path, filename) * ".csv"
+    return (CSV.File(filename))
 end
 
 """
