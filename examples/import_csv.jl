@@ -27,39 +27,21 @@ function d_state(P, height=6.0, time=0.0)
                        vel_kite, X, Y, Z, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 end
 
-lg=import_log(filename)
+lg = import_log(filename)
 
 for (i,row) in pairs(lg)
+    local P
     X = parse_vector(row.X)
     Y = parse_vector(row.Y)
     Z = parse_vector(row.Z)
+    P = length(X)
     orient = parse_vector(row.orient)
     vel_kite = parse_vector(row.vel_kite)
+    ss = SysState{P}(row.time, row.t_sim, row.sys_state, row.e_mech, orient, row.elevation, row.azimuth, row.l_tether,
+                     row.v_reelout, row.force, row.depower, row.steering, row.heading, row.course, row.v_app,
+                     vel_kite, X, Y, Z, row.var_01, row.var_02, row.var_03, row.var_04, row.var_05, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
     if i == 1
-        println(row.time)
-        println(row.t_sim)
-        println(row.sys_state)
-        println(row.e_mech)
-        println(orient)
-        println(row.elevation)
-        println(row.azimuth)
-        println(row.l_tether)
-        println(row.v_reelout)
-        println(row.force)
-        println(row.depower)
-        println(row.steering)
-        println(row.heading)
-        println(row.course)
-        println(row.v_app)
-        println(vel_kite)
-        println(X)
-        println(Y)
-        println(Z)
-        println(row.var_01)
-        println(row.var_02)
-        println(row.var_03)
-        println(row.var_04)
-        println(row.var_05)
+        println(ss)
         break
     end
 end
