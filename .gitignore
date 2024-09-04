@@ -4,3 +4,5 @@
 Manifest.toml
 /docs/build/
 .vscode/settings.json
+data/failure_low_right.arrow2
+data/transition.arrow2
