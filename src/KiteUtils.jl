@@ -30,7 +30,7 @@ SOFTWARE. =#
 
 using PrecompileTools: @setup_workload, @compile_workload 
 using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions
-using Parameters, StructTypes, CSV
+using Parameters, StructTypes, CSV, Parsers
 export Settings, SysState, SysLog, Logger, MyFloat
 
 import Base.length
@@ -592,7 +592,7 @@ function export_log(flight_log; path="")
     (CSV.write, filename, flight_log.syslog)
 end
 
-function import_log(filename::String; path="")
+function import_log_(filename::String; path="")
     if path == ""
         path = DATA_PATH[1]
     end

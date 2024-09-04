@@ -244,3 +244,31 @@ function save_log(logger::Logger, name="sim_log", compress=true;
     flight_log = (sys_log(logger, name; colmeta))
     save_log(flight_log, compress; path)
 end
+
+function parse_vector(str)
+    m = match(r"\[(.*)\]", str)
+    strs = split(m[1], ','; keepempty=false)
+    Parsers.parse.(Float32, strs)
+end
+
+function import_log(filename)
+    lg = import_log_(filename)
+    X = parse_vector(lg[1].X)
+    P = length(X)
+    logger = Logger(P, length(lg))
+
+    for (i,row) in pairs(lg)
+        local X
+        X = parse_vector(row.X)
+        Y = parse_vector(row.Y)
+        Z = parse_vector(row.Z)
+
+        orient = parse_vector(row.orient)
+        vel_kite = parse_vector(row.vel_kite)
+        ss = SysState{P}(row.time, row.t_sim, row.sys_state, row.e_mech, orient, row.elevation, row.azimuth, row.l_tether,
+                        row.v_reelout, row.force, row.depower, row.steering, row.heading, row.course, row.v_app,
+                        vel_kite, X, Y, Z, row.var_01, row.var_02, row.var_03, row.var_04, row.var_05, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        log!(logger, ss)
+    end
+    syslog(logger)
+end
