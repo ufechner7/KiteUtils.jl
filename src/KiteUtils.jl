@@ -589,7 +589,7 @@ function export_log(flight_log; path="")
         path = DATA_PATH[1]
     end
     filename = joinpath(path, flight_log.name) * ".csv"
-    (CSV.write, filename, flight_log.syslog)
+    CSV.write(filename, flight_log.syslog)
 end
 
 function import_log_(filename::String; path="")
