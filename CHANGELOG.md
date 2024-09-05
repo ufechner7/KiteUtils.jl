@@ -1,4 +1,10 @@
 # Changelog
+### KiteUtils v0.7.9 - 2024-09-05
+#### Added
+- add function `import_log()` for importing of .csv files
+#### Changed
+- update the documentation of reference frames
+
 ### KiteUtils v0.7.8 - 2024-08-22
 #### Fix
 - add cd_kcu to the KCU parameter settings, second try
