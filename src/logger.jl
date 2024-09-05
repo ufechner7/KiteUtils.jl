@@ -251,6 +251,22 @@ function parse_vector(str)
     Parsers.parse.(Float32, strs)
 end
 
+function import_log_(filename::String; path="")
+    if path == ""
+        path = DATA_PATH[1]
+    end
+    filename = joinpath(path, filename) * ".csv"
+    return (CSV.File(filename))
+end
+
+"""
+    import_log(filename)
+
+Read a .csv file with a flight log and return a SysLog object.
+The columns var_01 to var_05 must exists, the rest are optional.
+
+- filename: name of the file without extension.
+"""
 function import_log(filename)
     lg = import_log_(filename)
     X = parse_vector(lg[1].X)

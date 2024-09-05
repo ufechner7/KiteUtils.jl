@@ -592,14 +592,6 @@ function export_log(flight_log; path="")
     CSV.write(filename, flight_log.syslog)
 end
 
-function import_log_(filename::String; path="")
-    if path == ""
-        path = DATA_PATH[1]
-    end
-    filename = joinpath(path, filename) * ".csv"
-    return (CSV.File(filename))
-end
-
 """
     load_log(filename::String; path="")
 
