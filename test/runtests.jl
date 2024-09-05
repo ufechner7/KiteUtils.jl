@@ -71,6 +71,12 @@ end
     @test state.X[end] ≈ 51.37055f0
     state.Y[end] ≈ 1.110223f-16
     state.t_sim[end] == 0.014
+    set_data_path("data")
+    filename="transition"
+    log = import_log(filename)
+    @test typeof(log) == SysLog{11}
+    @test log.name == "transition"
+    @test length(log.syslog) == 8180
     set_data_path(tempdir())
     log = KiteUtils.test(true)
     @test typeof(log) == SysLog{7}
