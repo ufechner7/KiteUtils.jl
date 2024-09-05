@@ -218,7 +218,7 @@ Exporting a log file in csv format:
 julia> log = demo_log(7);
 julia> export_log(log)
 ```
-By default the log file is save in the data folder. You can set a different folder as data folder with the function **set_data_path**. 
+By default the log file is save in the data folder. You can set a different folder as data folder with the function **`set_data_path`**. 
 
 ```julia
 julia> log = demo_log(7);
