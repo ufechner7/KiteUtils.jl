@@ -204,7 +204,7 @@ plot(log.syslog.time, log.z)
 This command creates a 2D plot of the height vs. the time. After the command ```using Plots``` you will be asked if you want to install
 the Plots package. Just press ENTER and it will get installed.
 
-### Saving and exporting log files
+## Saving, exporting and importing log files
 
 Saving a log file:
 ```julia
@@ -231,3 +231,13 @@ Output on Linux:
 "/tmp/Test_flight.csv"
 ```
 The output on Windows will be different because the default temporary directory is different.
+
+You can import a .csv file using the following code:
+```julia
+set_data_path("data")
+filename="transition"
+
+log = import_log(filename)
+save_log(log)
+```
+This will import the file `transition.csv` and save it as `transition.arrow` file.
