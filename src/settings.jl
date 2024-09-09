@@ -39,10 +39,6 @@ $(TYPEDFIELDS)
 
     "filename without extension  [replay only]"
     log_file::String      = ""
-    "filename with or without extension [in dat format]"
-    foil_file::String      = ""
-    "filename with or without extension [in csv format]"
-    polar_file::String      = "polars.csv"
     "how many messages to print on the console, 0=none"
     log_level             = 2
     "relative replay speed"
@@ -102,6 +98,10 @@ $(TYPEDFIELDS)
 
     "file name of the 3D model of the kite for the viewer"
     model::String         = "data/kite.obj"
+    "filename with or without extension for the foil shape [in dat format]"
+    foil_file::String      = ""
+    "filename with or without extension for the polars [in csv format]"
+    polar_file::String      = "polars.csv"
     "name of the kite model to use (KPS3 or KPS4)"
     physical_model::String = ""
     "version of the model to use"
