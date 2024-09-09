@@ -39,6 +39,10 @@ $(TYPEDFIELDS)
 
     "filename without extension  [replay only]"
     log_file::String      = ""
+    "filename with or without extension [in dat format]"
+    foil_file::String      = ""
+    "filename with or without extension [in csv format]"
+    polar_file::String      = "polars.csv"
     "how many messages to print on the console, 0=none"
     log_level             = 2
     "relative replay speed"
