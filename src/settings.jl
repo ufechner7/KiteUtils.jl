@@ -143,6 +143,8 @@ $(TYPEDFIELDS)
     min_steering_line_distance::Float64 = 4.0 
     "the number of aerodynamic surfaces to use per mass point [-]"
     aero_surfaces::Int64 = 10
+    "height at the start of the flap [m]"
+    flap_height::Float64 = 0.05
     "the width of the 3 line kite laid flat"
     width_3l = 20
 
