@@ -327,7 +327,7 @@ function get_particles_3l(width, radius, middle_length, tip_length, bridle_cente
     C = E_c + e_y*cos(α_C)*radius - e_z*sin(α_C)*radius
     D = E_c + e_y*cos(α_D)*radius - e_z*sin(α_D)*radius
 
-    kite_length_C = (tip_length + (middle_length-tip_length)*α_C*radius/(0.5*width))
+    kite_length_C = tip_length + (middle_length-tip_length) * (α_C - α_0) / (π/2 - α_0)
     P_c = (C+D)./2
     A = P_c - e_x*(kite_length_C*(3/4 - 1/4))
 
