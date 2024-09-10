@@ -313,8 +313,6 @@ a 4-point 3 line kite.
 function get_particles_3l(width, radius, middle_length, tip_length, bridle_center_distance, pos_kite = [ 75., 0., 129.90381057], vec_c=[-15., 0., -25.98076211], v_app=[10.4855, 0, -3.08324])
     # inclination angle of the kite; beta = atan(-pos_kite[2], pos_kite[1]) ???
     beta = pi/2.0
-    width = width
-
     e_z = normalize(vec_c) # vec_c is the direction of the last two particles
     e_y = normalize(cross(v_app, e_z))
     e_x = normalize(cross(e_y, e_z))

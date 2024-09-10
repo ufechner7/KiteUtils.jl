@@ -101,7 +101,7 @@ $(TYPEDFIELDS)
     "filename with or without extension for the foil shape [in dat format]"
     foil_file::String      = ""
     "filename with or without extension for the polars [in csv format]"
-    polar_file::String      = "polars.csv"
+    polar_file::String      = "data/polars.csv"
     "name of the kite model to use (KPS3 or KPS4)"
     physical_model::String = ""
     "version of the model to use"
