@@ -15,6 +15,13 @@ se_dict
 ```
 Also look at the default example: [settings.yaml](https://github.com/ufechner7/KiteUtils.jl/blob/main/data/settings.yaml) .
 
+# Modify .yaml files
+```@docs
+readfile
+writefile
+change_value
+```
+
 # Creating test data
 ```@docs
 demo_state
