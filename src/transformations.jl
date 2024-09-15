@@ -100,15 +100,20 @@ angle in radian.
    acos(arg2)
 end
 
-"""
-    wrap2pi(angle)
+# """
+#     wrap2pi(angle)
 
-Limit the angle to the range -π .. π .
-"""
-function wrap2pi(angle)
-    if angle == pi
-        return pi
+# Limit the angle to the range -π .. π .
+# """
+function wrap2pi(angle::Irrational)
+    if angle == π
+        return π
+    else
+        return wrap2pi(float(angle))
     end
-    num2pi = floor(angle / 2π + 0.5)
-    angle - 2π * num2pi
+end
+function wrap2pi(angle)
+    y = rem(angle, 2π)
+    abs(y) > π && (y -= 2π * sign(y))
+    return y
 end
