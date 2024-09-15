@@ -98,6 +98,10 @@ $(TYPEDFIELDS)
 
     "file name of the 3D model of the kite for the viewer"
     model::String         = "data/kite.obj"
+    "filename with or without extension for the foil shape [in dat format]"
+    foil_file::String      = ""
+    "filename with or without extension for the polars [in csv format]"
+    polar_file::String      = "data/polars.csv"
     "name of the kite model to use (KPS3 or KPS4)"
     physical_model::String = ""
     "version of the model to use"
@@ -139,6 +143,8 @@ $(TYPEDFIELDS)
     min_steering_line_distance::Float64 = 4.0 
     "the number of aerodynamic surfaces to use per mass point [-]"
     aero_surfaces::Int64 = 10
+    "height at the start of the flap [m]"
+    flap_height::Float64 = 0.05
     "the width of the 3 line kite laid flat"
     width_3l = 20
 

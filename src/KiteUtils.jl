@@ -307,34 +307,31 @@ end
 
 
 """
-Calculate the initial positions of the particels representing 
+Calculate the initial positions of the particles representing 
 a 4-point 3 line kite.
 """
-function get_particles_3l(width, radius, middle_length, tip_length, bridle_center_distance, pos_kite = [ 75., 0., 129.90381057], 
-    vec_c=[-15., 0., -25.98076211], v_app=[10.4855, 0, -3.08324])
+function get_particles_3l(width, radius, middle_length, tip_length, bridle_center_distance, pos_kite = [ 75., 0., 129.90381057], vec_c=[-15., 0., -25.98076211], v_app=[10.4855, 0, -3.08324])
     # inclination angle of the kite; beta = atan(-pos_kite[2], pos_kite[1]) ???
     beta = pi/2.0
-
     e_z = normalize(vec_c) # vec_c is the direction of the last two particles
     e_y = normalize(cross(v_app, e_z))
     e_x = normalize(cross(e_y, e_z))
 
     α_0 = pi/2 - width/2/radius
-    α_c = α_0 + width*(-2*tip_length + sqrt(2*middle_length^2 + 2*tip_length^2))/(4*(middle_length - tip_length)) / radius
-    α_d = π - α_c
+    α_C = α_0 + width*(-2*tip_length + sqrt(2*middle_length^2 + 2*tip_length^2)) /
+        (4*(middle_length - tip_length)) / radius
+    α_D = π - α_C
 
     E = pos_kite
     E_c = pos_kite + e_z * (-bridle_center_distance + radius) # E at center of circle on which the kite shape lies
-    C = E_c + e_y*cos(α_c)*radius - e_z*sin(α_c)*radius
-    D = E_c + e_y*cos(α_d)*radius - e_z*sin(α_d)*radius
+    C = E_c + e_y*cos(α_C)*radius - e_z*sin(α_C)*radius
+    D = E_c + e_y*cos(α_D)*radius - e_z*sin(α_D)*radius
 
-    length(α) = α < π/2 ?
-        (tip_length + (middle_length-tip_length)*α*radius/(0.5*width)) :
-        (tip_length + (middle_length-tip_length)*(π-α)*radius/(0.5*width))
+    kite_length_C = tip_length + (middle_length-tip_length) * (α_C - α_0) / (π/2 - α_0)
     P_c = (C+D)./2
-    A = P_c - e_x*(length(α_c)*(3/4 - 1/4))
+    A = P_c - e_x*(kite_length_C*(3/4 - 1/4))
 
-    [E, C, D, A] # important to have the order E = 1, C = 2, D = 3, A = 4
+    E, C, D, A, α_C, kite_length_C # important to have the order E = 1, C = 2, D = 3, A = 4
 end
 
 """
@@ -416,7 +413,7 @@ function demo_state_4p_3lines(P, height=6.0, time=0.0)
 
     # kite points
     vec_c = pos[num_E-3] - pos[num_E]
-    E, C, D, A = get_particles_3l(se().width, se().radius, se().middle_length, se().tip_length, se().bridle_center_distance, pos[num_E], vec_c)
+    E, C, D, A, _, _ = get_particles_3l(se().width, se().radius, se().middle_length, se().tip_length, se().bridle_center_distance, pos[num_E], vec_c)
     pos[num_A] .= A
     pos[num_C] .= C
     pos[num_D] .= [pos[num_C][1], -pos[num_C][2], pos[num_C][3]]
