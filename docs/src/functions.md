@@ -64,5 +64,6 @@ calc_heading_w
 azimuth_east
 ground_dist
 acos2
+wrap2pi
 initial_kite_ref_frame
 ```

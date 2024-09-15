@@ -99,3 +99,16 @@ angle in radian.
    arg2 = min(max(arg, -one(arg)), one(arg))
    acos(arg2)
 end
+
+"""
+    wrap2pi(angle)
+
+Limit the angle to the range -π .. π .
+"""
+function wrap2pi(angle)
+    if angle == pi
+        return pi
+    end
+    num2pi = floor(angle / 2π + 0.5)
+    angle - 2π * num2pi
+end
