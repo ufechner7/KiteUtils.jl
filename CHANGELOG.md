@@ -2,6 +2,8 @@
 ### Unreleased
 #### Added
 - the fields `foil_file`, `polar_file` and `flap_height` to the `Settings` struct
+- the function `wrap2pi`
+- documentation for the yaml helper functions `readfile`, `writefile` and `change_value`
 
 ### KiteUtils v0.7.9 - 2024-09-05
 #### Added
