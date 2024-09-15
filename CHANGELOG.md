@@ -1,4 +1,8 @@
 # Changelog
+### Unreleased
+#### Added
+- the fields `foil_file`, `polar_file` and `flap_height` to the `Settings` struct
+
 ### KiteUtils v0.7.9 - 2024-09-05
 #### Added
 - add function `import_log()` for importing of .csv files
