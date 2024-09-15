@@ -100,11 +100,11 @@ angle in radian.
    acos(arg2)
 end
 
-# """
-#     wrap2pi(angle)
+"""
+    wrap2pi(angle)
 
-# Limit the angle to the range -π .. π .
-# """
+Limit the angle to the range -π .. π .
+"""
 function wrap2pi(angle::Irrational)
     if angle == π
         return π
