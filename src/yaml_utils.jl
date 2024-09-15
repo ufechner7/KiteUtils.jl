@@ -1,12 +1,22 @@
 # modify a variable in a yaml file
 
-# read as text
+
+"""
+    readfile(filename)
+
+Read the lines of a text file.
+"""
 function readfile(filename)
     open(filename) do file
         readlines(file)
     end
 end
 
+"""
+    writefile(lines, filename)
+
+Write the lines to a file.
+"""
 function writefile(lines, filename)
     open(filename, "w") do file
         for line in lines
@@ -15,10 +25,20 @@ function writefile(lines, filename)
     end
 end
 
+"""
+    change_value(lines, varname, value::Union{Integer, Float64})
+
+Change the value of a variable in a yaml file for a number.
+"""
 function change_value(lines, varname, value::Union{Integer, Float64})
     change_value(lines, varname, repr(value))
 end
 
+"""
+    change_value(lines, varname, value::String)
+
+Change the value of a variable in a yaml file.
+"""
 function change_value(lines, varname, value::String)
     res = String[]
     for line in lines
