@@ -105,13 +105,7 @@ end
 
 Limit the angle to the range -π .. π .
 """
-function wrap2pi(angle::Irrational)
-    if angle == π
-        return π
-    else
-        return wrap2pi(float(angle))
-    end
-end
+wrap2pi(::typeof(pi)) = π
 function wrap2pi(angle)
     y = rem(angle, 2π)
     abs(y) > π && (y -= 2π * sign(y))
