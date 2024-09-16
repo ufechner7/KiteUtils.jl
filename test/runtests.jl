@@ -124,6 +124,8 @@ end
     @test azimuth_east(pos_kite) ≈ -0.7853981633974483
     @test acos2(1.0001) == 0.0
     @test acos2(-1.0001) ≈ π
+    @test asin2(1.0001) ≈ pi/2
+    @test asin2(-1.0001) ≈ -pi/2
     @test calc_azimuth(0) ≈ -1.5707963267948966
     @test calc_azimuth(π) ≈ 1.5707963267948966
     vec1 = SVector(1.0, 2.0, 3.0)
