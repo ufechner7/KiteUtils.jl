@@ -138,11 +138,17 @@ end
     @test calc_heading_w(orient)             == [ 0.9510565162951535, 0.0,              0.3090169943749474]
     @test calc_heading(orient, elevation, azimuth)  ≈ 5.388664810099589
     calc_course(vec1, elevation, azimuth)
-    @test wrap2pi(0.0) == 0.0
-    @test wrap2pi(2π) == 0.0
-    @test wrap2pi(-2π) == 0.0
-    @test wrap2pi(π) == π
-    @test wrap2pi(-π) == -π
+    @test wrap2pi(0.0)   == 0.0
+    @test wrap2pi(2π)    == 0.0
+    @test wrap2pi(3π)    == float(π)
+    @test wrap2pi(-2π)   == 0.0
+    @test wrap2pi(-3π)   == float(-π)
+    @test wrap2pi(π)     == π
+    @test wrap2pi(3.14)  == 3.14
+    @test wrap2pi(3.15)  <  0.0
+    @test wrap2pi(-3.15) >  0.0
+    @test wrap2pi(-3.14) == -3.14
+    @test wrap2pi(-π)    == -π
 end
 include("bench.jl")
 nothing
