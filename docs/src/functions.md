@@ -68,9 +68,11 @@ calc_azimuth
 calc_heading
 calc_course
 calc_heading_w
+cl_cd
 azimuth_east
 ground_dist
 acos2
+asin2
 wrap2pi
 initial_kite_ref_frame
 ```
