@@ -89,6 +89,18 @@ function azimuth_east(vec)
 end
 
 """
+    asin2(arg)
+
+Calculate the asin of arg, but allow values slightly above one and below
+minus one to avoid exceptions in case of rounding errors. Returns an
+angle in radian.
+"""
+@inline function asin2(arg)
+   arg2 = min(max(arg, -one(arg)), one(arg))
+   asin(arg2)
+end
+
+"""
     acos2(arg)
 
 Calculate the acos of arg, but allow values slightly above one and below

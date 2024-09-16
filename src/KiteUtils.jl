@@ -37,8 +37,8 @@ import Base.length
 export demo_state, demo_syslog, demo_log, load_log, save_log, export_log, import_log # functions for logging
 export log!, syslog, length
 export demo_state_4p, demo_state_4p_3lines, initial_kite_ref_frame       # functions for four point and three line kite
-export rot, rot3d, ground_dist, calc_elevation, azimuth_east, acos2 
-export wrap2pi                                                           # geometric functions
+export rot, rot3d, ground_dist, calc_elevation, azimuth_east, asin2 
+export acos2, wrap2pi                                                    # geometric functions
 export fromEG2W, fromENU2EG,fromW2SE, fromKS2EX, fromEX2EG               # reference frame transformations
 export calc_azimuth, calc_heading_w, calc_heading, calc_course           # geometric functions
 export set_data_path, get_data_path, load_settings, copy_settings        # functions for reading and copying parameters
