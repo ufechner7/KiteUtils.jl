@@ -1,4 +1,8 @@
 # Changelog
+### Unreleased
+#### Added
+- the function quat2euler
+
 ### KiteUtils v0.7.10 - 2024-09-16
 #### Added
 - the fields `foil_file`, `polar_file` and `flap_height` to the `Settings` struct
