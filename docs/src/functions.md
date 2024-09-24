@@ -44,8 +44,9 @@ sys_log
 ```
 The function ```set_data_path(data_path)``` can be used to set the directory for the log files. 
 
-## Rotation matrices
+## Rotation matrices and conversions
 ```@docs
+quat2euler
 rot3d(ax, ay, az, bx, by, bz)
 rot(pos_kite, pos_before, v_app)
 ```

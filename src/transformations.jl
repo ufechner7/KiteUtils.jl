@@ -43,6 +43,23 @@ function rot3d(ax, ay, az, bx, by, bz)
 end
 
 """
+    quat2euler(q)
+
+# Convert quaternion to roll, pitch, and yaw angles in radian.
+"""
+function quat2euler(q)
+    # Convert quaternion to RotXYZ
+    rot = RotXYZ(q)
+    
+    # Extract roll, pitch, and yaw from RotXYZ
+    roll = rot.theta1
+    pitch = rot.theta2
+    yaw = rot.theta3
+
+    return roll, pitch, yaw
+end
+
+"""
     rot(pos_kite, pos_before, v_app)
 
 Calculate the rotation matrix of the kite based on the position of the
