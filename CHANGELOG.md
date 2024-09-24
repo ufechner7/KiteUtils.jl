@@ -1,7 +1,7 @@
 # Changelog
 ### KiteUtils v0.7.11 - 2024-09-24
 #### Added
-- the function quat2euler
+- the function `quat2euler(q)`, where `q` can be an `AbstractVector` or a `QuatRotation`. It returns roll, pitch and yaw in radian.
 #### Changed
 - the function `calc_heading()` had the new parameter `upwind_dir` with the default `-pi/2`. Furthermore the result differs by `pi` from the old calculation. The old calculation was wrong.
 
