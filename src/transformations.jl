@@ -45,9 +45,11 @@ end
 """
     quat2euler(q)
 
-# Convert quaternion to roll, pitch, and yaw angles in radian.
+Convert a quaternion to roll, pitch, and yaw angles in radian.
+The quaternion can be a 4-element vector or a QuatRotation object.
 """
-function quat2euler(q)
+quat2euler(q::AbstractVector) = quat2euler(QuatRotation(q))
+function quat2euler(q::QuatRotation)
     # Convert quaternion to RotXYZ
     rot = RotXYZ(q)
     

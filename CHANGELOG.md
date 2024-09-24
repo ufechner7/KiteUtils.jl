@@ -1,7 +1,9 @@
 # Changelog
-### Unreleased
+### KiteUtils v0.7.11 - 2024-09-24
 #### Added
 - the function quat2euler
+#### Changed
+- the function `calc_heading()` had the new parameter `upwind_dir` with the default `-pi/2`. Furthermore the result differs by `pi` from the old calculation. The old calculation was wrong.
 
 ### KiteUtils v0.7.10 - 2024-09-16
 #### Added
