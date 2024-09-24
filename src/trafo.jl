@@ -10,7 +10,7 @@ ENU2EG = @SMatrix [ 0  1  0;
     calc_azimuth(azimuth_north, up_wind_direction = -π/2)
 
 Calculate the azimuth in the wind reference frame.
-The up_wind_direction is the direction the wind is coming from
+The `up_wind_direction` is the direction the wind is coming from
 Zero is at north; clockwise positive. Default: Wind from west.
 
 Returns:
