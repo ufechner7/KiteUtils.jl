@@ -63,7 +63,9 @@ end
     rot(pos_kite, pos_before, v_app)
 
 Calculate the rotation matrix of the kite based on the position of the
-last two tether particles and the apparent wind speed vector.
+last two tether particles and the apparent wind speed vector. Assumption: 
+The kite aligns with the apparent wind direction. Use this function for
+only for the one point kite model `KPS3`. 
 """
 function rot(pos_kite, pos_before, v_app)
     delta = pos_kite - pos_before
