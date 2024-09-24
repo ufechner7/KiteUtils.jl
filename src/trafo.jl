@@ -125,7 +125,7 @@ the nose of the kite is pointing to.
 If respos is true the heading angle is defined in the range of 0 .. 2π,
 otherwise in the range -π .. π
 """
-function calc_heading(orientation, elevation, azimuth; upwind_dir=-pi/2, respos=false)
+function calc_heading(orientation, elevation, azimuth; upwind_dir=-pi/2, respos=true)
     down_wind_direction = wrap2pi(upwind_dir + π)
     headingSE = fromW2SE(calc_heading_w(orientation, down_wind_direction), elevation, azimuth)
     angle = atan(headingSE.y, headingSE.x) - π
