@@ -118,15 +118,16 @@ function calc_heading_w(orientation, down_wind_direction = pi/2.0)
 end
 
 """
-    calc_heading(orientation, down_wind_direction = pi/2.0, respos=true)
+    calc_heading(orientation, elevation, azimuth; upwind_dir=-pi/2, respos=true)
 
 Calculate the heading angle of the kite in radians. The heading is the direction
 the nose of the kite is pointing to. 
 If respos is true the heading angle is defined in the range of 0 .. 2π,
 otherwise in the range -π .. π
 """
-function calc_heading(orientation, elevation, azimuth, respos=true)
-    headingSE = fromW2SE(calc_heading_w(orientation), elevation, azimuth)
+function calc_heading(orientation, elevation, azimuth; upwind_dir=-pi/2, respos=false)
+    down_wind_direction = wrap2pi(upwind_dir + π)
+    headingSE = fromW2SE(calc_heading_w(orientation, down_wind_direction), elevation, azimuth)
     angle = atan(headingSE.y, headingSE.x) - π
     if angle < 0 && respos
         angle += 2π
