@@ -8,6 +8,8 @@ For position and velocity vectors of the model the **ENU** (East North Up) refer
 
 The controller is using the wind reference frame as shown in the figure below, y-axis downwind and z-axis up.
 
+The orientation of the kite is expressed with respect to the **NED** (North East Down) reference frame.
+
 Another reference frame is the **EG** (North West Up) reference frame. 
 
 ## Wind direction
