@@ -10,11 +10,15 @@ The controller is using the wind reference frame as shown in the figure below, y
 
 The orientation of the kite is expressed with respect to the **NED** (North East Down) reference frame.
 
-Another reference frame is the **EG** (North West Up) reference frame. 
+Other reference frames are the **EG** (North West Up) reference frame, the **KS** (kite sensor) and the **EX** (earth XSense) reference frames. Furthermore, the **W** (wind) and **SE** (small earth) reference frames are used.
 
 ## Wind direction
 The `upwind_direction` is the direction the wind is coming from. Zero is at north; clockwise positive. 
 Default: `-pi/2`, wind from west.
+
+## Orientation of the kite
+For the orientation, either a quaternion or roll, pitch and yaw angles are used.
+- yaw angle: zero north, clockwise positive as seen from above
 
 ## Small earth reference frame
 
