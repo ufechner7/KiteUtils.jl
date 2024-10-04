@@ -6,7 +6,7 @@ CurrentModule = KiteUtils
 ## Position and velocity
 For position and velocity vectors of the model the **ENU** (East North Up) reference frame is used.
 
-The controller is using the wind reference frame as shown in the figure below, y-axis downwind and z-axis up.
+The controller is using the **W** (Wind) reference frame as shown in the figure below, y-axis downwind and z-axis up.
 
 The orientation of the kite is expressed with respect to the **EX** (Earth XSense = North East Down) reference frame.
 
@@ -15,7 +15,9 @@ The **KS** (kite sensor) reference frame is the sensor-fixed reference frame. Th
 - **y**: to the right looking in flight direction
 - **z**: down
 
-Other reference frames are the **EG** (North West Up), the **W** (wind) and the **SE** (small earth) reference frames.
+Other reference frames are the **EG** (North West Up), and the **SE** (small earth) reference frames which is
+defined in the plane tangential to the half-sphere with a unit radius and the origin at the tether exit point
+of the ground-station.
 
 ## Wind direction
 The `upwind_direction` is the direction the wind is coming from. Zero is at north; clockwise positive. 
