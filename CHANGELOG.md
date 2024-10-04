@@ -1,4 +1,9 @@
 # Changelog
+### KiteUtils v0.7.12 - 2024-10-04
+#### Changed
+- revert the change of the heading calculation in 7.11
+- update the documentation on reference frames
+
 ### KiteUtils v0.7.11 - 2024-09-24
 #### Added
 - the function `quat2euler(q)`, where `q` can be an `AbstractVector` or a `QuatRotation`. It returns roll, pitch and yaw in radian.
