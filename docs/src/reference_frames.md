@@ -24,7 +24,7 @@ The `upwind_direction` is the direction the wind is coming from. Zero is at nort
 Default: `-pi/2`, wind from west.
 
 ## Orientation of the kite
-For the orientation, either a quaternion or roll, pitch and yaw angles are used.
+For the orientation, either a quaternion or roll, pitch and yaw angles are used. The orientation is defined with respect to the SWD (South, West, Down) reference frame.
 - yaw angle: zero north, clockwise positive as seen from above
 
 ## Small earth reference frame
