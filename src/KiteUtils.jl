@@ -339,7 +339,7 @@ function get_particles_3l(width, radius, middle_length, tip_length, bridle_cente
 end
 
 """
-    demo_state_4p(P, height=6.0, time=0.0)
+    demo_state_4p(P, height=6.0, time=0.0; yaw=-pi/2)
 
 Create a demo state, using the 4 point kite model with a given height and time. P is the number of tether particles.
 
@@ -347,8 +347,10 @@ Returns a SysState instance.
 """
 function demo_state_4p(P, height=6.0, time=0.0)
     a = 10
-    X = collect(range(0, stop=10, length=P))
-    Y = zeros(length(X))
+    turn_angle = yaw+pi/2
+    dist = range(10, stop=10, length=P)
+    X = dist .* cos(turn_angle)
+    Y = dist .* sin(turn_angle)
     Z = (a .* cosh.(X./a) .- a) * height/ 5.430806 
     # append the kite particles to X, Y and z
     pod_pos = [X[end], Y[end], Z[end]]
