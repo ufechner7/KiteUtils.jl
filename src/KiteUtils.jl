@@ -345,7 +345,7 @@ Create a demo state, using the 4 point kite model with a given height and time. 
 
 Returns a SysState instance.
 """
-function demo_state_4p(P, height=6.0, time=0.0)
+function demo_state_4p(P, height=6.0, time=0.0; yaw=-pi/2)
     a = 10
     turn_angle = yaw+pi/2
     dist = range(10, stop=10, length=P)
