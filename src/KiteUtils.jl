@@ -239,7 +239,7 @@ Returns a SysState instance.
 function demo_state(P, height=6.0, time=0.0; yaw=-pi/2)
     a = 10
     turn_angle = yaw+pi/2
-    dist = range(10, stop=10, length=P)
+    dist = collect(range(10, stop=10, length=P))
     X = dist .* cos(turn_angle)
     Y = dist .* sin(turn_angle)
     Z = (a .* cosh.(X./a) .- a) * height/ 5.430806 
@@ -348,7 +348,7 @@ Returns a SysState instance.
 function demo_state_4p(P, height=6.0, time=0.0; yaw=-pi/2)
     a = 10
     turn_angle = yaw+pi/2
-    dist = range(10, stop=10, length=P)
+    dist = collect(range(10, stop=10, length=P))
     X = dist .* cos(turn_angle)
     Y = dist .* sin(turn_angle)
     Z = (a .* cosh.(X./a) .- a) * height/ 5.430806 
