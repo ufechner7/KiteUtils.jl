@@ -43,6 +43,16 @@ function rot3d(ax, ay, az, bx, by, bz)
 end
 
 """
+    is_right_handed_orthonormal(x, y, z)
+
+Returns `true` if the vectors `x`, `y` and `z` form a right-handed orthonormal basis.
+"""
+function is_right_handed_orthonormal(x, y, z)
+    R = [x y z]
+    R*R' ≈ I && det(R) ≈ 1
+end
+
+"""
     quat2euler(q::QuatRotation)
     quat2euler(q::AbstractVector)
 
