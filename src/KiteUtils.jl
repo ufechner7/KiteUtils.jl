@@ -293,7 +293,7 @@ Parameters:
 - pos_pod: position of the control pod
 - vec_c: vector of the last tether segment
 """
-function get_particles(height_k, height_b, width, m_k, pos_pod= [ 75., 0., 129.90381057];
+function get_particles(height_k, height_b, width, m_k, pos_pod= [ 75., 0., 129.90381057],
                        vec_c=[-15., 0., -25.98076211], v_app=[10.4855, 0, -3.08324])
     # inclination angle of the kite; beta = atan(-pos_kite[2], pos_kite[1]) ???
     beta = pi/2.0
@@ -358,7 +358,7 @@ function demo_state_4p(P, height=6.0, time=0.0; yaw=-pi/2)
     # append the kite particles to X, Y and z
     pod_pos = [X[end], Y[end], Z[end]]
     vec_c = [X[end-2] - X[end-1], Y[end-2] - Y[end-1], Z[end-2] - Z[end-1]]  
-    particles = get_particles(se().height_k, se().h_bridle, se().width, se().m_k, pod_pos; vec_c, v_app)[3:end]
+    particles = get_particles(se().height_k, se().h_bridle, se().width, se().m_k, pod_pos, vec_c, v_app)[3:end]
     local pos_B, pos_C, pos_D
     for i in 1:4
         particle=particles[i]
