@@ -103,6 +103,20 @@ function calc_orient_rot(x, y, z; viewer=false)
 end
 
 """
+    quat2frame(q::AbstractMatrix)
+    quat2frame(q::QuatRotation)
+
+Calculate the kite reference frame based on the quaternion or rotation matrix q.
+"""
+quat2frame(q::AbstractMatrix) = quat2frame(QuatRotation(q))
+function quat2frame(q::QuatRotation)
+    x = [0,  1.0, 0]
+    y = [1.0,  0, 0]
+    z = [0,    0, -1.0]
+    return q*x, q*y, q*z
+end
+
+"""
     ground_dist(vec)
 
 Calculate the ground distance of the kite from the groundstation based on the kite position (x,y,z, z up).

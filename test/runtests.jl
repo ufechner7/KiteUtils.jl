@@ -157,6 +157,10 @@ end
     z = @SVector [0, 0, -1] # in ENU reference frame this is pointing down
     rotation = calc_orient_rot(x, y, z; viewer=false)
     @test rotation == I
+    x1, y1, z1 = quat2frame(rotation)
+    @test x1 == x
+    @test y1 == y
+    @test z1 == z
     rotation = calc_orient_rot(x, y, z; viewer=true)
     @test rotation == [-1.0 0.0 -0.0; 0.0 0.0 1.0; 0 1 0]
 end
