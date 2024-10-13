@@ -78,23 +78,35 @@ function rot(pos_kite, pos_before, v_app)
     rot = rot3d(SVector(0,-one_,0), SVector(one_,0,0), SVector(0,0,-one_), z, y, x)
 end
 
-"""
-    calc_orient_rot(x, y, z; viewer=false)
 
-Calculate the rotation matrix based on the kite reference frame.
+function enu2ned(vec::AbstractVector)  
+    R = @SMatrix[0 1 0; 1 0 0; 0 0 -1]
+    R*vec
+end
+
+"""
+    calc_orient_rot(x, y, z; viewer=false, ENU=true)
+
+Calculate the rotation matrix based on the kite reference frame, by default 
+passed as ENU (east, north, up), or as NED (north, east, down) if ENU is false.
 If viewer is true, the rotation matrix is calculated based with respect to
 the viewer reference frame.
 """
-function calc_orient_rot(x, y, z; viewer=false)
+function calc_orient_rot(x, y, z; viewer=false, ENU=true)
     if viewer
         pos_kite_ = @SVector ones(3)
         pos_before = pos_kite_ .+ z
         rotation = rot(pos_kite_, pos_before, -x)
     else
+        if ENU
+            x = enu2ned(x)
+            y = enu2ned(y)
+            z = enu2ned(z)
+        end
         # reference frame for the orientation: NED (north, east, down)
-        ax = @SVector [0, 1, 0] # in ENU reference frame this is pointing to the south
-        ay = @SVector [1, 0, 0] # in ENU reference frame this is pointing to the west
-        az = @SVector [0, 0, -1] # in ENU reference frame this is pointing down
+        ax = @SVector [1, 0, 0]
+        ay = @SVector [0, 1, 0]
+        az = @SVector [0, 0, 1]
         rotation = rot3d(ax, ay, az, x, y, z)
     end
     return rotation
