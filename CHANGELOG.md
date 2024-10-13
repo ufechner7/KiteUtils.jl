@@ -4,6 +4,8 @@
 - add function calc_orient_rot
 - add function quat2frame
 - add function quat2viewer
+- add is_right_handed_orthonormal
+- add enu2ned
 - add parameter `yaw` to the functions `demo_state` and `demo_state_4p`
 #### Fixed
 - function quat2euler uses the function `dcm_to_angle` from `ReferenceFrameRotations.jl` now

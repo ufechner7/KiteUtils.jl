@@ -88,6 +88,11 @@ function rot(pos_kite, pos_before, v_app)
 end
 
 
+"""
+    enu2ned(vec::AbstractVector)
+
+Convert a vector from ENU (east, north, up) to NED (north, east, down) reference frame.
+"""
 function enu2ned(vec::AbstractVector)  
     R = @SMatrix[0 1 0; 1 0 0; 0 0 -1]
     R*vec
