@@ -1,4 +1,4 @@
-using KiteUtils, StaticArrays
+using KiteUtils, StaticArrays, LinearAlgebra
 using Test
 
 cd("..")
@@ -86,7 +86,7 @@ end
     @test log.x[end] ≈ 10.0
     @test export_log(log) == joinpath(tempdir(), "Test_flight.csv")
 end
-@testset "Logger: " begin
+@testset "Logger:                      " begin
     set_data_path(tempdir())
     steps = 20*30
     logger = Logger(7, steps)
@@ -152,6 +152,13 @@ end
     @test wrap2pi(-3.15) >  0.0
     @test wrap2pi(-3.14) == -3.14
     @test wrap2pi(-π)    == -π
+    x = @SVector [0, 1, 0] # in ENU reference frame this is pointing to the south
+    y = @SVector [1, 0, 0] # in ENU reference frame this is pointing to the west
+    z = @SVector [0, 0, -1] # in ENU reference frame this is pointing down
+    rotation = calc_orient_rot(x, y, z; viewer=false)
+    @test rotation == I
+    rotation = calc_orient_rot(x, y, z; viewer=true)
+    @test rotation == [-1.0 0.0 -0.0; 0.0 0.0 1.0; 0 1 0]
 end
 include("bench.jl")
 nothing

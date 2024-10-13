@@ -4,7 +4,7 @@ using KiteUtils, BenchmarkTools, StaticArrays, Test
 # 64 ns; Python: 10 µs
 
 res = @benchmark rot(pos_kite, pos_before, v_app) setup=(pos_kite = SVector(1.0, 1, 10); pos_before = SVector(1.0, 1, 9); v_app = SVector(10.0, 0, 0))
-@testset "rot" begin
+@testset "rot                          " begin
     @test res.allocs == 0
 end
 
