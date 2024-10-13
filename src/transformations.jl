@@ -52,10 +52,9 @@ The quaternion can be a 4-element vector (w, i, j, k) or a QuatRotation object.
 quat2euler(q::AbstractVector) = quat2euler(QuatRotation(q))
 function quat2euler(q::QuatRotation)  
     D = RFR.DCM(q)
-    euler = RFR.dcm_to_angle(D, :ZYX)
-    yaw = euler.a1
-    pitch = euler.a2
-    roll = euler.a3
+    pitch = asin(−D[3,1])
+    roll  = atan(D[3,2], D[3,3])
+    yaw   = atan(D[2,1], D[1,1])
     return roll, pitch, yaw
 end
 
