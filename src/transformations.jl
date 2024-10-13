@@ -80,6 +80,13 @@ function rot(pos_kite, pos_before, v_app)
     rot = rot3d(SVector(0,-one_,0), SVector(one_,0,0), SVector(0,0,-one_), z, y, x)
 end
 
+"""
+    calc_orient_rot(x, y, z; viewer=false)
+
+Calculate the rotation matrix based on the kite reference frame.
+If viewer is true, the rotation matrix is calculated based with respect to
+the viewer reference frame.
+"""
 function calc_orient_rot(x, y, z; viewer=false)
     if viewer
         pos_kite_ = @SVector ones(3)

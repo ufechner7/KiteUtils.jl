@@ -46,6 +46,7 @@ The function ```set_data_path(data_path)``` can be used to set the directory for
 
 ## Rotation matrices and conversions
 ```@docs
+calc_orient_rot
 quat2euler
 rot3d(ax, ay, az, bx, by, bz)
 rot(pos_kite, pos_before, v_app)
