@@ -106,14 +106,32 @@ end
     quat2frame(q::AbstractMatrix)
     quat2frame(q::QuatRotation)
 
-Calculate the kite reference frame based on the quaternion or rotation matrix q.
+Calculate the kite reference frame based on the quaternion `q` or rotation matrix `rot`.
 """
-quat2frame(q::AbstractMatrix) = quat2frame(QuatRotation(q))
+quat2frame(rot::AbstractMatrix) = quat2frame(QuatRotation(rot))
 function quat2frame(q::QuatRotation)
     x = [0,  1.0, 0]
     y = [1.0,  0, 0]
     z = [0,    0, -1.0]
     return q*x, q*y, q*z
+end
+
+"""
+    quat2viewer(q::QuatRotation)
+    quat2viewer(rot::AbstractMatrix)
+    quat2viewer(orient::AbstractVector)
+
+Convert the quaternion q to the viewer reference frame. It can also be passed
+as a rotation matrix or as 4-element vector [w,i,j,k], where w is the real part
+and i, j, k are the imaginary parts of the quaternion.
+"""
+quat2viewer(rot::AbstractMatrix) = quat2viewer(QuatRotation(rot))
+quat2viewer(orient::AbstractVector) = quat2viewer(QuatRotation(orient))
+function quat2viewer(q::QuatRotation)
+    x, y, z = quat2frame(q)
+    rot = calc_orient_rot(x, y, z; viewer=true)
+    q = QuatRotation(rot)
+    return Rotations.params(q)
 end
 
 """

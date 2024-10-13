@@ -49,6 +49,7 @@ The function ```set_data_path(data_path)``` can be used to set the directory for
 calc_orient_rot
 quat2euler
 quat2frame
+quat2viewer
 rot3d(ax, ay, az, bx, by, bz)
 rot(pos_kite, pos_before, v_app)
 ```

@@ -161,6 +161,8 @@ end
     @test x1 == x
     @test y1 == y
     @test z1 == z
+    orient = quat2viewer(rotation)
+    @test orient ≈ [-0.0, 0.0, 0.7071067811865475, 0.7071067811865475]
     rotation = calc_orient_rot(x, y, z; viewer=true)
     @test rotation == [-1.0 0.0 -0.0; 0.0 0.0 1.0; 0 1 0]
 end

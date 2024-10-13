@@ -38,7 +38,7 @@ export demo_state, demo_syslog, demo_log, load_log, save_log, export_log, import
 export log!, syslog, length
 export demo_state_4p, demo_state_4p_3lines, initial_kite_ref_frame       # functions for four point and three line kite
 export rot, rot3d, ground_dist, calc_elevation, azimuth_east, asin2 
-export acos2, wrap2pi, quat2euler, quat2frame                            # geometric functions
+export acos2, wrap2pi, quat2euler, quat2frame, quat2viewer               # geometric functions
 export fromEG2W, fromENU2EG,fromW2SE, fromKS2EX, fromEX2EG               # reference frame transformations
 export calc_azimuth, calc_heading_w, calc_heading, calc_course           # geometric functions
 export calc_orient_rot

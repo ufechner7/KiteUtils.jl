@@ -3,6 +3,7 @@
 #### Added
 - add function calc_orient_rot
 - add function quat2frame
+- add function quat2viewer
 - add parameter `yaw` to the functions `demo_state` and `demo_state_4p`
 
 ### KiteUtils v0.7.12 - 2024-10-04
