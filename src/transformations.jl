@@ -117,16 +117,16 @@ If viewer is true, the rotation matrix is calculated based with respect to
 the viewer reference frame.
 """
 function calc_orient_rot(x, y, z; viewer=false, ENU=true)
+    if ENU
+        x = enu2ned(x)
+        y = enu2ned(y)
+        z = enu2ned(z)
+    end
     if viewer
         pos_kite_ = @SVector ones(3)
         pos_before = pos_kite_ .+ z
         rotation = rot(pos_kite_, pos_before, -x)
     else
-        if ENU
-            x = enu2ned(x)
-            y = enu2ned(y)
-            z = enu2ned(z)
-        end
         # reference frame for the orientation: NED (north, east, down)
         ax = @SVector [1, 0, 0]
         ay = @SVector [0, 1, 0]
