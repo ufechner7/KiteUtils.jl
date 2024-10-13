@@ -294,7 +294,7 @@ Parameters:
 - vec_c: vector of the last tether segment
 """
 function get_particles(height_k, height_b, width, m_k, pos_pod= [ 75., 0., 129.90381057], 
-                       vec_c=[-15., 0., -25.98076211], v_app=[10.4855, 0, -3.08324])
+                       vec_c=[-15., 0., -25.98076211]; v_app=[10.4855, 0, -3.08324])
     # inclination angle of the kite; beta = atan(-pos_kite[2], pos_kite[1]) ???
     beta = pi/2.0
     x, y, z = initial_kite_ref_frame(vec_c, v_app)
@@ -353,14 +353,15 @@ function demo_state_4p(P, height=6.0, time=0.0; yaw=-pi/2)
     dist = collect(range(0, stop=10, length=P))
     X = dist .* cos(turn_angle)
     Y = dist .* sin(turn_angle)
+    v_app = [10*cos(turn_angle), 10*sin(turn_angle), 0]
     Z = (a .* cosh.(dist./a) .- a) * height/ 5.430806 
     # append the kite particles to X, Y and z
     pod_pos = [X[end], Y[end], Z[end]]
-    particles = get_particles(se().height_k, se().h_bridle, se().width, se().m_k, pod_pos)[3:end]
+    particles = get_particles(se().height_k, se().h_bridle, se().width, se().m_k, pod_pos; v_app)[3:end]
     local pos_B, pos_C, pos_D
     for i in 1:4
         particle=particles[i]
-        x, y, z = particle[1] .* cos(turn_angle), particle[2] .* sin(turn_angle), particle[3]
+        x, y, z = particle[1], particle[2], particle[3]
     
         if i==2
             pos_B = SVector(x,y,z)
