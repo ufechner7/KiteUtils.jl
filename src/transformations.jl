@@ -99,6 +99,16 @@ function enu2ned(vec::AbstractVector)
 end
 
 """
+    ned2enu(vec::AbstractVector)
+
+Convert a vector from NED (north, east, down) to ENU (east, north, up) reference frame.
+"""
+function ned2enu(vec::AbstractVector)  
+    R = @SMatrix[0 1 0; 1 0 0; 0 0 -1]
+    R*vec
+end
+
+"""
     calc_orient_rot(x, y, z; viewer=false, ENU=true)
 
 Calculate the rotation matrix based on the kite reference frame, by default 
