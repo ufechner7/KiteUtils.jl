@@ -66,8 +66,8 @@ end
 
 Calculate the rotation matrix of the kite based on the position of the
 last two tether particles and the apparent wind speed vector. Assumption: 
-The kite aligns with the apparent wind direction. Use this function 
-only for the one point kite model `KPS3`. 
+The kite aligns with the apparent wind direction. If used for the model
+`KPS4`, pass the vector `-x` of the kite reference frame instead of v_app. 
 """
 function rot(pos_kite, pos_before, v_app)
     delta = pos_kite - pos_before
@@ -78,6 +78,21 @@ function rot(pos_kite, pos_before, v_app)
     x = normalize(cross(y, c))
     one_ = one(eltype(delta))
     rot = rot3d(SVector(0,-one_,0), SVector(one_,0,0), SVector(0,0,-one_), z, y, x)
+end
+
+function calc_orient_rot(x, y, z; viewer=false)
+    if viewer
+        pos_kite_ = @SVector ones(3)
+        pos_before = pos_kite_ .+ z
+        rotation = rot(pos_kite_, pos_before, -x)
+    else
+        # reference frame for the orientation: NED (north, east, down)
+        ax = @SVector [0, 1, 0] # in ENU reference frame this is pointing to the south
+        ay = @SVector [1, 0, 0] # in ENU reference frame this is pointing to the west
+        az = @SVector [0, 0, -1] # in ENU reference frame this is pointing down
+        rotation = rot3d(ax, ay, az, x, y, z)
+    end
+    return rotation
 end
 
 """
