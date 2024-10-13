@@ -1,4 +1,8 @@
 # Changelog
+### Unreleased
+#### Added
+- add function calc_orient_rot
+- add parameter `yaw` to the functions `demo_state` and `demo_state_4p`
 ### KiteUtils v0.7.12 - 2024-10-04
 #### Changed
 - revert the change of the heading calculation in 7.11
