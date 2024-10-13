@@ -43,21 +43,19 @@ function rot3d(ax, ay, az, bx, by, bz)
 end
 
 """
-    quat2euler(q)
+    quat2euler(q::QuatRotation)
+    quat2euler(q::AbstractVector)
 
 Convert a quaternion to roll, pitch, and yaw angles in radian.
-The quaternion can be a 4-element vector or a QuatRotation object.
+The quaternion can be a 4-element vector (w, i, j, k) or a QuatRotation object.
 """
 quat2euler(q::AbstractVector) = quat2euler(QuatRotation(q))
-function quat2euler(q::QuatRotation)
-    # Convert quaternion to RotXYZ
-    rot = RotXYZ(q)
-    
-    # Extract roll, pitch, and yaw from RotXYZ
-    roll = rot.theta1
-    pitch = rot.theta2
-    yaw = rot.theta3
-
+function quat2euler(q::QuatRotation)  
+    D = RFR.DCM(q)
+    euler = RFR.dcm_to_angle(D, :ZYX)
+    yaw = euler.a1
+    pitch = euler.a2
+    roll = euler.a3
     return roll, pitch, yaw
 end
 

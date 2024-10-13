@@ -34,6 +34,7 @@ using Parameters, StructTypes, CSV, Parsers
 export Settings, SysState, SysLog, Logger, MyFloat
 
 import Base.length
+import ReferenceFrameRotations as RFR
 export demo_state, demo_syslog, demo_log, load_log, save_log, export_log, import_log # functions for logging
 export log!, syslog, length
 export demo_state_4p, demo_state_4p_3lines, initial_kite_ref_frame       # functions for four point and three line kite

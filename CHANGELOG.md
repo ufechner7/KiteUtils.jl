@@ -5,6 +5,8 @@
 - add function quat2frame
 - add function quat2viewer
 - add parameter `yaw` to the functions `demo_state` and `demo_state_4p`
+#### Fixed
+- function quat2euler uses the function `dcm_to_angle` from `ReferenceFrameRotations.jl` now
 
 ### KiteUtils v0.7.12 - 2024-10-04
 #### Changed
