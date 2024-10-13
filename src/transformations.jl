@@ -163,7 +163,7 @@ quat2viewer(rot::AbstractMatrix) = quat2viewer(QuatRotation(rot))
 quat2viewer(orient::AbstractVector) = quat2viewer(QuatRotation(orient))
 function quat2viewer(q::QuatRotation)
     x, y, z = quat2frame(q)
-    rot = calc_orient_rot(x, y, z; viewer=true)
+    rot = calc_orient_rot(x, y, z; viewer=true, ENU=false)
     q = QuatRotation(rot)
     return Rotations.params(q)
 end
