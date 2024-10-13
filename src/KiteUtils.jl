@@ -360,7 +360,7 @@ function demo_state_4p(P, height=6.0, time=0.0; yaw=-pi/2)
     local pos_B, pos_C, pos_D
     for i in 1:4
         particle=particles[i]
-        x, y, z = particle[1], particle[2], particle[3]
+        x, y, z = particle[1] .* cos(turn_angle), particle[2] .* sin(turn_angle), particle[3]
     
         if i==2
             pos_B = SVector(x,y,z)
