@@ -1,5 +1,5 @@
 # Changelog
-### Unreleased
+### KiteUtils v0.8.0 - 2024-10-15
 #### Added
 - add function calc_orient_rot
 - add function quat2frame
