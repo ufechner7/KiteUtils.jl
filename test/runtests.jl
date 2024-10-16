@@ -127,8 +127,6 @@ end
     @test acos2(-1.0001) ≈ π
     @test asin2(1.0001) ≈ pi/2
     @test asin2(-1.0001) ≈ -pi/2
-    @test calc_azimuth(0) ≈ -1.5707963267948966
-    @test calc_azimuth(π) ≈ 1.5707963267948966
     vec1 = SVector(1.0, 2.0, 3.0)
     orient = SVector(0, pi/10, pi / 2.0)
     elevation = deg2rad(71.5)

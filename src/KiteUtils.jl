@@ -41,7 +41,7 @@ export demo_state_4p, demo_state_4p_3lines, initial_kite_ref_frame       # funct
 export rot, rot3d, ground_dist, calc_elevation, azimuth_east, azimuth_north, asin2 
 export acos2, wrap2pi, quat2euler, quat2frame, quat2viewer               # geometric functions
 export fromEG2W, fromENU2EG,fromW2SE, fromKS2EX, fromEX2EG               # reference frame transformations
-export calc_azimuth, calc_heading_w, calc_heading, calc_course           # geometric functions
+export azn2azw, calc_heading_w, calc_heading, calc_course                # geometric functions
 export calc_orient_rot, is_right_handed_orthonormal, enu2ned, ned2enu
 export set_data_path, get_data_path, load_settings, copy_settings        # functions for reading and copying parameters
 export se, se_dict, update_settings, wc_settings, fpc_settings, fpp_settings
