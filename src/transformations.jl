@@ -137,20 +137,6 @@ function calc_orient_rot(x, y, z; viewer=false, ENU=true)
 end
 
 """
-    quat2frame(q::AbstractMatrix)
-    quat2frame(q::QuatRotation)
-
-Calculate the kite reference frame based on the quaternion `q` or rotation matrix `rot`.
-"""
-quat2frame(rot::AbstractMatrix) = quat2frame(QuatRotation(rot))
-function quat2frame(q::QuatRotation)
-    x = [0,  1.0, 0]
-    y = [1.0,  0, 0]
-    z = [0,    0, -1.0]
-    return q*x, q*y, q*z
-end
-
-"""
     quat2viewer(q::QuatRotation)
     quat2viewer(rot::AbstractMatrix)
     quat2viewer(orient::AbstractVector)
@@ -162,7 +148,21 @@ and i, j, k are the imaginary parts of the quaternion.
 quat2viewer(rot::AbstractMatrix) = quat2viewer(QuatRotation(rot))
 quat2viewer(orient::AbstractVector) = quat2viewer(QuatRotation(orient))
 function quat2viewer(q::QuatRotation)
-    x, y, z = quat2frame(q)
+    # 1. get reference frame
+    rot = inv(RotMatrix{3}(q))
+    x = enu2ned(rot[1,:])
+    y = enu2ned(rot[2,:])
+    z = enu2ned(rot[3,:])
+    # 2. convert it using the old method
+    ax = [0, 1, 0] # in ENU reference frame this is pointing to the south
+    ay = [1, 0, 0] # in ENU reference frame this is pointing to the west
+    az = [0, 0, -1] # in ENU reference frame this is pointing down
+    rotation = rot3d(ax, ay, az, x, y, z)
+    q_old = QuatRotation(rotation)
+    x = [0,  1.0, 0]
+    y = [1.0,  0, 0]
+    z = [0,    0, -1.0]
+    x, y, z = q_old*x, q_old*y, q_old*z
     rot = calc_orient_rot(x, y, z; viewer=true, ENU=false)
     q = QuatRotation(rot)
     return Rotations.params(q)

@@ -51,7 +51,6 @@ enu2ned
 ned2enu
 is_right_handed_orthonormal
 quat2euler
-quat2frame
 quat2viewer
 rot3d(ax, ay, az, bx, by, bz)
 rot(pos_kite, pos_before, v_app)

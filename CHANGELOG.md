@@ -1,4 +1,10 @@
 # Changelog
+### Unreleased
+##### Removed
+- removed function quat2frame because it was not well defined
+##### Fixed
+- fixed the function quat2viewer
+
 ### KiteUtils v0.8.0 - 2024-10-15
 #### Added
 - add function calc_orient_rot
