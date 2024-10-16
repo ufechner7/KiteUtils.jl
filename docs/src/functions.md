@@ -70,12 +70,12 @@ Calculate the elevation angle, the azimuth angle and the ground distance based o
 calculate the heading angle, the heading vector, the asin and acos (safe versions) and the initial kite reference frame.
 ```@docs
 calc_elevation
-calc_azimuth
 calc_heading
 calc_course
 calc_heading_w
 azimuth_east
 azimuth_north
+azn2azw
 ground_dist
 acos2
 asin2
