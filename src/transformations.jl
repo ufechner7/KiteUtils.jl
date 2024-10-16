@@ -185,8 +185,10 @@ function quat2viewer(q::QuatRotation)
     y = [1.0,  0, 0]
     z = [0,    0, -1.0]
     x, y, z = q_old*x, q_old*y, q_old*z
-    rot = calc_orient_rot(x, y, z; viewer=true, ENU=false)
-    q = QuatRotation(rot)
+    pos_kite_ = @SVector ones(3)
+    pos_before = pos_kite_ .+ z
+    rotation = rot(pos_kite_, pos_before, -x)
+    q = QuatRotation(rotation)
     return Rotations.params(q)
 end
 
