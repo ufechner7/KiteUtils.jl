@@ -2,8 +2,11 @@
 ### Unreleased
 ##### Added
 - function euler2rot
+- function azn2azw (azimuth north to azimuth wind)
+- function azimuth_north
 ##### Removed
 - removed function quat2frame because it was not well defined
+- removed function calc_azimuth, replaced with more specific functions (see above)
 ##### Changed
 - renamed the parameter `yaw` to `azimuth_north` for `demo_state` and `demo_state_4p`
 ##### Fixed
