@@ -24,7 +24,7 @@ The `upwind_direction` is the direction the wind is coming from. Zero is at nort
 Default: `-pi/2`, wind from west.
 
 ## Elevation and azimuth
-The elevation angle is zero when the height of the kite is zero, and 90° when it is at Zenith.
+The position of the kite can be described with two angles, the azimuth angle φ and the elevation angle β .The elevation angle is zero when the height of the kite is zero, and 90° when it is at Zenith.
 Two azimuth angles are used, the azimuth angle in the wind reference frame and $\mathrm{azimuth\_north}$. The azimuth
 angle is defined positive anti-clockwise when seen from above.
 
