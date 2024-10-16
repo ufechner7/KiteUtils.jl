@@ -231,16 +231,16 @@ function __init__()
 end
 
 """
-    demo_state(P, height=6.0, time=0.0; yaw=-pi/2)
+    demo_state(P, height=6.0, time=0.0; azimuth_north=-pi/2)
 
 Create a demo state with a given height and time. P is the number of tether particles.
 Kite is parking and aligned with the tether.
 
 Returns a SysState instance.
 """
-function demo_state(P, height=6.0, time=0.0; yaw=-pi/2)
+function demo_state(P, height=6.0, time=0.0; azimuth_north=-pi/2)
     a = 10
-    turn_angle = yaw+pi/2
+    turn_angle = azimuth_north+pi/2
     dist = collect(range(0, stop=10, length=P))
     X = dist .* cos(turn_angle)
     Y = dist .* sin(turn_angle)
@@ -341,15 +341,15 @@ function get_particles_3l(width, radius, middle_length, tip_length, bridle_cente
 end
 
 """
-    demo_state_4p(P, height=6.0, time=0.0; yaw=-pi/2)
+    demo_state_4p(P, height=6.0, time=0.0; azimuth_north=-pi/2)
 
 Create a demo state, using the 4 point kite model with a given height and time. P is the number of tether particles.
 
 Returns a SysState instance.
 """
-function demo_state_4p(P, height=6.0, time=0.0; yaw=-pi/2)
+function demo_state_4p(P, height=6.0, time=0.0; azimuth_north=-pi/2)
     a = 10
-    turn_angle = yaw+pi/2
+    turn_angle = azimuth_north+pi/2
     dist = collect(range(0, stop=10, length=P))
     X = dist .* cos(turn_angle)
     Y = dist .* sin(turn_angle)
