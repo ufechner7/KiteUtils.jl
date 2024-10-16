@@ -1,5 +1,7 @@
 # Changelog
 ### Unreleased
+##### Added
+- function euler2rot
 ##### Removed
 - removed function quat2frame because it was not well defined
 ##### Changed
