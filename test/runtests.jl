@@ -2,6 +2,7 @@ using KiteUtils, StaticArrays, LinearAlgebra
 using Test
 
 cd("..")
+@testset verbose=true "KiteUtils" begin
 
 @testset "KiteUtils.jl: Settings       " begin
     @test se().sim_settings == "settings.yaml"
@@ -59,4 +60,5 @@ include("test_logger.jl")
 include("test_transformations.jl")
 include("test_azimuth.jl")
 include("bench.jl")
+end
 nothing
