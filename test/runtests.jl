@@ -162,5 +162,6 @@ end
     rotation = calc_orient_rot(x, y, z; viewer=true)
     @test_broken rotation ≈ [-1.0 0.0 -0.0; 0.0 0.0 1.0; 0 1 0]
 end
+include("test_azimuth.jl")
 include("bench.jl")
 nothing
