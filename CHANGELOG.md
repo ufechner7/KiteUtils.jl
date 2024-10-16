@@ -2,6 +2,8 @@
 ### Unreleased
 ##### Removed
 - removed function quat2frame because it was not well defined
+##### Changed
+- renamed the parameter `yaw` to `azimuth_north` for `demo_state` and `demo_state_4p`
 ##### Fixed
 - fixed the function quat2viewer
 
