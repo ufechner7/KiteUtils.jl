@@ -25,8 +25,7 @@ Default: `-pi/2`, wind from west.
 
 ## Elevation and azimuth
 The position of the kite can be described with two angles, the azimuth angle φ and the elevation angle β .The elevation angle is zero when the height of the kite is zero, and 90° when it is at Zenith.
-Two azimuth angles are used, the azimuth angle in the wind reference frame and $\mathrm{azimuth\_north}$. The azimuth
-angle is defined positive anti-clockwise when seen from above.
+Three azimuth angles are used, the azimuth angle in the wind reference frame and $\mathrm{azimuth\_east}$ and $\mathrm{azimuth\_north}$. The azimuth angles in wind reference frame and $\mathrm{azimuth\_north}$ are defined positive anti-clockwise when seen from above, azimuth_east is defined positive clockwise when seen from above.
 
 ## Orientation of the kite
 For the orientation, either a quaternion or roll, pitch and yaw angles are used. The orientation is defined with respect to the NED (North, East, Down) reference frame. The origin of the Kite reference frame around which it rotates is the centre point defined as $0.5 * (C + D)$ as origin, where C and D are positions of the point masses of the model close to the tips of the wing.
