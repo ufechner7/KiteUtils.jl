@@ -19,7 +19,7 @@ Returns:
 - Valid range: -pi .. pi. 
 """
 function azn2azw(azimuth_north; up_wind_direction = -π/2)
-    result = azimuth_north - up_wind_direction
+    result = azimuth_north + up_wind_direction +pi
     wrap2pi(result)
 end
 

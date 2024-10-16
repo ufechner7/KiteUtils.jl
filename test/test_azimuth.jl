@@ -6,6 +6,9 @@ using KiteUtils, Test
 # Zero east. Positive direction clockwise seen from above.
 # Valid range: -π .. π.
 
+# The `up_wind_direction` is the direction the wind is coming from
+# Zero is at north; clockwise positive. Default: Wind from west.
+
 # kite position in ENU reference frame
 pos_kite_east  = [100.0, 0, 100.0]  # east
 pos_kite_north = [0, 100.0, 100.0]  # north
@@ -30,8 +33,13 @@ end
 end
 
 @testset "azimuth (wind reference frame)" begin
-    azn = azimuth_north(pos_kite_east)
-    azw = azn2azw(azn; up_wind_direction = -π/2)
+    azn = azimuth_north(pos_kite_east)           # - pi/2
+    azw = azn2azw(azn; up_wind_direction = -π/2) # wind from west
+    @test rad2deg(azw) ≈ 0.0 atol=1e-10
+    azw = azn2azw(azn; up_wind_direction = 0)    # wind from north
+    @test rad2deg(azw) ≈ 90.0 atol=1e-10
+    azn = azimuth_north(pos_kite_north)        # zero
+    azw = azn2azw(azn; up_wind_direction = pi) # wind from south
     @test rad2deg(azw) ≈ 0.0 atol=1e-10
 end
 nothing
