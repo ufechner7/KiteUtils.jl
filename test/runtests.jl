@@ -58,6 +58,7 @@ end
 include("test_logfiles.jl")
 include("test_logger.jl")
 include("test_transformations.jl")
+include("test_orientation.jl")
 include("test_azimuth.jl")
 include("bench.jl")
 end
