@@ -1,4 +1,6 @@
-@testset "KiteUtils.jl: Transformations" begin
+using LinearAlgebra
+
+@testset verbose=true "KiteUtils.jl: Transformations" begin
     ax, ay, az = [1, 0, 0], [0, 1, 0],  [0, 0, 1]
     bx, by, bz = [0, 1, 0], [-1, 0, 0], [0, 0, 1]
     res = rot3d(ax, ay, az, bx, by, bz)
@@ -48,4 +50,10 @@
     @test orient ≈ [-0.0, 0.0, 0.7071067811865475, 0.7071067811865475]
     rotation = calc_orient_rot(x, y, z; viewer=true)
     @test_broken rotation ≈ [-1.0 0.0 -0.0; 0.0 0.0 1.0; 0 1 0]
+    @testset "euler2rot" begin
+        @test euler2rot(0, 0, 0) == I
+        @test euler2rot(0, 0, π) == [-1.0 0.0 0.0; 0.0 -1.0 0.0; 0.0 0.0 1.0]
+        @test euler2rot(0, π, 0) == [-1.0 0.0 0.0; 0.0 1.0 0.0; 0.0 0.0 -1.0]
+        @test euler2rot(π, 0, 0) == [1.0 0.0 0.0; 0.0 -1.0 0.0; 0.0 0.0 -1.0]
+    end
 end

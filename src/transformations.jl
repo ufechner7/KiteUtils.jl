@@ -137,6 +137,28 @@ function calc_orient_rot(x, y, z; viewer=false, ENU=true)
 end
 
 """
+    euler2rot(roll, pitch, yaw)
+
+Calculate the rotation matrix based on the roll, pitch, and yaw angles in radian.
+"""
+function euler2rot(roll, pitch, yaw)
+    φ      = roll
+    R_x = [1    0       0;
+              0  cos(φ) -sin(φ);
+              0  sin(φ)  cos(φ)]
+    θ      = pitch          
+    R_y = [ cos(θ)  0  sin(θ);
+                 0     1     0;
+              -sin(θ)  0  cos(θ)]
+    ψ      = yaw
+    R_z = [cos(ψ) -sin(ψ) 0;
+              sin(ψ)  cos(ψ) 0;
+                 0       0   1]
+    R   = R_z * R_y * R_x
+    return R
+end
+
+"""
     quat2viewer(q::QuatRotation)
     quat2viewer(rot::AbstractMatrix)
     quat2viewer(orient::AbstractVector)
