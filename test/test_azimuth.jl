@@ -38,8 +38,8 @@ end
     @test rad2deg(azw) ≈ 0.0 atol=1e-10
     azw = azn2azw(azn; up_wind_direction = 0)    # wind from north
     @test rad2deg(azw) ≈ 90.0 atol=1e-10
-    azn = azimuth_north(pos_kite_north)        # zero
-    azw = azn2azw(azn; up_wind_direction = pi) # wind from south
+    azn = azimuth_north(pos_kite_north)          # zero
+    azw = azn2azw(azn; up_wind_direction = pi)   # wind from south
     @test rad2deg(azw) ≈ 0.0 atol=1e-10
 end
 nothing
