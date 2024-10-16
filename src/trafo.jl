@@ -7,7 +7,7 @@ ENU2EG = @SMatrix [ 0  1  0;
                     0  0  1]
 
 """
-    calc_azimuth(azimuth_north, up_wind_direction = -π/2)
+    azn2azw(azimuth_north; up_wind_direction = -π/2)
 
 Calculate the azimuth in the wind reference frame.
 The `up_wind_direction` is the direction the wind is coming from
@@ -18,14 +18,9 @@ Returns:
   from above.
 - Valid range: -pi .. pi. 
 """
-function calc_azimuth(azimuth_north, up_wind_direction = -π/2)
+function azn2azw(azimuth_north; up_wind_direction = -π/2)
     result = azimuth_north - up_wind_direction + π
-    if result > π
-        result -= 2π
-    elseif result < -π
-        result += 2π
-    end
-    result
+    wrap2pi(result)
 end
 
 """ 

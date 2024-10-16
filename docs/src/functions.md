@@ -75,6 +75,7 @@ calc_heading
 calc_course
 calc_heading_w
 azimuth_east
+azimuth_north
 ground_dist
 acos2
 asin2

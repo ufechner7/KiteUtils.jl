@@ -28,4 +28,10 @@ end
     azn = azimuth_north(pos_kite_south)
     @test (rad2deg(azn) ≈ -180.0) || (rad2deg(azn) ≈ 180.0)
 end
+
+@testset "azimuth (wind reference frame)" begin
+    azn = azimuth_north(pos_kite_east)
+    azw = azn2azw(azn; up_wind_direction = -π/2)
+    @test rad2deg(azw) ≈ 0.0 atol=1e-10
+end
 nothing
