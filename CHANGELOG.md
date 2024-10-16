@@ -1,5 +1,5 @@
 # Changelog
-### Unreleased
+### KiteUtils v0.8.1 - 2024-10-16
 ##### Added
 - function euler2rot
 - function azn2azw (azimuth north to azimuth wind)
