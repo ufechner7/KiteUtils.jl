@@ -134,5 +134,21 @@ end
     @test pitch+1    ≈ 0.0+1
     @test yaw+1      ≈ 0.0+1
 end
+@testset "quat2viewer                        " begin
+    # x, y and z are given in ENU
+    x = [0, 1, 0]
+    y = [1, 0, 0]
+    z = [0, 0,-1]
+    
+    @assert is_right_handed_orthonormal(x, y, z)
+    rot = calc_orient_rot(x, y, z)
+    q = QuatRotation(rot)
+    q1 = quat2viewer(q)
+    roll, pitch, yaw = rad2deg.(quat2euler(q1))
+    println("roll: $roll, pitch: $pitch, yaw: $yaw")
+    @test roll ≈ 90
+    @test pitch ≈ 0
+    @test yaw ≈ 180
+end
 end
 nothing
