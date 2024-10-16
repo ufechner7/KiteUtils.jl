@@ -187,7 +187,7 @@ function quat2viewer(q::QuatRotation)
     x, y, z = q_old*x, q_old*y, q_old*z
     pos_kite_ = @SVector ones(3)
     pos_before = pos_kite_ .+ z
-    rotation = rot(pos_kite_, pos_before, -x)
+    rotation = KiteUtils.rot(pos_kite_, pos_before, -x)
     q = QuatRotation(rotation)
     return Rotations.params(q)
 end
