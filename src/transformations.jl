@@ -176,12 +176,11 @@ function quat2viewer(q::QuatRotation)
     y = enu2ned(rot[2,:])
     z = enu2ned(rot[3,:])
     # 2. convert it using the old method
-    ax = [0, 1, 0] # in ENU reference frame this is pointing to the south
-    ay = [1, 0, 0] # in ENU reference frame this is pointing to the west
-    az = [0, 0, -1] # in ENU reference frame this is pointing down
-    rotation = rot3d(ax, ay, az, x, y, z)
-    q_old = QuatRotation(rotation)
-    x, y, z = q_old*ax, q_old*ay, q_old*az
+    ax = @SVector [0, 1, 0]  # in ENU reference frame this is pointing to the south
+    ay = @SVector [1, 0, 0]  # in ENU reference frame this is pointing to the west
+    az = @SVector [0, 0, -1] # in ENU reference frame this is pointing down
+    rot = rot3d(ax, ay, az, x, y, z)
+    x, y, z = rot*ax, rot*ay, rot*az
     pos_kite_ = @SVector ones(3)
     pos_before = pos_kite_ .+ z
     rotation = KiteUtils.rot(pos_kite_, pos_before, -x)
