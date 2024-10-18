@@ -1,4 +1,12 @@
 # Changelog
+### KiteUtils v0.8.2
+#### Changed
+- the function calc_course expects now `upwind_dir` as parameter
+- rename all parameters `up_wind_direction` to `upwind_dir`
+- the function calc_heading expects now for the orientation the euler angles with respect to the NED reference frame
+- it also expects the azimuth to be defined in wind reference frame
+- the function fromW2SE expects now the azimuth to be defined in wind reference frame
+
 ### KiteUtils v0.8.1 - 2024-10-16
 ##### Added
 - function euler2rot

@@ -230,6 +230,23 @@ function azimuth_north(vec)
 end
 
 """
+    azn2azw(azimuth_north; upwind_dir = -π/2)
+
+Calculate the azimuth in the wind reference frame.
+The `upwind_dir` is the direction the wind is coming from
+Zero is at north; clockwise positive. Default: Wind from west.
+
+Returns:
+- Angle in radians. Zero straight downwind. Positive direction clockwise seen
+  from above.
+- Valid range: -pi .. pi. 
+"""
+function azn2azw(azimuth_north; upwind_dir = -π/2)
+    result = azimuth_north + upwind_dir +pi
+    wrap2pi(result)
+end
+
+"""
     asin2(arg)
 
 Calculate the asin of arg, but allow values slightly above one and below

@@ -6,23 +6,6 @@ ENU2EG = @SMatrix [ 0  1  0;
                    -1  0  0;
                     0  0  1]
 
-"""
-    azn2azw(azimuth_north; up_wind_direction = -π/2)
-
-Calculate the azimuth in the wind reference frame.
-The `up_wind_direction` is the direction the wind is coming from
-Zero is at north; clockwise positive. Default: Wind from west.
-
-Returns:
-- Angle in radians. Zero straight downwind. Positive direction clockwise seen
-  from above.
-- Valid range: -pi .. pi. 
-"""
-function azn2azw(azimuth_north; up_wind_direction = -π/2)
-    result = azimuth_north + up_wind_direction +pi
-    wrap2pi(result)
-end
-
 """ 
     fromENU2EG(pointENU)
 
@@ -46,8 +29,8 @@ function fromW2SE(vector, elevation, azimuth)
                                 0              1         0;
                              -sin(elevation)   0   cos(elevation)]
     rotate_azimuth = @SMatrix[1         0       0;
-                              0  cos(azimuth)   -sin(azimuth);
-                              0  sin(azimuth)    cos(azimuth)]
+                              0  cos(-azimuth)   -sin(-azimuth);
+                              0  sin(-azimuth)    cos(-azimuth)]
     rotate_elevation * rotate_azimuth * rotate_first_step * vector
 end
 
@@ -116,14 +99,15 @@ end
     calc_heading(orientation, elevation, azimuth; upwind_dir=-pi/2, respos=true)
 
 Calculate the heading angle of the kite in radians. The heading is the direction
-the nose of the kite is pointing to. 
+the nose of the kite is pointing to. The orientation is given in Euler angles,
+calculated with respect to the North, East, Down reference frame.
 If respos is true the heading angle is defined in the range of 0 .. 2π,
 otherwise in the range -π .. π
 """
 function calc_heading(orientation, elevation, azimuth; upwind_dir=-pi/2, respos=true)
     down_wind_direction = wrap2pi(upwind_dir + π)
     headingSE = fromW2SE(calc_heading_w(orientation, down_wind_direction), elevation, azimuth)
-    angle = atan(headingSE.y, headingSE.x) - π
+    angle = atan(headingSE.y, headingSE.x)
     if angle < 0 && respos
         angle += 2π
     end
@@ -140,12 +124,13 @@ Calculate the course angle in radian.
                        clockwise positive from above; default: going to east.
 - respos:              If true, the result is in the range 0 .. 2π, otherwis -π .. π
 """
-function calc_course(velocityENU, elevation, azimuth, down_wind_direction = π/2, respos=true)
+function calc_course(velocityENU, elevation, azimuth, upwind_dir=-pi/2, respos=true)
+    down_wind_direction = wrap2pi(upwind_dir + π)
     velocityEG = fromENU2EG(velocityENU)
     velocityW = fromEG2W(velocityEG, down_wind_direction)
     velocitySE = fromW2SE(velocityW, elevation, azimuth)
     angle = atan(velocitySE.y, velocitySE.x)
-    if angle < 0
+    if angle < 0  && respos
         angle += 2π
     end
     return(angle)
