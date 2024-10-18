@@ -1,5 +1,5 @@
 # Changelog
-### KiteUtils v0.8.2
+### KiteUtils v0.8.2 - 2024-10-18
 #### Changed
 - the function calc_course expects now `upwind_dir` as parameter
 - rename all parameters `up_wind_direction` to `upwind_dir`
