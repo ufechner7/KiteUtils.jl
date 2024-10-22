@@ -145,7 +145,6 @@ end
     q = QuatRotation(rot)
     q1 = quat2viewer(q)
     roll, pitch, yaw = rad2deg.(quat2euler(q1))
-    println("roll: $roll, pitch: $pitch, yaw: $yaw")
     @test roll ≈ 90
     @test pitch ≈ 0
     @test yaw ≈ 180
