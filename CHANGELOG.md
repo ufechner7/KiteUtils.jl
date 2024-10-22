@@ -1,4 +1,7 @@
 # Changelog
+### KiteUtils v0.8.3 - 2024-10-22
+- add `cs_4p` to `settings2.yaml`, a correction factor for the steering sensitivity of the KPS4 model
+ 
 ### KiteUtils v0.8.2 - 2024-10-18
 #### Changed
 - the function calc_course expects now `upwind_dir` as parameter
