@@ -83,24 +83,50 @@ Base.@kwdef mutable struct SysState{P}
     elevation::MyFloat
     "azimuth angle in radians"
     azimuth::MyFloat
-    "tether length [m]"
+    "main tether length [m]"
     l_tether::MyFloat
-    "reel out velocity [m/s]"
+    "left tether length [m]"
+    l_tether_left::MyFloat
+    "right tether length [m]"
+    l_tether_right::MyFloat
+    "main reel out velocity [m/s]"
     v_reelout::MyFloat
+    "left reel out velocity [m/s]"
+    v_reelout_left::MyFloat
+    "right reel out velocity [m/s]"
+    v_reelout_right::MyFloat
     "tether force [N]"
     force::MyFloat
+    "left tether force [N]"
+    force_left::MyFloat
+    "right tether force [N]"
+    force_right::MyFloat
     "depower settings [0..1]"
     depower::MyFloat
     "steering settings [-1..1]"
     steering::MyFloat
     "heading angle in radian"
     heading::MyFloat
+    "flap angle on the left (point C) side of the kite [rad]"
+    flap_angle_left::MyFloat
+    "flap angle on the right (point D) side of the kite [rad]"
+    flap_angle_right::MyFloat
     "course angle in radian"
     course::MyFloat
     "norm of apparent wind speed [m/s]"
     v_app::MyFloat
     "velocity vector of the kite"
     vel_kite::MVector{3, MyFloat}
+    "acceleration vector of the kite"
+    acc_kite::MVector{3, MyFloat}
+    "lift force on the left (point C) side of the kite [N]"
+    lift_left::MyFloat
+    "lift force on the right (point D) side of the kite [N]"
+    lift_right::MyFloat
+    "drag force on the left (point C) side of the kite [N]"
+    drag_left::MyFloat
+    "drag force on the right (point D) side of the kite [N]"
+    drag_right::MyFloat
     "vector of particle positions in x"
     X::MVector{P, MyFloat}
     "vector of particle positions in y"
@@ -637,9 +663,12 @@ function load_log(filename::String; path="")
                    :var_16=>Arrow.getmetadata(table.var_16)["name"],
     )
     # example_metadata = KiteUtils.Arrow.getmetadata(table.var_01)
-    syslog = StructArray{SysState{P}}((table.time, table.t_sim, table.sys_state, table.e_mech, table.orient, table.elevation, table.azimuth, table.l_tether, 
-                    table.v_reelout, table.force, table.depower, table.steering, table.heading, table.course, 
-                    table.v_app, table.vel_kite, table.X, table.Y, table.Z, table.var_01, table.var_02,table.var_03,
+    syslog = StructArray{SysState{P}}((table.time, table.t_sim, table.sys_state, table.e_mech, 
+                    table.orient, table.elevation, table.azimuth, 
+                    table.l_tether, table.l_tether_left, table.l_tether_right, table.v_reelout, table.v_reelout_left, table.v_reelout_right,
+                    table.force, table.force_left, table.force_right, table.depower, table.steering, table.heading, table.flap_angle_left, table.flap_angle_right,
+                    table.course, table.v_app, table.vel_kite, table.acc_kite, table.lift_left, table.lift_right, table.drag_left, table.drag_right,
+                    table.X, table.Y, table.Z, table.var_01, table.var_02,table.var_03,
                     table.var_04,table.var_05,table.var_06,table.var_07,table.var_08,table.var_09,table.var_10,table.var_11,table.var_12,table.var_13,
                     table.var_14,table.var_15,table.var_16))
     return SysLog{P}(basename(fullname[1:end-6]), colmeta, syslog)
