@@ -11,6 +11,7 @@ cd("..")
     @test se().sim_time == 409.0
     @test se().log_level == 2
     @test se().kcu_model == "KCU1"
+    @test se("system2.yaml").cs_4p == 1.1
     @test length(se().alpha_cl) == 12
     set_data_path(tempdir())
     @test KiteUtils.DATA_PATH[1] == tempdir()

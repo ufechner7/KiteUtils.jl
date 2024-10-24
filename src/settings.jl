@@ -90,6 +90,8 @@ $(TYPEDFIELDS)
     delta_st              = 0
     "max. steering angle of the side planes for four point model [degrees]"
     max_steering          = 0
+    "correction factor for the steering sensitivity four point model"
+    cs_4p                 = 1.0
 
     "max depower angle              [deg]"
     alpha_d_max           = 0
