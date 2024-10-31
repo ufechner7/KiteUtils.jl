@@ -1,8 +1,7 @@
 # Changelog 
-### Unreleased
-- add `cms` to settings2.yaml, a steering dependant moment coefficient to represent the deformation
-  based turning moment
-  
+### KiteUtils v0.8.4 - 2024-10-31
+- add `cms` to settings2.yaml, a steering dependant moment coefficient to represent the deformation based turning moment
+
 ### KiteUtils v0.8.3 - 2024-10-22
 - add `cs_4p` to `settings2.yaml`, a correction factor for the steering sensitivity of the KPS4 model
 - extend documentation of reference frames and the orientation
