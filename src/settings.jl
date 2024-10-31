@@ -120,7 +120,8 @@ $(TYPEDFIELDS)
     cl_list::Vector{Float64}  = []
     alpha_cd::Vector{Float64} = []
     cd_list::Vector{Float64}  = []
-
+    "steering dependant moment coefficient"
+    cms                   = 0
     "width of the kite                [m]"
     width                 = 0
     "should be 5                      [degrees]"
