@@ -300,6 +300,18 @@ function update_settings()
     load_settings(PROJECT)
 end
 
+function copy_files(relpath, files)
+    if ! isdir(relpath) 
+        mkdir(relpath)
+    end
+    src_path = joinpath(dirname(pathof(@__MODULE__)), "..", relpath)
+    for file in files
+        cp(joinpath(src_path, file), joinpath(relpath, file), force=true)
+        chmod(joinpath(relpath, file), 0o774)
+    end
+    files
+end
+
 """
     copy_settings()
 
@@ -314,16 +326,8 @@ function copy_settings()
     if ! isdir(DATA_PATH[1]) 
         mkdir(DATA_PATH[1])
     end
-    cp(joinpath(src_path, "settings.yaml"), joinpath(DATA_PATH[1], "settings.yaml"), force=true)
-    cp(joinpath(src_path, "system.yaml"), joinpath(DATA_PATH[1], "system.yaml"), force=true)
-    cp(joinpath(src_path, "settings.yaml"), joinpath(DATA_PATH[1], "settings_3l.yaml"), force=true)
-    cp(joinpath(src_path, "system.yaml"), joinpath(DATA_PATH[1], "system_3l.yaml"), force=true)
-    cp(joinpath(src_path, "kite.obj"), joinpath(DATA_PATH[1], "kite.obj"), force=true)
-    chmod(joinpath(DATA_PATH[1], "settings.yaml"), 0o664)
-    chmod(joinpath(DATA_PATH[1], "system.yaml"), 0o664)
-    chmod(joinpath(DATA_PATH[1], "settings_3l.yaml"), 0o664)
-    chmod(joinpath(DATA_PATH[1], "system_3l.yaml"), 0o664)
-    chmod(joinpath(DATA_PATH[1], "kite.obj"), 0o664)
+    files = ["settings.yaml", "system.yaml", "settings_3l.yaml", "system_3l.yaml", "kite.obj"]
+    copy_files("data", files)
     set_data_path(joinpath(pwd(), "data"))
     # set font
     if Sys.islinux()
@@ -332,7 +336,7 @@ function copy_settings()
         lines = change_value(lines, "fixed_font:", "\"Liberation Mono\"")
         writefile(lines, settings)
     end
-    println("Copied 3 files to $(DATA_PATH[1]) !")
+    println("Copied $(length(files)) files to $(DATA_PATH[1]) !")
 end
 
 function update_settings(dict, sections)
