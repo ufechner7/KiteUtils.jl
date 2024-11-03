@@ -36,7 +36,7 @@ export Settings, SysState, SysLog, Logger, MyFloat
 import Base.length
 import ReferenceFrameRotations as RFR
 export demo_state, demo_syslog, demo_log, load_log, save_log, export_log, import_log # functions for logging
-export log!, syslog, length, euler2rot
+export log!, syslog, length, euler2rot, menu
 export demo_state_4p, demo_state_4p_3lines, initial_kite_ref_frame       # functions for four point and three line kite
 export rot, rot3d, ground_dist, calc_elevation, azimuth_east, azimuth_north, asin2 
 export acos2, wrap2pi, quat2euler, quat2frame, quat2viewer               # geometric functions
@@ -651,6 +651,10 @@ function test(save=false)
         save_log(log_to_save)
     end
     return(load_log(7, "Test_flight.arrow"))
+end
+
+function menu()
+    include("examples/menu.jl")
 end
 
 @setup_workload begin
