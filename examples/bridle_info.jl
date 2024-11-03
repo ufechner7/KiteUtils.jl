@@ -19,4 +19,4 @@ function bridle_length(se)
     len += norm(bridle[3] - bridle[5])
 end
 
-bridle_length(set)
+println("Total bridle length: ", bridle_length(set), " m")
