@@ -17,6 +17,7 @@ FOOTER = "end"
 inputfile = joinpath("data", "sysstate.yaml")
 outputfile = joinpath("src", "_sysstate.jl")
 outputfile2 = joinpath("src", "_show.jl")
+outputfile3 = joinpath("src", "_demo_syslog_.jl")
 
 # read the file sysstate.yaml
 sysstate = YAML.load_file(inputfile, dicttype=OrderedDict{String,Any})["sysstate"]
@@ -46,5 +47,20 @@ open(outputfile2,"w") do io
         description = rpad(key * " " * unit * ":", 19, " ") 
         println(io, "    println(io, \"" * description * "\", st." * key * ")")
     end
+    println(io, "end")
+end
+HEADER = """
+\"\"\"
+    demo_syslog(P, name="Test flight"; duration=10)
+
+Create a demo flight log  with given name [String] and duration [s] as StructArray. P is the number of tether
+particles.
+\"\"\"
+function demo_syslog(P, name="Test flight"; duration=10)
+    max_height = 6.03
+    steps   = Int(duration * se().sample_freq) + 1
+"""
+open(outputfile3,"w") do io
+    println(io, HEADER)
     println(io, "end")
 end
