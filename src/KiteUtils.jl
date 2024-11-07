@@ -155,25 +155,23 @@ Kite is parking and aligned with the tether.
 Returns a SysState instance.
 """
 function demo_state(P, height=6.0, time=0.0; azimuth_north=-pi/2)
+    ss = SysState{P}()
+    ss.time = time
     a = 10
     turn_angle = azimuth_north+pi/2
     dist = collect(range(0, stop=10, length=P))
-    X = dist .* cos(turn_angle)
-    Y = dist .* sin(turn_angle)
-    Z = (a .* cosh.(dist./a) .- a) * height/ 5.430806 
+    ss.X .= dist .* cos(turn_angle)
+    ss.Y .= dist .* sin(turn_angle)
+    ss.Z .= (a .* cosh.(dist./a) .- a) * height/ 5.430806 
     r_xyz = RotXYZ(pi/2, -pi/2, 0)
     q = QuatRotation(r_xyz)
-    orient = MVector{4, Float32}(Rotations.params(q))
-    elevation = calc_elevation([X[end], 0.0, Z[end]])
-    vel_kite = zeros(3)
-    v_wind_gnd = [10.4855, 0, -3.08324]
-    v_wind_200m = [10.4855, 0, -3.08324]
-    v_wind_kite = [10.4855, 0, -3.08324]
-    t_sim = 0.012
-    sys_state = 0
-    e_mech = 0
-    return SysState{P}(time, t_sim, sys_state, e_mech, orient, elevation,0,0,0,0,0,0,0,0,0,
-                       v_wind_gnd, v_wind_200m, v_wind_kite, vel_kite,  X, Y, Z, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    ss.orient .= MVector{4, Float32}(Rotations.params(q))
+    ss.elevation = calc_elevation([ss.X[end], 0.0, ss.Z[end]])
+    ss.v_wind_gnd .= [10.4855, 0, -3.08324]
+    ss.v_wind_200m .= [10.4855, 0, -3.08324]
+    ss.v_wind_kite .= [10.4855, 0, -3.08324]
+    ss.t_sim = 0.012
+    ss
 end
 
 """
