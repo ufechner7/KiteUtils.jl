@@ -14,13 +14,13 @@ sysstate:
     heading: "MyFloat"                  # heading angle [rad]
     course: "MyFloat"                   # course angle [rad]
     v_app: "MyFloat"                    # norm of apparent wind speed [m/s]
-    v_wind_gnd: "MVectors{3, MyFloat}"  # wind vector at reference height [m/s]
-    v_wind_200m: "MVectors{3, MyFloat}" # wind vector at 200m height [m/s]
-    v_wind_kite: "MVectors{3, MyFloat}" # wind vector at the height of the kite [m/s]
-    vel_kite: "MVectors{3, MyFloat}"    # velocity vector of the kite [m/s]
-    X: "MVectors{P, MyFloat}"           # vector of particle positions in x [m]
-    Y: "MVectors{P, MyFloat}"           # vector of particle positions in y [m]
-    Z: "MVectors{P, MyFloat}"           # vector of particle positions in z [m]
+    v_wind_gnd: "MVector{3, MyFloat}"   # wind vector at reference height [m/s]
+    v_wind_200m: "MVector{3, MyFloat}"  # wind vector at 200m height [m/s]
+    v_wind_kite: "MVector{3, MyFloat}"  # wind vector at the height of the kite [m/s]
+    vel_kite: "MVector{3, MyFloat}"     # velocity vector of the kite [m/s]
+    X: "MVector{P, MyFloat}"            # vector of particle positions in x [m]
+    Y: "MVector{P, MyFloat}"            # vector of particle positions in y [m]
+    Z: "MVector{P, MyFloat}"            # vector of particle positions in z [m]
     var_01: "MyFloat"                   # generic variable 01
     var_02: "MyFloat"                   # generic variable 02
     var_03: "MyFloat"                   # generic variable 03
