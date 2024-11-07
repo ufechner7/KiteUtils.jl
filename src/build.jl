@@ -16,6 +16,7 @@ Base.@kwdef mutable struct SysState{P}"""
 FOOTER = "end"
 inputfile = joinpath("data", "sysstate.yaml")
 outputfile = joinpath("src", "sysstate.jl")
+outputfile2 = joinpath("src", "show_.jl")
 
 # read the file sysstate.yaml
 sysstate = YAML.load_file(inputfile, dicttype=OrderedDict{String,Any})["sysstate"]
@@ -28,4 +29,12 @@ open(outputfile,"w") do io
         println(io, "    " * key * "::" * sysstate[key])
     end
     println(io, FOOTER)
+end
+HEADER = "function Base.show(io::IO, st::SysState)" 
+open(outputfile2,"w") do io
+    println(io, HEADER)
+    for key in keys(sysstate)
+        println(io, "    println(io, \"" * key * "    :       \", st." * key * ")")
+    end
+    println(io, "end")
 end
