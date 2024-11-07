@@ -71,7 +71,7 @@ include("yaml_utils.jl")
 include("transformations.jl")
 include("trafo.jl")
 
-include("sysstate.jl")
+include("_sysstate.jl")
 
 function Base.getproperty(st::SysState, sym::Symbol)
     if sym == :pos
