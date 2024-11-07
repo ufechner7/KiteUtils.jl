@@ -88,7 +88,7 @@ function Base.getproperty(st::SysState, sym::Symbol)
     end
 end
 
-include("show.jl")
+include("_show.jl")
 
 """
     SysLog{P}
