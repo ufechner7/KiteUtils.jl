@@ -1,6 +1,6 @@
 sysstate:
-    time:      "Float64"                # time since start of simulation in seconds
-    t_sim:     "Float64"                # time needed for one simulation timestep in seconds
+    time:      "Float64"                # time since start of simulation [s]
+    t_sim:     "Float64"                # time needed for one simulation timestep [s]
     sys_state: "Int16"                  # state of system state control
     e_mech: "Float64"                   # mechanical energy [Wh]
     orient: "MVector{4, Float32}"       # orientation of the kite (quaternion, order w,x,y,z)
