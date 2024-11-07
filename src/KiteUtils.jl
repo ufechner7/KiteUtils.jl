@@ -265,6 +265,7 @@ Create a demo state, using the 4 point kite model with a given height and time. 
 Returns a SysState instance.
 """
 function demo_state_4p(P, height=6.0, time=0.0; azimuth_north=-pi/2)
+    ss = SysState{P+4}()
     a = 10
     turn_angle = azimuth_north+pi/2
     dist = collect(range(0, stop=10, length=P))
@@ -292,6 +293,9 @@ function demo_state_4p(P, height=6.0, time=0.0; azimuth_north=-pi/2)
         push!(Y, y)
         push!(Z, z)
     end
+    ss.X .= X
+    ss.Y .= Y
+    ss.Z .= Z
     pos_centre = 0.5 * (pos_C + pos_D)
     delta = pos_B - pos_centre
     z = -normalize(delta)
@@ -302,18 +306,13 @@ function demo_state_4p(P, height=6.0, time=0.0; azimuth_north=-pi/2)
    
     rotation = rot(pos_kite_, pos_before, -x)
     q = QuatRotation(rotation)
-    orient = MVector{4, Float32}(Rotations.params(q))
-    elevation = calc_elevation([X[end], 0.0, Z[end]])
-    v_wind_gnd = [10.4855, 0, -3.08324]
-    v_wind_200m = [10.4855, 0, -3.08324]
-    v_wind_kite = [10.4855, 0, -3.08324]
-    vel_kite=zeros(3)
-    t_sim = 0.014
-    sys_state = 0
-    e_mech = 0
-    return SysState{P+4}(time, t_sim, sys_state, e_mech, orient, elevation,0,0,0,0,0,0,0,0,0, 
-                         v_wind_gnd, v_wind_200m, v_wind_kite, vel_kite, X, Y, Z, 
-                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    ss.orient .= MVector{4, Float32}(Rotations.params(q))
+    ss.elevation = calc_elevation([X[end], 0.0, Z[end]])
+    ss.v_wind_gnd = [10.4855, 0, -3.08324]
+    ss.v_wind_200m = [10.4855, 0, -3.08324]
+    ss.v_wind_kite = [10.4855, 0, -3.08324]
+    ss.t_sim = 0.014
+    ss
 end
 
 """
