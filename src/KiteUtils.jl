@@ -157,9 +157,14 @@ function Base.getproperty(st::SysState, sym::Symbol)
     end
 end
 
+# function prepre_last(vec)
+#     vec[end-2]
+# end
+
 # function Base.getproperty(st::StructVector{SysState}, sym::Symbol)
 #     if sym == :x
-#         last.getfield(st, :X)
+#         vec = getfield(st, :X)
+#         # prepre_last.(vec)
 #     elseif sym == :y
 #         last.getfield(st, :Y)
 #     elseif sym == :z
@@ -225,12 +230,28 @@ mutable struct SysLog{P}
     syslog::StructArray{SysState{P}}
 end
 
+function prepre_last(vec)
+    vec[end-2]
+end
+
+"""
+    Base.getproperty(log::SysLog, sym::Symbol)
+
+Implement the properties x, y and z. They represent the kite position for the 4-point kite model.
+In addition, implements the properties x1, y1 and z1. They represent the kite position for the 1-point model.
+"""
 function Base.getproperty(log::SysLog, sym::Symbol)
     if sym == :x
+        prepre_last.(getproperty(log.syslog, :X))
+    elseif sym == :x1
         last.(getproperty(log.syslog, :X))
     elseif sym == :y
+        prepre_last.(getproperty(log.syslog, :Y))
+    elseif sym == :y1
         last.(getproperty(log.syslog, :Y))
     elseif sym == :z
+        prepre_last.(getproperty(log.syslog, :Z))
+    elseif sym == :z1
         last.(getproperty(log.syslog, :Z))
     else
         getfield(log, sym)
