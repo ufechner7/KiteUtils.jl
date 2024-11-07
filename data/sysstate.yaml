@@ -1,0 +1,6 @@
+sysstate:
+    time:      "Float64"     # time since start of simulation in seconds
+    t_sim:     "Float64"     # time needed for one simulation timestep in seconds
+    sys_state: "Int16"       # state of system state control
+
+ 
