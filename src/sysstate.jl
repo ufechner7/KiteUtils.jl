@@ -1,3 +1,11 @@
+"""
+    SysState{P}
+
+Basic system state. One of these is saved per time step. P is the number
+of tether particles.
+
+$(TYPEDFIELDS)
+"""
 Base.@kwdef mutable struct SysState{P}
     "time since start of simulation in seconds"
     time::Float64
@@ -30,19 +38,19 @@ Base.@kwdef mutable struct SysState{P}
     "norm of apparent wind speed [m/s]"
     v_app::MyFloat
     "wind vector at reference height [m/s]"
-    v_wind_gnd::MVectors{3, MyFloat}
+    v_wind_gnd::MVector{3, MyFloat}
     "wind vector at 200m height [m/s]"
-    v_wind_200m::MVectors{3, MyFloat}
+    v_wind_200m::MVector{3, MyFloat}
     "wind vector at the height of the kite [m/s]"
-    v_wind_kite::MVectors{3, MyFloat}
+    v_wind_kite::MVector{3, MyFloat}
     "velocity vector of the kite [m/s]"
-    vel_kite::MVectors{3, MyFloat}
+    vel_kite::MVector{3, MyFloat}
     "vector of particle positions in x [m]"
-    X::MVectors{P, MyFloat}
+    X::MVector{P, MyFloat}
     "vector of particle positions in y [m]"
-    Y::MVectors{P, MyFloat}
+    Y::MVector{P, MyFloat}
     "vector of particle positions in z [m]"
-    Z::MVectors{P, MyFloat}
+    Z::MVector{P, MyFloat}
     "generic variable 01"
     var_01::MyFloat
     "generic variable 02"
