@@ -24,9 +24,12 @@
     set_data_path(tempdir())
     log = KiteUtils.test(true)
     @test typeof(log) == SysLog{7}
-    @test log.syslog.Z[end][7] ≈ 6 # height of the last particle which represents the kite
-    @test log.z[end] ≈ 6.0
-    @test log.y[end] ≈ 0.0
-    @test log.x[end] ≈ 10.0
+    @test log.syslog.Z[end][7] ≈ 6 # height of the last particle which represents the kite (1p model)
+    @test log.z1[end] ≈ 6.0
+    @test log.y1[end] ≈ 0.0
+    @test log.x1[end] ≈ 10.0
+    @test log.x[end] ≈  6.6666665
+    @test log.y[end] ≈  0.0
+    @test log.z[end] ≈  2.5474184 # height of the prepre-last particle which represents the kite (4p model)
     @test export_log(log) == joinpath(tempdir(), "Test_flight.csv")
 end
