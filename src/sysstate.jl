@@ -7,9 +7,9 @@ of tether particles.
 $(TYPEDFIELDS)
 """
 Base.@kwdef mutable struct SysState{P}
-    "time since start of simulation in seconds"
+    "time since start of simulation [s]"
     time::Float64
-    "time needed for one simulation timestep in seconds"
+    "time needed for one simulation timestep [s]"
     t_sim::Float64
     "state of system state control"
     sys_state::Int16

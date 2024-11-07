@@ -80,3 +80,16 @@ function get_comment(lines, key)
     end
     return ""
 end
+
+function get_unit(lines, key)
+    comment = get_comment(lines, key)
+    if comment != ""
+        begin_ = findfirst("[", comment)
+        if isnothing(begin_)
+            return "[-]"
+        else
+            return comment[begin_[1]:end-1]
+        end
+    end
+    return "[-]"
+end
