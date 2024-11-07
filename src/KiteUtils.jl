@@ -325,6 +325,7 @@ Returns a SysState instance.
 """
 function demo_state_4p_3lines(P, height=6.0, time=0.0)
     P_ = P*3+3 # P_ is total number of particles in the system (kite + 3 tethers)
+    ss = SysState{P_}()
     num_A = P_
     num_D = P_-1
     num_C = P_-2
@@ -381,16 +382,17 @@ function demo_state_4p_3lines(P, height=6.0, time=0.0)
     q = QuatRotation(rotation)
     orient = MVector{4, Float32}(Rotations.params(q))
     elevation = calc_elevation([X[end], 0.0, Z[end]])
-    v_wind_gnd = [10.4855, 0, -3.08324]
-    v_wind_200m = [10.4855, 0, -3.08324]
-    v_wind_kite = [10.4855, 0, -3.08324]
-    vel_kite=zeros(3)
-    t_sim = 0.014
-    sys_state = 0
-    e_mech = 0
-    return SysState{P_}(time, t_sim, sys_state, e_mech, orient, elevation,0,0,0,0,0,0,0,0,0,
-                        v_wind_gnd, v_wind_200m, v_wind_kite, vel_kite, X, Y, Z, 
-                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    ss.v_wind_gnd .= [10.4855, 0, -3.08324]
+    ss.v_wind_200m .= [10.4855, 0, -3.08324]
+    ss.v_wind_kite .= [10.4855, 0, -3.08324]
+    ss.t_sim = 0.014
+    ss.time = time
+    ss.orient = orient
+    ss.elevation = elevation
+    ss.X .= X
+    ss.Y .= Y
+    ss.Z .= Z
+    ss
 end
 
 """
