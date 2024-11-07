@@ -29,6 +29,9 @@ $(TYPEDFIELDS)
     heading_vec::Vector{MyFloat} = zeros(MyFloat, Q)
     course_vec::Vector{MyFloat} = zeros(MyFloat, Q)
     v_app_vec::Vector{MyFloat} = zeros(MyFloat, Q)
+    v_wind_gnd_vec::Vector{MVector{3, MyFloat}} = zeros(SVector{3, MyFloat}, Q)
+    v_wind_200m_vec::Vector{MVector{3, MyFloat}} = zeros(SVector{3, MyFloat}, Q)
+    v_wind_kite_vec::Vector{MVector{3, MyFloat}} = zeros(SVector{3, MyFloat}, Q)
     vel_kite_vec::Vector{MVector{3, MyFloat}} = zeros(SVector{3, MyFloat}, Q)
     x_vec::Vector{MVector{P, MyFloat}} = zeros(SVector{P, MyFloat}, Q)
     y_vec::Vector{MVector{P, MyFloat}} = zeros(SVector{P, MyFloat}, Q)
@@ -81,6 +84,9 @@ function log!(logger::Logger, state::SysState)
     logger.heading_vec[i] = state.heading
     logger.course_vec[i] = state.course
     logger.v_app_vec[i] = state.v_app
+    logger.v_wind_gnd_vec[i] .= state.v_wind_gnd
+    logger.v_wind_200m_vec[i] .= state.v_wind_200m
+    logger.v_wind_kite_vec[i] .= state.v_wind_kite
     logger.vel_kite_vec[i] .= state.vel_kite
     logger.x_vec[i] .= state.X
     logger.y_vec[i] .= state.Y
@@ -111,9 +117,11 @@ end
 
 function syslog(logger::Logger)
     l = logger
-    StructArray{SysState{l.points}}((l.time_vec, l.t_sim_vec, l.sys_state_vec, l.e_mech_vec, l.orient_vec, l.elevation_vec, l.azimuth_vec, l.l_tether_vec,
+    StructArray{SysState{l.points}}((l.time_vec, l.t_sim_vec, l.sys_state_vec, l.e_mech_vec, l.orient_vec, 
+                l.elevation_vec, l.azimuth_vec, l.l_tether_vec,
                 l.v_reelout_vec, l.force_vec, l.depower_vec, l.steering_vec, l.heading_vec, l.course_vec,
-                l.v_app_vec, l.vel_kite_vec, l.x_vec, l.y_vec, l.z_vec, l.var_01_vec, l.var_02_vec, l.var_03_vec, 
+                l.v_app_vec, l.v_wind_gnd_vec, l.v_wind_200m_vec, l.v_wind_kite_vec, 
+                l.vel_kite_vec, l.x_vec, l.y_vec, l.z_vec, l.var_01_vec, l.var_02_vec, l.var_03_vec, 
                 l.var_04_vec, l.var_05_vec, l.var_06_vec, l.var_07_vec, l.var_08_vec, l.var_09_vec, l.var_10_vec,
                 l.var_11_vec, l.var_12_vec, l.var_13_vec, l.var_14_vec, l.var_15_vec, l.var_16_vec))
 end
@@ -221,6 +229,9 @@ function save_log(logger::Logger, name="sim_log", compress=true;
     resize!(logger.heading_vec, nl)
     resize!(logger.course_vec, nl)
     resize!(logger.v_app_vec, nl)
+    resize!(logger.v_wind_gnd_vec, nl)
+    resize!(logger.v_wind_200m_vec, nl)
+    resize!(logger.v_wind_kite_vec, nl)
     resize!(logger.vel_kite_vec, nl)
     resize!(logger.x_vec, nl)
     resize!(logger.y_vec, nl)
