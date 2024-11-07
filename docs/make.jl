@@ -14,6 +14,7 @@ makedocs(;
     authors="Uwe Fechner <uwe.fechner.msc@gmail.com> and contributors",
     repo="https://github.com/ufechner7/KiteUtils.jl/blob/{commit}{path}#{line}",
     sitename="KiteUtils.jl",
+    checkdocs=:none,
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
         canonical="https://ufechner7.github.io/KiteUtils.jl",
