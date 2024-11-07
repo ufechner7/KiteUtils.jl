@@ -8,79 +8,79 @@ $(TYPEDFIELDS)
 """
 Base.@kwdef mutable struct SysState{P}
     "time since start of simulation [s]"
-    time::Float64
+    time::Float64 = 0
     "time needed for one simulation timestep [s]"
-    t_sim::Float64
+    t_sim::Float64 = 0
     "state of system state control"
-    sys_state::Int16
+    sys_state::Int16 = 0
     "mechanical energy [Wh]"
-    e_mech::Float64
+    e_mech::Float64 = 0
     "orientation of the kite (quaternion, order w,x,y,z)"
-    orient::MVector{4, Float32}
+    orient::MVector{4, Float32} = [1.0, 0.0, 0.0, 0.0]
     "elevation angle [rad]"
-    elevation::MyFloat
+    elevation::MyFloat = 0
     "azimuth angle in wind reference frame [rad]"
-    azimuth::MyFloat
+    azimuth::MyFloat = 0
     "tether length [m]"
-    l_tether::MyFloat
+    l_tether::MyFloat = 0
     "reelout speed [m/s]"
-    v_reelout::MyFloat
+    v_reelout::MyFloat = 0
     "tether force [N]"
-    force::MyFloat
+    force::MyFloat = 0
     "depower settings [0..1]"
-    depower::MyFloat
+    depower::MyFloat = 0
     "steering settings [-1..1]"
-    steering::MyFloat
+    steering::MyFloat = 0
     "heading angle [rad]"
-    heading::MyFloat
+    heading::MyFloat = 0
     "course angle [rad]"
-    course::MyFloat
+    course::MyFloat = 0
     "norm of apparent wind speed [m/s]"
-    v_app::MyFloat
+    v_app::MyFloat = 0
     "wind vector at reference height [m/s]"
-    v_wind_gnd::MVector{3, MyFloat}
+    v_wind_gnd::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "wind vector at 200m height [m/s]"
-    v_wind_200m::MVector{3, MyFloat}
+    v_wind_200m::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "wind vector at the height of the kite [m/s]"
-    v_wind_kite::MVector{3, MyFloat}
+    v_wind_kite::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "velocity vector of the kite [m/s]"
-    vel_kite::MVector{3, MyFloat}
+    vel_kite::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "vector of particle positions in x [m]"
-    X::MVector{P, MyFloat}
+    X::MVector{P, MyFloat} = zeros(P)
     "vector of particle positions in y [m]"
-    Y::MVector{P, MyFloat}
+    Y::MVector{P, MyFloat} = zeros(P)
     "vector of particle positions in z [m]"
-    Z::MVector{P, MyFloat}
+    Z::MVector{P, MyFloat} = zeros(P)
     "generic variable 01"
-    var_01::MyFloat
+    var_01::MyFloat = 0
     "generic variable 02"
-    var_02::MyFloat
+    var_02::MyFloat = 0
     "generic variable 03"
-    var_03::MyFloat
+    var_03::MyFloat = 0
     "generic variable 04"
-    var_04::MyFloat
+    var_04::MyFloat = 0
     "generic variable 05"
-    var_05::MyFloat
+    var_05::MyFloat = 0
     "generic variable 06"
-    var_06::MyFloat
+    var_06::MyFloat = 0
     "generic variable 07"
-    var_07::MyFloat
+    var_07::MyFloat = 0
     "generic variable 08"
-    var_08::MyFloat
+    var_08::MyFloat = 0
     "generic variable 09"
-    var_09::MyFloat
+    var_09::MyFloat = 0
     "generic variable 10"
-    var_10::MyFloat
+    var_10::MyFloat = 0
     "generic variable 11"
-    var_11::MyFloat
+    var_11::MyFloat = 0
     "generic variable 12"
-    var_12::MyFloat
+    var_12::MyFloat = 0
     "generic variable 13"
-    var_13::MyFloat
+    var_13::MyFloat = 0
     "generic variable 14"
-    var_14::MyFloat
+    var_14::MyFloat = 0
     "generic variable 15"
-    var_15::MyFloat
+    var_15::MyFloat = 0
     "generic variable 16"
-    var_16::MyFloat
+    var_16::MyFloat = 0
 end

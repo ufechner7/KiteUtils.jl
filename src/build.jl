@@ -26,7 +26,15 @@ open(outputfile,"w") do io
     for key in keys(sysstate)
         comment = get_comment(lines, key)
         println(io, "    " * comment)
-        println(io, "    " * key * "::" * sysstate[key])
+        default = "= 0"
+        if sysstate[key] == "MVector{4, Float32}"
+            default = "= [1.0, 0.0, 0.0, 0.0]"
+        elseif sysstate[key] == "MVector{3, MyFloat}"
+            default = "= [0.0, 0.0, 0.0]"
+        elseif sysstate[key] == "MVector{P, MyFloat}"
+            default = "= zeros(P)"
+        end
+        println(io, "    " * key * "::" * sysstate[key] * " " * default)   
     end
     println(io, FOOTER)
 end
