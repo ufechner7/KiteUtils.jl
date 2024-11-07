@@ -88,23 +88,6 @@ function Base.getproperty(st::SysState, sym::Symbol)
     end
 end
 
-# function prepre_last(vec)
-#     vec[end-2]
-# end
-
-# function Base.getproperty(st::StructVector{SysState}, sym::Symbol)
-#     if sym == :x
-#         vec = getfield(st, :X)
-#         # prepre_last.(vec)
-#     elseif sym == :y
-#         last.getfield(st, :Y)
-#     elseif sym == :z
-#         last.getfield(st, :Z) # last.(st.Z)
-#     else
-#         getfield(st, sym)
-#     end
-# end
-
 function Base.show(io::IO, st::SysState) 
     println(io, "time      [s]:       ", st.time)
     println(io, "t_sim     [s]:       ", st.t_sim)
