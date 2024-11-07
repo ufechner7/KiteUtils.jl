@@ -281,9 +281,13 @@ function import_log(filename)
         Z = parse_vector(row.Z)
 
         orient = parse_vector(row.orient)
+        v_wind_gnd = zeros(Float32, 3)
+        v_wind_200m = zeros(Float32, 3)
+        v_wind_kite = zeros(Float32, 3)
         vel_kite = parse_vector(row.vel_kite)
         ss = SysState{P}(row.time, row.t_sim, row.sys_state, row.e_mech, orient, row.elevation, row.azimuth, row.l_tether,
                         row.v_reelout, row.force, row.depower, row.steering, row.heading, row.course, row.v_app,
+                        v_wind_gnd, v_wind_200m, v_wind_kite,
                         vel_kite, X, Y, Z, row.var_01, row.var_02, row.var_03, row.var_04, row.var_05, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         log!(logger, ss)
     end
