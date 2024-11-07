@@ -1,6 +1,39 @@
 sysstate:
-    time:      "Float64"     # time since start of simulation in seconds
-    t_sim:     "Float64"     # time needed for one simulation timestep in seconds
-    sys_state: "Int16"       # state of system state control
-
- 
+    time:      "Float64"                # time since start of simulation in seconds
+    t_sim:     "Float64"                # time needed for one simulation timestep in seconds
+    sys_state: "Int16"                  # state of system state control
+    e_mech: "Float64"                   # mechanical energy [Wh]
+    orient: "MVector{4, Float32}"       # orientation of the kite (quaternion, order w,x,y,z)
+    elevation: "MyFloat"                # elevation angle [rad]
+    azimuth: "MyFloat"                  # azimuth angle in wind reference frame [rad]
+    l_tether: "MyFloat"                 # tether length [m]
+    v_reelout: "MyFloat"                # reelout speed [m/s]
+    force: "MyFloat"                    # tether force [N]
+    depower: "MyFloat"                  # depower settings [0..1]
+    steering: "MyFloat"                 # steering settings [-1..1]
+    heading: "MyFloat"                  # heading angle [rad]
+    course: "MyFloat"                   # course angle [rad]
+    v_app: "MyFloat"                    # norm of apparent wind speed [m/s]
+    v_wind_gnd: "MVectors{3, MyFloat}"  # wind vector at reference height [m/s]
+    v_wind_200m: "MVectors{3, MyFloat}" # wind vector at 200m height [m/s]
+    v_wind_kite: "MVectors{3, MyFloat}" # wind vector at the height of the kite [m/s]
+    vel_kite: "MVectors{3, MyFloat}"    # velocity vector of the kite [m/s]
+    X: "MVectors{P, MyFloat}"           # vector of particle positions in x [m]
+    Y: "MVectors{P, MyFloat}"           # vector of particle positions in y [m]
+    Z: "MVectors{P, MyFloat}"           # vector of particle positions in z [m]
+    var_01: "MyFloat"                   # generic variable 01
+    var_02: "MyFloat"                   # generic variable 02
+    var_03: "MyFloat"                   # generic variable 03
+    var_04: "MyFloat"                   # generic variable 04
+    var_05: "MyFloat"                   # generic variable 05
+    var_06: "MyFloat"                   # generic variable 06
+    var_07: "MyFloat"                   # generic variable 07
+    var_08: "MyFloat"                   # generic variable 08
+    var_09: "MyFloat"                   # generic variable 09
+    var_10: "MyFloat"                   # generic variable 10
+    var_11: "MyFloat"                   # generic variable 11
+    var_12: "MyFloat"                   # generic variable 12
+    var_13: "MyFloat"                   # generic variable 13
+    var_14: "MyFloat"                   # generic variable 14
+    var_15: "MyFloat"                   # generic variable 15
+    var_16: "MyFloat"                   # generic variable 16
