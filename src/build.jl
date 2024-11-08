@@ -17,7 +17,7 @@ FOOTER = "end"
 inputfile = joinpath("data", "sysstate.yaml")
 outputfile = joinpath("src", "_sysstate.jl")
 outputfile2 = joinpath("src", "_show.jl")
-outputfile3 = joinpath("src", "_demo_syslog_.jl")
+outputfile3 = joinpath("src", "_demo_syslog.jl")
 
 # read the file sysstate.yaml
 sysstate = YAML.load_file(inputfile, dicttype=OrderedDict{String,Any})["sysstate"]
@@ -61,6 +61,28 @@ function demo_syslog(P, name="Test flight"; duration=10)
     steps   = Int(duration * se().sample_freq) + 1
 """
 open(outputfile3,"w") do io
-    println(io, HEADER)
+    print(io, HEADER)
+    for key in keys(sysstate)
+        println(io, "    " * key * "_vec = Vector{" * sysstate[key] * "}(undef, steps)")
+    end
+    println(io, "    for i in range(0, length=steps)")
+    println(io, "        state = demo_state(P, max_height * i/steps, i/se().sample_freq)")
+    println(io, "        elevation_vec[i+1] = asin(state.Z[end]/state.X[end])")
+    for key in keys(sysstate)
+        println(io, "        " * key * "_vec[i+1] = state." * key)
+    end
+    println(io, "    end")
+    print(io, "    StructArray{SysState{P}}((")
+    for (i, key) in pairs(collect(keys(sysstate)))
+        if i == length(keys(sysstate))
+            print(io, key * "_vec")
+        else
+            print(io, key * "_vec, ")
+        end
+        if i % 6 == 0
+            print(io, "\n" * " " ^ 30)   
+        end
+    end
+    println(io, "))")
     println(io, "end")
 end
