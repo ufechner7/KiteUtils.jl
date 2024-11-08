@@ -1,4 +1,5 @@
-# code to create the file sysstate.jl (and later a lot more)
+# Script to create the files _sysstate.jl, _show.jl, _demo_syslog.jl, _logger.jl, _log.jl, 
+# _syslog.jl, _save_log.jl and _load_log.jl from the file sysstate.yaml.  
 using YAML, OrderedCollections
 
 include("yaml_utils.jl")
