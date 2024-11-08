@@ -33,9 +33,9 @@ function log!(logger::Logger, state::SysState)
     logger.v_wind_200m_vec[i] .= state.v_wind_200m
     logger.v_wind_kite_vec[i] .= state.v_wind_kite
     logger.vel_kite_vec[i] .= state.vel_kite
-    logger.x_vec[i] .= state.X
-    logger.y_vec[i] .= state.Y
-    logger.z_vec[i] .= state.Z
+    logger.X_vec[i] .= state.X
+    logger.Y_vec[i] .= state.Y
+    logger.Z_vec[i] .= state.Z
     logger.var_01_vec[i] = state.var_01
     logger.var_02_vec[i] = state.var_02
     logger.var_03_vec[i] = state.var_03
@@ -66,7 +66,7 @@ function syslog(logger::Logger)
                 l.elevation_vec, l.azimuth_vec, l.l_tether_vec,
                 l.v_reelout_vec, l.force_vec, l.depower_vec, l.steering_vec, l.heading_vec, l.course_vec,
                 l.v_app_vec, l.v_wind_gnd_vec, l.v_wind_200m_vec, l.v_wind_kite_vec, 
-                l.vel_kite_vec, l.x_vec, l.y_vec, l.z_vec, l.var_01_vec, l.var_02_vec, l.var_03_vec, 
+                l.vel_kite_vec, l.X_vec, l.Y_vec, l.Z_vec, l.var_01_vec, l.var_02_vec, l.var_03_vec, 
                 l.var_04_vec, l.var_05_vec, l.var_06_vec, l.var_07_vec, l.var_08_vec, l.var_09_vec, l.var_10_vec,
                 l.var_11_vec, l.var_12_vec, l.var_13_vec, l.var_14_vec, l.var_15_vec, l.var_16_vec))
 end
@@ -178,9 +178,9 @@ function save_log(logger::Logger, name="sim_log", compress=true;
     resize!(logger.v_wind_200m_vec, nl)
     resize!(logger.v_wind_kite_vec, nl)
     resize!(logger.vel_kite_vec, nl)
-    resize!(logger.x_vec, nl)
-    resize!(logger.y_vec, nl)
-    resize!(logger.z_vec, nl)
+    resize!(logger.X_vec, nl)
+    resize!(logger.Y_vec, nl)
+    resize!(logger.Z_vec, nl)
     resize!(logger.var_01_vec, nl)
     resize!(logger.var_02_vec, nl)
     resize!(logger.var_03_vec, nl)

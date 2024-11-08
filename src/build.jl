@@ -18,6 +18,7 @@ inputfile = joinpath("data", "sysstate.yaml")
 outputfile = joinpath("src", "_sysstate.jl")
 outputfile2 = joinpath("src", "_show.jl")
 outputfile3 = joinpath("src", "_demo_syslog.jl")
+outputfile4 = joinpath("src", "_logger.jl")
 
 # read the file sysstate.yaml
 sysstate = YAML.load_file(inputfile, dicttype=OrderedDict{String,Any})["sysstate"]
@@ -84,5 +85,30 @@ open(outputfile3,"w") do io
         end
     end
     println(io, "))")
+    println(io, "end")
+end
+HEADER = """
+\"\"\"
+    mutable struct Logger{P, Q}
+
+Struct to store a simulation log. P is number of points of the tether, segments+1 and 
+Q is the number of time steps that will be pre-allocated.
+
+Constructor:
+- Logger(P, steps)
+
+Fields:
+
+\$(TYPEDFIELDS)
+\"\"\"
+@with_kw mutable struct Logger{P, Q}
+    points::Int64 = P
+    index::Int64 = 1
+"""
+open(outputfile4,"w") do io
+    print(io, HEADER)
+    for key in keys(sysstate)
+        println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = zeros(" * sysstate[key] * ", Q)")
+    end
     println(io, "end")
 end
