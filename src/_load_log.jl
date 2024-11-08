@@ -1,0 +1,45 @@
+"""
+    load_log(filename::String; path="")
+
+Read a log file that was saved as .arrow file.
+"""
+load_log(P, filename::String) = load_log(filename)
+function load_log(filename::String; path="")
+    if path == ""
+        path = DATA_PATH[1]
+    end
+    fullname = filename
+    if ! isfile(filename)
+        if isnothing(findlast(isequal('.'), filename))
+            fullname = joinpath(path, basename(filename)) * ".arrow"
+        else
+            fullname = joinpath(path, basename(filename)) 
+        end
+    end
+    table   = Arrow.Table(fullname)
+    P =  length(table.Z[1])
+    colmeta = Dict(:var_01=>Arrow.getmetadata(table.var_01)["name"],
+                   :var_02=>Arrow.getmetadata(table.var_02)["name"],
+                   :var_03=>Arrow.getmetadata(table.var_03)["name"],
+                   :var_04=>Arrow.getmetadata(table.var_04)["name"],
+                   :var_05=>Arrow.getmetadata(table.var_05)["name"],
+                   :var_06=>Arrow.getmetadata(table.var_06)["name"],
+                   :var_07=>Arrow.getmetadata(table.var_07)["name"],
+                   :var_08=>Arrow.getmetadata(table.var_08)["name"],
+                   :var_09=>Arrow.getmetadata(table.var_09)["name"],
+                   :var_10=>Arrow.getmetadata(table.var_10)["name"],
+                   :var_11=>Arrow.getmetadata(table.var_11)["name"],
+                   :var_12=>Arrow.getmetadata(table.var_12)["name"],
+                   :var_13=>Arrow.getmetadata(table.var_13)["name"],
+                   :var_14=>Arrow.getmetadata(table.var_14)["name"],
+                   :var_15=>Arrow.getmetadata(table.var_15)["name"],
+                   :var_16=>Arrow.getmetadata(table.var_16)["name"],
+    )
+    # example_metadata = KiteUtils.Arrow.getmetadata(table.var_01)
+    syslog = StructArray{SysState{P}}((table.time, table.t_sim, table.sys_state, table.e_mech, table.orient, table.elevation, table.azimuth, table.l_tether, 
+                    table.v_reelout, table.force, table.depower, table.steering, table.heading, table.course, 
+                    table.v_app, table.v_wind_gnd, table.v_wind_200m, table.v_wind_kite, table.vel_kite, table.X, table.Y, table.Z, table.var_01, table.var_02,table.var_03,
+                    table.var_04,table.var_05,table.var_06,table.var_07,table.var_08,table.var_09,table.var_10,table.var_11,table.var_12,table.var_13,
+                    table.var_14,table.var_15,table.var_16))
+    return SysLog{P}(basename(fullname[1:end-6]), colmeta, syslog)
+end
