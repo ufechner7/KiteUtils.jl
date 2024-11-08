@@ -171,7 +171,7 @@ quat2viewer(rot::AbstractMatrix) = quat2viewer(QuatRotation(rot))
 quat2viewer(orient::AbstractVector) = quat2viewer(QuatRotation(orient))
 function quat2viewer(q::QuatRotation)
     # 1. get reference frame
-    rot = inv(RotMatrix{3}(q))
+    rot = inv(RotMatrix{3}(q)) # from kite to inertial reference frame
     x = enu2ned(rot[1,:])
     y = enu2ned(rot[2,:])
     z = enu2ned(rot[3,:])
@@ -179,8 +179,8 @@ function quat2viewer(q::QuatRotation)
     ax = @SVector [0, 1, 0]  # in ENU reference frame this is pointing to the south
     ay = @SVector [1, 0, 0]  # in ENU reference frame this is pointing to the west
     az = @SVector [0, 0, -1] # in ENU reference frame this is pointing down
-    rot = rot3d(ax, ay, az, x, y, z)
-    x, y, z = rot*ax, rot*ay, rot*az
+    rot = rot3d(ax, ay, az, x, y, z) 
+    x, y, z = rot*ax, rot*ay, rot*az # obtain x, y, z in inertial reference frame
     pos_kite_ = @SVector ones(3)
     pos_before = pos_kite_ .+ z
     rotation = KiteUtils.rot(pos_kite_, pos_before, -x)

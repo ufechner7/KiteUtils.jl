@@ -1,3 +1,4 @@
+if false; include("../src/logger.jl"); end
 @testset "Logger:                      " begin
     set_data_path(tempdir())
     steps = 20*30

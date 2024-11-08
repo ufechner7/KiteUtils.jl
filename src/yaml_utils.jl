@@ -68,3 +68,28 @@ function change_value(lines, varname, value::String)
     end
     res
 end
+
+function get_comment(lines, key)
+    for line in lines
+        if startswith(lstrip(line), key)
+            col = findfirst("#", line)
+            if ! isnothing(col)
+                return "\"" * line[col[1]+2:end] * "\""
+            end
+        end
+    end
+    return ""
+end
+
+function get_unit(lines, key)
+    comment = get_comment(lines, key)
+    if comment != ""
+        begin_ = findfirst("[", comment)
+        if isnothing(begin_)
+            return "[-]"
+        else
+            return comment[begin_[1]:end-1]
+        end
+    end
+    return "[-]"
+end

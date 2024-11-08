@@ -71,70 +71,7 @@ include("yaml_utils.jl")
 include("transformations.jl")
 include("trafo.jl")
 
-"""
-    SysState{P}
-
-Basic system state. One of these is saved per time step. P is the number
-of tether particles.
-
-$(TYPEDFIELDS)
-"""
-Base.@kwdef mutable struct SysState{P}
-    "time since start of simulation in seconds"
-    time::Float64
-    "time needed for one simulation timestep"
-    t_sim::Float64
-    "state of system state control"
-    sys_state::Int16
-    "mechanical energy [Wh]"
-    e_mech::Float64
-    "orientation of the kite (quaternion, order w,x,y,z)"
-    orient::MVector{4, Float32}
-    "elevation angle in radians"
-    elevation::MyFloat
-    "azimuth angle in radians"
-    azimuth::MyFloat
-    "tether length [m]"
-    l_tether::MyFloat
-    "reel out velocity [m/s]"
-    v_reelout::MyFloat
-    "tether force [N]"
-    force::MyFloat
-    "depower settings [0..1]"
-    depower::MyFloat
-    "steering settings [-1..1]"
-    steering::MyFloat
-    "heading angle in radian"
-    heading::MyFloat
-    "course angle in radian"
-    course::MyFloat
-    "norm of apparent wind speed [m/s]"
-    v_app::MyFloat
-    "velocity vector of the kite"
-    vel_kite::MVector{3, MyFloat}
-    "vector of particle positions in x"
-    X::MVector{P, MyFloat}
-    "vector of particle positions in y"
-    Y::MVector{P, MyFloat}
-    "vector of particle positions in z"
-    Z::MVector{P, MyFloat}
-    var_01::MyFloat
-    var_02::MyFloat
-    var_03::MyFloat
-    var_04::MyFloat
-    var_05::MyFloat
-    var_06::MyFloat
-    var_07::MyFloat
-    var_08::MyFloat
-    var_09::MyFloat
-    var_10::MyFloat
-    var_11::MyFloat
-    var_12::MyFloat
-    var_13::MyFloat
-    var_14::MyFloat
-    var_15::MyFloat
-    var_16::MyFloat
-end
+include("_sysstate.jl")
 
 function Base.getproperty(st::SysState, sym::Symbol)
     if sym == :pos
@@ -151,55 +88,7 @@ function Base.getproperty(st::SysState, sym::Symbol)
     end
 end
 
-# function Base.getproperty(st::StructVector{SysState}, sym::Symbol)
-#     if sym == :x
-#         last.getfield(st, :X)
-#     elseif sym == :y
-#         last.getfield(st, :Y)
-#     elseif sym == :z
-#         last.getfield(st, :Z) # last.(st.Z)
-#     else
-#         getfield(st, sym)
-#     end
-# end
-
-function Base.show(io::IO, st::SysState) 
-    println(io, "time      [s]:       ", st.time)
-    println(io, "t_sim     [s]:       ", st.t_sim)
-    println(io, "sys_state    :       ", st.sys_state)
-    println(io, "e_mech    [Wh]:      ", st.e_mech)
-    println(io, "orient    [w,x,y,z]: ", st.orient)
-    println(io, "elevation [rad]:     ", st.elevation)
-    println(io, "azimuth   [rad]:     ", st.azimuth)
-    println(io, "l_tether  [m]:       ", st.l_tether)
-    println(io, "v_reelout [m/s]:     ", st.v_reelout)
-    println(io, "force     [N]:       ", st.force)
-    println(io, "depower   [-]:       ", st.depower)
-    println(io, "steering  [-]:       ", st.steering)
-    println(io, "heading   [rad]:     ", st.heading)
-    println(io, "course    [rad]:     ", st.course)
-    println(io, "v_app     [m/s]:     ", st.v_app)
-    println(io, "vel_kite  [m/s]:     ", st.vel_kite)
-    println(io, "X         [m]:       ", st.X)
-    println(io, "Y         [m]:       ", st.Y)
-    println(io, "Z         [m]:       ", st.Z)
-    println(io, "var_01       :       ", st.var_01)
-    println(io, "var_02       :       ", st.var_02)
-    println(io, "var_03       :       ", st.var_03)
-    println(io, "var_04       :       ", st.var_04)
-    println(io, "var_05       :       ", st.var_05)
-    println(io, "var_06       :       ", st.var_06)
-    println(io, "var_07       :       ", st.var_07)
-    println(io, "var_08       :       ", st.var_08)
-    println(io, "var_09       :       ", st.var_09)
-    println(io, "var_10       :       ", st.var_10)
-    println(io, "var_11       :       ", st.var_11)
-    println(io, "var_12       :       ", st.var_12)
-    println(io, "var_13       :       ", st.var_13)
-    println(io, "var_14       :       ", st.var_14)
-    println(io, "var_15       :       ", st.var_15)
-    println(io, "var_16       :       ", st.var_16)
-end
+include("_show.jl")
 
 """
     SysLog{P}
@@ -219,12 +108,28 @@ mutable struct SysLog{P}
     syslog::StructArray{SysState{P}}
 end
 
+function prepre_last(vec)
+    vec[end-2]
+end
+
+"""
+    Base.getproperty(log::SysLog, sym::Symbol)
+
+Implement the properties x, y and z. They represent the kite position for the 4-point kite model.
+In addition, implements the properties x1, y1 and z1. They represent the kite position for the 1-point model.
+"""
 function Base.getproperty(log::SysLog, sym::Symbol)
     if sym == :x
+        prepre_last.(getproperty(log.syslog, :X))
+    elseif sym == :x1
         last.(getproperty(log.syslog, :X))
     elseif sym == :y
+        prepre_last.(getproperty(log.syslog, :Y))
+    elseif sym == :y1
         last.(getproperty(log.syslog, :Y))
     elseif sym == :z
+        prepre_last.(getproperty(log.syslog, :Z))
+    elseif sym == :z1
         last.(getproperty(log.syslog, :Z))
     else
         getfield(log, sym)
@@ -250,22 +155,23 @@ Kite is parking and aligned with the tether.
 Returns a SysState instance.
 """
 function demo_state(P, height=6.0, time=0.0; azimuth_north=-pi/2)
+    ss = SysState{P}()
+    ss.time = time
     a = 10
     turn_angle = azimuth_north+pi/2
     dist = collect(range(0, stop=10, length=P))
-    X = dist .* cos(turn_angle)
-    Y = dist .* sin(turn_angle)
-    Z = (a .* cosh.(dist./a) .- a) * height/ 5.430806 
+    ss.X .= dist .* cos(turn_angle)
+    ss.Y .= dist .* sin(turn_angle)
+    ss.Z .= (a .* cosh.(dist./a) .- a) * height/ 5.430806 
     r_xyz = RotXYZ(pi/2, -pi/2, 0)
     q = QuatRotation(r_xyz)
-    orient = MVector{4, Float32}(Rotations.params(q))
-    elevation = calc_elevation([X[end], 0.0, Z[end]])
-    vel_kite = zeros(3)
-    t_sim = 0.012
-    sys_state = 0
-    e_mech = 0
-    return SysState{P}(time, t_sim, sys_state, e_mech, orient, elevation,0,0,0,0,0,0,0,0,0,
-                       vel_kite, X, Y, Z, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    ss.orient .= MVector{4, Float32}(Rotations.params(q))
+    ss.elevation = calc_elevation([ss.X[end], 0.0, ss.Z[end]])
+    ss.v_wind_gnd .= [10.4855, 0, -3.08324]
+    ss.v_wind_200m .= [10.4855, 0, -3.08324]
+    ss.v_wind_kite .= [10.4855, 0, -3.08324]
+    ss.t_sim = 0.012
+    ss
 end
 
 """
@@ -359,6 +265,7 @@ Create a demo state, using the 4 point kite model with a given height and time. 
 Returns a SysState instance.
 """
 function demo_state_4p(P, height=6.0, time=0.0; azimuth_north=-pi/2)
+    ss = SysState{P+4}()
     a = 10
     turn_angle = azimuth_north+pi/2
     dist = collect(range(0, stop=10, length=P))
@@ -386,6 +293,9 @@ function demo_state_4p(P, height=6.0, time=0.0; azimuth_north=-pi/2)
         push!(Y, y)
         push!(Z, z)
     end
+    ss.X .= X
+    ss.Y .= Y
+    ss.Z .= Z
     pos_centre = 0.5 * (pos_C + pos_D)
     delta = pos_B - pos_centre
     z = -normalize(delta)
@@ -396,14 +306,13 @@ function demo_state_4p(P, height=6.0, time=0.0; azimuth_north=-pi/2)
    
     rotation = rot(pos_kite_, pos_before, -x)
     q = QuatRotation(rotation)
-    orient = MVector{4, Float32}(Rotations.params(q))
-    elevation = calc_elevation([X[end], 0.0, Z[end]])
-    vel_kite=zeros(3)
-    t_sim = 0.014
-    sys_state = 0
-    e_mech = 0
-    return SysState{P+4}(time, t_sim, sys_state, e_mech, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z, 
-                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    ss.orient .= MVector{4, Float32}(Rotations.params(q))
+    ss.elevation = calc_elevation([X[end], 0.0, Z[end]])
+    ss.v_wind_gnd = [10.4855, 0, -3.08324]
+    ss.v_wind_200m = [10.4855, 0, -3.08324]
+    ss.v_wind_kite = [10.4855, 0, -3.08324]
+    ss.t_sim = 0.014
+    ss
 end
 
 """
@@ -416,6 +325,7 @@ Returns a SysState instance.
 """
 function demo_state_4p_3lines(P, height=6.0, time=0.0)
     P_ = P*3+3 # P_ is total number of particles in the system (kite + 3 tethers)
+    ss = SysState{P_}()
     num_A = P_
     num_D = P_-1
     num_C = P_-2
@@ -472,84 +382,20 @@ function demo_state_4p_3lines(P, height=6.0, time=0.0)
     q = QuatRotation(rotation)
     orient = MVector{4, Float32}(Rotations.params(q))
     elevation = calc_elevation([X[end], 0.0, Z[end]])
-    vel_kite=zeros(3)
-    t_sim = 0.014
-    sys_state = 0
-    e_mech = 0
-    return SysState{P_}(time, t_sim, sys_state, e_mech, orient, elevation,0,0,0,0,0,0,0,0,0,vel_kite, X, Y, Z, 
-                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    ss.v_wind_gnd .= [10.4855, 0, -3.08324]
+    ss.v_wind_200m .= [10.4855, 0, -3.08324]
+    ss.v_wind_kite .= [10.4855, 0, -3.08324]
+    ss.t_sim = 0.014
+    ss.time = time
+    ss.orient = orient
+    ss.elevation = elevation
+    ss.X .= X
+    ss.Y .= Y
+    ss.Z .= Z
+    ss
 end
 
-"""
-    demo_syslog(P, name="Test flight"; duration=10)
-
-Create a demo flight log  with given name [String] and duration [s] as StructArray. P is the number of tether
-particles.
-"""
-function demo_syslog(P, name="Test flight"; duration=10)
-    max_height = 6.03
-    steps   = Int(duration * se().sample_freq) + 1
-    time_vec = Vector{Float64}(undef, steps)
-    t_sim_vec = Vector{Float64}(undef, steps)
-    sys_state_vec = Vector{Int16}(undef, steps)
-    e_mech_vec = Vector{Float64}(undef, steps)
-    myzeros = zeros(MyFloat, steps)
-    elevation = Vector{Float64}(undef, steps)
-    orient_vec = Vector{MVector{4, Float32}}(undef, steps)
-    vel_kite_vec = Vector{MVector{3, MyFloat}}(undef, steps)
-    X_vec = Vector{MVector{P, MyFloat}}(undef, steps) 
-    Y_vec = Vector{MVector{P, MyFloat}}(undef, steps)
-    Z_vec = Vector{MVector{P, MyFloat}}(undef, steps)
-    var_01_vec = Vector{Float64}(undef, steps)
-    var_02_vec = Vector{Float64}(undef, steps)
-    var_03_vec = Vector{Float64}(undef, steps)
-    var_04_vec = Vector{Float64}(undef, steps)
-    var_05_vec = Vector{Float64}(undef, steps)
-    var_06_vec = Vector{Float64}(undef, steps)
-    var_07_vec = Vector{Float64}(undef, steps)
-    var_08_vec = Vector{Float64}(undef, steps)
-    var_09_vec = Vector{Float64}(undef, steps)
-    var_10_vec = Vector{Float64}(undef, steps)
-    var_11_vec = Vector{Float64}(undef, steps)
-    var_12_vec = Vector{Float64}(undef, steps)
-    var_13_vec = Vector{Float64}(undef, steps)
-    var_14_vec = Vector{Float64}(undef, steps)
-    var_15_vec = Vector{Float64}(undef, steps)
-    var_16_vec = Vector{Float64}(undef, steps)
-    for i in range(0, length=steps)
-        state = demo_state(P, max_height * i/steps, i/se().sample_freq)
-        time_vec[i+1] = state.time
-        t_sim_vec[i+1] = state.t_sim
-        sys_state_vec[i+1] = state.sys_state
-        e_mech_vec[i+1] = state.e_mech
-        orient_vec[i+1] = state.orient
-        vel_kite_vec[i+1] = state.vel_kite
-        elevation[i+1] = asin(state.Z[end]/state.X[end])
-        X_vec[i+1] = state.X
-        Y_vec[i+1] = state.Y
-        Z_vec[i+1] = state.Z
-        var_01_vec[i+1] = 0
-        var_02_vec[i+1] = 0
-        var_03_vec[i+1] = 0
-        var_04_vec[i+1] = 0
-        var_05_vec[i+1] = 0
-        var_06_vec[i+1] = 0
-        var_07_vec[i+1] = 0
-        var_08_vec[i+1] = 0
-        var_09_vec[i+1] = 0
-        var_10_vec[i+1] = 0
-        var_11_vec[i+1] = 0
-        var_12_vec[i+1] = 0
-        var_13_vec[i+1] = 0
-        var_14_vec[i+1] = 0
-        var_15_vec[i+1] = 0
-        var_16_vec[i+1] = 0
-    end
-    return StructArray{SysState{P}}((time_vec, t_sim_vec,sys_state_vec, e_mech_vec, orient_vec, elevation, myzeros,myzeros,myzeros,myzeros,myzeros,myzeros,
-                                     myzeros,myzeros,myzeros, vel_kite_vec, X_vec, Y_vec, Z_vec, var_01_vec, var_02_vec, var_03_vec, 
-                                     var_04_vec, var_05_vec, var_06_vec, var_07_vec, var_08_vec, var_09_vec, var_10_vec, var_11_vec, var_12_vec,
-                                     var_13_vec, var_14_vec, var_15_vec, var_16_vec))
-end
+include("_demo_syslog.jl")
 
 """
     demo_log(P, name="Test_flight"; duration=10)
@@ -610,51 +456,7 @@ function export_log(flight_log; path="")
     CSV.write(filename, flight_log.syslog)
 end
 
-"""
-    load_log(filename::String; path="")
-
-Read a log file that was saved as .arrow file.
-"""
-load_log(P, filename::String) = load_log(filename)
-function load_log(filename::String; path="")
-    if path == ""
-        path = DATA_PATH[1]
-    end
-    fullname = filename
-    if ! isfile(filename)
-        if isnothing(findlast(isequal('.'), filename))
-            fullname = joinpath(path, basename(filename)) * ".arrow"
-        else
-            fullname = joinpath(path, basename(filename)) 
-        end
-    end
-    table   = Arrow.Table(fullname)
-    P =  length(table.Z[1])
-    colmeta = Dict(:var_01=>Arrow.getmetadata(table.var_01)["name"],
-                   :var_02=>Arrow.getmetadata(table.var_02)["name"],
-                   :var_03=>Arrow.getmetadata(table.var_03)["name"],
-                   :var_04=>Arrow.getmetadata(table.var_04)["name"],
-                   :var_05=>Arrow.getmetadata(table.var_05)["name"],
-                   :var_06=>Arrow.getmetadata(table.var_06)["name"],
-                   :var_07=>Arrow.getmetadata(table.var_07)["name"],
-                   :var_08=>Arrow.getmetadata(table.var_08)["name"],
-                   :var_09=>Arrow.getmetadata(table.var_09)["name"],
-                   :var_10=>Arrow.getmetadata(table.var_10)["name"],
-                   :var_11=>Arrow.getmetadata(table.var_11)["name"],
-                   :var_12=>Arrow.getmetadata(table.var_12)["name"],
-                   :var_13=>Arrow.getmetadata(table.var_13)["name"],
-                   :var_14=>Arrow.getmetadata(table.var_14)["name"],
-                   :var_15=>Arrow.getmetadata(table.var_15)["name"],
-                   :var_16=>Arrow.getmetadata(table.var_16)["name"],
-    )
-    # example_metadata = KiteUtils.Arrow.getmetadata(table.var_01)
-    syslog = StructArray{SysState{P}}((table.time, table.t_sim, table.sys_state, table.e_mech, table.orient, table.elevation, table.azimuth, table.l_tether, 
-                    table.v_reelout, table.force, table.depower, table.steering, table.heading, table.course, 
-                    table.v_app, table.vel_kite, table.X, table.Y, table.Z, table.var_01, table.var_02,table.var_03,
-                    table.var_04,table.var_05,table.var_06,table.var_07,table.var_08,table.var_09,table.var_10,table.var_11,table.var_12,table.var_13,
-                    table.var_14,table.var_15,table.var_16))
-    return SysLog{P}(basename(fullname[1:end-6]), colmeta, syslog)
-end
+include("_load_log.jl")
 
 function test(save=false)
     if save
@@ -677,7 +479,12 @@ end
         # all calls in this block will be precompiled, regardless of whether
         # they belong to your package or not (on Julia 1.8 and higher)
         se()
-        load_log(7, "Test_flight.arrow")
+        try
+            load_log(7, "Test_flight.arrow")
+        catch
+            test(true)
+            load_log(7, "Test_flight.arrow")
+        end
     end
 end
 
