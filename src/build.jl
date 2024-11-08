@@ -19,6 +19,7 @@ outputfile = joinpath("src", "_sysstate.jl")
 outputfile2 = joinpath("src", "_show.jl")
 outputfile3 = joinpath("src", "_demo_syslog.jl")
 outputfile4 = joinpath("src", "_logger.jl")
+outputfile5 = joinpath("src", "_log.jl")
 
 # read the file sysstate.yaml
 sysstate = YAML.load_file(inputfile, dicttype=OrderedDict{String,Any})["sysstate"]
@@ -110,5 +111,27 @@ open(outputfile4,"w") do io
     for key in keys(sysstate)
         println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = zeros(" * sysstate[key] * ", Q)")
     end
+    println(io, "end")
+end
+HEADER = """
+\"\"\"
+    log!(logger::Logger, state::SysState)
+
+Log a state in a logger object. Do nothing if the preallocated size would be exceeded.
+Returns the current number of elements of the log.
+\"\"\"
+function log!(logger::Logger, state::SysState)
+    i = logger.index
+    if i > length(logger.time_vec)
+        return length(logger.time_vec)
+    end
+"""
+open(outputfile5,"w") do io
+    print(io, HEADER)
+    for key in keys(sysstate)
+        println(io, "    logger." * key * "_vec[i] = state." * key)
+    end
+    println(io, "    logger.index+=1")
+    println(io, "    return i")
     println(io, "end")
 end
