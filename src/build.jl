@@ -20,6 +20,7 @@ outputfile2 = joinpath("src", "_show.jl")
 outputfile3 = joinpath("src", "_demo_syslog.jl")
 outputfile4 = joinpath("src", "_logger.jl")
 outputfile5 = joinpath("src", "_log.jl")
+outputfile6 = joinpath("src", "_syslog.jl")
 
 # read the file sysstate.yaml
 sysstate = YAML.load_file(inputfile, dicttype=OrderedDict{String,Any})["sysstate"]
@@ -135,3 +136,23 @@ open(outputfile5,"w") do io
     println(io, "    return i")
     println(io, "end")
 end
+HEADER = """
+function syslog(logger::Logger)
+    l = logger
+    StructArray{SysState{l.points}}(("""
+open(outputfile6,"w") do io
+    print(io, HEADER)
+    for (i, key) in pairs(collect(keys(sysstate)))
+        if i == length(keys(sysstate))
+            print(io, "l." * key * "_vec")
+        else
+            print(io, "l." * key * "_vec, ")
+        end
+        if i % 5 == 0
+            print(io, "\n" * " " ^ 37)   
+        end
+    end
+    println(io, "))")
+    println(io, "end")
+end
+
