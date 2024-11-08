@@ -47,6 +47,12 @@ Base.@kwdef mutable struct SysState{P}
     v_wind_200m::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "wind vector at the height of the kite [m/s]"
     v_wind_kite::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
+    "angle of attack [rad]"
+    AoA::MyFloat = 0
+    "lift coefficient"
+    CL2::MyFloat = 0
+    "drag coefficient"
+    CD2::MyFloat = 0
     "velocity vector of the kite [m/s]"
     vel_kite::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "vector of particle positions in x [m]"

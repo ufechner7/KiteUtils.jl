@@ -479,7 +479,12 @@ end
         # all calls in this block will be precompiled, regardless of whether
         # they belong to your package or not (on Julia 1.8 and higher)
         se()
-        load_log(7, "Test_flight.arrow")
+        try
+            load_log(7, "Test_flight.arrow")
+        catch
+            test(true)
+            load_log(7, "Test_flight.arrow")
+        end
     end
 end
 
