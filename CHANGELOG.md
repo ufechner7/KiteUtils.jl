@@ -13,7 +13,6 @@
 #### Added
 - the properties `x1`, `y1` and `z1` of `SysLog` were added and represent the position of the 1-point kite
 
-
 ### KiteUtils v0.8.4 - 2024-10-31
 - add `cms` to settings2.yaml, a steering dependant moment coefficient to represent the deformation based turning moment
 
