@@ -69,6 +69,11 @@ function change_value(lines, varname, value::String)
     res
 end
 
+"""
+    get_comment(lines, key)
+
+Get the comment of a variable in a yaml file.
+"""
 function get_comment(lines, key)
     for line in lines
         if startswith(lstrip(line), key)
@@ -81,6 +86,11 @@ function get_comment(lines, key)
     return ""
 end
 
+"""
+    get_unit(lines, key)
+
+Get the unit of a variable in a yaml file. The unit must be defined in square brackets.
+"""
 function get_unit(lines, key)
     comment = get_comment(lines, key)
     if comment != ""
