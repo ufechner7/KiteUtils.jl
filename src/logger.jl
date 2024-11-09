@@ -93,17 +93,32 @@ function import_log(filename)
         Z = parse_vector(row.Z)
 
         orient = parse_vector(row.orient)
-        v_wind_gnd = zeros(Float32, 3)
-        v_wind_200m = zeros(Float32, 3)
-        v_wind_kite = zeros(Float32, 3)
-        AoA = 0.0
-        CL = 0.0
-        CD = 0.0
         vel_kite = parse_vector(row.vel_kite)
-        ss = SysState{P}(row.time, row.t_sim, row.sys_state, row.e_mech, orient, row.elevation, row.azimuth, row.l_tether,
-                        row.v_reelout, row.force, row.depower, row.steering, row.heading, row.course, row.v_app,
-                        v_wind_gnd, v_wind_200m, v_wind_kite, AoA, CL, CD,
-                        vel_kite, X, Y, Z, row.var_01, row.var_02, row.var_03, row.var_04, row.var_05, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        ss = SysState{P}()
+        ss.time = row.time
+        ss.t_sim = row.t_sim
+        ss.sys_state = row.sys_state
+        ss.e_mech = row.e_mech
+        ss.orient = orient
+        ss.elevation = row.elevation
+        ss.azimuth = row.azimuth
+        ss.l_tether = row.l_tether
+        ss.v_reelout = row.v_reelout
+        ss.force = row.force
+        ss.depower = row.depower
+        ss.steering = row.steering
+        ss.heading = row.heading
+        ss.course = row.course
+        ss.v_app = row.v_app
+        ss.vel_kite = vel_kite
+        ss.X = X
+        ss.Y = Y
+        ss.Z = Z
+        ss.var_01 = row.var_01
+        ss.var_02 = row.var_02
+        ss.var_03 = row.var_03
+        ss.var_04 = row.var_04
+        ss.var_05 = row.var_05
         log!(logger, ss)
     end
     colmeta = Dict(:var_01 => ["name" => "var_01"],
