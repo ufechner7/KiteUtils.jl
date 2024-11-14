@@ -2,6 +2,7 @@
 ### Unreleased
 #### Changes
 - add fig_8, cycle and acc to the SysState
+
 ### KiteUtils v0.9.0 - 2024-11-09
 #### Breaking changes
 - you can (and should) now use `SysState{P}()` to create a new, empty SysState and then fill the fields with the actual values in other packages that use KiteUtils. This makes your code robust for later changes to the struct `SysState`.
