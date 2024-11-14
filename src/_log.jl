@@ -16,6 +16,8 @@ function log!(logger::Logger, state::SysState)
     logger.time_vec[i] = state.time
     logger.t_sim_vec[i] = state.t_sim
     logger.sys_state_vec[i] = state.sys_state
+    logger.cycle_vec[i] = state.cycle
+    logger.fig_8_vec[i] = state.fig_8
     logger.e_mech_vec[i] = state.e_mech
     logger.orient_vec[i] .= state.orient
     logger.elevation_vec[i] = state.elevation
@@ -34,10 +36,11 @@ function log!(logger::Logger, state::SysState)
     logger.AoA_vec[i] = state.AoA
     logger.CL2_vec[i] = state.CL2
     logger.CD2_vec[i] = state.CD2
-    logger.vel_kite_vec[i] .= state.vel_kite
-    logger.X_vec[i] .= state.X
-    logger.Y_vec[i] .= state.Y
-    logger.Z_vec[i] .= state.Z
+    logger.vel_kite_vec[i] = state.vel_kite
+    logger.acc_vec[i] = state.acc
+    logger.X_vec[i] = state.X
+    logger.Y_vec[i] = state.Y
+    logger.Z_vec[i] = state.Z
     logger.var_01_vec[i] = state.var_01
     logger.var_02_vec[i] = state.var_02
     logger.var_03_vec[i] = state.var_03

@@ -17,6 +17,10 @@ Base.@kwdef mutable struct SysState{P}
     t_sim::Float64 = 0
     "state of system state control"
     sys_state::Int16 = 0
+    "cycle number"
+    cycle::Int16 = 0
+    "number of the figure of eight of the current cycle"
+    fig_8::Int16 = 0
     "mechanical energy [Wh]"
     e_mech::Float64 = 0
     "orientation of the kite (quaternion, order w,x,y,z)"
@@ -55,6 +59,8 @@ Base.@kwdef mutable struct SysState{P}
     CD2::MyFloat = 0
     "velocity vector of the kite [m/s]"
     vel_kite::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
+    "acceleration [m/s²]"
+    acc::MyFloat = 0
     "vector of particle positions in x [m]"
     X::MVector{P, MyFloat} = zeros(P)
     "vector of particle positions in y [m]"
