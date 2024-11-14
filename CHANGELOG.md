@@ -1,5 +1,5 @@
 # Changelog 
-### Unrelease
+### Unreleased
 #### Changes
 - add fig_8, cycle and acc to the SysState
 ### KiteUtils v0.9.0 - 2024-11-09
