@@ -1,7 +1,11 @@
 # Changelog 
-### Unreleased
+
+### KiteUtils v0.9.1 - 2024-11-15
 #### Changes
 - add fig_8, cycle and acc to the SysState
+- add smc, cmq and cord_length to Settings
+#### Fixed
+- fix function menu()
 
 ### KiteUtils v0.9.0 - 2024-11-09
 #### Breaking changes
