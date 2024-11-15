@@ -4,7 +4,7 @@ options = ["bridle_info = include(\"bridle_info.jl\")",
            "import_csv = include(\"import_csv.jl\")",
            "quit"]
 
-function menu()
+function example_menu()
     active = true
     while active
         menu = RadioMenu(options, pagesize=8)
@@ -19,4 +19,4 @@ function menu()
     end
 end
 
-menu()
+example_menu()

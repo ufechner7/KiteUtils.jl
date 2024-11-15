@@ -467,7 +467,7 @@ function test(save=false)
 end
 
 function menu()
-    include("examples/menu.jl")
+    Main.include("examples/menu.jl")
 end
 
 @setup_workload begin
