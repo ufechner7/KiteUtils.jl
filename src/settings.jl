@@ -132,6 +132,12 @@ $(TYPEDFIELDS)
     rel_nose_mass         = 0
     "mass of the top particle relative to the sum of top and side particles"
     rel_top_mass          = 0
+    " steering moment coefficient"
+    smc                   = 0
+    "pitch rate dependant moment coefficient"
+    cmq                   = 0
+    "average aerodynamic cord length of the kite [m]"
+    cord_length           = 0
     
     # model KPS4_3L
     "the radius of the circle shape on which the kite lines, viewed from the front [m]"
