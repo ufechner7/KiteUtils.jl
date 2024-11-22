@@ -460,6 +460,12 @@ end
 include("_load_log.jl")
 
 
+"""
+    calculate_rotational_inertia(X::Vector, Y::Vector, Z::Vector, M::Vector, around_center_of_mass::Bool=true, 
+    rotation_point::Vector=[0, 0, 0])
+
+TBW
+"""
 function calculate_rotational_inertia(X::Vector, Y::Vector, Z::Vector, M::Vector, around_center_of_mass::Bool=true, 
     rotation_point::Vector=[0, 0, 0])
     @assert size(X) == size(Y) == size(Z) == size(M)
