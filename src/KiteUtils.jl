@@ -56,6 +56,7 @@ export azn2azw, calc_heading_w, calc_heading, calc_course                # geome
 export calc_orient_rot, is_right_handed_orthonormal, enu2ned, ned2enu
 export set_data_path, get_data_path, load_settings, copy_settings        # functions for reading and copying parameters
 export se, se_dict, update_settings, wc_settings, fpc_settings, fpp_settings
+export calculate_rotational_inertia
 
 """
     const MyFloat = Float32
@@ -457,6 +458,62 @@ function export_log(flight_log; path="")
 end
 
 include("_load_log.jl")
+
+
+"""
+    calculate_rotational_inertia(X::Vector, Y::Vector, Z::Vector, M::Vector, around_center_of_mass::Bool=true, 
+    rotation_point::Vector=[0, 0, 0])
+
+Calculate the rotational inertia (Ixx, Ixy, Ixz, Iyy, Iyz, Izz) of a colection of point masses around a point. 
+By default this point is the center of mass which will be calculated, but any point can be given to rotation_point.
+
+parameters:
+- X: x-coordinates of the point masses.
+- Y: y-coordinates of the point masses.
+- Z: z-coordinates of the point masses.
+- M: masses of the point masses.
+- around_center_of_mass: Calculate the rotational inertia around the center of mass?
+- rotation_point: Rotation point used if not rotating around the center of mass.
+"""
+function calculate_rotational_inertia(X::Vector, Y::Vector, Z::Vector, M::Vector, around_center_of_mass::Bool=true, 
+    rotation_point::Vector=[0, 0, 0])
+    @assert size(X) == size(Y) == size(Z) == size(M)
+    
+    if around_center_of_mass
+        # First loop to determine the center of mass
+        x_com = y_com = z_com = m_total = 0.0
+        for (x, y, z, m) in zip(X, Y, Z, M)
+            x_com += x * m
+            y_com += y * m
+            z_com += z * m
+            m_total += m 
+        end
+
+        x_com = x_com / m_total
+        y_com = y_com / m_total
+        z_com = z_com / m_total
+    else
+        x_com = rotation_point[begin]
+        y_com = rotation_point[begin+1]
+        z_com = rotation_point[begin+2]
+    end
+
+    Ixx = Ixy = Ixz = Iyy = Iyz = Izz = 0
+
+    # Second loop using the distance between the point and the center of mass
+    for (x, y, z, m) in zip(X .- x_com, Y .- y_com, Z .- z_com, M)
+        Ixx += m * (y^2 + z^2)
+        Iyy += m * (x^2 + z^2)
+        Izz += m * (x^2 + y^2)
+
+        Ixy += m * x * y
+        Ixz += m * x * z
+        Iyz += m * y * z
+    end
+    
+    Ixx, Ixy, Ixz, Iyy, Iyz, Izz
+end
+
 
 function test(save=false)
     if save
