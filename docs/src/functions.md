@@ -86,3 +86,8 @@ asin2
 wrap2pi
 initial_kite_ref_frame
 ```
+
+## Physical calculations
+```@docs
+calculate_rotational_inertia
+```
