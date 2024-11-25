@@ -2,7 +2,7 @@
 
 ### Unreleased
 #### Added
-- add function calculate_rotational_inertia
+- add function calculate_rotational_inertia and example for using this function
 
 ### KiteUtils v0.9.1 - 2024-11-15
 #### Changes
