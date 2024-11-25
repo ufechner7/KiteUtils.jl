@@ -1,5 +1,9 @@
 # Changelog 
 
+### Unreleased
+#### Added
+- add function calculate_rotational_inertia
+
 ### KiteUtils v0.9.1 - 2024-11-15
 #### Changes
 - add fig_8, cycle and acc to the SysState
