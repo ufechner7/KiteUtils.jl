@@ -461,8 +461,8 @@ include("_load_log.jl")
 
 
 """
-    calculate_rotational_inertia(X::Vector, Y::Vector, Z::Vector, M::Vector, around_center_of_mass::Bool=true, 
-    rotation_point::Vector=[0, 0, 0])
+    calculate_rotational_inertia(X::Vector, Y::Vector, Z::Vector, M::Vector,  
+          around_center_of_mass::Bool=true, rotation_point::Vector=[0, 0, 0])
 
 Calculate the rotational inertia (Ixx, Ixy, Ixz, Iyy, Iyz, Izz) of a collection of point masses around a point. 
 By default this point is the center of mass which will be calculated, but any point can be given to rotation_point.
