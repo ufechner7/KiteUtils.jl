@@ -472,8 +472,8 @@ Parameters:
 - Y: y-coordinates of the point masses.
 - Z: z-coordinates of the point masses.
 - M: masses of the point masses.
-- around_center_of_mass: Calculate the rotational inertia around the center of mass?
-- rotation_point: Rotation point used if not rotating around the center of mass.
+- `around_center_of_mass`: Calculate the rotational inertia around the center of mass?
+- `rotation_point`: Rotation point used if not rotating around the center of mass.
 
 Returns:  
 The tuple  Ixx, Ixy, Ixz, Iyy, Iyz, Izz where:
