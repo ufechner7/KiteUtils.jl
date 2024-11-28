@@ -44,6 +44,7 @@ function log!(logger::Logger, state::SysState)
     logger.Y_vec[i] = state.Y
     logger.Z_vec[i] = state.Z
     logger.set_torque_vec[i] = state.set_torque
+    logger.set_speed_vec[i] = state.set_speed
     logger.set_force_vec[i] = state.set_force
     logger.roll_vec[i] = state.roll
     logger.pitch_vec[i] = state.pitch

@@ -73,6 +73,8 @@ Base.@kwdef mutable struct SysState{P}
     Z::MVector{P, MyFloat} = zeros(P)
     "torque setting [Nm]"
     set_torque::MyFloat = 0
+    "speed setting [m/s]"
+    set_speed::MyFloat = 0
     "force setting [N]"
     set_force::MyFloat = 0
     "roll angle [rad]"

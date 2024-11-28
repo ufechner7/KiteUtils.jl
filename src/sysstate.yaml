@@ -30,6 +30,7 @@ sysstate:
     Y: "MVector{P, MyFloat}"            # vector of particle positions in y [m]
     Z: "MVector{P, MyFloat}"            # vector of particle positions in z [m]
     set_torque: "MyFloat"               # torque setting [Nm]
+    set_speed: "MyFloat"                # speed setting [m/s]
     set_force: "MyFloat"                # force setting [N]
     roll: "MyFloat"                     # roll angle [rad]
     pitch: "MyFloat"                    # pitch angle [rad]

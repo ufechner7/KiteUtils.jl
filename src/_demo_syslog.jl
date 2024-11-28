@@ -42,6 +42,7 @@ function demo_syslog(P, name="Test flight"; duration=10)
     Y_vec = Vector{MVector{P, MyFloat}}(undef, steps)
     Z_vec = Vector{MVector{P, MyFloat}}(undef, steps)
     set_torque_vec = Vector{MyFloat}(undef, steps)
+    set_speed_vec = Vector{MyFloat}(undef, steps)
     set_force_vec = Vector{MyFloat}(undef, steps)
     roll_vec = Vector{MyFloat}(undef, steps)
     pitch_vec = Vector{MyFloat}(undef, steps)
@@ -96,6 +97,7 @@ function demo_syslog(P, name="Test flight"; duration=10)
         Y_vec[i+1] = state.Y
         Z_vec[i+1] = state.Z
         set_torque_vec[i+1] = state.set_torque
+        set_speed_vec[i+1] = state.set_speed
         set_force_vec[i+1] = state.set_force
         roll_vec[i+1] = state.roll
         pitch_vec[i+1] = state.pitch
@@ -122,8 +124,8 @@ function demo_syslog(P, name="Test flight"; duration=10)
                               depower_vec, steering_vec, heading_vec, course_vec, v_app_vec, v_wind_gnd_vec, 
                               v_wind_200m_vec, v_wind_kite_vec, AoA_vec, alpha3_vec, alpha4_vec, CL2_vec, 
                               CD2_vec, vel_kite_vec, acc_vec, X_vec, Y_vec, Z_vec, 
-                              set_torque_vec, set_force_vec, roll_vec, pitch_vec, yaw_vec, var_01_vec, 
-                              var_02_vec, var_03_vec, var_04_vec, var_05_vec, var_06_vec, var_07_vec, 
-                              var_08_vec, var_09_vec, var_10_vec, var_11_vec, var_12_vec, var_13_vec, 
-                              var_14_vec, var_15_vec, var_16_vec))
+                              set_torque_vec, set_speed_vec, set_force_vec, roll_vec, pitch_vec, yaw_vec, 
+                              var_01_vec, var_02_vec, var_03_vec, var_04_vec, var_05_vec, var_06_vec, 
+                              var_07_vec, var_08_vec, var_09_vec, var_10_vec, var_11_vec, var_12_vec, 
+                              var_13_vec, var_14_vec, var_15_vec, var_16_vec))
 end
