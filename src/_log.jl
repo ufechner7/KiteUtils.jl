@@ -34,8 +34,8 @@ function log!(logger::Logger, state::SysState)
     logger.v_wind_200m_vec[i] = state.v_wind_200m
     logger.v_wind_kite_vec[i] = state.v_wind_kite
     logger.AoA_vec[i] = state.AoA
-    logger.alpha2_vec[i] = state.alpha2
     logger.alpha3_vec[i] = state.alpha3
+    logger.alpha4_vec[i] = state.alpha4
     logger.CL2_vec[i] = state.CL2
     logger.CD2_vec[i] = state.CD2
     logger.vel_kite_vec[i] = state.vel_kite

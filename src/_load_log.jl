@@ -44,7 +44,7 @@ function load_log(filename::String; path="")
                                        table.e_mech, table.orient, table.elevation, table.azimuth, table.l_tether, 
                                        table.v_reelout, table.force, table.depower, table.steering, table.heading, 
                                        table.course, table.v_app, table.v_wind_gnd, table.v_wind_200m, table.v_wind_kite, 
-                                       table.AoA, table.alpha2, table.alpha3, table.CL2, table.CD2, 
+                                       table.AoA, table.alpha3, table.alpha4, table.CL2, table.CD2, 
                                        table.vel_kite, table.acc, table.X, table.Y, table.Z, 
                                        table.set_torque, table.set_force, table.roll, table.pitch, table.yaw, 
                                        table.var_01, table.var_02, table.var_03, table.var_04, table.var_05, 

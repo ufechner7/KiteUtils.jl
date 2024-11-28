@@ -54,9 +54,9 @@ Base.@kwdef mutable struct SysState{P}
     "angle of attack [rad]"
     AoA::MyFloat = 0
     "angle of attack at particle C [rad]"
-    alpha2::MyFloat = 0
-    "angle of attack at particle D [rad]"
     alpha3::MyFloat = 0
+    "angle of attack at particle D [rad]"
+    alpha4::MyFloat = 0
     "lift coefficient"
     CL2::MyFloat = 0
     "drag coefficient"

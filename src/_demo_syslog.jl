@@ -32,8 +32,8 @@ function demo_syslog(P, name="Test flight"; duration=10)
     v_wind_200m_vec = Vector{MVector{3, MyFloat}}(undef, steps)
     v_wind_kite_vec = Vector{MVector{3, MyFloat}}(undef, steps)
     AoA_vec = Vector{MyFloat}(undef, steps)
-    alpha2_vec = Vector{MyFloat}(undef, steps)
     alpha3_vec = Vector{MyFloat}(undef, steps)
+    alpha4_vec = Vector{MyFloat}(undef, steps)
     CL2_vec = Vector{MyFloat}(undef, steps)
     CD2_vec = Vector{MyFloat}(undef, steps)
     vel_kite_vec = Vector{MVector{3, MyFloat}}(undef, steps)
@@ -86,8 +86,8 @@ function demo_syslog(P, name="Test flight"; duration=10)
         v_wind_200m_vec[i+1] = state.v_wind_200m
         v_wind_kite_vec[i+1] = state.v_wind_kite
         AoA_vec[i+1] = state.AoA
-        alpha2_vec[i+1] = state.alpha2
         alpha3_vec[i+1] = state.alpha3
+        alpha4_vec[i+1] = state.alpha4
         CL2_vec[i+1] = state.CL2
         CD2_vec[i+1] = state.CD2
         vel_kite_vec[i+1] = state.vel_kite
@@ -120,7 +120,7 @@ function demo_syslog(P, name="Test flight"; duration=10)
     StructArray{SysState{P}}((time_vec, t_sim_vec, sys_state_vec, cycle_vec, fig_8_vec, e_mech_vec, 
                               orient_vec, elevation_vec, azimuth_vec, l_tether_vec, v_reelout_vec, force_vec, 
                               depower_vec, steering_vec, heading_vec, course_vec, v_app_vec, v_wind_gnd_vec, 
-                              v_wind_200m_vec, v_wind_kite_vec, AoA_vec, alpha2_vec, alpha3_vec, CL2_vec, 
+                              v_wind_200m_vec, v_wind_kite_vec, AoA_vec, alpha3_vec, alpha4_vec, CL2_vec, 
                               CD2_vec, vel_kite_vec, acc_vec, X_vec, Y_vec, Z_vec, 
                               set_torque_vec, set_force_vec, roll_vec, pitch_vec, yaw_vec, var_01_vec, 
                               var_02_vec, var_03_vec, var_04_vec, var_05_vec, var_06_vec, var_07_vec, 

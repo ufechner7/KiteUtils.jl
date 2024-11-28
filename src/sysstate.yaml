@@ -20,8 +20,8 @@ sysstate:
     v_wind_200m: "MVector{3, MyFloat}"  # wind vector at 200m height [m/s]
     v_wind_kite: "MVector{3, MyFloat}"  # wind vector at the height of the kite [m/s]
     AoA: "MyFloat"                      # angle of attack [rad]
-    alpha2: "MyFloat"                   # angle of attack at particle C [rad]
-    alpha3: "MyFloat"                   # angle of attack at particle D [rad]
+    alpha3: "MyFloat"                   # angle of attack at particle C [rad]
+    alpha4: "MyFloat"                   # angle of attack at particle D [rad]
     CL2: "MyFloat"                      # lift coefficient
     CD2: "MyFloat"                      # drag coefficient
     vel_kite: "MVector{3, MyFloat}"     # velocity vector of the kite [m/s]

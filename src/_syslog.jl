@@ -8,7 +8,7 @@ function syslog(logger::Logger)
                                      l.e_mech_vec, l.orient_vec, l.elevation_vec, l.azimuth_vec, l.l_tether_vec, 
                                      l.v_reelout_vec, l.force_vec, l.depower_vec, l.steering_vec, l.heading_vec, 
                                      l.course_vec, l.v_app_vec, l.v_wind_gnd_vec, l.v_wind_200m_vec, l.v_wind_kite_vec, 
-                                     l.AoA_vec, l.alpha2_vec, l.alpha3_vec, l.CL2_vec, l.CD2_vec, 
+                                     l.AoA_vec, l.alpha3_vec, l.alpha4_vec, l.CL2_vec, l.CD2_vec, 
                                      l.vel_kite_vec, l.acc_vec, l.X_vec, l.Y_vec, l.Z_vec, 
                                      l.set_torque_vec, l.set_force_vec, l.roll_vec, l.pitch_vec, l.yaw_vec, 
                                      l.var_01_vec, l.var_02_vec, l.var_03_vec, l.var_04_vec, l.var_05_vec, 
