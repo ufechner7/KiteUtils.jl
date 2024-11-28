@@ -19,7 +19,7 @@ function log!(logger::Logger, state::SysState)
     logger.cycle_vec[i] = state.cycle
     logger.fig_8_vec[i] = state.fig_8
     logger.e_mech_vec[i] = state.e_mech
-    logger.orient_vec[i] .= state.orient
+    logger.orient_vec[i] = state.orient
     logger.elevation_vec[i] = state.elevation
     logger.azimuth_vec[i] = state.azimuth
     logger.l_tether_vec[i] = state.l_tether
@@ -30,10 +30,12 @@ function log!(logger::Logger, state::SysState)
     logger.heading_vec[i] = state.heading
     logger.course_vec[i] = state.course
     logger.v_app_vec[i] = state.v_app
-    logger.v_wind_gnd_vec[i] .= state.v_wind_gnd
-    logger.v_wind_200m_vec[i] .= state.v_wind_200m
-    logger.v_wind_kite_vec[i] .= state.v_wind_kite
+    logger.v_wind_gnd_vec[i] = state.v_wind_gnd
+    logger.v_wind_200m_vec[i] = state.v_wind_200m
+    logger.v_wind_kite_vec[i] = state.v_wind_kite
     logger.AoA_vec[i] = state.AoA
+    logger.alpha2_vec[i] = state.alpha2
+    logger.alpha3_vec[i] = state.alpha3
     logger.CL2_vec[i] = state.CL2
     logger.CD2_vec[i] = state.CD2
     logger.vel_kite_vec[i] = state.vel_kite
@@ -41,6 +43,11 @@ function log!(logger::Logger, state::SysState)
     logger.X_vec[i] = state.X
     logger.Y_vec[i] = state.Y
     logger.Z_vec[i] = state.Z
+    logger.set_torque_vec[i] = state.set_torque
+    logger.set_force_vec[i] = state.set_force
+    logger.roll_vec[i] = state.roll
+    logger.pitch_vec[i] = state.pitch
+    logger.yaw_vec[i] = state.yaw
     logger.var_01_vec[i] = state.var_01
     logger.var_02_vec[i] = state.var_02
     logger.var_03_vec[i] = state.var_03

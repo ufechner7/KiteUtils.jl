@@ -53,6 +53,10 @@ Base.@kwdef mutable struct SysState{P}
     v_wind_kite::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "angle of attack [rad]"
     AoA::MyFloat = 0
+    "angle of attack at particle C [rad]"
+    alpha2::MyFloat = 0
+    "angle of attack at particle D [rad]"
+    alpha3::MyFloat = 0
     "lift coefficient"
     CL2::MyFloat = 0
     "drag coefficient"
@@ -67,6 +71,16 @@ Base.@kwdef mutable struct SysState{P}
     Y::MVector{P, MyFloat} = zeros(P)
     "vector of particle positions in z [m]"
     Z::MVector{P, MyFloat} = zeros(P)
+    "torque setting [Nm]"
+    set_torque::MyFloat = 0
+    "force setting [N]"
+    set_force::MyFloat = 0
+    "roll angle [rad]"
+    roll::MyFloat = 0
+    "pitch angle [rad]"
+    pitch::MyFloat = 0
+    "yaw angle [rad]"
+    yaw::MyFloat = 0
     "generic variable 01"
     var_01::MyFloat = 0
     "generic variable 02"

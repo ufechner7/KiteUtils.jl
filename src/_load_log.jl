@@ -44,10 +44,12 @@ function load_log(filename::String; path="")
                                        table.e_mech, table.orient, table.elevation, table.azimuth, table.l_tether, 
                                        table.v_reelout, table.force, table.depower, table.steering, table.heading, 
                                        table.course, table.v_app, table.v_wind_gnd, table.v_wind_200m, table.v_wind_kite, 
-                                       table.AoA, table.CL2, table.CD2, table.vel_kite, table.acc, 
-                                       table.X, table.Y, table.Z, table.var_01, table.var_02, 
-                                       table.var_03, table.var_04, table.var_05, table.var_06, table.var_07, 
-                                       table.var_08, table.var_09, table.var_10, table.var_11, table.var_12, 
-                                       table.var_13, table.var_14, table.var_15, table.var_16))
+                                       table.AoA, table.alpha2, table.alpha3, table.CL2, table.CD2, 
+                                       table.vel_kite, table.acc, table.X, table.Y, table.Z, 
+                                       table.set_torque, table.set_force, table.roll, table.pitch, table.yaw, 
+                                       table.var_01, table.var_02, table.var_03, table.var_04, table.var_05, 
+                                       table.var_06, table.var_07, table.var_08, table.var_09, table.var_10, 
+                                       table.var_11, table.var_12, table.var_13, table.var_14, table.var_15, 
+                                       table.var_16))
     return SysLog{P}(basename(fullname[1:end-6]), colmeta, syslog)
 end
