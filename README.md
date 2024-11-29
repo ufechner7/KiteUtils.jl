@@ -32,6 +32,7 @@ pkg"test KiteUtils"
 - the default meta-configuration file [system.yaml](data/system.yaml)
 - functions for logging, reading and writing log files
 - types for the state of a kite power, logging and configuration parameters
+- a function for calculation the inertia matrix of a kite
 
 ## Licence
 This project is licensed under the MIT License. Please see the below WAIVER in association with the license.
