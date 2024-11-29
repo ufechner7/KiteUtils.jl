@@ -1,8 +1,10 @@
 # Changelog 
 
-### Unreleased
+### KiteUtils v0.9.2 - 2024-11-29
 #### Added
 - add function calculate_rotational_inertia and example for using this function
+- add the fields `set_torque`, `set_force`, `set_speed`, `alpha3`, `alpha4`, `roll`, `pitch`, `yaw`
+  to `SysState` struct for logging and plotting
 
 ### KiteUtils v0.9.1 - 2024-11-15
 #### Changes
