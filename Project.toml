@@ -1,7 +1,7 @@
 name = "KiteUtils"
 uuid = "90980105-b163-44e5-ba9f-8b1c83bb0533"
 authors = ["Uwe Fechner <uwe.fechner.msc@gmail.com> and contributors"]
-version = "0.9.2"
+version = "0.9.3"
 
 [deps]
 Arrow = "69666777-d1a9-59fb-9406-91d4454c9d45"
@@ -33,7 +33,7 @@ RecursiveArrayTools = "3.27"
 ReferenceFrameRotations = "3.0.2"
 Rotations = "1.7.1"
 StaticArrays = "1.9.7"
-StructArrays = "0.6.20"
+StructArrays = "0.6.18"
 StructTypes = "1.11.0"
 YAML = "0.4.12"
 julia = "1.10"
