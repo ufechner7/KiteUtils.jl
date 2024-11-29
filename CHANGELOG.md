@@ -1,4 +1,7 @@
 # Changelog 
+### KiteUtils v0.9.3 - 2024-11-20
+#### Changes
+- downgrade min version of StructArrays to v0.6.18
 
 ### KiteUtils v0.9.2 - 2024-11-29
 #### Added
