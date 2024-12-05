@@ -37,12 +37,18 @@ Base.@kwdef mutable struct SysState{P}
     force::MyFloat = 0
     "depower settings [0..1]"
     depower::MyFloat = 0
-    "steering settings [-1..1]"
+    "actual steering [-1..1]"
     steering::MyFloat = 0
+    "set value of the steering [-1..1]"
+    set_steering::MyFloat = 0
     "heading angle [rad]"
     heading::MyFloat = 0
+    "heading rate [rad/s]"
+    heading_rate::MyFloat = 0
     "course angle [rad]"
     course::MyFloat = 0
+    "attractor coordinates (azimuth, elevation) [rad]"
+    attractor::MVector{2, MyFloat} = 0
     "norm of apparent wind speed [m/s]"
     v_app::MyFloat = 0
     "wind vector at reference height [m/s]"
