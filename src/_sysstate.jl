@@ -48,7 +48,7 @@ Base.@kwdef mutable struct SysState{P}
     "course angle [rad]"
     course::MyFloat = 0
     "attractor coordinates (azimuth, elevation) [rad]"
-    attractor::MVector{2, MyFloat} = 0
+    attractor::MVector{2, MyFloat} = [0.0, 0.0]
     "norm of apparent wind speed [m/s]"
     v_app::MyFloat = 0
     "wind vector at reference height [m/s]"
