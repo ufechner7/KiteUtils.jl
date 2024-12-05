@@ -1,4 +1,7 @@
 # Changelog 
+### Unreleased
+- add set_steering, heading_rate, attractor to `SysState` for logging and plotting
+
 ### KiteUtils v0.9.3 - 2024-11-20
 #### Changes
 - downgrade min version of StructArrays to v0.6.18
