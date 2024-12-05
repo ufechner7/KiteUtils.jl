@@ -2,6 +2,8 @@
 ### KiteUtils v0.9.4 - 2024-12-05
 #### Changed
 - add set_steering, heading_rate, attractor to `SysState` for logging and plotting
+#### Fixed
+- `build.jl`is now also working for two-element vectors
 
 ### KiteUtils v0.9.3 - 2024-11-20
 #### Changes
