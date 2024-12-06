@@ -64,6 +64,7 @@ function save_log(logger::Logger, name="sim_log", compress=true;
     resize!(logger.heading_vec, nl)
     resize!(logger.heading_rate_vec, nl)
     resize!(logger.course_vec, nl)
+    resize!(logger.bearing_vec, nl)
     resize!(logger.attractor_vec, nl)
     resize!(logger.v_app_vec, nl)
     resize!(logger.v_wind_gnd_vec, nl)

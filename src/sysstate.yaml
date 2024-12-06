@@ -17,6 +17,7 @@ sysstate:
     heading: "MyFloat"                  # heading angle [rad]
     heading_rate: "MyFloat"             # heading rate [rad/s]
     course: "MyFloat"                   # course angle [rad]
+    bearing: "MyFloat"                  # bearing angle (set value of heading/ course) [rad]
     attractor: "MVector{2, MyFloat}"    # attractor coordinates (azimuth, elevation) [rad]
     v_app: "MyFloat"                    # norm of apparent wind speed [m/s]
     v_wind_gnd: "MVector{3, MyFloat}"   # wind vector at reference height [m/s]

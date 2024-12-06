@@ -31,6 +31,7 @@ function log!(logger::Logger, state::SysState)
     logger.heading_vec[i] = state.heading
     logger.heading_rate_vec[i] = state.heading_rate
     logger.course_vec[i] = state.course
+    logger.bearing_vec[i] = state.bearing
     logger.attractor_vec[i] = state.attractor
     logger.v_app_vec[i] = state.v_app
     logger.v_wind_gnd_vec[i] = state.v_wind_gnd

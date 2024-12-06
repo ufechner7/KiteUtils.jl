@@ -1,4 +1,8 @@
 # Changelog 
+### KiteUtils v0.9.5 - 2024-12-06
+#### Changed
+- add `bearing` to SysState for logging and plotting
+
 ### KiteUtils v0.9.4 - 2024-12-05
 #### Changed
 - add set_steering, heading_rate, attractor to `SysState` for logging and plotting
