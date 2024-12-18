@@ -25,6 +25,25 @@ at the Julia prompt. You can run the unit tests by typing:
 pkg"test KiteUtils"
 ```
 
+### Creating a project and installing the examples
+You can create a demo project by typing:
+```
+mkdir demo
+cd demo
+julia --project=.
+```
+and then, on the Julia prompt type:
+```
+using Pkg
+pkg"add KiteUtils"
+KiteUtils.install_examples()
+```
+This creates the folders `data` and `examples`. You can view and modify the examples with a text editor of your choice, e.g. [notepad++](https://notepad-plus-plus.org/) if you are using Windows or `gedit` on Linux. You can execute them by typing:
+```
+menu()
+```
+and select one of the examples with the cursor keys and press enter.
+
 ## Provides 
 - functions for coordinate system transformations
 - functions for reading configuration files
