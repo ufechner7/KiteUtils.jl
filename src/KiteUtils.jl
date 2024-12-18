@@ -554,7 +554,7 @@ end
 
 function install_examples(add_packages=true)
     copy_examples()
-    copy_settings()
+    copy_settings(["transition.csv"])
     if add_packages
         Pkg.add("ControlPlots")
         Pkg.add("LaTeXStrings")
