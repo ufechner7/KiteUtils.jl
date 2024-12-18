@@ -2,7 +2,7 @@ using REPL.TerminalMenus
 
 options = ["bridle_info = include(\"bridle_info.jl\")",
            "import_csv = include(\"import_csv.jl\")",
-           "calculate_rotational_inertia = include(\"calculate_rotational_inertia.jl\")",
+           "calc_rotational_inertia = include(\"calculate_rotational_inertia.jl\")",
            "quit"]
 
 function example_menu()
