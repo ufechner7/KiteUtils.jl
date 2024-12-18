@@ -324,7 +324,7 @@ end
 Copy the default settings.yaml and system.yaml files to the folder DATAPATH
 (it will be created if it doesn't exist).
 """
-function copy_settings()
+function copy_settings(extra_files=[])
     src_path = abspath(joinpath(dirname(pathof(KiteUtils)), "..", "data"))
     if src_path == abspath(DATA_PATH[1])
         DATA_PATH[1] = joinpath(pwd(), "data")
@@ -333,6 +333,7 @@ function copy_settings()
         mkdir(DATA_PATH[1])
     end
     files = ["settings.yaml", "system.yaml", "settings_3l.yaml", "system_3l.yaml", "kite.obj"]
+    append!(files, extra_files)
     copy_files("data", files)
     set_data_path(joinpath(pwd(), "data"))
     # set font

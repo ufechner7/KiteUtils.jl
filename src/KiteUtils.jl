@@ -41,7 +41,7 @@ SOFTWARE. =#
 
 using PrecompileTools: @setup_workload, @compile_workload 
 using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions
-using Parameters, StructTypes, CSV, Parsers
+using Parameters, StructTypes, CSV, Parsers, Pkg
 export Settings, SysState, SysLog, Logger, MyFloat
 
 import Base.length
@@ -535,6 +535,31 @@ end
 
 function menu()
     Main.include("examples/menu.jl")
+end
+
+"""
+    copy_examples()
+
+Copy all example scripts to the folder "examples"
+(it will be created if it doesn't exist).
+"""
+function copy_examples()
+    PATH = "examples"
+    if ! isdir(PATH) 
+        mkdir(PATH)
+    end
+    src_path = joinpath(dirname(pathof(@__MODULE__)), "..", PATH)
+    copy_files("examples", readdir(src_path))
+end
+
+function install_examples(add_packages=true)
+    copy_examples()
+    copy_settings(["transition.csv"])
+    if add_packages
+        Pkg.add("ControlPlots")
+        Pkg.add("LaTeXStrings")
+        Pkg.add("StatsBase")
+    end
 end
 
 @setup_workload begin
