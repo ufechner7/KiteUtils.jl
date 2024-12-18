@@ -537,6 +537,31 @@ function menu()
     Main.include("examples/menu.jl")
 end
 
+"""
+    copy_examples()
+
+Copy all example scripts to the folder "examples"
+(it will be created if it doesn't exist).
+"""
+function copy_examples()
+    PATH = "examples"
+    if ! isdir(PATH) 
+        mkdir(PATH)
+    end
+    src_path = joinpath(dirname(pathof(@__MODULE__)), "..", PATH)
+    copy_files("examples", readdir(src_path))
+end
+
+function install_examples(add_packages=true)
+    copy_examples()
+    copy_settings()
+    if add_packages
+        Pkg.add("ControlPlots")
+        Pkg.add("LaTeXStrings")
+        Pkg.add("StatsBase")
+    end
+end
+
 @setup_workload begin
     # Putting some things in `@setup_workload` instead of `@compile_workload` can reduce the size of the
     # precompile file and potentially make loading faster.
