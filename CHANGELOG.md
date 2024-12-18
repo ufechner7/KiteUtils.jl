@@ -1,4 +1,8 @@
-# Changelog 
+# Changelog
+### Unreleased
+#### Added
+- function `KiteUtils.install_examples()`
+
 ### KiteUtils v0.9.5 - 2024-12-06
 #### Changed
 - add `bearing` to SysState for logging and plotting
