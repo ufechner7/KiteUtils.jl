@@ -41,8 +41,8 @@ SOFTWARE. =#
 
 using PrecompileTools: @setup_workload, @compile_workload 
 using Rotations, StaticArrays, StructArrays, RecursiveArrayTools, Arrow, YAML, LinearAlgebra, DocStringExtensions
-using Parameters, StructTypes, CSV, Parsers
-export Settings, SysState, SysLog, Logger, MyFloat, Pkg
+using Parameters, StructTypes, CSV, Parsers, Pkg
+export Settings, SysState, SysLog, Logger, MyFloat
 
 import Base.length
 import ReferenceFrameRotations as RFR
