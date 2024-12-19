@@ -213,6 +213,8 @@ $(TYPEDFIELDS)
     v_ro_max              = 8
     "minimal reel-out speed (=max reel-in speed) [m/s]"
     v_ro_min              = -8
+    "maximal acceleration                       [m/s²]"
+    max_acc               = 0
     "radius of the drum [m]"
     drum_radius = 0.1615
     "ratio of the gear box"
@@ -223,6 +225,10 @@ $(TYPEDFIELDS)
     f_coulomb = 122.0
     "coefficient for the viscous friction [Ns/m]"
     c_vf = 30.6
+    "proportional gain for the speed controller"
+    p_speed = 0
+    "integral gain for the speed controller"
+    i_speed = 0
 
     "wind speed at reference height          [m/s]"
     v_wind                = 0
