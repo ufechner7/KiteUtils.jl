@@ -213,6 +213,8 @@ $(TYPEDFIELDS)
     v_ro_max              = 8
     "minimal reel-out speed (=max reel-in speed) [m/s]"
     v_ro_min              = -8
+    "maximal acceleration                       [m/s²]"
+    max_acc               = 0
     "radius of the drum [m]"
     drum_radius = 0.1615
     "ratio of the gear box"
