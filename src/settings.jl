@@ -226,8 +226,8 @@ $(TYPEDFIELDS)
 
     "wind speed at reference height          [m/s]"
     v_wind                = 0
-    "wind speed vector at reference height   [m/s]"
-    v_wind_ref::Vector{Float64} = [] # wind speed vector at reference height
+    "initial upwind direction                [deg]"
+    upwind_dir            = 0
     "temperature at reference height         [°C]"
     temp_ref              = 0
     "height of groundstation above see level  [m]"
