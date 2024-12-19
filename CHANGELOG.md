@@ -2,6 +2,7 @@
 ### Unreleased
 #### Added
 - function `KiteUtils.install_examples()`
+- add field `upwind_dir`, remove vector `v_wind_ref` from `Settings`and yaml files
 
 ### KiteUtils v0.9.5 - 2024-12-06
 #### Changed
