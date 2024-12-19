@@ -225,6 +225,10 @@ $(TYPEDFIELDS)
     f_coulomb = 122.0
     "coefficient for the viscous friction [Ns/m]"
     c_vf = 30.6
+    "proportional gain for the speed controller"
+    p_speed = 0
+    "integral gain for the speed controller"
+    i_speed = 0
 
     "wind speed at reference height          [m/s]"
     v_wind                = 0
