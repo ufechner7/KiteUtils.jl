@@ -39,6 +39,8 @@ Base.@kwdef mutable struct SysState{P}
     depower::MyFloat = 0
     "actual steering [-1..1]"
     steering::MyFloat = 0
+    "steering after the kcu, before applying offset and depower scaling [-1..1]"
+    kcu_steering::MyFloat = 0
     "set value of the steering [-1..1]"
     set_steering::MyFloat = 0
     "heading angle [rad]"
