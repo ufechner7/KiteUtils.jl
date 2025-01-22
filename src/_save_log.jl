@@ -60,6 +60,7 @@ function save_log(logger::Logger, name="sim_log", compress=true;
     resize!(logger.force_vec, nl)
     resize!(logger.depower_vec, nl)
     resize!(logger.steering_vec, nl)
+    resize!(logger.kcu_steering_vec, nl)
     resize!(logger.set_steering_vec, nl)
     resize!(logger.heading_vec, nl)
     resize!(logger.heading_rate_vec, nl)

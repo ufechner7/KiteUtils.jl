@@ -27,6 +27,7 @@ function log!(logger::Logger, state::SysState)
     logger.force_vec[i] = state.force
     logger.depower_vec[i] = state.depower
     logger.steering_vec[i] = state.steering
+    logger.kcu_steering_vec[i] = state.kcu_steering
     logger.set_steering_vec[i] = state.set_steering
     logger.heading_vec[i] = state.heading
     logger.heading_rate_vec[i] = state.heading_rate

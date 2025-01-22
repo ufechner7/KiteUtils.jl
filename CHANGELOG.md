@@ -1,4 +1,7 @@
 # Changelog
+### KiteUtils v0.9.7 - 2025-01-22
+- add field `kcu_steering`
+
 ### KiteUtils v0.9.6 - 2024-12-19
 #### Added
 - function `KiteUtils.install_examples()`
