@@ -63,5 +63,6 @@ include("test_orientation.jl")
 include("test_azimuth.jl")
 include("test_rotational_inertia.jl")
 include("bench.jl")
+include("aqua.jl")
 end
 nothing
