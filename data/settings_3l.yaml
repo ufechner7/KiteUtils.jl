@@ -23,62 +23,20 @@ solver:
     max_order: 4           # maximal order, usually between 3 and 5
     max_iter:  10000         # max number of iterations of the steady-state-solver
 
-steering:
-    c0:       0.0          # steering offset   -0.0032           [-]
-    c_s:      2.59         # steering coefficient one point model; 2.59 was 0.6; TODO: check if it must be divided by kite_area
-    c2_cor:   0.93         # correction factor one point model
-    k_ds:     1.5          # influence of the depower angle on the steering sensitivity
-    delta_st: 0.02         # steering increment (when pressing RIGHT)
-    max_steering: 16.83    # max. steering angle of the side planes for four point model [degrees]
-
 depower:
     alpha_d_max:    31.0   # max depower angle                            [deg]
     depower_offset: 23.6   # at rel_depower=0.236 the kite is fully powered [%]
 
 kite:
-    model: "data/kite.obj" # 3D model of the kite
-    foil_file: "data/MH82.dat"      # filename for the foil shape
-    polar_file: "data/polars.csv"       # filename for the polars file
-    physical_model: "KPS4_3L" # name of the kite model to use (KPS3 or KPS4)
+    model: "data/ram_air_kite_body.obj" # 3D model of the kite
+    foil_file: "data/ram_air_kite_foil.dat"  # filename for the foil shape
+    polar_file: "data/ram_air_kite_foil_polar.bin"   # filename for the polars
+    physical_model: "RamAirKite" # name of the kite model to use (KPS3, KPS4 or RamAirKite)
     version: 2             # version of the model to use
     mass:  0.9             # kite mass [kg]
     area: 10.18            # projected kite area         [m²]
     rel_side_area: 30.6    # relative side area           [%]
     height: 2.23           # height of the kite           [m]
-    alpha_cl:  [-180.0, -160.0, -90.0, -20.0, -10.0,  -5.0,  0.0, 20.0, 40.0, 90.0, 160.0, 180.0]
-    cl_list:   [   0.0,    0.5,   0.0,  0.08, 0.125,  0.15,  0.2,  1.0,  1.0,  0.0,  -0.5,   0.0]
-    alpha_cd:  [-180.0, -170.0, -140.0, -90.0, -20.0, 0.0, 20.0, 90.0, 140.0, 170.0, 180.0]
-    cd_list:   [   0.5,    0.5,    0.5,   1.0,   0.2, 0.1,  0.2,  1.0,   0.5,   0.5,   0.5]
-    
-kps4: 
-    alpha_zero:   10.0      # should be 4..10                      [degrees]
-    alpha_ztip:   10.0      #                                      [degrees]
-    m_k:           0.2      # relative nose distance; increasing m_k increases C2 of the turn-rate law
-    rel_nose_mass: 0.47     # relative nose mass
-    rel_top_mass:  0.4      # mass of the top particle relative to the sum of top and side particles
-
-kps4_3l:
-    radius: 2.0
-    bridle_center_distance: 4.0
-    middle_length: 1.5
-    tip_length: 0.62
-    min_steering_line_distance: 1.0
-    width:         4.1     # width of the kite                          [m]
-    aero_surfaces: 3      # number of aerodynamic surfaces in 3 line model
-    flap_height: 0.05     # height at the start of the flap             [m]
-
-kcu:
-    kcu_model: "KCU1"            # name of the kite control unit model, KCU1 or KCU2
-    kcu_mass: 8.4                # mass of the kite control unit                       [kg]
-    kcu_diameter: 0.4            # diameter of the KCU for drag calculation            [m]
-    cd_kcu: 0.3                  # drag coefficient of the KCU                         [-]  
-    power2steer_dist: 1.3        #                                                     [m]
-    depower_drum_diameter: 0.069 #                                                     [m]
-    tape_thickness: 0.0006       #                                                     [m]
-    v_depower: 0.075             # max velocity of depowering in units per second (full range: 1 unit)
-    v_steering: 0.2              # max velocity of steering in units per second   (full range: 2 units)
-    depower_gain: 3.0            # 3.0 means: more than 33% error -> full speed
-    steering_gain: 3.0
 
 bridle:
     l_bridle: 33.4         # sum of the lengths of the bridle lines [m]
