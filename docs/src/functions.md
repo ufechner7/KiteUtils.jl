@@ -28,11 +28,9 @@ get_unit
 ```@docs
 demo_state
 demo_state_4p
-demo_state_4p_3lines
 demo_syslog
 demo_log
 get_particles
-get_particles_3l
 ```
 
 # Loading, saving and converting log files

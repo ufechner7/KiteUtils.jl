@@ -400,19 +400,20 @@ function se(project=PROJECT)
         dict = YAML.load_file(joinpath(DATA_PATH[1], SETTINGS.sim_settings))
         SE_DICT[1] = dict
         # update the SETTINGS struct from the dictionary
+        oblig_sections = ["system", "initial", "solver", "kite", "tether", "winch", "environment"]
+        update_settings(dict, oblig_sections)
         try
-        update_settings(dict, ["system", "initial", "solver", "steering", "depower", "kite", "kps4", "bridle", 
-                               "kcu", "tether", "winch", "environment"])
+            update_settings(dict, ["steering", "depower", "kps4", "bridle", "kcu"])
         catch e
-            if e isa KeyError
-                @warn "Missing some key(s) in the settings file ."
-            else
+            if !(e isa KeyError)
                 rethrow(e)
             end
         end
         tmp = split(dict["system"]["log_file"], "/")
         SETTINGS.log_file    = joinpath(tmp[1], tmp[2])
-        SETTINGS.height_k      = dict["kite"]["height"] 
+        if haskey(dict["kite"], "height")
+            SETTINGS.height_k = dict["kite"]["height"]
+        end
     end
     return SETTINGS
 end
