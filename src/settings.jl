@@ -144,15 +144,17 @@ $(TYPEDFIELDS)
                                                  [0.498202, 0.786175, -2.62148],
                                                  [0.535543, 0.786175, -2.62148]]
     "bridle tether diameter [mm]"
-    bridle_tether_diameter::Float64 = 2.0
+    bridle_tether_diameter  = 2.0
     "power tether diameter [mm]"
-    power_tether_diameter::Float64 = 2.0
+    power_tether_diameter   = 2.0
     "steering tether diameter [mm]"
-    steering_tether_diameter::Float64 = 1.0
+    steering_tether_diameter= 1.0
     "distance along normalized foil chord for the trailing edge deformation crease"
-    crease_frac::Float64 = 0.82
+    crease_frac             = 0.82
     "distances along normalized foil chord for bridle attachment points"
     bridle_fracs::Vector{Float64} = [0.088, 0.31, 0.58, 0.93]
+    "the bridle frac index around which the kite twists"
+    fixed_index::Int        = 1
 
     "bridle line diameter                  [mm]"
     d_line                = 0
