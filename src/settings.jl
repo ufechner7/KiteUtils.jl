@@ -101,10 +101,6 @@ $(TYPEDFIELDS)
     "file name of the 3D model of the kite for the viewer"
     model::String         = "data/kite.obj"
     "filename with or without extension for the foil shape [in dat format]"
-    foil_file::String      = ""
-    "filename with or without extension for the polars [in csv format]"
-    polar_file::String      = "data/polars.csv"
-    "name of the kite model to use (KPS3 or KPS4)"
     physical_model::String = ""
     "version of the model to use"
     version::Int64 = 1
@@ -139,23 +135,24 @@ $(TYPEDFIELDS)
     "average aerodynamic cord length of the kite [m]"
     cord_length           = 0
     
-    # model KPS4_3L
-    "the radius of the circle shape on which the kite lines, viewed from the front [m]"
-    radius::Float64 = 10.0
-    "the distance from point the center bridle connection point of the middle line to the kite [m]"
-    bridle_center_distance::Float64 = 2.0
-    "the cord length of the kite in the middle [m]"
-    middle_length::Float64 = 2.0
-    "the cord length of the kite at the tips [m]"
-    tip_length::Float64 = 1.0
-    "the distance between the left and right steering bridle line connections on the kite that are closest to eachother [m]"
-    min_steering_line_distance::Float64 = 4.0 
-    "the number of aerodynamic surfaces to use per mass point [-]"
-    aero_surfaces::Int64 = 10
-    "height at the start of the flap [m]"
-    flap_height::Float64 = 0.05
-    "the width of the 3 line kite laid flat"
-    width_3l = 20
+    # Ram air kite specific parameters
+    "filename of the foil shape [in dat format]"
+    foil_file::String      = "data/ram_air_kite_foil.dat"
+    "top bridle points that are not on the kite body in CAD frame"
+    top_bridle_points::Vector{Vector{Float64}} = [[0.290199, 0.784697, -2.61305],
+                                                 [0.392683, 0.785271, -2.61201],
+                                                 [0.498202, 0.786175, -2.62148],
+                                                 [0.535543, 0.786175, -2.62148]]
+    "bridle tether diameter [mm]"
+    bridle_tether_diameter::Float64 = 2.0
+    "power tether diameter [mm]"
+    power_tether_diameter::Float64 = 2.0
+    "steering tether diameter [mm]"
+    steering_tether_diameter::Float64 = 1.0
+    "distance along normalized foil chord for the trailing edge deformation crease"
+    crease_frac::Float64 = 0.82
+    "distances along normalized foil chord for bridle attachment points"
+    bridle_fracs::Vector{Float64} = [0.088, 0.31, 0.58, 0.93]
 
     "bridle line diameter                  [mm]"
     d_line                = 0
@@ -338,7 +335,7 @@ function copy_settings(extra_files=[])
     if ! isdir(DATA_PATH[1]) 
         mkdir(DATA_PATH[1])
     end
-    files = ["settings.yaml", "system.yaml", "settings_3l.yaml", "system_3l.yaml", "kite.obj"]
+    files = ["settings.yaml", "system.yaml", "settings_ram.yaml", "system_ram.yaml", "kite.obj"]
     append!(files, extra_files)
     copy_files("data", files)
     set_data_path(joinpath(pwd(), "data"))
@@ -403,12 +400,15 @@ function se(project=PROJECT)
         dict = YAML.load_file(joinpath(DATA_PATH[1], SETTINGS.sim_settings))
         SE_DICT[1] = dict
         # update the SETTINGS struct from the dictionary
+        try
         update_settings(dict, ["system", "initial", "solver", "steering", "depower", "kite", "kps4", "bridle", 
                                "kcu", "tether", "winch", "environment"])
-        try
-            update_settings(dict, ["kps4_3l"])
-        catch
-            println("Warning! Key kps4_3l not found in $(joinpath(DATA_PATH[1], basename(project))) .")
+        catch e
+            if e isa KeyError
+                @warn "Missing some key(s) in the settings file ."
+            else
+                rethrow(e)
+            end
         end
         tmp = split(dict["system"]["log_file"], "/")
         SETTINGS.log_file    = joinpath(tmp[1], tmp[2])

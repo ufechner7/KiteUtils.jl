@@ -13,7 +13,6 @@ initial:
     l_tether: 50.0        # initial tether length       [m]
     elevation: 70.8        # initial elevation angle   [deg]
     v_reel_out: 0.0        # initial reel out speed    [m/s]
-    depower:   25.0        # initial depower settings    [%]
 
 solver:
     abs_tol: 0.006        # absolute tolerance of the DAE solver [m, m/s]
@@ -23,29 +22,22 @@ solver:
     max_order: 4           # maximal order, usually between 3 and 5
     max_iter:  10000         # max number of iterations of the steady-state-solver
 
-depower:
-    alpha_d_max:    31.0   # max depower angle                            [deg]
-    depower_offset: 23.6   # at rel_depower=0.236 the kite is fully powered [%]
-
 kite:
-    model: "data/ram_air_kite_body.obj" # 3D model of the kite
-    foil_file: "data/ram_air_kite_foil.dat"  # filename for the foil shape
-    polar_file: "data/ram_air_kite_foil_polar.bin"   # filename for the polars
-    physical_model: "RamAirKite" # name of the kite model to use (KPS3, KPS4 or RamAirKite)
-    version: 2             # version of the model to use
-    mass:  0.9             # kite mass [kg]
-    area: 10.18            # projected kite area         [m²]
-    rel_side_area: 30.6    # relative side area           [%]
-    height: 2.23           # height of the kite           [m]
-
-bridle:
-    l_bridle: 33.4         # sum of the lengths of the bridle lines [m]
-    h_bridle:  4.9         # height of bridle                       [m]
-    rel_compr_stiffness: 0.25 # relative compression stiffness of the kite springs
-    rel_damping: 6.0          # relative damping of the kite spring (relative to main tether)
+    model: "data/ram_air_kite_body.obj"     # 3D model of the kite
+    foil_file: "data/ram_air_kite_foil.dat" # filename for the foil shape
+    physical_model: "RamAirKite"            # name of the kite model to use (KPS3, KPS4 or RamAirKite)
+    top_bridle_points:                      # top bridle points that are not on the kite body in CAD frame
+        - [0.290199, 0.784697, -2.61305]
+        - [0.392683, 0.785271, -2.61201]
+        - [0.498202, 0.786175, -2.62148]
+        - [0.535543, 0.786175, -2.62148]
+    crease_frac: 0.82                       # distance along normalized foil chord for the trailing edge deformation crease
+    bridle_fracs: [0.088, 0.31, 0.58, 0.93] # distances along normalized foil chord for bridle attachment points
 
 tether:
-    d_tether:  1           # tether diameter                 [mm]
+    bridle_tether_diameter: 2 # [mm]
+    power_tether_diameter: 2 # [mm]
+    steering_tether_diameter: 1 # [mm]
     cd_tether: 0.958       # drag coefficient of the tether
     damping: 473.0         # unit damping coefficient        [Ns]
     c_spring: 614600.0     # unit spring constant coefficient [N]
