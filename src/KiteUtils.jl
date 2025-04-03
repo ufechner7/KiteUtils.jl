@@ -48,7 +48,7 @@ import Base.length
 import ReferenceFrameRotations as RFR
 export demo_state, demo_syslog, demo_log, load_log, save_log, export_log, import_log # functions for logging
 export log!, syslog, length, euler2rot, menu
-export demo_state_4p, initial_kite_ref_frame       # functions for four point and three line kite
+export demo_state_4p, initial_kite_ref_frame       # functions for four point kite model
 export rot, rot3d, ground_dist, calc_elevation, azimuth_east, azimuth_north, asin2 
 export acos2, wrap2pi, quat2euler, quat2viewer                           # geometric functions
 export fromEG2W, fromENU2EG,fromW2SE, fromKS2EX, fromEX2EG               # reference frame transformations
