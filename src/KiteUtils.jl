@@ -48,7 +48,7 @@ import Base.length
 import ReferenceFrameRotations as RFR
 export demo_state, demo_syslog, demo_log, load_log, save_log, export_log, import_log # functions for logging
 export log!, syslog, length, euler2rot, menu
-export demo_state_4p, demo_state_4p_3lines, initial_kite_ref_frame       # functions for four point and three line kite
+export demo_state_4p, initial_kite_ref_frame       # functions for four point kite model
 export rot, rot3d, ground_dist, calc_elevation, azimuth_east, azimuth_north, asin2 
 export acos2, wrap2pi, quat2euler, quat2viewer                           # geometric functions
 export fromEG2W, fromENU2EG,fromW2SE, fromKS2EX, fromEX2EG               # reference frame transformations
@@ -229,35 +229,6 @@ function get_particles(height_k, height_b, width, m_k, pos_pod= [ 75., 0., 129.9
     [zeros(3), pos0, pos_A, pos_kite, pos_C, pos_D] # 0, p7, p8, p9, p10, p11
 end
 
-
-"""
-Calculate the initial positions of the particles representing 
-a 4-point 3 line kite.
-"""
-function get_particles_3l(width, radius, middle_length, tip_length, bridle_center_distance, pos_kite = [ 75., 0., 129.90381057], vec_c=[-15., 0., -25.98076211], v_app=[10.4855, 0, -3.08324])
-    # inclination angle of the kite; beta = atan(-pos_kite[2], pos_kite[1]) ???
-    beta = pi/2.0
-    e_z = normalize(vec_c) # vec_c is the direction of the last two particles
-    e_y = normalize(cross(v_app, e_z))
-    e_x = normalize(cross(e_y, e_z))
-
-    α_0 = pi/2 - width/2/radius
-    α_C = α_0 + width*(-2*tip_length + sqrt(2*middle_length^2 + 2*tip_length^2)) /
-        (4*(middle_length - tip_length)) / radius
-    α_D = π - α_C
-
-    E = pos_kite
-    E_c = pos_kite + e_z * (-bridle_center_distance + radius) # E at center of circle on which the kite shape lies
-    C = E_c + e_y*cos(α_C)*radius - e_z*sin(α_C)*radius
-    D = E_c + e_y*cos(α_D)*radius - e_z*sin(α_D)*radius
-
-    kite_length_C = tip_length + (middle_length-tip_length) * (α_C - α_0) / (π/2 - α_0)
-    P_c = (C+D)./2
-    A = P_c - e_x*(kite_length_C*(3/4 - 1/4))
-
-    E, C, D, A, α_C, kite_length_C # important to have the order E = 1, C = 2, D = 3, A = 4
-end
-
 """
     demo_state_4p(P, height=6.0, time=0.0; azimuth_north=-pi/2)
 
@@ -313,86 +284,6 @@ function demo_state_4p(P, height=6.0, time=0.0; azimuth_north=-pi/2)
     ss.v_wind_200m = [10.4855, 0, -3.08324]
     ss.v_wind_kite = [10.4855, 0, -3.08324]
     ss.t_sim = 0.014
-    ss
-end
-
-"""
-    demo_state_4p_3lines(P, height=6.0, time=0.0)
-
-Create a demo state, using the 4 point kite model with a given height and time. 
-P is the number of middle tether particles.
-
-Returns a SysState instance.
-"""
-function demo_state_4p_3lines(P, height=6.0, time=0.0)
-    P_ = P*3+3 # P_ is total number of particles in the system (kite + 3 tethers)
-    ss = SysState{P_}()
-    num_A = P_
-    num_D = P_-1
-    num_C = P_-2
-    num_E = P_-3
-    pos = zeros(SVector{P_, MVector{3, Float64}})
-
-    # ground points
-    [pos[i] .= [0.0, 0.0, 0.0] for i in 1:3]
-
-    # middle tether
-    sin_el, cos_el = sin(deg2rad(se().elevation)), cos(deg2rad(se().elevation))
-    for (i, j) in enumerate(range(6, step=3, length=se().segments))
-        radius = i * (se().l_tether/se().segments)
-        pos[j] .= [cos_el*radius, 0.0, sin_el*radius]
-    end
-
-    # kite points
-    vec_c = pos[num_E-3] - pos[num_E]
-    E, C, D, A, _, _ = get_particles_3l(se().width, se().radius, se().middle_length, se().tip_length, se().bridle_center_distance, pos[num_E], vec_c)
-    pos[num_A] .= A
-    pos[num_C] .= C
-    pos[num_D] .= [pos[num_C][1], -pos[num_C][2], pos[num_C][3]]
-    
-    # build tether connection points
-    e_z = normalize(vec_c)
-    distance_c_l = 0.5 # distance between c and left steering line
-    pos[num_E-2] .= pos[num_C] + e_z .* (distance_c_l)
-    pos[num_E-1] .= pos[num_E-2] .* [1.0, -1.0, 1.0]
-
-    # build left and right tether points
-    for (i, j) in enumerate(range(4, step=3, length=se().segments-1))
-        pos[j] .= pos[num_E-2] ./ se().segments .* i
-        pos[j+1] .= [pos[j][1], -pos[j][2], pos[j][3]]
-    end
-
-    X = zeros(P_)
-    Y = zeros(P_)
-    Z = zeros(P_)
-    for (i, p) in enumerate(pos)
-        # println("pos ", pos)
-        X[i] = p[1]
-        Y[i] = p[2]
-        Z[i] = p[3]
-    end   
-    # println("X ", X) 
-    pos_centre = 0.5 * (C + D)
-    delta = E - pos_centre
-    z = normalize(delta)
-    y = normalize(C - D)
-    x = y × z
-    pos_before = pos[num_E] + z
-   
-    rotation = rot(pos[num_E], pos_before, -x)
-    q = QuatRotation(rotation)
-    orient = MVector{4, Float32}(Rotations.params(q))
-    elevation = calc_elevation([X[end], 0.0, Z[end]])
-    ss.v_wind_gnd .= [10.4855, 0, -3.08324]
-    ss.v_wind_200m .= [10.4855, 0, -3.08324]
-    ss.v_wind_kite .= [10.4855, 0, -3.08324]
-    ss.t_sim = 0.014
-    ss.time = time
-    ss.orient = orient
-    ss.elevation = elevation
-    ss.X .= X
-    ss.Y .= Y
-    ss.Z .= Z
     ss
 end
 
