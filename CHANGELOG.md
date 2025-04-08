@@ -3,6 +3,7 @@
 #### Changed
 - update settings for the `KiteModels.jl` `RamAirKite` model
 - make some sections of the settings non-obligatory
+#### Removed
 - breaking: remove the outdated `3l` model settings
 - breaking: remove the outdated `3l` initial state functions
 
