@@ -1,10 +1,10 @@
 # Changelog
 ### KiteUtils v.0.10.0
-### Changed
+#### Changed
 - update settings for the `KiteModels.jl` `RamAirKite` model
 - make some sections of the settings non-obligatory
-- remove the outdated `3l` model settings
-- remove the outdated `3l` initial state functions
+- breaking: remove the outdated `3l` model settings
+- breaking: remove the outdated `3l` initial state functions
 
 ### KiteUtils v0.9.7 - 2025-01-22
 - add field `kcu_steering`
