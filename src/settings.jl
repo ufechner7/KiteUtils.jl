@@ -155,6 +155,8 @@ $(TYPEDFIELDS)
     bridle_fracs::Vector{Float64} = [0.088, 0.31, 0.58, 0.93]
     "the bridle frac index around which the kite twists"
     fixed_index::Int        = 1
+    "wether to use quasi-static tether points or not"
+    quasi_static::Bool      = false
 
     "bridle line diameter                  [mm]"
     d_line                = 0
