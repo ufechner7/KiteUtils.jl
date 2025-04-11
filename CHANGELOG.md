@@ -1,4 +1,8 @@
 # Changelog
+### KiteUtils v.0.10.1
+#### Added
+- add the field `quasi_static` to the settings struct
+
 ### KiteUtils v.0.10.0
 #### Changed
 - update settings for the `KiteModels.jl` `RamAirKite` model
