@@ -1,9 +1,14 @@
 # Changelog
-### KiteUtils v.0.10.1
+### KiteUtils v0.10.2
+#### Added
+- the section kps5 with the fields c_spring_kite, damping_kite_spring, rel_mass_p2, rel_mass_p3 and rel_mass_p4
+#### Fixed
+- if one of the extra sections was missing, not all other extra sections were updated
+### KiteUtils v0.10.1
 #### Added
 - add the field `quasi_static` to the settings struct
 
-### KiteUtils v.0.10.0
+### KiteUtils v0.10.0
 #### Changed
 - update settings for the `KiteModels.jl` `RamAirKite` model
 - make some sections of the settings non-obligatory
