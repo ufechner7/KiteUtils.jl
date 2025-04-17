@@ -59,6 +59,12 @@ kps4:
     smc:           0.0      # steering moment coefficient                 [-]
     cmq:           0.0      # pitch rate dependant moment coefficient     [-]
     cord_length:   2.0      # average aerodynamic cord length of the kite [m]
+kps5:
+    c_spring_kite: 614600.0 # unit spring constant coefficient of the kite springs [N]
+    damping_kite_springs:  473.0  # unit damping coefficient                      [Ns]
+    rel_mass_p2: 0.25       # rel mass of p2
+    rel_mass_p3: 0.25       # rel mass of p3
+    rel_mass_p4: 0.25       # rel mass of p4 and p5
     
 bridle:
     d_line:    2.5            # bridle line diameter                                                 [mm]
@@ -86,7 +92,7 @@ tether:
     damping: 473.0         # unit damping coefficient        [Ns]
     c_spring: 614600.0     # unit spring constant coefficient [N]
     rho_tether:  724.0     # density of Dyneema           [kg/m³]
-    e_tether: 55000000000.0 # axial tensile modulus of Dyneema (M.B. Ruppert) [Pa]
+    e_tether: 5.5e10       # axial tensile modulus of Dyneema (M.B. Ruppert) [Pa]
                            # SK75: 109 to 132 GPa according to datasheet
 
 winch:

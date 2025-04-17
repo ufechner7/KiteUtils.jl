@@ -119,6 +119,8 @@ $(TYPEDFIELDS)
     "steering dependant moment coefficient"
     cms                   = 0
     "width of the kite                [m]"
+
+    # KPS4 specific parameters
     width                 = 0
     "should be 5                      [degrees]"
     alpha_zero            = 0
@@ -134,6 +136,18 @@ $(TYPEDFIELDS)
     cmq                   = 0
     "average aerodynamic cord length of the kite [m]"
     cord_length           = 0
+
+    # KPS5 specific parameters
+    "unit spring constant coefficient of the kite springs [N]"
+    c_spring_kite = 0
+    "unit damping coefficient of the kite springs [Ns]"
+    damping_kite_springs = 0
+    "relative mass of p2"
+    rel_mass_p2 = 0
+    "relative mass of p3"
+    rel_mass_p3 = 0
+    "relative mass of p4 and p5"
+    rel_mass_p4 = 0
     
     # Ram air kite specific parameters
     "filename of the foil shape [in dat format]"
@@ -406,11 +420,9 @@ function se(project=PROJECT)
         # update the SETTINGS struct from the dictionary
         oblig_sections = ["system", "initial", "solver", "kite", "tether", "winch", "environment"]
         update_settings(dict, oblig_sections)
-        try
-            update_settings(dict, ["steering", "depower", "kps4", "bridle", "kcu"])
-        catch e
-            if !(e isa KeyError)
-                rethrow(e)
+        for section in ["steering", "depower", "kps4", "kps5", "bridle", "kcu"]
+            if section in keys(dict)
+                update_settings(dict, [section])
             end
         end
         tmp = split(dict["system"]["log_file"], "/")
