@@ -146,7 +146,11 @@ open(outputfile5,"w") do io
     print(io, COMMENT)
     print(io, HEADER)
     for key in keys(sysstate)
-        println(io, "    logger." * key * "_vec[i] = state." * key)
+        if key in ["orient", "attractor", "v_wind_gnd", "v_wind_200m", "v_wind_kite", "vel_kite", "X", "Y", "Z"]
+            println(io, "    logger." * key * "_vec[i] .= state." * key)
+        else
+            println(io, "    logger." * key * "_vec[i] = state." * key)
+        end
     end
     println(io, "    logger.index+=1")
     println(io, "    return i")
