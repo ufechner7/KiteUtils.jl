@@ -72,6 +72,7 @@ function save_log(logger::Logger, name="sim_log", compress=true;
     resize!(logger.v_wind_200m_vec, nl)
     resize!(logger.v_wind_kite_vec, nl)
     resize!(logger.AoA_vec, nl)
+    resize!(logger.side_slip_vec, nl)
     resize!(logger.alpha3_vec, nl)
     resize!(logger.alpha4_vec, nl)
     resize!(logger.CL2_vec, nl)

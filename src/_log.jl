@@ -39,6 +39,7 @@ function log!(logger::Logger, state::SysState)
     logger.v_wind_200m_vec[i] = copy(state.v_wind_200m)
     logger.v_wind_kite_vec[i] = copy(state.v_wind_kite)
     logger.AoA_vec[i] = state.AoA
+    logger.side_slip_vec[i] = state.side_slip
     logger.alpha3_vec[i] = state.alpha3
     logger.alpha4_vec[i] = state.alpha4
     logger.CL2_vec[i] = state.CL2
