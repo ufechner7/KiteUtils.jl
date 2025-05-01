@@ -125,7 +125,15 @@ open(outputfile4,"w") do io
     print(io, COMMENT)
     print(io, HEADER)
     for key in keys(sysstate)
-        println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = zeros(" * sysstate[key] * ", Q)")
+        if sysstate[key] == "MVector{2, MyFloat}"
+            println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = [zero(MVector{2, MyFloat}) for _ in 1:Q]")
+        elseif sysstate[key] == "MVector{3, MyFloat}"
+            println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = [zero(MVector{3, MyFloat}) for _ in 1:Q]")
+        elseif sysstate[key] == "MVector{P, MyFloat}"
+            println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = [zero(MVector{P, MyFloat}) for _ in 1:Q]")
+        else
+            println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = zeros(" * sysstate[key] * ", Q)")
+        end
     end
     println(io, "end")
 end
