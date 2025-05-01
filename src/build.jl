@@ -43,6 +43,8 @@ open(outputfile,"w") do io
         default = "= 0"
         if sysstate[key] == "MVector{4, Float32}"
             default = "= [1.0, 0.0, 0.0, 0.0]"
+        elseif sysstate[key] == "MVector{4, MyFloat}"
+            default = "= [0.0, 0.0, 0.0, 0.0]"
         elseif sysstate[key] == "MVector{3, MyFloat}"
             default = "= [0.0, 0.0, 0.0]"
         elseif sysstate[key] == "MVector{2, MyFloat}"

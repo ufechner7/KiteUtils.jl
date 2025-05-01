@@ -32,11 +32,11 @@ Base.@kwdef mutable struct SysState{P}
     "azimuth angle in wind reference frame [rad]"
     azimuth::MyFloat = 0
     "tether length, tether 1 to 4 [m]"
-    l_tether::MVector{4, MyFloat} = 0
+    l_tether::MVector{4, MyFloat} = [0.0, 0.0, 0.0, 0.0]
     "reelout speed, tether 1 to 4 [m/s]"
-    v_reelout::MVector{4, MyFloat} = 0
+    v_reelout::MVector{4, MyFloat} = [0.0, 0.0, 0.0, 0.0]
     "tether force, tether 1 to 4 [N]"
-    force::MVector{4, MyFloat} = 0
+    force::MVector{4, MyFloat} = [0.0, 0.0, 0.0, 0.0]
     "depower settings [0..1]"
     depower::MyFloat = 0
     "actual steering [-1..1]"
@@ -80,7 +80,7 @@ Base.@kwdef mutable struct SysState{P}
     "aerodynamic moment in KB reference frame [Nm]"
     aero_moment_b::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "twist angles for the 4 segment groups [rad]"
-    twist_angles::MVector{4, MyFloat} = 0
+    twist_angles::MVector{4, MyFloat} = [0.0, 0.0, 0.0, 0.0]
     "velocity vector of the kite [m/s]"
     vel_kite::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "acceleration [m/s²]"
@@ -92,11 +92,11 @@ Base.@kwdef mutable struct SysState{P}
     "vector of particle positions in z [m]"
     Z::MVector{P, MyFloat} = zeros(P)
     "torque setting, winch 1..4       [Nm]"
-    set_torque::MVector{4, MyFloat} = 0
+    set_torque::MVector{4, MyFloat} = [0.0, 0.0, 0.0, 0.0]
     "speed setting, winch 1..4       [m/s]"
-    set_speed::MVector{4, MyFloat} = 0
+    set_speed::MVector{4, MyFloat} = [0.0, 0.0, 0.0, 0.0]
     "force setting, winch 1..4         [N]"
-    set_force::MVector{4, MyFloat} = 0
+    set_force::MVector{4, MyFloat} = [0.0, 0.0, 0.0, 0.0]
     "roll angle [rad]"
     roll::MyFloat = 0
     "pitch angle [rad]"
