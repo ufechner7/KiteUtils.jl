@@ -20,7 +20,7 @@ function log!(logger::Logger, state::SysState)
     logger.fig_8_vec[i] = state.fig_8
     logger.e_mech_vec[i] = state.e_mech
     logger.orient_vec[i] .= state.orient
-    logger.turn_rates_vec[i] = state.turn_rates
+    logger.turn_rates_vec[i] .= state.turn_rates
     logger.elevation_vec[i] = state.elevation
     logger.azimuth_vec[i] = state.azimuth
     logger.l_tether_vec[i] = state.l_tether
@@ -45,9 +45,9 @@ function log!(logger::Logger, state::SysState)
     logger.alpha4_vec[i] = state.alpha4
     logger.CL2_vec[i] = state.CL2
     logger.CD2_vec[i] = state.CD2
-    logger.aero_force_b_vec[i] = state.aero_force_b
-    logger.aero_moment_b_vec[i] = state.aero_moment_b
-    logger.twist_angles_vec[i] = state.twist_angles
+    logger.aero_force_b_vec[i] .= state.aero_force_b
+    logger.aero_moment_b_vec[i] .= state.aero_moment_b
+    logger.twist_angles_vec[i] .= state.twist_angles
     logger.vel_kite_vec[i] .= state.vel_kite
     logger.acc_vec[i] = state.acc
     logger.X_vec[i] .= state.X
