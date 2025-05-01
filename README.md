@@ -9,7 +9,7 @@
 Utilities for simulating kite power systems.
 
 This package is the foundation of Julia Kite Power Tools, which consist of the following packages:
-<p align="center"><img src="https://raw.githubusercontent.com/ufechner7/KiteUtils.jl/main/docs/src/kite_power_tools.png" width="500" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/ufechner7/KiteUtils.jl/refs/heads/main/docs/src/kite_power_tools.png" width="500" /></p> 
 
 ## What to install
 If you want to run simulations and see the results in 3D, please install the meta package  [KiteSimulators](https://github.com/aenarete/KiteSimulators.jl) . If you have already KiteSimulators installed, use `using KiteSimulators` instead of `using KiteUtils`.

@@ -1,10 +1,15 @@
 # Changelog
+### KiteUtils v0.10.3
+#### Fixed
+- logging of the position vectors (actually, any vectors) should work again
+
 ### KiteUtils v0.10.2
 #### Added
 - the section kps5 with the fields c_spring_kite, damping_kite_spring, rel_mass_p2, rel_mass_p3 and rel_mass_p4
 #### Fixed
 - if one of the extra sections was missing, not all other extra sections were updated
 - close #79, logging of vectors
+
 ### KiteUtils v0.10.1
 #### Added
 - add the field `quasi_static` to the settings struct
