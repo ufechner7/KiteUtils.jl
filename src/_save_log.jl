@@ -80,6 +80,7 @@ function save_log(logger::Logger, name="sim_log", compress=true;
     resize!(logger.CD2_vec, nl)
     resize!(logger.aero_force_b_vec, nl)
     resize!(logger.aero_moment_b_vec, nl)
+    resize!(logger.twist_angles_vec, nl)
     resize!(logger.vel_kite_vec, nl)
     resize!(logger.acc_vec, nl)
     resize!(logger.X_vec, nl)

@@ -47,6 +47,7 @@ function log!(logger::Logger, state::SysState)
     logger.CD2_vec[i] = state.CD2
     logger.aero_force_b_vec[i] = state.aero_force_b
     logger.aero_moment_b_vec[i] = state.aero_moment_b
+    logger.twist_angles_vec[i] = state.twist_angles
     logger.vel_kite_vec[i] = copy(state.vel_kite)
     logger.acc_vec[i] = state.acc
     logger.X_vec[i] = copy(state.X)
