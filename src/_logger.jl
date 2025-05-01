@@ -25,7 +25,7 @@ $(TYPEDFIELDS)
     fig_8_vec::Vector{Int16} = zeros(Int16, Q)
     e_mech_vec::Vector{Float64} = zeros(Float64, Q)
     orient_vec::Vector{MVector{4, Float32}} = zeros(MVector{4, Float32}, Q)
-    turn_rates_vec::Vector{MVector{3, Float32}} = zeros(MVector{3, Float32}, Q)
+    turn_rates_vec::Vector{MVector{3, MyFloat}} = [zero(MVector{3, MyFloat}) for _ in 1:Q]
     elevation_vec::Vector{MyFloat} = zeros(MyFloat, Q)
     azimuth_vec::Vector{MyFloat} = zeros(MyFloat, Q)
     l_tether_vec::Vector{MVector{4, MyFloat}} = [zero(MVector{4, MyFloat}) for _ in 1:Q]

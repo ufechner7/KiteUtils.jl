@@ -26,7 +26,7 @@ Base.@kwdef mutable struct SysState{P}
     "orientation of the kite (quaternion, order w,x,y,z)"
     orient::MVector{4, Float32} = [1.0, 0.0, 0.0, 0.0]
     "turn rates around the body fixed x, y and z axis [rad/s]"
-    turn_rates::MVector{3, Float32} = 0
+    turn_rates::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "elevation angle [rad]"
     elevation::MyFloat = 0
     "azimuth angle in wind reference frame [rad]"
