@@ -373,7 +373,7 @@ The tuple  Ixx, Ixy, Ixz, Iyy, Iyz, Izz where:
 - Ixz: rotational inertia around the xz-plane.
 - Iyy: rotational inertia around the y-axis.
 - Iyz: rotational inertia around the yz-plane.
-- Izz: rotational inertia around the z-axis.
+- Izz: rotational inertia around the z-axis. 
 
 """
 function calculate_rotational_inertia(X::Vector, Y::Vector, Z::Vector, M::Vector, around_center_of_mass::Bool=true, 
