@@ -53,6 +53,7 @@ function save_log(logger::Logger, name="sim_log", compress=true;
     resize!(logger.fig_8_vec, nl)
     resize!(logger.e_mech_vec, nl)
     resize!(logger.orient_vec, nl)
+    resize!(logger.turn_rates_vec, nl)
     resize!(logger.elevation_vec, nl)
     resize!(logger.azimuth_vec, nl)
     resize!(logger.l_tether_vec, nl)

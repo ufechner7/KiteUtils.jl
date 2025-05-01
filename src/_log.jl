@@ -20,6 +20,7 @@ function log!(logger::Logger, state::SysState)
     logger.fig_8_vec[i] = state.fig_8
     logger.e_mech_vec[i] = state.e_mech
     logger.orient_vec[i] = copy(state.orient)
+    logger.turn_rates_vec[i] = state.turn_rates
     logger.elevation_vec[i] = state.elevation
     logger.azimuth_vec[i] = state.azimuth
     logger.l_tether_vec[i] = state.l_tether
