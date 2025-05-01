@@ -75,6 +75,10 @@ Base.@kwdef mutable struct SysState{P}
     CL2::MyFloat = 0
     "drag coefficient"
     CD2::MyFloat = 0
+    "aerodynamic force in KB reference frame [N]"
+    aero_force_b::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
+    "aerodynamic moment in KB reference frame [Nm]"
+    aero_moment_b::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "velocity vector of the kite [m/s]"
     vel_kite::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "acceleration [m/s²]"

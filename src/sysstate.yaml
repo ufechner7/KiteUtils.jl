@@ -31,6 +31,8 @@ sysstate:
     alpha4: "MyFloat"                   # angle of attack at particle D [rad]
     CL2: "MyFloat"                      # lift coefficient
     CD2: "MyFloat"                      # drag coefficient
+    aero_force_b: "MVector{3, MyFloat}" # aerodynamic force in KB reference frame [N]
+    aero_moment_b: "MVector{3, MyFloat}" # aerodynamic moment in KB reference frame [Nm]
     vel_kite: "MVector{3, MyFloat}"     # velocity vector of the kite [m/s]
     acc: "MyFloat"                      # acceleration [m/s²]
     X: "MVector{P, MyFloat}"            # vector of particle positions in x [m]
