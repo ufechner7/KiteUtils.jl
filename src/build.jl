@@ -43,6 +43,8 @@ open(outputfile,"w") do io
         default = "= 0"
         if sysstate[key] == "MVector{4, Float32}"
             default = "= [1.0, 0.0, 0.0, 0.0]"
+        elseif sysstate[key] == "MVector{4, MyFloat}"
+            default = "= [0.0, 0.0, 0.0, 0.0]"
         elseif sysstate[key] == "MVector{3, MyFloat}"
             default = "= [0.0, 0.0, 0.0]"
         elseif sysstate[key] == "MVector{2, MyFloat}"
@@ -129,6 +131,8 @@ open(outputfile4,"w") do io
             println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = [zero(MVector{2, MyFloat}) for _ in 1:Q]")
         elseif sysstate[key] == "MVector{3, MyFloat}"
             println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = [zero(MVector{3, MyFloat}) for _ in 1:Q]")
+        elseif sysstate[key] == "MVector{4, MyFloat}"
+            println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = [zero(MVector{4, MyFloat}) for _ in 1:Q]")
         elseif sysstate[key] == "MVector{P, MyFloat}"
             println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = [zero(MVector{P, MyFloat}) for _ in 1:Q]")
         else
@@ -154,7 +158,7 @@ open(outputfile5,"w") do io
     print(io, COMMENT)
     print(io, HEADER)
     for key in keys(sysstate)
-        if key in ["orient", "attractor", "v_wind_gnd", "v_wind_200m", "v_wind_kite", "vel_kite", "X", "Y", "Z"]
+        if key in ["orient", "turn_rates", "aero_force_b", "aero_moment_b", "twist_angles", "attractor", "v_wind_gnd", "v_wind_200m", "v_wind_kite", "vel_kite", "X", "Y", "Z"]
             println(io, "    logger." * key * "_vec[i] .= state." * key)
         else
             println(io, "    logger." * key * "_vec[i] = state." * key)

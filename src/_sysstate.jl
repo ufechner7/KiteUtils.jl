@@ -25,16 +25,18 @@ Base.@kwdef mutable struct SysState{P}
     e_mech::Float64 = 0
     "orientation of the kite (quaternion, order w,x,y,z)"
     orient::MVector{4, Float32} = [1.0, 0.0, 0.0, 0.0]
+    "turn rates around the body fixed x, y and z axis [rad/s]"
+    turn_rates::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "elevation angle [rad]"
     elevation::MyFloat = 0
     "azimuth angle in wind reference frame [rad]"
     azimuth::MyFloat = 0
-    "tether length [m]"
-    l_tether::MyFloat = 0
-    "reelout speed [m/s]"
-    v_reelout::MyFloat = 0
-    "tether force [N]"
-    force::MyFloat = 0
+    "tether length, tether 1 to 4 [m]"
+    l_tether::MVector{4, MyFloat} = [0.0, 0.0, 0.0, 0.0]
+    "reelout speed, tether 1 to 4 [m/s]"
+    v_reelout::MVector{4, MyFloat} = [0.0, 0.0, 0.0, 0.0]
+    "tether force, tether 1 to 4 [N]"
+    force::MVector{4, MyFloat} = [0.0, 0.0, 0.0, 0.0]
     "depower settings [0..1]"
     depower::MyFloat = 0
     "actual steering [-1..1]"
@@ -63,6 +65,8 @@ Base.@kwdef mutable struct SysState{P}
     v_wind_kite::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "angle of attack [rad]"
     AoA::MyFloat = 0
+    "side slip angle [rad]"
+    side_slip::MyFloat = 0
     "angle of attack at particle C [rad]"
     alpha3::MyFloat = 0
     "angle of attack at particle D [rad]"
@@ -71,6 +75,12 @@ Base.@kwdef mutable struct SysState{P}
     CL2::MyFloat = 0
     "drag coefficient"
     CD2::MyFloat = 0
+    "aerodynamic force in KB reference frame [N]"
+    aero_force_b::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
+    "aerodynamic moment in KB reference frame [Nm]"
+    aero_moment_b::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
+    "twist angles for the 4 segment groups [rad]"
+    twist_angles::MVector{4, MyFloat} = [0.0, 0.0, 0.0, 0.0]
     "velocity vector of the kite [m/s]"
     vel_kite::MVector{3, MyFloat} = [0.0, 0.0, 0.0]
     "acceleration [m/s²]"
@@ -81,12 +91,12 @@ Base.@kwdef mutable struct SysState{P}
     Y::MVector{P, MyFloat} = zeros(P)
     "vector of particle positions in z [m]"
     Z::MVector{P, MyFloat} = zeros(P)
-    "torque setting [Nm]"
-    set_torque::MyFloat = 0
-    "speed setting [m/s]"
-    set_speed::MyFloat = 0
-    "force setting [N]"
-    set_force::MyFloat = 0
+    "torque setting, winch 1..4       [Nm]"
+    set_torque::MVector{4, MyFloat} = [0.0, 0.0, 0.0, 0.0]
+    "speed setting, winch 1..4       [m/s]"
+    set_speed::MVector{4, MyFloat} = [0.0, 0.0, 0.0, 0.0]
+    "force setting, winch 1..4         [N]"
+    set_force::MVector{4, MyFloat} = [0.0, 0.0, 0.0, 0.0]
     "roll angle [rad]"
     roll::MyFloat = 0
     "pitch angle [rad]"

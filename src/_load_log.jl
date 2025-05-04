@@ -41,11 +41,12 @@ function load_log(filename::String; path="")
     )
     # example_metadata = KiteUtils.Arrow.getmetadata(table.var_01)
     syslog = StructArray{SysState{P}}((table.time, table.t_sim, table.sys_state, table.cycle, table.fig_8, 
-                                       table.e_mech, table.orient, table.elevation, table.azimuth, table.l_tether, 
-                                       table.v_reelout, table.force, table.depower, table.steering, table.kcu_steering, 
-                                       table.set_steering, table.heading, table.heading_rate, table.course, table.bearing, 
-                                       table.attractor, table.v_app, table.v_wind_gnd, table.v_wind_200m, table.v_wind_kite, 
-                                       table.AoA, table.alpha3, table.alpha4, table.CL2, table.CD2, 
+                                       table.e_mech, table.orient, table.turn_rates, table.elevation, table.azimuth, 
+                                       table.l_tether, table.v_reelout, table.force, table.depower, table.steering, 
+                                       table.kcu_steering, table.set_steering, table.heading, table.heading_rate, table.course, 
+                                       table.bearing, table.attractor, table.v_app, table.v_wind_gnd, table.v_wind_200m, 
+                                       table.v_wind_kite, table.AoA, table.side_slip, table.alpha3, table.alpha4, 
+                                       table.CL2, table.CD2, table.aero_force_b, table.aero_moment_b, table.twist_angles, 
                                        table.vel_kite, table.acc, table.X, table.Y, table.Z, 
                                        table.set_torque, table.set_speed, table.set_force, table.roll, table.pitch, 
                                        table.yaw, table.var_01, table.var_02, table.var_03, table.var_04, 

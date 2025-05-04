@@ -18,11 +18,12 @@ function demo_syslog(P, name="Test flight"; duration=10)
     fig_8_vec = Vector{Int16}(undef, steps)
     e_mech_vec = Vector{Float64}(undef, steps)
     orient_vec = Vector{MVector{4, Float32}}(undef, steps)
+    turn_rates_vec = Vector{MVector{3, MyFloat}}(undef, steps)
     elevation_vec = Vector{MyFloat}(undef, steps)
     azimuth_vec = Vector{MyFloat}(undef, steps)
-    l_tether_vec = Vector{MyFloat}(undef, steps)
-    v_reelout_vec = Vector{MyFloat}(undef, steps)
-    force_vec = Vector{MyFloat}(undef, steps)
+    l_tether_vec = Vector{MVector{4, MyFloat}}(undef, steps)
+    v_reelout_vec = Vector{MVector{4, MyFloat}}(undef, steps)
+    force_vec = Vector{MVector{4, MyFloat}}(undef, steps)
     depower_vec = Vector{MyFloat}(undef, steps)
     steering_vec = Vector{MyFloat}(undef, steps)
     kcu_steering_vec = Vector{MyFloat}(undef, steps)
@@ -37,18 +38,22 @@ function demo_syslog(P, name="Test flight"; duration=10)
     v_wind_200m_vec = Vector{MVector{3, MyFloat}}(undef, steps)
     v_wind_kite_vec = Vector{MVector{3, MyFloat}}(undef, steps)
     AoA_vec = Vector{MyFloat}(undef, steps)
+    side_slip_vec = Vector{MyFloat}(undef, steps)
     alpha3_vec = Vector{MyFloat}(undef, steps)
     alpha4_vec = Vector{MyFloat}(undef, steps)
     CL2_vec = Vector{MyFloat}(undef, steps)
     CD2_vec = Vector{MyFloat}(undef, steps)
+    aero_force_b_vec = Vector{MVector{3, MyFloat}}(undef, steps)
+    aero_moment_b_vec = Vector{MVector{3, MyFloat}}(undef, steps)
+    twist_angles_vec = Vector{MVector{4, MyFloat}}(undef, steps)
     vel_kite_vec = Vector{MVector{3, MyFloat}}(undef, steps)
     acc_vec = Vector{MyFloat}(undef, steps)
     X_vec = Vector{MVector{P, MyFloat}}(undef, steps)
     Y_vec = Vector{MVector{P, MyFloat}}(undef, steps)
     Z_vec = Vector{MVector{P, MyFloat}}(undef, steps)
-    set_torque_vec = Vector{MyFloat}(undef, steps)
-    set_speed_vec = Vector{MyFloat}(undef, steps)
-    set_force_vec = Vector{MyFloat}(undef, steps)
+    set_torque_vec = Vector{MVector{4, MyFloat}}(undef, steps)
+    set_speed_vec = Vector{MVector{4, MyFloat}}(undef, steps)
+    set_force_vec = Vector{MVector{4, MyFloat}}(undef, steps)
     roll_vec = Vector{MyFloat}(undef, steps)
     pitch_vec = Vector{MyFloat}(undef, steps)
     yaw_vec = Vector{MyFloat}(undef, steps)
@@ -78,6 +83,7 @@ function demo_syslog(P, name="Test flight"; duration=10)
         fig_8_vec[i+1] = state.fig_8
         e_mech_vec[i+1] = state.e_mech
         orient_vec[i+1] = state.orient
+        turn_rates_vec[i+1] = state.turn_rates
         elevation_vec[i+1] = state.elevation
         azimuth_vec[i+1] = state.azimuth
         l_tether_vec[i+1] = state.l_tether
@@ -97,10 +103,14 @@ function demo_syslog(P, name="Test flight"; duration=10)
         v_wind_200m_vec[i+1] = state.v_wind_200m
         v_wind_kite_vec[i+1] = state.v_wind_kite
         AoA_vec[i+1] = state.AoA
+        side_slip_vec[i+1] = state.side_slip
         alpha3_vec[i+1] = state.alpha3
         alpha4_vec[i+1] = state.alpha4
         CL2_vec[i+1] = state.CL2
         CD2_vec[i+1] = state.CD2
+        aero_force_b_vec[i+1] = state.aero_force_b
+        aero_moment_b_vec[i+1] = state.aero_moment_b
+        twist_angles_vec[i+1] = state.twist_angles
         vel_kite_vec[i+1] = state.vel_kite
         acc_vec[i+1] = state.acc
         X_vec[i+1] = state.X
@@ -130,13 +140,14 @@ function demo_syslog(P, name="Test flight"; duration=10)
         var_16_vec[i+1] = state.var_16
     end
     StructArray{SysState{P}}((time_vec, t_sim_vec, sys_state_vec, cycle_vec, fig_8_vec, e_mech_vec, 
-                              orient_vec, elevation_vec, azimuth_vec, l_tether_vec, v_reelout_vec, force_vec, 
-                              depower_vec, steering_vec, kcu_steering_vec, set_steering_vec, heading_vec, heading_rate_vec, 
-                              course_vec, bearing_vec, attractor_vec, v_app_vec, v_wind_gnd_vec, v_wind_200m_vec, 
-                              v_wind_kite_vec, AoA_vec, alpha3_vec, alpha4_vec, CL2_vec, CD2_vec, 
-                              vel_kite_vec, acc_vec, X_vec, Y_vec, Z_vec, set_torque_vec, 
-                              set_speed_vec, set_force_vec, roll_vec, pitch_vec, yaw_vec, var_01_vec, 
-                              var_02_vec, var_03_vec, var_04_vec, var_05_vec, var_06_vec, var_07_vec, 
-                              var_08_vec, var_09_vec, var_10_vec, var_11_vec, var_12_vec, var_13_vec, 
-                              var_14_vec, var_15_vec, var_16_vec))
+                              orient_vec, turn_rates_vec, elevation_vec, azimuth_vec, l_tether_vec, v_reelout_vec, 
+                              force_vec, depower_vec, steering_vec, kcu_steering_vec, set_steering_vec, heading_vec, 
+                              heading_rate_vec, course_vec, bearing_vec, attractor_vec, v_app_vec, v_wind_gnd_vec, 
+                              v_wind_200m_vec, v_wind_kite_vec, AoA_vec, side_slip_vec, alpha3_vec, alpha4_vec, 
+                              CL2_vec, CD2_vec, aero_force_b_vec, aero_moment_b_vec, twist_angles_vec, vel_kite_vec, 
+                              acc_vec, X_vec, Y_vec, Z_vec, set_torque_vec, set_speed_vec, 
+                              set_force_vec, roll_vec, pitch_vec, yaw_vec, var_01_vec, var_02_vec, 
+                              var_03_vec, var_04_vec, var_05_vec, var_06_vec, var_07_vec, var_08_vec, 
+                              var_09_vec, var_10_vec, var_11_vec, var_12_vec, var_13_vec, var_14_vec, 
+                              var_15_vec, var_16_vec))
 end
