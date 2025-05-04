@@ -12,10 +12,10 @@
     @test demo_state_4p(7).t_sim == 0.014
     set_data_path("data")
     filename="transition"
-    # log = import_log(filename)
-    # @test typeof(log) == SysLog{11}
-    # @test log.name == "transition"
-    # @test length(log.syslog) == 8180
+    log = import_log(filename)
+    @test typeof(log) == SysLog{11}
+    @test log.name == "transition"
+    @test length(log.syslog) == 8180
     set_data_path(tempdir())
     log = KiteUtils.test(true)
     @test typeof(log) == SysLog{7}

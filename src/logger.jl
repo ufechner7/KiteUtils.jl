@@ -102,9 +102,9 @@ function import_log(filename)
         ss.orient = orient
         ss.elevation = row.elevation
         ss.azimuth = row.azimuth
-        ss.l_tether = row.l_tether
-        ss.v_reelout = row.v_reelout
-        ss.force = row.force
+        ss.l_tether[1] = row.l_tether
+        ss.v_reelout[1] = row.v_reelout
+        ss.force[1] = row.force
         ss.depower = row.depower
         ss.steering = row.steering
         ss.heading = row.heading
