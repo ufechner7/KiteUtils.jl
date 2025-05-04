@@ -1,4 +1,11 @@
 # Changelog
+
+### KiteUtils v0.10.4 04-05-2025
+#### Changed
+- in the SysState struct, the fields `l_tether`, `v_reelout` and `force` are now vectors to allow logging the state of multiple tethers 
+#### Added
+- added the fields `side_slip`, `aero_force_b`, `aero_moment_b`, `twist_angles` and `turn_rates` to the SysState struct
+
 ### KiteUtils v0.10.3
 #### Fixed
 - logging of the position vectors (actually, any vectors) should work again
