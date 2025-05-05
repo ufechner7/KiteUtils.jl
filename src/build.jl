@@ -158,7 +158,7 @@ open(outputfile5,"w") do io
     print(io, COMMENT)
     print(io, HEADER)
     for key in keys(sysstate)
-        if key in ["orient", "turn_rates", "aero_force_b", "aero_moment_b", "twist_angles", "attractor", "v_wind_gnd", "v_wind_200m", "v_wind_kite", "vel_kite", "X", "Y", "Z"]
+        if startswith(sysstate[key], "MVector")
             println(io, "    logger." * key * "_vec[i] .= state." * key)
         else
             println(io, "    logger." * key * "_vec[i] = state." * key)
