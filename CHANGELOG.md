@@ -1,5 +1,9 @@
 # Changelog
 
+### KiteUtils v0.10.5 05-05-2025
+#### Fixed
+- fixed the log updates of vectors by using dot assignments
+
 ### KiteUtils v0.10.4 04-05-2025
 #### Changed
 - in the SysState struct, the fields `l_tether`, `v_reelout` and `force` are now vectors to allow logging the state of multiple tethers 
