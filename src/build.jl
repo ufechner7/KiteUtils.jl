@@ -133,6 +133,8 @@ open(outputfile4,"w") do io
             println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = [zero(MVector{3, MyFloat}) for _ in 1:Q]")
         elseif sysstate[key] == "MVector{4, MyFloat}"
             println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = [zero(MVector{4, MyFloat}) for _ in 1:Q]")
+        elseif sysstate[key] == "MVector{4, Float32}"
+            println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = [zero(MVector{4, Float32}) for _ in 1:Q]")
         elseif sysstate[key] == "MVector{P, MyFloat}"
             println(io, "    " * key * "_vec::Vector{" * sysstate[key] * "} = [zero(MVector{P, MyFloat}) for _ in 1:Q]")
         else
