@@ -1,5 +1,9 @@
 # Changelog
 
+### KiteUtils v0.10.6 05-13-2025
+#### Fixed
+- fixed the log updates of the orientation by correctly initializing the logger
+
 ### KiteUtils v0.10.5 05-05-2025
 #### Fixed
 - fixed the log updates of vectors by using dot assignments
