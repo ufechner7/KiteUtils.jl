@@ -21,6 +21,6 @@ if false; include("../src/logger.jl"); end
     @test length(logger.time_vec) == 100
     save_log(logger) == joinpath(tempdir(), "sim_log.arrow")
     @test length(logger.time_vec) == 2
-    log = load_log("data/transition.arrow2")
+    log = load_log(joinpath(@__DIR__, "..", "data","transition.arrow2"))
     length(log.syslog.time) == 8180
 end
