@@ -1,6 +1,10 @@
 # Changelog
 
-### KiteUtils v0.10.6 05-13-2025
+### KiteUtils v0.10.7 20-05-2025
+#### Fixed
+- loading of old log files in arrow format with missing columns
+
+### KiteUtils v0.10.6 13-05-2025
 #### Fixed
 - fixed the log updates of the orientation by correctly initializing the logger
 
