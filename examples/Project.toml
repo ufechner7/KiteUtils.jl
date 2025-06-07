@@ -1,0 +1,7 @@
+[deps]
+KiteUtils = "90980105-b163-44e5-ba9f-8b1c83bb0533"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+REPL = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
+
+[sources]
+KiteUtils = {path = ".."}
