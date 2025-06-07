@@ -1,5 +1,4 @@
 using KiteUtils
-if false include("../src/logger.jl") end
 
 set_data_path("data")
 filename="transition"
