@@ -1,6 +1,11 @@
 using KiteUtils, LinearAlgebra
 
-set_data_path("data")
+
+if basename(pwd()) == "examples" 
+    set_data_path("../data")
+else
+    set_data_path("data")
+end
 set = deepcopy(se())
 
 function create_bridle(se)

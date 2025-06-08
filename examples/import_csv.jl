@@ -1,6 +1,10 @@
 using KiteUtils
 
-set_data_path("data")
+if basename(pwd()) == "examples" 
+    set_data_path("../data")
+else
+    set_data_path("data")
+end
 filename="transition"
 
 log = import_log(filename)
