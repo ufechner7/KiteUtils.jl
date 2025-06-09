@@ -1,4 +1,8 @@
 # Changelog
+### KiteUtils v0.10.8 09-06-2025
+#### Added
+- implemented [#82](https://github.com/ufechner7/KiteUtils.jl/issues/82), new fields
+  for Settings in the sections `initial` and `solver`
 
 ### KiteUtils v0.10.7 20-05-2025
 #### Fixed
