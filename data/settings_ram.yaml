@@ -10,17 +10,24 @@ system:
     fixed_font: ""                 # name or filepath+filename of alternative fixed pitch font
 
 initial:
-    l_tether: 50.0        # initial tether length       [m]
-    elevation: 70.8        # initial elevation angle   [deg]
-    v_reel_out: 0.0        # initial reel out speed    [m/s]
+    elevation: 70.8               # initial elevation angle   [deg]
+    elevation_rate: 0.0           # initial elevation rate  [deg/s]
+    azimuth: 0.0                  # initial azimuth angle     [deg]
+    azimuth_rate: 0.0             # initial azimuth rate    [deg/s]
+    heading: 0.0                  # initial heading angle     [deg]
+    heading_rate: 0.0             # initial heading rate    [deg/s]
+    # three values are only needed for RamAirKite, for KPS3 and KPS4 use only the first value
+    l_tethers: [50.0, 50.0, 50.0] # initial tether lengths      [m]
+    v_reel_outs: [0.0, 0.0, 0.0]  # initial reel out speeds   [m/s]
 
 solver:
-    abs_tol: 0.006        # absolute tolerance of the DAE solver [m, m/s]
-    rel_tol: 0.01         # relative tolerance of the DAE solver [-]
+    abs_tol: 0.006         # absolute tolerance of the DAE solver [m, m/s]
+    rel_tol: 0.01          # relative tolerance of the DAE solver [-]
     solver: "DFBDF"        # DAE solver, IDA or DImplicitEuler, DFBDF
     linear_solver: "GMRES" # can be GMRES or Dense or LapackDense (only for IDA)
     max_order: 4           # maximal order, usually between 3 and 5
-    max_iter:  10000         # max number of iterations of the steady-state-solver
+    max_iter:  10000       # max number of iterations of the steady-state-solver
+    relaxation: 0.4        # relaxation factor of Newton solver, need for quasi-steady solver
 
 kite:
     model: "data/ram_air_kite_body.obj"     # 3D model of the kite

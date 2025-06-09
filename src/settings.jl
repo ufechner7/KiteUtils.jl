@@ -56,14 +56,28 @@ $(TYPEDFIELDS)
     "name or filepath+filename of alternative fixed pitch font"
     fixed_font::String    = ""
     
-    "initial tether length       [m]"
-    l_tether              = 0
     "initial elevation angle                [deg]"
     elevation             = 0
-    "initial reel out speed    [m/s]"
-    v_reel_out            = 0
-    "initial depower settings    [%]"
+    "initial elevation rate               [deg/s]"
+    elevation_rate        = 0
+    "initial azimuth angle                  [deg]"
+    azimuth             = 0
+    "initial azimuth rate                 [deg/s]"
+    azimuth_rate        = 0    
+    "initial heading angle                  [deg]"
+    heading = 0
+    "initial heading rate                 [deg/s]"
+    heading_rate = 0
+    "initial tether lengths                   [m]"
+    l_tethers::MVec3          = [0, 0, 0]
+    "initial reel out speeds                [m/s]"
+    v_reel_outs::MVec3        = [0, 0, 0]
+    "initial depower settings                 [%]"
     depower               = 0
+
+    # # three values are only needed for RamAirKite, for KPS3 and KPS4 use only the first value
+    # l_tethers: [50.0, 50.0, 50.0] # initial tether lengths      [m]
+    # v_reel_outs: [0.0, 0.0, 0.0]  # initial reel out speeds   [m/s]
 
     "absolute tolerance of the DAE solver [m, m/s]"
     abs_tol               = 0.0
@@ -77,6 +91,8 @@ $(TYPEDFIELDS)
     max_order::Int64      = 4
     "max number of iterations of the steady-state-solver"
     max_iter::Int64       = 1
+    "relaxation factor for Newton solver for quasy-steady tether model"
+    relaxation = 0
 
     "steering offset   -0.0032           [-]"
     c0                    = 0
@@ -279,6 +295,15 @@ $(TYPEDFIELDS)
     height_step           = 0 
     "grid resolution in x and y direction                                           [m]"
     grid_step             = 0
+end
+function Base.getproperty(set::Settings, sym::Symbol)
+    if sym == :l_tether
+        (getproperty(set, :l_tethers))[1]
+    elseif sym == :v_reel_out
+        (getproperty(set, :v_reel_outs))[1]
+    else
+        getfield(set, sym)
+    end
 end
 StructTypes.StructType(::Type{Settings}) = StructTypes.Mutable()
 const SETTINGS = Settings()
