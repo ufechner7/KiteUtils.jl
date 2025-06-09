@@ -16,6 +16,7 @@ makedocs(;
     sitename="KiteUtils.jl",
     checkdocs=:none,
     format=Documenter.HTML(;
+      repolink = "https://github.com/ufechner7/KiteUtils.jl",
         prettyurls=get(ENV, "CI", "false") == "true",
         canonical="https://ufechner7.github.io/KiteUtils.jl",
         assets=String[],
