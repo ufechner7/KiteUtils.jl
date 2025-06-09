@@ -11,6 +11,11 @@ cd("..")
     @test se().sim_time == 409.0
     @test se().log_level == 2
     @test se().kcu_model == "KCU1"
+    @test se().relaxation == 0.4
+    @test se().elevation_rate == 0.0
+    @test se().azimuth_rate == 0.0
+    @test se().l_tether == 50.0
+    @test se().v_reel_out == 0.0
     @test se("system2.yaml").cs_4p == 1.1
     @test length(se().alpha_cl) == 12
     set_data_path(tempdir())
