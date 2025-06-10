@@ -177,7 +177,7 @@ y         [m]:            0.0
 z         [m]:            0.0
 ...
 ```
-You can acces the elements using the dot notation, for example an array of the values for the height:
+You can access the elements using the dot notation, for example an array of the values for the height:
 ```
 julia> log.z
 201-element Vector{Float32}:
