@@ -21,6 +21,12 @@ cd("..")
     @test set.v_reel_out == 0.0
     set.v_reel_out = 1.0
     @test set.v_reel_out == 1.0
+    @test set.elevation == 70.8
+    set.elevation = 0.0
+    @test set.elevation == 0.0
+    @test set.azimuth == 0.0
+    set.azimuth = 1.0
+    @test set.azimuth == 1.0
     @test se("system2.yaml").cs_4p == 1.1
     @test length(se().alpha_cl) == 12
     set_data_path(tempdir())
