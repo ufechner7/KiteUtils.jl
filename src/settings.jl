@@ -311,7 +311,11 @@ function Base.setproperty!(set::Settings, sym::Symbol, val)
     elseif sym == :v_reel_out
         (getproperty(set, :v_reel_outs))[1] = val
     else
-        setfield!(set, sym, val)
+        if val isa Int && (getproperty(set, sym)) isa Float64
+            setfield!(set, sym, Float64(val))
+        else
+            setfield!(set, sym, val)
+        end
     end
 end
 
