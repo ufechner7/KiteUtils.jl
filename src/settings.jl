@@ -57,21 +57,21 @@ $(TYPEDFIELDS)
     fixed_font::String    = ""
     
     "initial elevation angle                [deg]"
-    elevations::Vector      = [70]
+    elevations::Vector{Float64}      = [70]
     "initial elevation rate               [deg/s]"
-    elevation_rates::Vector = [0]
+    elevation_rates::Vector{Float64} = [0]
     "initial azimuth angle                  [deg]"
-    azimuths::Vector        = [0]
+    azimuths::Vector{Float64}        = [0]
     "initial azimuth rate                 [deg/s]"
-    azimuth_rates::Vector   = [0] 
+    azimuth_rates::Vector{Float64}   = [0] 
     "initial heading angle                  [deg]"
-    headings::Vector        = [0]
+    headings::Vector{Float64}        = [0]
     "initial heading rate                 [deg/s]"
-    heading_rates::Vector   = [0]
+    heading_rates::Vector{Float64}   = [0]
     "initial tether lengths                   [m]"
-    l_tethers::Vector       = [0]
+    l_tethers::Vector{Float64}       = [0]
     "initial reel out speeds                [m/s]"
-    v_reel_outs::Vector     = [0]
+    v_reel_outs::Vector{Float64}     = [0]
     "initial depower settings                 [%]"
     depower               = 0
 
