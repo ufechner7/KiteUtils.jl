@@ -1,4 +1,8 @@
 # Changelog
+### KiteUtils v0.10.9 10-06-2025
+#### Fixed
+- assigning values to `set.l_tether` and `set.v_reel_out` is working again
+
 ### KiteUtils v0.10.8 09-06-2025
 #### Added
 - implemented [#82](https://github.com/ufechner7/KiteUtils.jl/issues/82), new fields

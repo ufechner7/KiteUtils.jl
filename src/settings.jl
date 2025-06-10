@@ -305,6 +305,16 @@ function Base.getproperty(set::Settings, sym::Symbol)
         getfield(set, sym)
     end
 end
+function Base.setproperty!(set::Settings, sym::Symbol, val)
+    if sym == :l_tether
+        (getproperty(set, :l_tethers))[1] = val
+    elseif sym == :v_reel_out
+        (getproperty(set, :v_reel_outs))[1] = val
+    else
+        setfield!(set, sym, val)
+    end
+end
+
 StructTypes.StructType(::Type{Settings}) = StructTypes.Mutable()
 const SETTINGS = Settings()
 PROJECT::String = "system.yaml"
