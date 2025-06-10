@@ -322,6 +322,18 @@ function Base.setproperty!(set::Settings, sym::Symbol, val)
         (getproperty(set, :l_tethers))[1] = val
     elseif sym == :v_reel_out
         (getproperty(set, :v_reel_outs))[1] = val
+    elseif sym == :elevation
+        (getproperty(set, :elevations))[1] = val
+    elseif sym == :elevation_rate
+        (getproperty(set, :elevation_rates))[1] = val
+    elseif sym == :azimuth
+        (getproperty(set, :azimuths))[1] = val
+    elseif sym == :azimuth_rate
+        (getproperty(set, :azimuth_rates))[1] = val
+    elseif sym == :heading
+        (getproperty(set, :headings))[1] = val
+    elseif sym == :heading_rate
+        (getproperty(set, :heading_rates))[1] = val
     else
         if val isa Int && (getproperty(set, sym)) isa Float64
             setfield!(set, sym, Float64(val))
