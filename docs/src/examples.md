@@ -28,34 +28,35 @@ using KiteUtils
 const set = se()
 ```
 ```julia
-KiteUtils.Settings
-  project: String "settings.yaml"
+Settings
+  sim_settings: String "settings.yaml"
   log_file: String "data/log_8700W_8ms"
-  model: String "data/kite.obj"
+  log_level: Float64 2.0
+  time_lapse: Float64 1.0
+  sim_time: Float64 409.0
   segments: Int64 6
   sample_freq: Int64 20
-  time_lapse: Float64 1.0
   zoom: Float64 0.03
+  kite_scale: Float64 3.0
   fixed_font: String ""
-  v_reel_out: Float64 0.0
-  c0: Float64 0.0
-  c_s: Float64 2.59
-  c2_cor: Float64 0.93
-  k_ds: Float64 1.5
-  area: Float64 10.18
-  mass: Float64 6.2
-  height_k: Float64 2.23
-  alpha_cl: Array{Float64}((12,)) [-180.0, -160.0, -90.0, -20.0, -10.0, -5.0, 0.0, 20.0, 40.0, 90.0, 160.0, 180.0]
-  cl_list: Array{Float64}((12,)) [0.0, 0.5, 0.0, 0.08, 0.125, 0.15, 0.2, 1.0, 1.0, 0.0, -0.5, 0.0]
-  alpha_cd: Array{Float64}((11,)) [-180.0, -170.0, -140.0, -90.0, -20.0, 0.0, 20.0, 90.0, 140.0, 170.0, 180.0]
-  cd_list: Array{Float64}((11,)) [0.5, 0.5, 0.5, 1.0, 0.2, 0.1, 0.2, 1.0, 0.5, 0.5, 0.5]
+  elevations: Array{Float64}((1,)) [70.8]
+  elevation_rates: Array{Float64}((1,)) [0.0]
+  azimuths: Array{Float64}((1,)) [0.0]
+  azimuth_rates: Array{Float64}((1,)) [0.0]
+  headings: Array{Float64}((1,)) [0.0]
+  heading_rates: Array{Float64}((1,)) [0.0]
+  l_tethers: Array{Float64}((3,)) [50.0, 0.0, 0.0]
+  v_reel_outs: Array{Float64}((3,)) [0.0, 0.0, 0.0]
+  depower: Float64 0.0
+  abs_tol: Float64 0.0006
   ...
-  l_bridle: Float64 33.4
-  l_tether: Float64 392.0
-  damping: Float64 473.0
-  c_spring: Float64 614600.0
-  elevation: Float64 70.7
-  sim_time: Float64 100.0
+  v_wind_gnds: Array{Float64}((3,)) [3.483, 5.324, 8.163]
+  avg_height: Float64 200.0
+  rel_turbs: Array{Float64}((3,)) [0.342, 0.465, 0.583]
+  i_ref: Float64 0.14
+  v_ref: Float64 42.9
+  height_step: Float64 2.0
+  grid_step: Float64 2.0
 ```
 
 You can see the available setting parameters by typing

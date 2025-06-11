@@ -21,6 +21,30 @@ cd("..")
     @test set.v_reel_out == 0.0
     set.v_reel_out = 1.0
     @test set.v_reel_out == 1.0
+    @test set.elevation == 70.8
+    set.elevation = 0.0
+    @test set.elevation == 0.0
+    @test set.elevation_rate == 0.0
+    set.elevation_rate = 1.0
+    @test set.elevation_rate == 1.0
+    @test set.azimuth == 0.0
+    set.azimuth = 1.0
+    @test set.azimuth == 1.0
+    @test set.azimuth_rate == 0.0
+    set.azimuth_rate = 1.0
+    @test set.azimuth_rate == 1.0
+    @test set.heading == 0.0
+    set.heading = 1.0
+    @test set.heading == 1.0
+    @test set.heading_rate == 0.0
+    set.heading_rate = 1.0
+    @test set.heading_rate == 1.0
+    @test set.depower == 0.0
+    set.depower = 1.0
+    @test set.depower == 1.0
+    @test set.steering == 0.0
+    set.steering = 1.0
+    @test set.steering == 1.0
     @test se("system2.yaml").cs_4p == 1.1
     @test length(se().alpha_cl) == 12
     set_data_path(tempdir())
