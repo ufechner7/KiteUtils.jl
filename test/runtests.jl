@@ -39,7 +39,7 @@ cd("..")
     @test set.heading_rate == 0.0
     set.heading_rate = 1.0
     @test set.heading_rate == 1.0
-    @test set.depower == 0.0
+    @test set.depower == 25.0
     set.depower = 1.0
     @test set.depower == 1.0
     @test set.steering == 0.0
