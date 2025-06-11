@@ -19,6 +19,8 @@ initial:
     # three values are only needed for RamAirKite, for KPS3 and KPS4 use only the first value
     l_tethers: [50.0, 50.0, 50.0] # initial tether lengths      [m]
     v_reel_outs: [0.0, 0.0, 0.0]  # initial reel out speeds   [m/s]
+    depowers: [0.0]              # initial depower value                 [%]
+    steerings: [0.0]             # initial steering value                [%]
 
 solver:
     abs_tol: 0.006         # absolute tolerance of the DAE solver [m, m/s]

@@ -73,7 +73,9 @@ $(TYPEDFIELDS)
     "initial reel out speeds                [m/s]"
     v_reel_outs::Vector{Float64}     = [0]
     "initial depower settings                 [%]"
-    depower               = 0
+    depowers::Vector{Float64}         = [0]
+    "initial steering settings                [%]"
+    steerings::Vector{Float64}        = [0]
 
     # # three values are only needed for RamAirKite, for KPS3 and KPS4 use only the first value
     # l_tethers: [50.0, 50.0, 50.0] # initial tether lengths      [m]
@@ -313,6 +315,10 @@ function Base.getproperty(set::Settings, sym::Symbol)
         (getproperty(set, :headings))[1]
     elseif sym == :heading_rate
         (getproperty(set, :heading_rates))[1]
+    elseif sym == :depower
+        (getproperty(set, :depowers))[1]
+    elseif sym == :steering
+        (getproperty(set, :steerings))[1]
     else
         getfield(set, sym)
     end
@@ -334,6 +340,10 @@ function Base.setproperty!(set::Settings, sym::Symbol, val)
         (getproperty(set, :headings))[1] = val
     elseif sym == :heading_rate
         (getproperty(set, :heading_rates))[1] = val
+    elseif sym == :depower
+        (getproperty(set, :depowers))[1] = val
+    elseif sym == :steering
+        (getproperty(set, :steerings))[1] = val
     else
         if val isa Int && (getproperty(set, sym)) isa Float64
             setfield!(set, sym, Float64(val))
