@@ -5,34 +5,35 @@ julia --project</code></pre><p>and add KiteUtils to the project:</p><pre><code c
 add KiteUtils
 &lt;BACKSPACE&gt;</code></pre><p>finally, copy the default configuration files to your new project:</p><pre><code class="language-julia hljs">using KiteUtils
 copy_settings()</code></pre><h2 id="Use-of-the-settings"><a class="docs-heading-anchor" href="#Use-of-the-settings">Use of the settings</a><a id="Use-of-the-settings-1"></a><a class="docs-heading-anchor-permalink" href="#Use-of-the-settings" title="Permalink"></a></h2><pre><code class="language-julia hljs">using KiteUtils
-const set = se()</code></pre><pre><code class="language-julia hljs">KiteUtils.Settings
-  project: String &quot;settings.yaml&quot;
+const set = se()</code></pre><pre><code class="language-julia hljs">Settings
+  sim_settings: String &quot;settings.yaml&quot;
   log_file: String &quot;data/log_8700W_8ms&quot;
-  model: String &quot;data/kite.obj&quot;
+  log_level: Float64 2.0
+  time_lapse: Float64 1.0
+  sim_time: Float64 409.0
   segments: Int64 6
   sample_freq: Int64 20
-  time_lapse: Float64 1.0
   zoom: Float64 0.03
+  kite_scale: Float64 3.0
   fixed_font: String &quot;&quot;
-  v_reel_out: Float64 0.0
-  c0: Float64 0.0
-  c_s: Float64 2.59
-  c2_cor: Float64 0.93
-  k_ds: Float64 1.5
-  area: Float64 10.18
-  mass: Float64 6.2
-  height_k: Float64 2.23
-  alpha_cl: Array{Float64}((12,)) [-180.0, -160.0, -90.0, -20.0, -10.0, -5.0, 0.0, 20.0, 40.0, 90.0, 160.0, 180.0]
-  cl_list: Array{Float64}((12,)) [0.0, 0.5, 0.0, 0.08, 0.125, 0.15, 0.2, 1.0, 1.0, 0.0, -0.5, 0.0]
-  alpha_cd: Array{Float64}((11,)) [-180.0, -170.0, -140.0, -90.0, -20.0, 0.0, 20.0, 90.0, 140.0, 170.0, 180.0]
-  cd_list: Array{Float64}((11,)) [0.5, 0.5, 0.5, 1.0, 0.2, 0.1, 0.2, 1.0, 0.5, 0.5, 0.5]
+  elevations: Array{Float64}((1,)) [70.8]
+  elevation_rates: Array{Float64}((1,)) [0.0]
+  azimuths: Array{Float64}((1,)) [0.0]
+  azimuth_rates: Array{Float64}((1,)) [0.0]
+  headings: Array{Float64}((1,)) [0.0]
+  heading_rates: Array{Float64}((1,)) [0.0]
+  l_tethers: Array{Float64}((3,)) [50.0, 0.0, 0.0]
+  v_reel_outs: Array{Float64}((3,)) [0.0, 0.0, 0.0]
+  depower: Float64 0.0
+  abs_tol: Float64 0.0006
   ...
-  l_bridle: Float64 33.4
-  l_tether: Float64 392.0
-  damping: Float64 473.0
-  c_spring: Float64 614600.0
-  elevation: Float64 70.7
-  sim_time: Float64 100.0</code></pre><p>You can see the available setting parameters by typing <code>set.&lt;TAB&gt;&lt;TAB&gt;</code> at the Julia prompt. Defining <code>set</code> as constant improves the performance of the access to the  parameters. You can still change the values of the parameters, only the types are fixed.</p><h2 id="The-system-state,-type-SysState"><a class="docs-heading-anchor" href="#The-system-state,-type-SysState">The system state, type SysState</a><a id="The-system-state,-type-SysState-1"></a><a class="docs-heading-anchor-permalink" href="#The-system-state,-type-SysState" title="Permalink"></a></h2><p>The state of the kitepower system is captured in the struct <a href="../types/#KiteUtils.SysState"><code>SysState</code></a> .</p><pre><code class="language-julia hljs">julia&gt; using KiteUtils
+  v_wind_gnds: Array{Float64}((3,)) [3.483, 5.324, 8.163]
+  avg_height: Float64 200.0
+  rel_turbs: Array{Float64}((3,)) [0.342, 0.465, 0.583]
+  i_ref: Float64 0.14
+  v_ref: Float64 42.9
+  height_step: Float64 2.0
+  grid_step: Float64 2.0</code></pre><p>You can see the available setting parameters by typing <code>set.&lt;TAB&gt;&lt;TAB&gt;</code> at the Julia prompt. Defining <code>set</code> as constant improves the performance of the access to the  parameters. You can still change the values of the parameters, only the types are fixed.</p><h2 id="The-system-state,-type-SysState"><a class="docs-heading-anchor" href="#The-system-state,-type-SysState">The system state, type SysState</a><a id="The-system-state,-type-SysState-1"></a><a class="docs-heading-anchor-permalink" href="#The-system-state,-type-SysState" title="Permalink"></a></h2><p>The state of the kitepower system is captured in the struct <a href="../types/#KiteUtils.SysState"><code>SysState</code></a> .</p><pre><code class="language-julia hljs">julia&gt; using KiteUtils
 
 julia&gt; st = demo_state(7)
 time      [s]:       0.0
@@ -124,4 +125,4 @@ julia&gt; export_log(log)</code></pre><p>Output on Linux:</p><pre><code class="l
 filename=&quot;transition&quot;
 
 log = import_log(filename)
-save_log(log)</code></pre><p>This will import the file <code>transition.csv</code> and save it as <code>transition.arrow</code> file.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../types/">« Exported Types</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.12.0 on <span class="colophon-date" title="Tuesday 10 June 2025 21:15">Tuesday 10 June 2025</span>. Using Julia version 1.11.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+save_log(log)</code></pre><p>This will import the file <code>transition.csv</code> and save it as <code>transition.arrow</code> file.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../types/">« Exported Types</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.12.0 on <span class="colophon-date" title="Wednesday 11 June 2025 14:40">Wednesday 11 June 2025</span>. Using Julia version 1.11.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
