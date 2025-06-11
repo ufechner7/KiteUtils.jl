@@ -1,4 +1,10 @@
 # Changelog
+### KiteUtils v0.10.10 11-06-2025
+#### Changed
+- changed fields to vector where needed for multiple wings
+#### Added
+- added the depower and steering fields
+
 ### KiteUtils v0.10.9 10-06-2025
 #### Fixed
 - assigning values to `set.l_tether` and `set.v_reel_out` is working again
