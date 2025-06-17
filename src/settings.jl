@@ -357,6 +357,8 @@ StructTypes.StructType(::Type{Settings}) = StructTypes.Mutable()
 const SETTINGS = Settings()
 PROJECT::String = "system.yaml"
 
+
+
 """
     set_data_path(data_path="")
 
@@ -477,20 +479,24 @@ The project file must be located in the directory specified by the variable `DAT
 """
 function se(project=PROJECT)
     global SE_DICT, PROJECT
-    if SETTINGS.segments == 0 || basename(project) != PROJECT
+    return se(SETTINGS, SE_DICT, project)
+end
+function se(settings::Settings, se_dict, project=PROJECT)
+    global PROJECT
+    if settings.segments == 0 || basename(project) != PROJECT
         # determine which sim_settings to load
         dict = YAML.load_file(joinpath(DATA_PATH[1], basename(project)))
-        PROJECT = basename(project)
+        global PROJECT = basename(project)
         try
-            SETTINGS.sim_settings = dict["system"]["sim_settings"]
+            settings.sim_settings = dict["system"]["sim_settings"]
         catch
-            SETTINGS.sim_settings = dict["system"]["project"]
+            settings.sim_settings = dict["system"]["project"]
             println("Warning! Key sim_settings not found in $project .")
         end
         # load sim_settings from YAML
-        dict = YAML.load_file(joinpath(DATA_PATH[1], SETTINGS.sim_settings))
-        SE_DICT[1] = dict
-        # update the SETTINGS struct from the dictionary
+        dict = YAML.load_file(joinpath(DATA_PATH[1], settings.sim_settings))
+        se_dict[1] = dict
+        # update the settings struct from the dictionary
         oblig_sections = ["system", "initial", "solver", "kite", "tether", "winch", "environment"]
         update_settings(dict, oblig_sections)
         for section in ["steering", "depower", "kps4", "kps5", "bridle", "kcu"]
@@ -499,13 +505,14 @@ function se(project=PROJECT)
             end
         end
         tmp = split(dict["system"]["log_file"], "/")
-        SETTINGS.log_file    = joinpath(tmp[1], tmp[2])
+        settings.log_file    = joinpath(tmp[1], tmp[2])
         if haskey(dict["kite"], "height")
-            SETTINGS.height_k = dict["kite"]["height"]
+            settings.height_k = dict["kite"]["height"]
         end
     end
-    return SETTINGS
+    return settings
 end
+
 """
     se_dict()
 
