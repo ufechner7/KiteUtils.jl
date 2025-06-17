@@ -34,6 +34,7 @@ Flat struct, defining the settings of the Simulator and the Viewer.
 $(TYPEDFIELDS)
 """
 @with_kw mutable struct Settings @deftype Float64
+    dict::Vector{Dict} = [Dict()]
     "name of the yaml file with the settings"
     sim_settings::String       = ""
 
@@ -352,11 +353,14 @@ function Base.setproperty!(set::Settings, sym::Symbol, val)
         end
     end
 end
+# function Settings(project=PROJECT)
+#     set = Settings()
+#     return se(set, set.se, project)
+# end
 
 StructTypes.StructType(::Type{Settings}) = StructTypes.Mutable()
 const SETTINGS = Settings()
 PROJECT::String = "system.yaml"
-
 
 
 """
@@ -478,8 +482,8 @@ The settings.yaml file to load is determined by the content active PROJECT, whic
 The project file must be located in the directory specified by the variable `DATA_PATH`.
 """
 function se(project=PROJECT)
-    global SE_DICT, PROJECT
-    return se(SETTINGS, SE_DICT, project)
+    global PROJECT
+    return se(SETTINGS, SETTINGS.dict, project)
 end
 function se(settings::Settings, se_dict, project=PROJECT)
     global PROJECT
@@ -523,9 +527,9 @@ Access to the dict is much slower than access to the setting struct, but more fl
 Usage example:
 `z0 = se_dict()["environment"]["z0"]`
 """
-function se_dict()
-    if SETTINGS.segments == 0
-        se()
+function se_dict(set::Settings=SETTINGS)
+    if set.segments == 0
+        se(set, set.dict)
     end
-    SE_DICT[1]
+    set.dict[1]
 end
