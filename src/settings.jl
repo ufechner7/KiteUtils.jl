@@ -353,15 +353,20 @@ function Base.setproperty!(set::Settings, sym::Symbol, val)
         end
     end
 end
-# function Settings(project=PROJECT)
-#     set = Settings()
-#     return se(set, set.se, project)
-# end
 
 StructTypes.StructType(::Type{Settings}) = StructTypes.Mutable()
-const SETTINGS = Settings()
 PROJECT::String = "system.yaml"
 
+"""
+    Settings(project)
+
+Constructor for the [`Settings`](@ref) struct, loading settings from the given project file.
+"""
+function Settings(project)
+    set = Settings()
+    return se(set, project)
+end
+const SETTINGS = Settings()
 
 """
     set_data_path(data_path="")
@@ -446,13 +451,13 @@ function copy_settings(extra_files=[])
     println("Copied $(length(files)) files to $(DATA_PATH[1]) !")
 end
 
-function update_settings(dict, sections)
+function update_settings(dict, sections, settings=SETTINGS)
     result = Dict{Symbol, Any}()
     for section in sections
         sec_dict = Dict(Symbol(k) => v for (k, v) in dict[section])
         merge!(result, sec_dict)
     end
-    StructTypes.constructfrom!(SETTINGS, result)
+    StructTypes.constructfrom!(settings, result)
 end
 
 function wc_settings(project=PROJECT)
@@ -483,14 +488,15 @@ The project file must be located in the directory specified by the variable `DAT
 """
 function se(project=PROJECT)
     global PROJECT
-    return se(SETTINGS, SETTINGS.dict, project)
+    return se(SETTINGS, project)
 end
-function se(settings::Settings, se_dict, project=PROJECT)
+function se(settings::Settings, project=PROJECT)
+    se_dict = settings.dict
     global PROJECT
     if settings.segments == 0 || basename(project) != PROJECT
         # determine which sim_settings to load
         dict = YAML.load_file(joinpath(DATA_PATH[1], basename(project)))
-        global PROJECT = basename(project)
+        PROJECT = basename(project)
         try
             settings.sim_settings = dict["system"]["sim_settings"]
         catch
@@ -502,10 +508,10 @@ function se(settings::Settings, se_dict, project=PROJECT)
         se_dict[1] = dict
         # update the settings struct from the dictionary
         oblig_sections = ["system", "initial", "solver", "kite", "tether", "winch", "environment"]
-        update_settings(dict, oblig_sections)
+        update_settings(dict, oblig_sections, settings)
         for section in ["steering", "depower", "kps4", "kps5", "bridle", "kcu"]
             if section in keys(dict)
-                update_settings(dict, [section])
+                update_settings(dict, [section], settings)
             end
         end
         tmp = split(dict["system"]["log_file"], "/")

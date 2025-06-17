@@ -65,7 +65,6 @@ Type used for position components and scalar SysState members.
 """
 const MyFloat   = Float32           # type to use for position components and scalar SysState members  
 const DATA_PATH = ["data"]          # path for log files and other data
-const SE_DICT   = [Dict()]
 const MVec3     = MVector{3, Float64}
 
 include("settings.jl")
