@@ -490,6 +490,15 @@ function se(project=PROJECT)
     global PROJECT
     return se(SETTINGS, project)
 end
+
+"""
+    se(settings::Settings, project=PROJECT)
+
+Update function for the [`Settings`](@ref) struct.
+
+The settings.yaml file to load is determined by the content active PROJECT, which defaults to `system.yaml`.
+The project file must be located in the directory specified by the variable `DATA_PATH`.
+"""
 function se(settings::Settings, project=PROJECT)
     se_dict = settings.dict
     global PROJECT
