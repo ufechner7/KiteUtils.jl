@@ -386,6 +386,11 @@ function set_data_path(data_path="")
     end
 end
 
+"""
+    get_data_path()
+
+Get the directory for log and config files.
+"""
 function get_data_path()
     return DATA_PATH[1]
 end
