@@ -484,7 +484,7 @@ end
 Getter function for the [`Settings`](@ref) struct.
 
 The settings.yaml file to load is determined by the content active PROJECT, which defaults to `system.yaml`.
-The project file must be located in the directory specified by the variable `DATA_PATH`.
+The project file must be located in the directory specified by the data path [`get_data_path`](@ref).
 """
 function se(project=PROJECT)
     global PROJECT
@@ -497,7 +497,7 @@ end
 Update function for the [`Settings`](@ref) struct.
 
 The settings.yaml file to load is determined by the content active PROJECT, which defaults to `system.yaml`.
-The project file must be located in the directory specified by the variable `DATA_PATH`.
+The project file must be located in the directory specified by the data path [`get_data_path`](@ref).
 """
 function se(settings::Settings, project=PROJECT)
     se_dict = settings.dict
