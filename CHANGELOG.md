@@ -1,5 +1,5 @@
 # Changelog
-### Unreleased
+### KiteUtils v0.10.11 18-06-2025
 #### Added
 - added a Settings(project) constructor [#82](https://github.com/ufechner7/KiteUtils.jl/issues/84)
 
