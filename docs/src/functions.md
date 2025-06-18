@@ -7,6 +7,7 @@ CurrentModule = KiteUtils
 # Reading config files
 ```@docs
 set_data_path
+get_data_path
 load_settings
 update_settings
 copy_settings

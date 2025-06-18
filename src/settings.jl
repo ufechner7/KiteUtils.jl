@@ -34,6 +34,7 @@ Flat struct, defining the settings of the Simulator and the Viewer.
 $(TYPEDFIELDS)
 """
 @with_kw mutable struct Settings @deftype Float64
+    dict::Vector{Dict} = [Dict()]
     "name of the yaml file with the settings"
     sim_settings::String       = ""
 
@@ -354,8 +355,18 @@ function Base.setproperty!(set::Settings, sym::Symbol, val)
 end
 
 StructTypes.StructType(::Type{Settings}) = StructTypes.Mutable()
-const SETTINGS = Settings()
 PROJECT::String = "system.yaml"
+
+"""
+    Settings(project)
+
+Constructor for the [`Settings`](@ref) struct, loading settings from the given project file.
+"""
+function Settings(project)
+    set = Settings()
+    return se(set, project)
+end
+const SETTINGS = Settings()
 
 """
     set_data_path(data_path="")
@@ -375,6 +386,11 @@ function set_data_path(data_path="")
     end
 end
 
+"""
+    get_data_path()
+
+Get the directory for log and config files.
+"""
 function get_data_path()
     return DATA_PATH[1]
 end
@@ -440,13 +456,13 @@ function copy_settings(extra_files=[])
     println("Copied $(length(files)) files to $(DATA_PATH[1]) !")
 end
 
-function update_settings(dict, sections)
+function update_settings(dict, sections, settings=SETTINGS)
     result = Dict{Symbol, Any}()
     for section in sections
         sec_dict = Dict(Symbol(k) => v for (k, v) in dict[section])
         merge!(result, sec_dict)
     end
-    StructTypes.constructfrom!(SETTINGS, result)
+    StructTypes.constructfrom!(settings, result)
 end
 
 function wc_settings(project=PROJECT)
@@ -473,39 +489,54 @@ end
 Getter function for the [`Settings`](@ref) struct.
 
 The settings.yaml file to load is determined by the content active PROJECT, which defaults to `system.yaml`.
-The project file must be located in the directory specified by the variable `DATA_PATH`.
+The project file must be located in the directory specified by the data path [`get_data_path`](@ref).
 """
 function se(project=PROJECT)
-    global SE_DICT, PROJECT
-    if SETTINGS.segments == 0 || basename(project) != PROJECT
+    global PROJECT
+    return se(SETTINGS, project)
+end
+
+"""
+    se(settings::Settings, project=PROJECT)
+
+Update function for the [`Settings`](@ref) struct.
+
+The settings.yaml file to load is determined by the content active PROJECT, which defaults to `system.yaml`.
+The project file must be located in the directory specified by the data path [`get_data_path`](@ref).
+"""
+function se(settings::Settings, project=PROJECT)
+    se_dict = settings.dict
+    global PROJECT
+    if settings.segments == 0 || basename(project) != PROJECT
         # determine which sim_settings to load
         dict = YAML.load_file(joinpath(DATA_PATH[1], basename(project)))
         PROJECT = basename(project)
         try
-            SETTINGS.sim_settings = dict["system"]["sim_settings"]
+            settings.sim_settings = dict["system"]["sim_settings"]
         catch
-            SETTINGS.sim_settings = dict["system"]["project"]
+            settings.sim_settings = dict["system"]["project"]
             println("Warning! Key sim_settings not found in $project .")
         end
         # load sim_settings from YAML
-        dict = YAML.load_file(joinpath(DATA_PATH[1], SETTINGS.sim_settings))
-        SE_DICT[1] = dict
-        # update the SETTINGS struct from the dictionary
+        dict = YAML.load_file(joinpath(DATA_PATH[1], settings.sim_settings))
+        se_dict[1] = dict
+        # update the settings struct from the dictionary
         oblig_sections = ["system", "initial", "solver", "kite", "tether", "winch", "environment"]
-        update_settings(dict, oblig_sections)
+        update_settings(dict, oblig_sections, settings)
         for section in ["steering", "depower", "kps4", "kps5", "bridle", "kcu"]
             if section in keys(dict)
-                update_settings(dict, [section])
+                update_settings(dict, [section], settings)
             end
         end
         tmp = split(dict["system"]["log_file"], "/")
-        SETTINGS.log_file    = joinpath(tmp[1], tmp[2])
+        settings.log_file    = joinpath(tmp[1], tmp[2])
         if haskey(dict["kite"], "height")
-            SETTINGS.height_k = dict["kite"]["height"]
+            settings.height_k = dict["kite"]["height"]
         end
     end
-    return SETTINGS
+    return settings
 end
+
 """
     se_dict()
 
@@ -516,9 +547,9 @@ Access to the dict is much slower than access to the setting struct, but more fl
 Usage example:
 `z0 = se_dict()["environment"]["z0"]`
 """
-function se_dict()
-    if SETTINGS.segments == 0
-        se()
+function se_dict(set::Settings=SETTINGS)
+    if set.segments == 0
+        se(set, set.dict)
     end
-    SE_DICT[1]
+    set.dict[1]
 end

@@ -1,4 +1,8 @@
 # Changelog
+### Unreleased
+#### Added
+- added a Settings(project) constructor [#82](https://github.com/ufechner7/KiteUtils.jl/issues/84)
+
 ### KiteUtils v0.10.10 11-06-2025
 #### Changed
 - changed fields to vector where needed for multiple wings
