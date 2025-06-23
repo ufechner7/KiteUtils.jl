@@ -1,4 +1,9 @@
 # Changelog
+### KiteUtils v1.10.12 23-06-2025
+#### Added
+- field `kite_distances` (vector) to `Settings` and `settings.yaml`, section `initial`
+- the first element of this vector can be accessed under the name `kite_distance`
+
 ### KiteUtils v0.10.11 18-06-2025
 #### Added
 - added a Settings(project) constructor [#82](https://github.com/ufechner7/KiteUtils.jl/issues/84)
