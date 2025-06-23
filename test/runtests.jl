@@ -16,8 +16,11 @@ cd("..")
     @test se().azimuth_rate == 0.0
     set = deepcopy(se())
     @test set.l_tether == 50.0
+    @test set.kite_distance == 51.0
     set.l_tether = 51.0
     @test set.l_tether == 51
+    set.kite_distance = 52.0
+    @test set.kite_distance == 52.0
     @test set.v_reel_out == 0.0
     set.v_reel_out = 1.0
     @test set.v_reel_out == 1.0

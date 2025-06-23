@@ -71,6 +71,8 @@ $(TYPEDFIELDS)
     heading_rates::Vector{Float64}   = [0]
     "initial tether lengths                   [m]"
     l_tethers::Vector{Float64}       = [0]
+    "initial kite distances                   [m]"
+    kite_distances::Vector{Float64}  = [0]
     "initial reel out speeds                [m/s]"
     v_reel_outs::Vector{Float64}     = [0]
     "initial depower settings                 [%]"
@@ -302,6 +304,8 @@ end
 function Base.getproperty(set::Settings, sym::Symbol)
     if sym == :l_tether
         (getproperty(set, :l_tethers))[1]
+    elseif sym == :kite_distance
+        (getproperty(set, :kite_distances))[1]
     elseif sym == :v_reel_out
         (getproperty(set, :v_reel_outs))[1]
     elseif sym == :elevation
@@ -327,6 +331,8 @@ end
 function Base.setproperty!(set::Settings, sym::Symbol, val)
     if sym == :l_tether
         (getproperty(set, :l_tethers))[1] = val
+    elseif sym == :kite_distance
+        (getproperty(set, :kite_distances))[1] = val
     elseif sym == :v_reel_out
         (getproperty(set, :v_reel_outs))[1] = val
     elseif sym == :elevation
