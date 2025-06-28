@@ -1,11 +1,11 @@
 # Changelog
 
-### KiteUtils v1.10.13 28-06-2025
+### KiteUtils v0.10.13 28-06-2025
 ### Added
 - field `g_earth` to `Settings` and `settings_ram.yaml`
 - abstract type `AbstractKiteModel`
 
-### KiteUtils v1.10.12 23-06-2025
+### KiteUtils v0.10.12 23-06-2025
 #### Added
 - field `kite_distances` (vector) to `Settings` and `settings.yaml`, section `initial`
 - the first element of this vector can be accessed under the name `kite_distance`
