@@ -300,6 +300,8 @@ $(TYPEDFIELDS)
     height_step           = 0 
     "grid resolution in x and y direction                                           [m]"
     grid_step             = 0
+    "gravitational acceleration"
+    g_earth               = 0
 end
 function Base.getproperty(set::Settings, sym::Symbol)
     if sym == :l_tether
