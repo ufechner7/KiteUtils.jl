@@ -57,6 +57,7 @@ export calc_orient_rot, is_right_handed_orthonormal, enu2ned, ned2enu
 export set_data_path, get_data_path, load_settings, copy_settings        # functions for reading and copying parameters
 export se, se_dict, update_settings, wc_settings, fpc_settings, fpp_settings
 export calculate_rotational_inertia
+export AbstractKiteModel
 
 """
     const MyFloat = Float32
@@ -66,6 +67,14 @@ Type used for position components and scalar SysState members.
 const MyFloat   = Float32           # type to use for position components and scalar SysState members  
 const DATA_PATH = ["data"]          # path for log files and other data
 const MVec3     = MVector{3, Float64}
+
+"""
+    abstract type AbstractKiteModel
+
+All kite models must inherit from this type. All methods that are defined on this type must work
+with all kite models, or a specific method has to be defined for the specific kite model. 
+"""
+abstract type AbstractKiteModel end
 
 include("settings.jl")
 include("yaml_utils.jl")
