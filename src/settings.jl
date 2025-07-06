@@ -529,9 +529,9 @@ function se(settings::Settings, project=PROJECT)
         dict = YAML.load_file(joinpath(DATA_PATH[1], settings.sim_settings))
         se_dict[1] = dict
         # update the settings struct from the dictionary
-        oblig_sections = ["system", "initial", "solver", "kite", "tether", "winch", "environment"]
+        oblig_sections = ["system", "initial", "solver", "kite", "tether", "environment"]
         update_settings(dict, oblig_sections, settings)
-        for section in ["steering", "depower", "kps4", "kps5", "bridle", "kcu"]
+        for section in ["steering", "depower", "kps4", "kps5", "bridle", "kcu", "winch"]
             if section in keys(dict)
                 update_settings(dict, [section], settings)
             end
