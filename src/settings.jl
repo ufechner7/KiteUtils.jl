@@ -296,6 +296,8 @@ $(TYPEDFIELDS)
     i_ref                 = 0
     "five times the average wind speed in m/s at hub height over the full year    [m/s]"
     v_ref                 = 0
+    "grid size nx, ny, nz and minimal height z_min                                  [m]"
+    grid::Vector{Int64} = []
     "grid resolution in z direction                                                 [m]"
     height_step           = 0 
     "grid resolution in x and y direction                                           [m]"
