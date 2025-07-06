@@ -404,15 +404,19 @@ function get_data_path()
 end
 
 """
-    load_settings(project=PROJECT)
+    load_settings(project=PROJECT; relax=false)
 
 Load the project with the given file name.
 
 The project must include the path and the suffix .yaml .
+
+## Parameters
+- `project`: The name of the project file to load, defaults to the project that was loaded before.
+- `relax`: If true, no section needs to be present in the settings.yaml file.
 """
-function load_settings(project=PROJECT)
+function load_settings(project=PROJECT; relax=false)
     SETTINGS.segments=0
-    se(project)
+    se(project; relax)
 end
 
 """
@@ -492,27 +496,27 @@ function fpp_settings(project=PROJECT)
 end
 
 """
-    se(project=PROJECT)
+    se(project=PROJECT; relax=false)
 
 Getter function for the [`Settings`](@ref) struct.
 
 The settings.yaml file to load is determined by the content active PROJECT, which defaults to `system.yaml`.
 The project file must be located in the directory specified by the data path [`get_data_path`](@ref).
 """
-function se(project=PROJECT)
+function se(project=PROJECT; relax=false)
     global PROJECT
-    return se(SETTINGS, project)
+    return se(SETTINGS, project; relax)
 end
 
 """
-    se(settings::Settings, project=PROJECT)
+    se(settings::Settings, project=PROJECT; relax=false)
 
 Update function for the [`Settings`](@ref) struct.
 
 The settings.yaml file to load is determined by the content active PROJECT, which defaults to `system.yaml`.
 The project file must be located in the directory specified by the data path [`get_data_path`](@ref).
 """
-function se(settings::Settings, project=PROJECT)
+function se(settings::Settings, project=PROJECT; relax=false)
     se_dict = settings.dict
     global PROJECT
     if settings.segments == 0 || basename(project) != PROJECT
@@ -530,15 +534,25 @@ function se(settings::Settings, project=PROJECT)
         se_dict[1] = dict
         # update the settings struct from the dictionary
         oblig_sections = ["system", "initial", "solver", "kite", "tether", "environment"]
-        update_settings(dict, oblig_sections, settings)
-        for section in ["steering", "depower", "kps4", "kps5", "bridle", "kcu", "winch"]
+        if relax
+            for section in oblig_sections
+                if section in keys(dict)
+                    update_settings(dict, [section], settings)
+                end
+            end
+        else
+            update_settings(dict, oblig_sections, settings)
+        end
+        for section in ["steering", "depower", "kps4", "kps5", "bridle", "winch", "kcu"]
             if section in keys(dict)
                 update_settings(dict, [section], settings)
             end
         end
-        tmp = split(dict["system"]["log_file"], "/")
-        settings.log_file    = joinpath(tmp[1], tmp[2])
-        if haskey(dict["kite"], "height")
+        if haskey(dict, "system")
+            tmp = split(dict["system"]["log_file"], "/")
+            settings.log_file    = joinpath(tmp[1], tmp[2])
+        end
+        if haskey(dict, "kite") && haskey(dict["kite"], "height")
             settings.height_k = dict["kite"]["height"]
         end
     end
