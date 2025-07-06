@@ -1,7 +1,15 @@
 # Changelog
+### KiteUtils v0.10.14 06-07-2025
+#### Added
+- the functions `load_settings()` and `se()` have now a named param `relax`. If set to true, no section
+  in the `settings.yaml` file is obligatory. This is useful for testing a package like `AtmosphericModels.jl`,
+  where the `settings.yaml` does not need to have any other section than the section `environment`.
+- the field `grid` was added to the `Settings` struct. It is defined as vector of Int64 values.
+#### Changed
+- the section `winch` is no longer obligatory, even with `relax=false`
 
 ### KiteUtils v0.10.13 28-06-2025
-### Added
+#### Added
 - field `g_earth` to `Settings` and `settings_ram.yaml`
 - abstract type `AbstractKiteModel`
 
