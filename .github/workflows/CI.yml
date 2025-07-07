@@ -70,6 +70,8 @@ jobs:
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
       - run: |
           julia --project=docs -e '
+            using Pkg
+            Pkg.instantiate()
             using Documenter: DocMeta, doctest
             using KiteUtils
             DocMeta.setdocmeta!(KiteUtils, :DocTestSetup, :(using KiteUtils); recursive=true)
