@@ -21,7 +21,7 @@ Welcome to the KiteUtils.jl community! We appreciate your interest in contributi
 -    Feature Requests: Suggest new features or improvements.
 
 ### License
-By contributing code to KiteUtils.jl, you are agreeing to release that code under the [MIT License](https://github.com/OpenSourceAWE/KiteUtils.jl/blob/main/LICENSE-MIT) 
+By contributing code to KiteUtils.jl, you are agreeing to release that code under the [MIT License](https://github.com/OpenSourceAWE/KiteUtils.jl/blob/main/LICENSE) 
 
 2. Get Set Up
 
