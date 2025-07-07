@@ -65,6 +65,7 @@ jobs:
       - uses: julia-actions/setup-julia@v2
       - uses: julia-actions/cache@v2
       - uses: julia-actions/julia-buildpkg@v1
+      - uses: julia-actions/julia-docdeploy@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
@@ -76,9 +77,3 @@ jobs:
             using KiteUtils
             DocMeta.setdocmeta!(KiteUtils, :DocTestSetup, :(using KiteUtils); recursive=true)
             doctest(KiteUtils)'
-      - name: Deploy Docs
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git remote set-url upstream https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/OpenSourceAWE/KiteUtils.jl.git
-          git push upstream HEAD:gh-pages
