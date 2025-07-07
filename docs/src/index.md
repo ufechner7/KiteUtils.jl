@@ -4,9 +4,6 @@ CurrentModule = KiteUtils
 
 # KiteUtils
 
-Documentation for [KiteUtils](https://github.com/ufechner7/KiteUtils.jl).
-
-
 This package is the foundation of Julia Kite Power Tools, which consist of the following packages:
 
 ![Julia Kite Power Tools](kite_power_tools.png)
