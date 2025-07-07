@@ -1,9 +1,9 @@
 # KiteUtils
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://ufechner7.github.io/KiteUtils.jl/stable)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://ufechner7.github.io/KiteUtils.jl/dev)
-[![Build Status](https://github.com/ufechner7/KiteUtils.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/ufechner7/KiteUtils.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/ufechner7/KiteUtils.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/ufechner7/KiteUtils.jl)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://OpenSourceAWE.github.io/KiteUtils.jl/stable)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://OpenSourceAWE.github.io/KiteUtils.jl/dev)
+[![Build Status](https://github.com/OpenSourceAWE/KiteUtils.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/OpenSourceAWE/KiteUtils.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Coverage](https://codecov.io/gh/OpenSourceAWE/KiteUtils.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/OpenSourceAWE/KiteUtils.jl)
 [![Aqua QA](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
 
 Utilities for simulating kite power systems.
@@ -16,7 +16,7 @@ If you want to run simulations and see the results in 3D, please install the met
 If you just want to learn how this package works quickly just install only this package.
 
 ## Installation
-If you have not yet installed Julia 1.10 or newer, follow these [installation instructions](https://ufechner7.github.io/2024/08/09/installing-julia-with-juliaup.html). You can add KiteUtils from  Julia's package manager, by typing 
+If you have not yet installed Julia 1.10 or newer, follow these [installation instructions](https://OpenSourceAWE.github.io/2024/08/09/installing-julia-with-juliaup.html). You can add KiteUtils from  Julia's package manager, by typing 
 ```julia
 using Pkg
 pkg"add KiteUtils"
@@ -64,9 +64,9 @@ Prof.dr. H.G.C. (Henri) Werij, Dean of Aerospace Engineering
 
 ## Related
 - The meta package [KiteSimulators](https://github.com/aenarete/KiteSimulators.jl) which contains all packages from Julia Kite Power Tools.
-- the packages [KiteModels](https://github.com/ufechner7/KiteModels.jl) and [KitePodModels](https://github.com/aenarete/KitePodModels.jl) and [WinchModels](https://github.com/aenarete/WinchModels.jl) and [AtmosphericModels](https://github.com/aenarete/AtmosphericModels.jl)
+- the packages [KiteModels](https://github.com/OpenSourceAWE/KiteModels.jl) and [KitePodModels](https://github.com/aenarete/KitePodModels.jl) and [WinchModels](https://github.com/aenarete/WinchModels.jl) and [AtmosphericModels](https://github.com/aenarete/AtmosphericModels.jl)
 - the packages [KiteControllers](https://github.com/aenarete/KiteControllers.jl) and [KiteViewers](https://github.com/aenarete/KiteViewers.jl)
 
-**Documentation** [Stable Version](https://ufechner7.github.io/KiteUtils.jl/stable) [Development Version](https://ufechner7.github.io/KiteUtils.jl/dev)
+**Documentation** [Stable Version](https://OpenSourceAWE.github.io/KiteUtils.jl/stable) [Development Version](https://OpenSourceAWE.github.io/KiteUtils.jl/dev)
 
 Authors: Uwe Fechner (uwe.fechner.msc@gmail.com), Bart van de Lint (bart@vandelint.net),
