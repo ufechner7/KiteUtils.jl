@@ -1,5 +1,7 @@
-# modify a variable in a yaml file
+# SPDX-FileCopyrightText: 2022 Uwe Fechner
+# SPDX-License-Identifier: MIT
 
+# Functions to modify variables in a yaml file while leaving the comments intact.
 
 """
     readfile(filename)

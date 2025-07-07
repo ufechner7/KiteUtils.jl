@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Uwe Fechner
+# SPDX-License-Identifier: MIT
+
 include("_logger.jl")
 function Logger(P, steps)
     Logger{P, steps}()
