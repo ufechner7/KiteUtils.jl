@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Uwe Fechner
+# SPDX-License-Identifier: MIT
+
 using REPL.TerminalMenus
 
 options = ["bridle_info = include(\"bridle_info.jl\")",

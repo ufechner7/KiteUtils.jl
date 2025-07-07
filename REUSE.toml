@@ -1,0 +1,26 @@
+version = 1
+
+[[annotations]]
+path = ["data/settings.yaml", "data/settings_cabauw.yaml", "data/system.yaml", "data/system2.yaml", "Test_flight.arrow", "transition.arrow2", "failure_low_right.csv"]
+SPDX-FileCopyrightText = "2025 Uwe Fechner"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = ["data/settings_ram.yaml"]
+SPDX-FileCopyrightText = "2025 Bart van de Lint"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = ["Manifest*", "Project.toml", ".gitignore"]
+SPDX-FileCopyrightText = "2025 Uwe Fechner, Bart van de Lint"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["docs/src/*.png", "docs/src/*.svg", "docs/src/*.md"]
+SPDX-FileCopyrightText = "2025 Uwe Fechner, Bart van de Lint"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = ["docs/.gitignore", "docs/Project.toml", "docs/Manifest.toml"]
+SPDX-FileCopyrightText = "2025 Uwe Fechner"
+SPDX-License-Identifier = "MIT"
