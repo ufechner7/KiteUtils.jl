@@ -55,12 +55,14 @@ and select one of the examples with the cursor keys and press enter.
 - a function for calculation the inertia matrix of a kite
 
 ## Licence
-This project is licensed under the MIT License. Please see the below WAIVER in association with the license.
+This project is licensed under the MIT License. The documentation is licensed under the CC-BY-4.0 License. Please see the below `Copyright notice` in association with the licenses that can be found in the file [LICENSE](LICENSE) in this folder.
 
-## WAIVER
+## Copyright notice
 Technische Universiteit Delft hereby disclaims all copyright interest in the package “KiteModels.jl” (models for airborne wind energy systems) written by the Author(s).
 
-Prof.dr. H.G.C. (Henri) Werij, Dean of Aerospace Engineering
+Prof.dr. H.G.C. (Henri) Werij, Dean of Aerospace Engineering, Technische Universiteit Delft.
+
+See the copyright notices in the source files, and the list of authors in [AUTHORS.md](AUTHORS.md).
 
 ## Related
 - The meta package [KiteSimulators](https://github.com/aenarete/KiteSimulators.jl) which contains all packages from Julia Kite Power Tools.
