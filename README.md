@@ -69,4 +69,4 @@ Prof.dr. H.G.C. (Henri) Werij, Dean of Aerospace Engineering
 
 **Documentation** [Stable Version](https://ufechner7.github.io/KiteUtils.jl/stable) [Development Version](https://ufechner7.github.io/KiteUtils.jl/dev)
 
-Author: Uwe Fechner (uwe.fechner.msc@gmail.com)
+Authors: Uwe Fechner (uwe.fechner.msc@gmail.com), Bart van de Lint (bart@vandelint.net),
