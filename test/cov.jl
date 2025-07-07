@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Uwe Fechner
+# SPDX-License-Identifier: MIT
+
 using Coverage, Pkg, Glob
 rm.(glob("src/*.cov"))
 Pkg.test(;coverage=true)

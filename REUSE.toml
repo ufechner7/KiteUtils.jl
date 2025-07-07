@@ -1,26 +1,29 @@
 version = 1
 
 [[annotations]]
-path = ["data/settings.yaml", "data/settings_cabauw.yaml", "data/system.yaml", "data/system2.yaml", "Test_flight.arrow", "transition.arrow2", "failure_low_right.csv"]
-SPDX-FileCopyrightText = "2025 Uwe Fechner"
+path = ["data/settings.yaml", "data/settings_cabauw.yaml", "data/system.yaml", "data/system_cabauw.yaml", 
+        "data/settings2.yaml", "data/system2.yaml", "data/Test_flight.arrow", "data/transition.arrow2", 
+        "data/failure_low_right.csv", "data/transition.csv"]
+SPDX-FileCopyrightText = "2025 Uwe Fechner, Bart van de Lint"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
-path = ["data/settings_ram.yaml"]
-SPDX-FileCopyrightText = "2025 Bart van de Lint"
+path = ["data/settings_ram.yaml", "data/system_ram.yaml", "CHANGELOG.md", "CONTRIBUTING.md", "README.md", "LICENSE"]
+SPDX-FileCopyrightText = "2025 Uwe Fechner, Bart van de Lint"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
-path = ["Manifest*", "Project.toml", ".gitignore"]
+path = ["Manifest*", "Project.toml", ".gitignore", "src/sysstate.yaml"]
 SPDX-FileCopyrightText = "2025 Uwe Fechner, Bart van de Lint"
 SPDX-License-Identifier = "MIT"
 
 [[annotations]]
-path = ["docs/src/*.png", "docs/src/*.svg", "docs/src/*.md"]
+path = ["docs/src/*.png", "docs/src/*.svg", "docs/src/*.md", "data/.gitignore"]
 SPDX-FileCopyrightText = "2025 Uwe Fechner, Bart van de Lint"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
-path = ["docs/.gitignore", "docs/Project.toml", "docs/Manifest.toml"]
+path = ["docs/.gitignore", "docs/Project.toml", "examples/Project.toml", "test/Project.toml", "examples/bin/run_julia", 
+        "docs/Manifest.toml"]
 SPDX-FileCopyrightText = "2025 Uwe Fechner"
 SPDX-License-Identifier = "MIT"

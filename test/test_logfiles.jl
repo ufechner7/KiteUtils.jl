@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Uwe Fechner, Bart van de Lint
+# SPDX-License-Identifier: MIT
+
 @testset "KiteUtils.jl: Log files      " begin
     state = KiteUtils.demo_state(7)
     @test typeof(state) == SysState{7}

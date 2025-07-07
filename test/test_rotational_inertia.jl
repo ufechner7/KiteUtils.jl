@@ -1,6 +1,8 @@
+# SPDX-FileCopyrightText: 2022 Uwe Fechner, Daan van Wolffelaar
+# SPDX-License-Identifier: MIT
+
 using Test
 using KiteUtils
-
 
 @testset verbose=true "test_rotational_inertia" begin
     @testset "point mass" begin

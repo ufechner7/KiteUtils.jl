@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Uwe Fechner, Daan van Wolffelaar
+# SPDX-License-Identifier: MIT
+
 using KiteUtils, Test
 
 #     azimuth_east(vec)

@@ -1,4 +1,6 @@
-if false; include("../src/logger.jl"); end
+# SPDX-FileCopyrightText: 2022 Uwe Fechner, Bart van de Lint
+# SPDX-License-Identifier: MIT
+
 @testset "Logger:                      " begin
     set_data_path(tempdir())
     steps = 20*30

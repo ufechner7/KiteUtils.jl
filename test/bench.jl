@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Uwe Fechner
+# SPDX-License-Identifier: MIT
+
 using KiteUtils, BenchmarkTools, StaticArrays, Test
 
 @benchmark fromKS2EX(vec1, orient) setup=(vec1 = SVector(1.0, 2.0, 3.0); orient = SVector(0, pi/10, pi / 2.0))

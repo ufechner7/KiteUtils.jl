@@ -1,4 +1,6 @@
-# unit tests for calculation of the orientation
+# SPDX-FileCopyrightText: 2022 Uwe Fechner, Bart van de Lint
+# SPDX-License-Identifier: MIT
+
 using LinearAlgebra, Rotations, Test, StaticArrays
 using KiteUtils
 

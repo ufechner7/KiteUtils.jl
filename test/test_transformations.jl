@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Uwe Fechner, Bart van de Lint
+# SPDX-License-Identifier: MIT
+
 using LinearAlgebra
 
 @testset verbose=true "KiteUtils.jl: Transformations" begin

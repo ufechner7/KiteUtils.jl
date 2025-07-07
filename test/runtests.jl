@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Uwe Fechner, Bart van de Lint
+# SPDX-License-Identifier: MIT
+
 using KiteUtils, StaticArrays, LinearAlgebra
 using Test
 
