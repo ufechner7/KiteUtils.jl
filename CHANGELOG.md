@@ -1,6 +1,6 @@
 # Changelog
 
-### Unreleased
+### KiteUtils v0.10.15 10-07-2025
 #### Added
 - added and exported the interface functions `init!`, `next_step!` and `update_sys_state`
 #### Fixed
