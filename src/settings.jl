@@ -511,7 +511,7 @@ function se(settings::Settings, project=PROJECT; relax=false)
             settings.sim_settings = dict["system"]["sim_settings"]
         catch
             settings.sim_settings = dict["system"]["project"]
-            println("Warning! Key sim_settings not found in $project .")
+            # println("Warning! Key sim_settings not found in $project .")
         end
         # load sim_settings from YAML
         dict = YAML.load_file(joinpath(DATA_PATH[1], settings.sim_settings))
