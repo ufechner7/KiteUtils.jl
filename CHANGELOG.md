@@ -1,4 +1,11 @@
 # Changelog
+
+### Unreleased
+#### Added
+- added and exported the interface functions `init!`, `next_step!` and `update_sys_state`
+#### Fixed
+- disabled warning "Key sim_settings not found..."
+
 ### KiteUtils v0.10.14 06-07-2025
 #### Added
 - the functions `load_settings()` and `se()` have now a named param `relax`. If set to true, no section
