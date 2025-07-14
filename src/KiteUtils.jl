@@ -61,7 +61,7 @@ export set_data_path, get_data_path, load_settings, copy_settings        # funct
 export se, se_dict, update_settings, wc_settings, fpc_settings, fpp_settings
 export calculate_rotational_inertia
 export AbstractKiteModel
-export init!, next_step!, update_sys_state!
+export init!, next_step!, update_sys_state!, find_steady_state!
 
 """
     const MyFloat = Float32
@@ -75,6 +75,7 @@ const MVec3     = MVector{3, Float64}
 function init! end
 function next_step! end
 function update_sys_state! end
+function find_steady_state! end
 
 """
     abstract type AbstractKiteModel
